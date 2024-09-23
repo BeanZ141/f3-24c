@@ -16,6 +16,8 @@ body {
     --button-bg-hover: #000000;
     --button-fg-hover: #ffffff;
     --button-border-hover: #ffffff;
+    --nav-bg: #ffffff;
+    --nav-fg: #000000;
 }
 
 [data-theme="light"] {
@@ -31,4 +33,6 @@ body {
     --button-bg-hover: #ffffff;
     --button-fg-hover: #000000;
     --button-border-hover: #000000;
+    --nav-bg: #000000;
+    --nav-fg: #ffffff;
 }
