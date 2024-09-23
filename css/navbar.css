@@ -29,8 +29,8 @@ nav a:hover {
 }
 
 nav a.active {
-    background-color: white;
-    color: black;
+    background-color: var(--nav-bg);
+    color: var(--nav-fg);
     font-weight: bold;
     text-decoration: underline;
     text-underline-offset: 10px;

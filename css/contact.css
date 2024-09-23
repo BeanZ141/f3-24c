@@ -1,0 +1,13 @@
+body {
+    background-color: var(--color-bg);
+    color: var(--color-fg)
+}
+
+.contact-info {
+    color: var(--color-fg);
+    margin: 4rem;
+    margin-top: 8rem;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.8em;
+    font-weight: thin;
+}
