@@ -22,7 +22,7 @@ nav {
 nav a {
     color: white;
     text-decoration: none;
-    padding: 20px;
+    padding: 1.5rem;
 }
 
 nav a:hover {
@@ -36,6 +36,7 @@ nav a:hover {
     text-align: center;
     position: relative;
     top: 90px;
+    font-size: 0.9em;
     font-family: 'Inter', sans-serif;
     font-weight: thin;
 }
@@ -44,8 +45,8 @@ nav a:hover {
     background-color: #fff;
     color: #000;
     font-family: consolas;
-    font-size: 1rem;
-    border: none;
+    font-size: 1em;
+    border: 1px solid #fff;
     padding: 0.6rem 1rem;
 }
 
