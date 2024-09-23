@@ -1,0 +1,30 @@
+nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    text-align: center;
+    background-color: var(--color-bg);
+    padding: 0.8rem;
+    font-family: consolas;
+}
+
+nav a {
+    color: var(--color-fg);
+    text-decoration: none;
+    padding: 1.5rem;
+}
+
+nav a:hover {
+    font-weight: bold;
+    text-decoration: underline;
+    text-underline-offset: 10px;
+    text-decoration-thickness: 2px;
+}
+
+nav a.active {
+    font-weight: bold;
+    text-decoration: underline;
+    text-underline-offset: 10px;
+    text-decoration-thickness: 2px;
+}

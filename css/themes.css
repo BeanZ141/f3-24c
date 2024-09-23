@@ -1,0 +1,19 @@
+[data-theme="dark"] {
+    --color-bg: #000000;
+    --color-fg: #ffffff;
+    --bg-hover: #ffffff;
+    --fg-hover: #000000;
+    --border: #ffffff;
+    --selection-bg: #ffffff;
+    --selection-fg: #000000;
+}
+
+[data-theme="light"] {
+    --color-bg: #ffffff;
+    --color-fg: #000000;
+    --bg-hover: #000000;
+    --fg-hover: #ffffff;
+    --border: #000000;
+    --selection-bg: #000000;
+    --selection-fg: #ffffff;
+}
