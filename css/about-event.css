@@ -24,24 +24,11 @@ body {user-select: none;}
 
 .progress-bar {
     width: 0%;
-    height: 2px;
+    height: 2px; 
     background-color: #fff;
     position: absolute;
-    bottom: 0;
-    left: 0;
-}
-
-/* Control buttons (next/previous) */
-.prev, .next {
-    cursor: pointer;
-    position: absolute;
-    top: 50%;
-    width: auto;
-    margin-top: -22px;
-    padding: 16px;
-    color: white;
-    font-weight: bold;
-    font-size: 18px;
-    user-select: none;
-    transition: 0.6s ease;
+    bottom: 300px;
+    left: 50%;
+    transform: translateX(-50%);
+    transition: width 0.6s linear;
 }
