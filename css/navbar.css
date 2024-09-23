@@ -1,18 +1,24 @@
 nav {
+    user-select: none;
     position: fixed;
+    display: flex;
+    justify-content: center;
     top: 0;
     left: 0;
     width: 100%;
     text-align: center;
     background-color: var(--color-bg);
-    padding: 0.8rem;
+    padding: 1rem;
     font-family: consolas;
+    margin-left: -10px;
 }
 
 nav a {
+    background-color: var(--color-bg);
     color: var(--color-fg);
     text-decoration: none;
-    padding: 1.5rem;
+    position: relative;
+    padding: 5px 12px;
 }
 
 nav a:hover {
@@ -23,6 +29,8 @@ nav a:hover {
 }
 
 nav a.active {
+    background-color: white;
+    color: black;
     font-weight: bold;
     text-decoration: underline;
     text-underline-offset: 10px;

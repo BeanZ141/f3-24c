@@ -1,3 +1,8 @@
+body {
+    background-color: var(--color-bg);
+    color: var(--color-fg);
+}
+
 [data-theme="dark"] {
     --color-bg: #000000;
     --color-fg: #ffffff;
@@ -6,6 +11,11 @@
     --border: #ffffff;
     --selection-bg: #ffffff;
     --selection-fg: #000000;
+    --button-bg: #ffffff;
+    --button-fg: #000000;
+    --button-bg-hover: #000000;
+    --button-fg-hover: #ffffff;
+    --button-border-hover: #ffffff;
 }
 
 [data-theme="light"] {
@@ -16,4 +26,9 @@
     --border: #000000;
     --selection-bg: #000000;
     --selection-fg: #ffffff;
+    --button-bg: #000000;
+    --button-fg: #ffffff;
+    --button-bg-hover: #ffffff;
+    --button-fg-hover: #000000;
+    --button-border-hover: #000000;
 }
