@@ -1,38 +1,40 @@
 <!DOCTYPE html>
-<html>
+<html lang="en" data-theme="dark">
     <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/css/index.css">
+    <link rel="stylesheet" href="/css/styles.css">
+    <link rel="stylesheet" href="/css/themes.css">
+    <link rel="stylesheet" href="/css/navbar.css">
     <title>f3-24c</title>
-
-    <script defer src="/__/firebase/10.13.2/firebase-app-compat.js"></script>
-    <script defer src="/__/firebase/10.13.2/firebase-auth-compat.js"></script>
-    <script defer src="/__/firebase/10.13.2/firebase-database-compat.js"></script>
-    <script defer src="/__/firebase/10.13.2/firebase-firestore-compat.js"></script>
-    <script defer src="/__/firebase/10.13.2/firebase-functions-compat.js"></script>
-    <script defer src="/__/firebase/10.13.2/firebase-messaging-compat.js"></script>
-    <script defer src="/__/firebase/10.13.2/firebase-storage-compat.js"></script>
-    <script defer src="/__/firebase/10.13.2/firebase-analytics-compat.js"></script>
-    <script defer src="/__/firebase/10.13.2/firebase-remote-config-compat.js"></script>
-    <script defer src="/__/firebase/10.13.2/firebase-performance-compat.js"></script>
-
-    <script defer src="/__/firebase/init.js?useEmulator=true"></script>
-
   </head>
   <body>
     <nav>
-      <a href="#home">HOME</a>
-      <a href="purchase-ticket.html">ABOUT THE EVENT</a>
-      <a href="#contact">CONTACT US</a>
+      <a href="/public/index.html" class="nav-link">HOME</a>
+      <a href="/public/about-event.html" class="nav-link">ABOUT THE EVENT</a>
+      <a href="/public/contact.html" class="nav-link">CONTACT US</a>
     </nav>
     
     <div class="welcome-section">
-      <h1>WELCOME TO THE EISC EVENT 2024</h1>
+      <h1>WELCOME TO THE INDOVENTION</h1>
       <button class="book-ticket">BOOK TICKET</button>
     </div>
-
   </body>
+
+  <script defer src="/__/firebase/10.13.2/firebase-app-compat.js"></script>
+  <script defer src="/__/firebase/10.13.2/firebase-auth-compat.js"></script>
+  <script defer src="/__/firebase/10.13.2/firebase-database-compat.js"></script>
+  <script defer src="/__/firebase/10.13.2/firebase-firestore-compat.js"></script>
+  <script defer src="/__/firebase/10.13.2/firebase-functions-compat.js"></script>
+  <script defer src="/__/firebase/10.13.2/firebase-messaging-compat.js"></script>
+  <script defer src="/__/firebase/10.13.2/firebase-storage-compat.js"></script>
+  <script defer src="/__/firebase/10.13.2/firebase-analytics-compat.js"></script>
+  <script defer src="/__/firebase/10.13.2/firebase-remote-config-compat.js"></script>
+  <script defer src="/__/firebase/10.13.2/firebase-performance-compat.js"></script>
+  <script defer src="/__/firebase/init.js?useEmulator=true"></script>
+
+  <script defer src="/functions/index.js"></script>
+  <script src="/js/navbar.js"></script>
 </html>

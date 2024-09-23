@@ -1,24 +1,20 @@
-/*Global.css*/
-
 body {
     margin: 0;
     line-height: normal;
+    background-color: var(--color-bg);
+    color: var(--color-fg);
 }
 
-
 :root {
-    
-    /* fonts */
+
     --font-manrope: Manrope;
     --font-lexend: Lexend;
-    
-    /* font sizes */
+
     --font-size-sm: 14px;
     --font-size-lgi: 19px;
     --font-size-7xl: 26px;
     --font-size-smi: 13px;
-    
-    /* Colors */
+
     --color-white: #fff;
     --color-dimgray-100: #5b606d;
     --color-dimgray-200: #5c5f63;
@@ -43,8 +39,7 @@ body {
     --color-ghostwhite: #f2f2fd;
     --color-darkslategray-100: #3d3f43;
     --color-darkslategray-200: #2a2d31;
-    
-    /* Border radiuses */
+
     --br-9xs: 4px;
     --br-7xs: 6px;
     --br-11xs: 2px;
