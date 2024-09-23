@@ -1,5 +1,8 @@
 {
   "projects": {
     "default": "f3-24c-a9e76"
-  }
+  },
+  "targets": {},
+  "etags": {},
+  "dataconnectEmulatorConfig": {}
 }
