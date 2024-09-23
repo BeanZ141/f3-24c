@@ -1,4 +1,6 @@
-
+body {
+    -webkit-font-smoothing: antialiased;
+}
 
 ::selection {
     background-color: var(--selection-bg);
@@ -14,6 +16,7 @@
     letter-spacing: 1px;
     font-family: 'Inter', sans-serif;
     font-weight: thin;
+    letter-spacing: 3px;
 }
 
 .welcome-section h1 {
@@ -25,10 +28,11 @@
     background-color: var(--button-bg);
     color: var(--button-fg);
     font-family: consolas;
-    font-size: 1em;
+    font-size: 1.1em;
     border: 1px solid var(--border);
-    padding: 0.6rem 1rem;
+    padding: 0.7rem 1.2rem;
     transition: 200ms ease-out;
+    letter-spacing: 2px;
 }
 
 .book-ticket:hover {
