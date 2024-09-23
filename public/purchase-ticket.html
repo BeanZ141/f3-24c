@@ -31,7 +31,7 @@
                 </div>
                 <div class="summary">Summary</div>
                 <div class="payment-method">Payment method</div>
-                <div class="ticket">$90/Ticket</div>
+                <div class="ticket">10₹/Ticket</div>
                 <b class="b">$162</b>
                 <div class="button-96">
                 <div class="div1">10%</div>
@@ -46,74 +46,56 @@
                 <div class="div3">$18</div>
                 <div class="x">2x</div>
         </div>
-        <div class="container-107">
-                <div class="textbox-36">
-                <div class="textfield">
-                        <div class="charles">Charles</div>
-                </div>
-                <b class="first-name">First name</b>
-                </div>
-                <div class="textbox-39">
-                <div class="textfield1">
-                        <div class="charles">Sanchez</div>
-                </div>
-                <b class="last-name">Last name</b>
-                </div>
-                <div class="textbox-41">
-                <div class="textfield2">
-                        <div class="charles">Charles@email.com</div>
-                </div>
-                <b class="email">Email</b>
-                </div>
-                <div class="textbox-43">
-                <div class="textfield1">
-                        <div class="charles">(310)714-9922</div>
-                </div>
-                <b class="first-name">Phone number</b>
-                </div>
-                <div class="ticket-2">Ticket 2</div>
-                <img class="image-80-icon" alt="" src="Image 80.png">
-                
-        </div>
+        
         <div class="container-106">
                 <div class="textbox-37">
-                <div class="textfield">
-                        <div class="amanda">what
+                        <b class="first-name2">First name</b>
+                        <div class="textfield9">
+                        <input type="text" id="first-name" name="first-name" placeholder="Enter First name">
                         </div>
                 </div>
-                <b class="first-name1">First name</b>
-                </div>
                 <div class="textbox-38">
-                <div class="textfield">
-                        <div class="charles">(724)651-7073</div>
+                        <b class="first-name2">Phone number</b>
+                        <div class="textfield10">
+                        <input type="tel" id="phone-number" name="phone-number" placeholder="Enter Phone number" pattern="[0-9]{10}" maxlength="10">
+                        </div>
                 </div>
-                <b class="first-name">Phone number</b>
+                
+                <div class="textbox-42">
+                        <b class="first-name2">Last name</b>
+                        <div class="textfield11">
+                        <input type="text" id="last-name" name="last-name" placeholder="Enter Last name">
+                        </div>
                 </div>
                 <div class="textbox-41">
-                <div class="textfield6">
-                        <div class="charles">Amanda@email.com</div>
+                        <b class="email2">Email</b>
+                        <div class="textfield8">
+                        <input type="email" id="email" name="email" placeholder="Enter Email">
+                        </div>
                 </div>
-                <b class="email1">Email</b>
-                </div>
-                <div class="textbox-42">
-                <div class="textfield2">
-                        <div class="amanda">Smith</div>
-                </div>
-                <b class="first-name1">Last name</b>
-                </div>
+
+
                 <div class="ticket-1">Ticket 1</div>
                 <img class="image-70-icon" alt="" src="Image 70.png">
                 
-                <div class="checkbox-4">
+                <!-- <div class="checkbox-4">
                 <div class="frame">
                         <div class="rectangle">
+                        </div>
+                        <div class="same-contact-information">Same contact information</div>
+                </div>
+                </div> -->
+                <div class="checkbox-4">
+                        <div class="frame">
+                        <div class="rectangle">
+                        <input type="checkbox" id="same-contact-checkbox" name="same-contact-checkbox">
                         </div>
                         <div class="same-contact-information">Same contact information</div>
                 </div>
                 </div>
         </div>
         <div class="container-102">
-                <div class="ticket1">$90/Ticket</div>
+                <div class="ticket1">₹10/Ticket</div>
                 <div class="textbox-46">
                 <div class="text">
                 </div>
@@ -143,7 +125,7 @@
         <div class="textbox-34">
                 <b class="first-name2">Phone number</b>
                 <div class="textfield10">
-                <input type="tel" id="phone-number" name="phone-number" placeholder="Enter Phone number">
+                <input type="tel" id="phone-number" name="phone-number" placeholder="Enter Phone number" pattern="[0-9]{10}" maxlength="10">
                 </div>
         </div>
         <div class="textbox-35">
@@ -165,7 +147,10 @@
                 <img class="image-74-icon" alt="" src="Image 74.png">
                 
         </div>
-        <div class="i-agree-with">I agree with the Terms of Use & Privacy Policy</div>
+        <div class="i-agree-with">
+                <input type="checkbox" id="agree-checkbox" name="agree-checkbox">
+                <label for="agree-checkbox">I agree with the Terms of Use & Privacy Policy</label>
+        </div>
         <div class="contact-information">Contact information</div>
         <div class="button-95">
                 <div class="time-left-2500">Time left: 25:00</div>
@@ -176,11 +161,13 @@
         <div class="ticket2">Ticket</div>
         <div class="united-states">United States</div>
         <div class="checkbox-3">
-                <div class="frame1">
+        <div class="frame1">
                 <div class="rectangle1">
+                <input type="checkbox" id="keep-me-updated" name="keep-me-updated">
+                <label for="keep-me-updated"></label>
                 </div>
                 <div class="keep-me-updated">Keep me updated on this event</div>
-                </div>
+        </div>
         </div>
         <div class="place">PLACE</div>
         <div class="log-in">Log in</div>
