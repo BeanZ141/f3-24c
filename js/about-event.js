@@ -10,7 +10,7 @@ function updateSlideInfo() {
     slideInfo.textContent = `${currentSlide + 1}/${slides.length}`;
 }
 
-function showSlide(index, fadeIn = true) {
+function showSlide(index) {
     slides.forEach((slide, i) => {
         if (i === index) {
             slide.classList.add('active');
@@ -25,13 +25,13 @@ function showSlide(index, fadeIn = true) {
 
 function nextSlide() {
     currentSlide = (currentSlide + 1) % slides.length;
-    showSlide(currentSlide, true);
+    showSlide(currentSlide);
     resetProgressBar();
 }
 
 function previousSlide() {
     currentSlide = (currentSlide - 1 + slides.length) % slides.length;
-    showSlide(currentSlide, true);
+    showSlide(currentSlide);
     resetProgressBar();
 }
 
@@ -61,6 +61,7 @@ function resetSlideTimer() {
     }, slideDuration);
 }
 
+// Initialize
 showSlide(currentSlide);
 resetProgressBar();
 resetSlideTimer();
@@ -72,20 +73,14 @@ let touchEndX = 0;
 const handleTouchStart = (event) => {
     touchStartX = event.changedTouches ? event.changedTouches[0].clientX : event.clientX;
     isSwiping = true;
-
-    // Remove transitions for swipe interaction
-    slides.forEach(slide => {
-        slide.classList.add('swipe-transition');
-    });
 };
 
 const handleTouchMove = (event) => {
     if (!isSwiping) return;
-    
+
     touchEndX = event.changedTouches ? event.changedTouches[0].clientX : event.clientX;
     const moveX = touchEndX - touchStartX;
 
-    // Calculate swipe percentage relative to screen width
     const swipePercent = moveX / window.innerWidth;
 
     const currentSlideElement = slides[currentSlide];
@@ -94,10 +89,9 @@ const handleTouchMove = (event) => {
 
     const nextSlideElement = moveX < 0 ? slides[nextSlideIndex] : slides[prevSlideIndex];
 
-
     currentSlideElement.style.opacity = 1 - Math.abs(swipePercent); 
-    nextSlideElement.style.opacity = Math.abs(swipePercent);
-    nextSlideElement.classList.add('active');
+    nextSlideElement.classList.add('active'); 
+    nextSlideElement.style.opacity = Math.max(1, Math.min(0, Math.abs(swipePercent)));
 };
 
 const handleTouchEnd = (event) => {
@@ -106,14 +100,14 @@ const handleTouchEnd = (event) => {
     const moveX = touchEndX - touchStartX;
 
     if (moveX < -90) {
-        nextSlide(); 
+        nextSlide();
     } else if (moveX > 90) {
         previousSlide();
+    } else {
+        showSlide(currentSlide);
     }
-
     slides.forEach(slide => {
-        slide.style.transform = '';
-        slide.classList.remove('swipe-transition');
+        slide.style.opacity = '';
     });
 
     resetSlideTimer();

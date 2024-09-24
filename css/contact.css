@@ -4,9 +4,10 @@ body {
 }
 
 .contact-info {
+    position: relative;
     color: var(--color-fg);
-    margin: 4rem;
-    margin-top: 8rem;
-    font-family: 'Valera', sans-serif;
+    font-family: 'Varela', sans-serif;
     font-size: 0.8em;
+    text-align: center;
+    top: 100px;
 }
