@@ -91,7 +91,7 @@ const handleTouchMove = (event) => {
 
     currentSlideElement.style.opacity = 1 - Math.abs(swipePercent); 
     nextSlideElement.classList.add('active'); 
-    nextSlideElement.style.opacity = Math.max(1, Math.min(0, Math.abs(swipePercent)));
+    nextSlideElement.style.opacity = Math.max(0, Math.min(1, Math.abs(swipePercent)));
 };
 
 const handleTouchEnd = (event) => {
@@ -99,9 +99,9 @@ const handleTouchEnd = (event) => {
     isSwiping = false;
     const moveX = touchEndX - touchStartX;
 
-    if (moveX < -90) {
+    if (moveX < -40) {
         nextSlide();
-    } else if (moveX > 90) {
+    } else if (moveX > 40) {
         previousSlide();
     } else {
         showSlide(currentSlide);
