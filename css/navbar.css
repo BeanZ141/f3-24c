@@ -9,7 +9,7 @@ nav {
     text-align: center;
     background-color: var(--color-bg);
     padding: 1rem;
-    font-family: consolas;
+    font-family: "Varela", sans-serif;
     margin-left: -10px;
 }
 

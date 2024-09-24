@@ -7,7 +7,6 @@ body {
     color: var(--color-fg);
     margin: 4rem;
     margin-top: 8rem;
-    font-family: 'Inter', sans-serif;
+    font-family: 'Valera', sans-serif;
     font-size: 0.8em;
-    font-weight: thin;
 }

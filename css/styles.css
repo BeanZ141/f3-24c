@@ -27,7 +27,7 @@ body {
     margin-top: 40px;
     background-color: var(--button-bg);
     color: var(--button-fg);
-    font-family: consolas;
+    font-family: 'Varela', sans-serif;
     font-size: 1.1em;
     border: 1px solid var(--border);
     padding: 0.7rem 1.2rem;
