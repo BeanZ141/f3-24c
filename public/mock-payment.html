@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mock Payment</title>
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Payment Page</h1>
+        <p>Simulated payment in progress...</p>
+        <button id="completePayment">Complete Payment</button>
+    </div>
+
+    <script>
+        // Simulate payment completion
+        document.getElementById("completePayment").addEventListener("click", function() {
+            // Simulate a successful payment with a redirect
+            sessionStorage.setItem('paymentStatus', 'success');  // Set a payment status in session storage
+            window.location.href = "/payment-success.html";  // Redirect to a success page
+        });
+    </script>
+</body>
+</html>

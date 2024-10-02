@@ -120,3 +120,23 @@ input[type="radio"]:checked + label {
     color: var(--button-fg);
     transition: 100ms;
 }
+
+.back {    
+    position: fixed;
+    background-color: var(--color-bg);
+    border: none;
+    color: var(--color-fg);
+    padding: 0.3rem 0.6rem;
+    font-size: 1.1em;
+    font-family: consolas;
+    top: 90px;
+    left: 90px;
+    text-decoration: none;
+}
+
+.back:hover {
+    background-color: var(--button-bg);
+    color: var(--button-fg);
+    transition: 0.2s;
+    cursor: pointer;
+}
