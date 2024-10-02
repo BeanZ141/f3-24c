@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/styles.css">
+    <link rel="stylesheet" href="/css/themes.css">
+    <link rel="stylesheet" href="/css/book-ticket.css">
+    <link rel="stylesheet" href="/css/navbar.css">
+    <link href="https://fonts.googleapis.com/css2?family=Varela&display=swap" rel="stylesheet">
+    <title>Book Ticket</title>
+</head>
+<body>
+    <div class="container">
+        <h1>BOOK YOUR TICKET</h1>
+
+        <form id="ticketForm" class="form">
+            <div class="form-group">
+                <input type="text" id="name" name="name" placeholder="Name" required>
+            </div>
+
+            <div class="form-group">
+                <input type="email" id="email" name="email" placeholder="Email Address" required>
+            </div>
+
+            <div class="form-group">
+                <input type="tel" id="phone" name="phone" placeholder="Phone Number" pattern="[0-9]{10}" required>
+            </div>
+
+            <div class="form-group">
+                <p>Select Event Date:</p>
+                <div class="date-selection">
+                    <input type="radio" id="date1" name="eventDate" value="10-12-2024" required>
+                    <label for="date1">10/12/2024</label>
+
+                    <input type="radio" id="date2" name="eventDate" value="11-12-2024" required>
+                    <label for="date2">11/12/2024</label>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <p class="ticket-price">Ticket Price: <span style="background-color: var(--color-fg); color: var(--color-bg); padding: 2px 5px;">₹10</span></p>
+            </div>
+
+            <div class="form-group">
+                <button type="submit" class="btn-primary">Proceed to Payment</button>
+            </div>
+        </form>
+    </div>
+
+    <button id="toggle-theme" class="toggle-theme">
+        <img id="dark" src="/images/dark.png" alt="Moon" style="display: none;">
+        <img id="light" src="/images/light.png" alt="Sun" style="display: none;">
+    </button>
+    <script src="/js/navbar.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.13.2/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.13.2/firebase-database.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.13.2/firebase-auth.js"></script>
+
+</body>
+</html>

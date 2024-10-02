@@ -47,24 +47,33 @@ nav a.active {
     position: fixed;
     right: 1rem;
     bottom: 1rem;
-    margin-top: 40px;
-    background-color: var(--button-bg);
-    color: var(--button-fg);
-    font-family: 'Varela', sans-serif;
-    font-size: 0.8em;
-    border: 1px solid var(--border);
-    padding: 0.1rem 0.5rem;
+    border: 1px solid transparent;
+    padding: 5px;
     transition: 200ms ease-out;
+    background-color: var(--color-bg);
 }
 
 .toggle-theme:hover {
-    background-color: var(--button-bg-hover);
-    color: var(--button-fg-hover);
-    border: 1px solid var(--button-border-hover);
+    border-bottom: 1px solid var(--border);
 }
 
-.toggle-theme:active {
-    background-color: var(--button-bg);
-    color: var(--button-fg);
-    transition: 0ms ease-out;
+.toggle-theme img {
+    height: 25px;
+    width: 25px;
+}
+
+[data-theme="dark"] #light {
+    display: block;
+}
+
+[data-theme="dark"] #dark {
+    display: none; 
+}
+
+[data-theme="light"] #light {
+    display: none; 
+}
+
+[data-theme="light"] #dark {
+    display: block;
 }

@@ -39,6 +39,7 @@ body {
     background-color: var(--button-bg-hover);
     color: var(--button-fg-hover);
     border: 1px solid var(--button-border-hover);
+    cursor: pointer;
 }
 
 .book-ticket:active {
@@ -46,3 +47,4 @@ body {
     color: var(--button-fg);
     transition: 0ms ease-out;
 }
+
