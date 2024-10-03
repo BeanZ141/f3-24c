@@ -1,30 +1,32 @@
-// book-ticket.js
-document.getElementById('ticketForm').addEventListener('submit', async (event) => {
-    event.preventDefault(); // Prevent the default form submission
+const supabaseUrl = 'https://xiwdkytqnabqawssehrg.supabase.co';
+const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inhpd2RreXRxbmFicWF3c3NlaHJnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MjY5NDE0NTEsImV4cCI6MjA0MjUxNzQ1MX0.4r_O1Za9Q41zpHxdx0JuloECBa-bw7e4m93v241rpgw';
+const supabase = window.supabase.createClient(supabaseUrl, supabaseKey);
+
+document.addEventListener('DOMContentLoaded', function() {
+document.getElementById('ticketForm').addEventListener('submit', async function(event) {
+
+    event.preventDefault();
 
     const name = document.getElementById('name').value;
     const email = document.getElementById('email').value;
     const phone = document.getElementById('phone').value;
-    const created_at = document.querySelector('input[name="created_at"]:checked').value;
+    const dateOfAttendance = document.querySelector('input[name="dateOfAttendance"]:checked').value;
 
-    // Here, simulate the payment success
-    const paymentSuccessful = true; // Simulating successful payment
+    try {
+        const { data, error } = await supabase
+            .from('Registrations') 
+            .insert([{ name, email, phone, dateOfAttendance }]);
+        
+        if (error) {
+            throw error;
+        }
+    
+        console.log('Data inserted successfully:');
+        alert('Your data has been saved! Proceeding to payment...');
 
-    if (paymentSuccessful) {
-        await saveDataToSupabase(name, email, phone, created_at);
-    } else {
-        console.log("Payment failed, do not save data.");
+    } catch (error) {
+        console.error('Error inserting data:', error.message);
+        alert('An error occurred while saving your data. Please try again.');
     }
 });
-
-async function saveDataToSupabase(name, email, phone, created_at) {
-    const { data, error } = await supabase
-        .from('Registrations')
-        .insert([{ name, email, phone, created_at }]);
-
-    if (error) {
-        console.error('Error saving data:', error);
-    } else {
-        console.log('Data saved successfully:', data);
-    }
-}
+});

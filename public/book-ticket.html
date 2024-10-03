@@ -22,10 +22,12 @@
             <div class="form-group">
                 <p>Select Event Date:</p>
                 <div class="date-selection">
-                    <input type="radio" id="date1" name="eventDate" value="10-12-2024" required><label for="date1">10 / 12 / 2024</label>
-                    <input type="radio" id="date2" name="eventDate" value="11-12-2024" required><label for="date2">11 / 12 / 2024</label>
+                    <input type="radio" id="date1" name="dateOfAttendance" value="10-12-2024" required><label for="date1">10 / 12 / 2024</label>
+                    <input type="radio" id="date2" name="dateOfAttendance" value="11-12-2024" required><label for="date2">11 / 12 / 2024</label>
                 </div>
             </div>
+
+            <p style="font-size: 0.9em;text-align: center;margin-top: -10px;margin-bottom: 20px;">The phone number and email collected are used for authentication purposes. These details allow us to send information for ticket confirmation.</p>
 
             <div class="form-group"><p class="ticket-price">Ticket Price: <span style="background-color: var(--color-fg); color: var(--color-bg); padding: 2px 5px;">₹10</span></p></div>
             <div class="form-group"><button type="submit" class="btn-primary">PROCEED TO PAYMENT</button></div>
@@ -38,8 +40,11 @@
         <img id="dark" src="/public/images/dark.png" alt="Moon" style="display: none;">
         <img id="light" src="/public/images/light.png" alt="Sun" style="display: none;">
     </button>
-    <script src="/public/js/navbar.js"></script>
-    <script type="module" src="/public/js/supabase.js"></script>
+
+    <script src="/node_modules/@supabase/supabase-js/dist/umd/supabase.js"></script>
+
     <script type="module" src="/public/js/book-ticket.js"></script>
+    <script src="/public/js/navbar.js"></script>
+
 </body>
 </html>
