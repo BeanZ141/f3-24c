@@ -11,3 +11,8 @@ body {
     text-align: center;
     top: 100px;
 }
+
+h2 {
+    font-weight: 100;
+    font-family: 'Varela', sans-serif;
+}

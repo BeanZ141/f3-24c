@@ -43,37 +43,34 @@ nav a.active {
     text-decoration-thickness: 2px;
 }
 
-.toggle-theme {
-    position: fixed;
-    right: 1rem;
-    bottom: 1rem;
-    border: 1px solid transparent;
-    padding: 5px;
-    transition: 200ms ease-out;
+#theme-switch {
+    height: 50px;
+    width: 50px;
+    padding: 15px;
+    border-radius: 50%;
     background-color: var(--color-bg);
+    border: none;
+    display: flex;
+    justify-items: center;
+    align-items: center;
+    position: fixed;
+    bottom: 15px;
+    right: 15px;
+    transition: 0.3s;
 }
 
-.toggle-theme:hover {
-    border-bottom: 1px solid var(--border);
+#theme-switch svg {
+    fill: var(--color-fg);
 }
 
-.toggle-theme img {
-    height: 25px;
-    width: 25px;
+#theme-switch svg:last-child {
+    display: none;
 }
 
-[data-theme="dark"] #light {
-    display: block;
+.dark-mode #theme-switch svg:first-child {
+    display: none;
 }
 
-[data-theme="dark"] #dark {
-    display: none; 
-}
-
-[data-theme="light"] #light {
-    display: none; 
-}
-
-[data-theme="light"] #dark {
+.dark-mode #theme-switch svg:last-child {
     display: block;
 }

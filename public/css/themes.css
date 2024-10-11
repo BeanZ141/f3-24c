@@ -4,36 +4,36 @@ body {
     transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-[data-theme="dark"] {
+.dark-mode {
     --color-bg: #000000;
-    --color-fg: #ffffff;
-    --bg-hover: #ffffff;
+    --color-fg: #f7f7f7;
+    --bg-hover: #f7f7f7;
     --fg-hover: #000000;
-    --border: #ffffff;
-    --selection-bg: #ffffff;
+    --border: #f7f7f7;
+    --selection-bg: #f7f7f7;
     --selection-fg: #000000;
-    --button-bg: #ffffff;
+    --button-bg: #f7f7f7;
     --button-fg: #000000;
     --button-bg-hover: #000000;
-    --button-fg-hover: #ffffff;
-    --button-border-hover: #ffffff;
-    --nav-bg: #ffffff;
+    --button-fg-hover: #f7f7f7;
+    --button-border-hover: #f7f7f7;
+    --nav-bg: #f7f7f7;
     --nav-fg: #000000;
 }
 
-[data-theme="light"] {
-    --color-bg: #ffffff;
+:root {
+    --color-bg: #f7f7f7;
     --color-fg: #000000;
     --bg-hover: #000000;
-    --fg-hover: #ffffff;
+    --fg-hover: #f7f7f7;
     --border: #000000;
     --selection-bg: #000000;
-    --selection-fg: #ffffff;
+    --selection-fg: #f7f7f7;
     --button-bg: #000000;
-    --button-fg: #ffffff;
-    --button-bg-hover: #ffffff;
+    --button-fg: #f7f7f7;
+    --button-bg-hover: #f7f7f7;
     --button-fg-hover: #000000;
     --button-border-hover: #000000;
     --nav-bg: #000000;
-    --nav-fg: #ffffff;
+    --nav-fg: #f7f7f7;
 }
