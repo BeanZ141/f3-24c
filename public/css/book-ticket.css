@@ -2,6 +2,7 @@ body, h1, input, button, .container {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    transition: 0.3s, background-color 0.3s, color 0.3s;
 }
 
 body {
@@ -35,6 +36,10 @@ h1 {
 
 .form-group {
     margin-bottom: 1.5rem;
+}
+
+.form-group > p {
+    transition: 0.3s;
 }
 
 input, select {
@@ -89,7 +94,7 @@ input[type="radio"] + label {
     font-size: 1rem;
     font-weight: 500;
     color: var(--color-fg);
-    transition: background-color color 0.2s;
+    transition: 0.3s;
 }
 
 input[type="radio"] + label:hover {
@@ -110,7 +115,7 @@ input[type="radio"]:checked + label {
     font-size: 1rem;
     font-family: 'Varela', sans-serif;
     cursor: pointer;
-    transition: background-color 0.2s ease;
+    transition: 0.3s;
     letter-spacing: 2px;
 }
 
