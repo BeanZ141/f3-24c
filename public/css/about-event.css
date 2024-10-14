@@ -11,6 +11,7 @@ body {
     overflow: hidden;
     position: relative;
     height: 500px;
+    animation: image-fade-in 1.7s;
 }
 
 .slide {
@@ -73,6 +74,7 @@ p {
     font-weight: lighter;
     font-size: 0.8em;
     font-family: "Varela", sans-serif;
+    animation: text-fade-in 1.7s;
 }
 
 .slide-text {
@@ -88,4 +90,14 @@ p {
     padding: 0px 5px;
     margin: 40px;
     z-index: 2;
+}
+
+@keyframes image-fade-in {
+    0% {opacity: 0;}
+    100% {opacity: 1;}
+}
+
+@keyframes text-fade-in {
+    0% {opacity: 0;}
+    100% {opacity: 1;}
 }

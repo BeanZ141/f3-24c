@@ -9,23 +9,13 @@ navLinks.forEach(link => {
   }
 });
 
-// Toggle Theme
-let darkmode = localStorage.getItem('dark-mode')
-const themeSwitch = document.getElementById('theme-switch')
+// Theme Switch
+const themeSwitch = document.getElementById('theme-switch');
 
-const enableDarkMode = () => {
-  document.body.classList.add('dark-mode')
-  localStorage.setItem('dark-mode', 'active')
-}
+themeSwitch.addEventListener('click', () => {
+    const currentTheme = localStorage.getItem('theme');
+    const newTheme = (currentTheme === 'dark') ? 'light' : 'dark';
 
-const disableDarkMode = () => {
-  document.body.classList.remove('dark-mode')
-  localStorage.setItem('dark-mode', null)
-}
-
-if(darkmode === 'active') enableDarkMode()
-
-themeSwitch.addEventListener("click", () => {
-  darkmode = localStorage.getItem('dark-mode')
-  darkmode !== "active" ? enableDarkMode() : disableDarkMode()
-})
+    document.documentElement.classList.toggle('dark-mode', newTheme === 'dark');
+    localStorage.setItem('theme', newTheme);
+});

@@ -1,5 +1,5 @@
 body {
-    transition: background-color 0.3s ease, color 0.3s ease;
+    transition: opacity 1s ease, background-color 0.3s ease, color 0.3s ease;
 }
 
 nav {
@@ -19,12 +19,13 @@ nav {
 }
 
 nav a {
-    background-color: var(--color-bg);
+    background-color: transparent;
     color: var(--color-fg);
     text-decoration: none;
     position: relative;
     padding: 5px 12px;
     transition: background-color 0.3s ease, color 0.3s ease;
+    animation: fade-up 0.7s;
 }
 
 nav a:hover {
@@ -38,9 +39,6 @@ nav a.active {
     background-color: var(--nav-bg);
     color: var(--nav-fg);
     font-weight: bold;
-    text-decoration: underline;
-    text-underline-offset: 10px;
-    text-decoration-thickness: 2px;
 }
 
 #theme-switch {

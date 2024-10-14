@@ -4,23 +4,6 @@ body {
     transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-.dark-mode {
-    --color-bg: #000000;
-    --color-fg: #f7f7f7;
-    --bg-hover: #f7f7f7;
-    --fg-hover: #000000;
-    --border: #f7f7f7;
-    --selection-bg: #f7f7f7;
-    --selection-fg: #000000;
-    --button-bg: #f7f7f7;
-    --button-fg: #000000;
-    --button-bg-hover: #000000;
-    --button-fg-hover: #f7f7f7;
-    --button-border-hover: #f7f7f7;
-    --nav-bg: #f7f7f7;
-    --nav-fg: #000000;
-}
-
 :root {
     --color-bg: #f7f7f7;
     --color-fg: #000000;
@@ -36,4 +19,21 @@ body {
     --button-border-hover: #000000;
     --nav-bg: #000000;
     --nav-fg: #f7f7f7;
+}
+
+.dark-mode {
+    --color-bg: #000000;
+    --color-fg: #f7f7f7;
+    --bg-hover: #f7f7f7;
+    --fg-hover: #000000;
+    --border: #f7f7f7;
+    --selection-bg: #f7f7f7;
+    --selection-fg: #000000;
+    --button-bg: #f7f7f7;
+    --button-fg: #000000;
+    --button-bg-hover: #000000;
+    --button-fg-hover: #f7f7f7;
+    --button-border-hover: #f7f7f7;
+    --nav-bg: #f7f7f7;
+    --nav-fg: #000000;
 }

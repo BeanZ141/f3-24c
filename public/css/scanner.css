@@ -14,33 +14,17 @@ body {
     justify-content: center;
     align-items: center;
     height: 100vh;
-    animation: fade-in 1.7s;
 }
 
-.container {
-    background-color: var(--color-bg);
-    padding: 3rem;
-    border-radius: 12px;
-    width: 100%;
-    max-width: 400px;
-}
-
-h1 {
-    text-align: center;
-    margin-bottom: 4rem;
-    font-size: 1.6rem;
+.head {
     font-family: 'Varela', sans-serif;
-    color: var(--color-fg);
-    letter-spacing: 2px;
-    font-weight: lighter;
+    display: flex;
+    position: absolute;
+    left: 10%;
 }
 
-.form-group {
-    margin-bottom: 1.5rem;
-}
-
-.form-group > p {
-    transition: 0.3s;
+@media only screen and (max-width: 768px) {
+    
 }
 
 input, select {
@@ -69,20 +53,6 @@ input:focus, select:focus {
     border-bottom: 1px solid var(--border);
 }
 
-.ticket-price {
-    font-size: 1rem;
-    font-weight: 500;
-    color: var(--color-fg);
-    text-align: center;
-    margin-bottom: 1rem;
-}
-
-.date-selection {
-    display: flex;
-    justify-content: space-around;
-    margin-top: 0.5rem;
-}
-
 input[type="radio"] {
     display: none;
 }
@@ -105,34 +75,4 @@ input[type="radio"] + label:hover {
 input[type="radio"]:checked + label {
     background-color: var(--border); 
     color: var(--color-bg);
-}
-
-.btn-primary {
-    width: 100%;
-    padding: 0.75rem;
-    background-color: var(--button-bg);
-    border: 1px solid var(--border);
-    color: var(--button-fg);
-    font-size: 1rem;
-    font-family: 'Varela', sans-serif;
-    cursor: pointer;
-    transition: 0.3s;
-    letter-spacing: 2px;
-}
-
-.btn-primary:hover {
-    background-color: var(--button-bg-hover);
-    color: var(--button-fg-hover);
-    border: 1px solid var(--button-border-hover);
-}
-
-.btn-primary:active {
-    background-color: var(--button-bg);
-    color: var(--button-fg);
-    transition: 100ms;
-}
-
-@keyframes fade-in {
-    0% {opacity: 0;}
-    100% {opacity: 1;}
 }

@@ -10,6 +10,7 @@ body {
     font-size: 0.8em;
     text-align: center;
     top: 100px;
+    animation: fade-up 0.7s;
 }
 
 h2 {

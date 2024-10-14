@@ -21,6 +21,7 @@ body {
 
 .welcome-section h1 {
     font-weight: 100;
+    animation: fade-up 0.7s;
 }
 
 .book-ticket {
@@ -33,6 +34,7 @@ body {
     padding: 0.7rem 1.2rem;
     transition: 200ms ease-out;
     letter-spacing: 2px;
+    animation: fade-up 0.7s;
 }
 
 .book-ticket:hover {
@@ -48,3 +50,39 @@ body {
     transition: 0ms ease-out;
 }
 
+.bg-anim {
+    height: 80px;
+    width: -webkit-fill-available;
+    position: fixed;
+    top: 11.60%;
+    background-color: transparent;
+    left: 0;
+    animation: fade-up-bg-anim 0.7s;
+}
+
+
+@keyframes fade-up-bg-anim {
+    0% {
+        opacity: 0;
+        background-color: var(--color-fg);
+        transform: translateY(-60px) scaleX(0);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translate(0px);
+        background-color: transparent;
+    }
+}
+
+@keyframes fade-up {
+    0% {
+        opacity: 0;
+        transform: translateY(-60px) scale(0.9);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translate(0px) scale(1);
+    }
+}
