@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gradient Text Animation</title>
+    <style>
+        body {
+            background-color: black;
+            color: white;
+        }
+
+        .welcome-text {
+            font-family: arial;
+            font-size: 32px;
+            text-align: center;
+            margin-top: 15%;
+            background: linear-gradient(90deg, white 10%, transparent 10%);
+            background-size: 200%;
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+            animation: gradientText 2s ease-in-out forwards;
+        }
+
+        @keyframes gradientText {
+            0% {
+                background-position: 200% 0; /* Start off-screen */
+                color: transparent;          /* Fully transparent */
+            }
+            100% {
+                background-position: 0% 0;   /* Move to the left */
+                color: white;                /* End as white text */
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="welcome-text">WELCOME TO THE INDOVENTION</div>
+</body>
+</html>

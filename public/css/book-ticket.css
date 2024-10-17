@@ -43,6 +43,15 @@ h1 {
     transition: 0.3s;
 }
 
+p {
+    background: linear-gradient(45deg, transparent 1%, var(--color-fg) 10%, transparent 30%);
+    background-size: 200%;
+    background-clip: text;
+    -webkit-background-clip: text;
+    color: var(--color-fg);
+    animation: animate-gradient 1s ease-in forwards;
+}
+
 input, select {
     width: 100%;
     padding: 0.5rem 0.1rem;
@@ -75,6 +84,12 @@ input:focus, select:focus {
     color: var(--color-fg);
     text-align: center;
     margin-bottom: 1rem;
+    background: linear-gradient(45deg, transparent 1%, var(--color-fg) 10%, transparent 30%);
+    background-size: 200%;
+    background-clip: text;
+    -webkit-background-clip: text;
+    color: var(--color-fg);
+    animation: animate-gradient 1s ease-in forwards;
 }
 
 .date-selection {

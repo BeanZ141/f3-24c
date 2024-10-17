@@ -70,11 +70,15 @@ p {
     width: 400px;
     top:55px;
     left: 10px;
-    color: var(--color-fg);
     font-weight: lighter;
     font-size: 0.8em;
     font-family: "Varela", sans-serif;
-    animation: text-fade-in 1.7s;
+    background: linear-gradient(45deg, transparent 1%, var(--color-fg) 10%, transparent 30%);
+    background-size: 200%;
+    background-clip: text;
+    -webkit-background-clip: text;
+    color: var(--color-fg);
+    animation: animate-gradient 1s ease-in forwards;
 }
 
 .slide-text {
@@ -93,11 +97,6 @@ p {
 }
 
 @keyframes image-fade-in {
-    0% {opacity: 0;}
-    100% {opacity: 1;}
-}
-
-@keyframes text-fade-in {
     0% {opacity: 0;}
     100% {opacity: 1;}
 }

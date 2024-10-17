@@ -1,0 +1,106 @@
+<html>
+<head>
+    <title>Html-Qrcode Demo</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <style>
+        body {
+            background-color: #000000;
+            color: white !important;
+            font-family: Arial, sans-serif;
+        }
+
+        #qr-reader {
+            margin: auto;
+            margin-top: 60px;
+            height: 350px !important;
+            width: 350px !important;
+            position: relative;
+            border-radius: 20px;
+            border: none !important;
+        }
+
+        #qr-reader video {
+            width: 100% !important;
+            height: 100% !important;
+            object-fit: cover;
+            border-radius: 20px;
+        }
+
+        #qr-reader .html5-qrcode-camera {
+            border: 2px solid white; /* Border thickness and color */
+            border-radius: 20px; /* Rounded corners */
+        }
+
+        #qr-reader-results {
+            margin-top: 120px;
+            text-align: center;
+            font-size: 20px;
+        }
+
+        .check-in {
+            background-color: #000;
+            color: white;
+            border: 1px solid #fff;
+            height: 50px;
+            width: 150px;
+            margin-top: 30px; /* Adjusted for better spacing */
+            margin-left: 145px;
+            cursor: pointer;
+        }
+
+        .check-in:hover {
+            background-color: white;
+            color: black;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="qr-reader"></div>
+    <div id="qr-reader-results"></div>
+
+    <button class="check-in">CHECK IN</button>
+
+    <script src="/node_modules/html5-qrcode/html5-qrcode.min.js"></script>
+    <script>
+        function docReady(fn) {
+            if (document.readyState === "complete" || document.readyState === "interactive") {
+                setTimeout(fn, 1);
+            } else {
+                document.addEventListener("DOMContentLoaded", fn);
+            }
+        }
+
+        docReady(function () {
+            var resultContainer = document.getElementById('qr-reader-results');
+            var lastResult, countResults = 0;
+            var html5QrcodeScanner = new Html5QrcodeScanner("qr-reader", { fps: 60, qrbox: 300 });
+
+            function onScanSuccess(decodedText, decodedResult) {
+                if (decodedText !== lastResult) {
+                    ++countResults;
+                    lastResult = decodedText;
+                    resultContainer.innerHTML = `<div>Scan result: ${decodedText}</div>`; // Show the result
+                    console.log(`Scan result ${decodedText}`, decodedResult);
+                    // Stop scanning after one successful scan
+                    html5QrcodeScanner.clear().then(() => {
+                        console.log("QR Code scanning stopped.");
+                    }).catch(err => {
+                        console.error("Failed to clear QR Code scanning.", err);
+                    });
+                }
+            }ls
+
+            // Render the QR code scanner
+            html5QrcodeScanner.render(onScanSuccess);
+
+            document.querySelector('.check-in').addEventListener('click', function () {
+                resultContainer.innerHTML = ''; 
+                lastResult = null; 
+                countResults = 0;
+                html5QrcodeScanner.render(onScanSuccess);
+            });
+        });
+    </script>
+</body>
+</html>

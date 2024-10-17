@@ -11,6 +11,12 @@ body {
     text-align: center;
     top: 100px;
     animation: fade-up 0.7s;
+    background: linear-gradient(45deg, var(--color-fg) 10%, transparent 30%);
+    background-size: 200%;
+    background-clip: text;
+    -webkit-background-clip: text;
+    color: var(--color-fg);
+    animation: animate-gradient 1s ease-in forwards, fade-up-welcome-text 0.7s forwards;
 }
 
 h2 {

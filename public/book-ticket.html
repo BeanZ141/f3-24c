@@ -9,7 +9,7 @@
     setTheme();
     </script>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <link rel="shortcut icon" type="image/jpg" href="/public/images/favicon.png" />
     <link rel="stylesheet" href="/public/css/styles.css">
     <link rel="stylesheet" href="/public/css/themes.css">
@@ -21,7 +21,7 @@
 
 <body>
     <div class="container">
-        <h1>BOOK YOUR TICKET</h1>
+        <h1 class="text-loading-animation">BOOK YOUR TICKET</h1>
 
         <form id="ticketForm" class="form">
             <div class="form-group"><input type="text" id="name" name="name" placeholder="Name" required></div>
@@ -30,7 +30,7 @@
             <div class="form-group"><input type="tel" id="phone" name="phone" placeholder="Phone Number"
                     pattern="[0-9]{10}" required></div>
 
-            <div class="form-group">
+            <div class="form-group text-loading-animation">
                 <p>Select Event Date:</p>
                 <div class="date-selection">
                     <input type="radio" id="date1" name="dateOfAttendance" value="10-12-2024" required><label
@@ -45,7 +45,7 @@
                 ticket confirmation.</p>
 
             <div class="form-group">
-                <p class="ticket-price">Ticket Price: <span
+                <p class="ticket-price text-loading-animation">Ticket Price: <span
                         style="background-color: var(--color-fg); color: var(--color-bg); padding: 2px 5px;">₹10</span>
                 </p>
             </div>

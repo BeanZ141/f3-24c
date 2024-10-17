@@ -21,7 +21,15 @@ body {
 
 .welcome-section h1 {
     font-weight: 100;
-    animation: fade-up 0.7s;
+}
+
+.welcome-text {
+    background: linear-gradient(45deg, transparent 1%, var(--color-fg) 10%, transparent 30%);
+    background-size: 200%;
+    background-clip: text;
+    -webkit-background-clip: text;
+    color: var(--color-fg);
+    animation: animate-gradient 1s ease-in forwards, fade-up-welcome-text 0.7s forwards;
 }
 
 .book-ticket {
@@ -50,29 +58,12 @@ body {
     transition: 0ms ease-out;
 }
 
-.bg-anim {
-    height: 80px;
-    width: -webkit-fill-available;
-    position: fixed;
-    top: 11.60%;
-    background-color: transparent;
-    left: 0;
-    animation: fade-up-bg-anim 0.7s;
-}
-
-
-@keyframes fade-up-bg-anim {
-    0% {
-        opacity: 0;
-        background-color: var(--color-fg);
-        transform: translateY(-60px) scaleX(0);
-    }
-
-    100% {
-        opacity: 1;
-        transform: translate(0px);
-        background-color: transparent;
-    }
+.text-loading-animation {
+    background: linear-gradient(45deg, transparent 1%, var(--color-fg) 10%, transparent 30%);
+    background-size: 200%;
+    background-clip: text;
+    -webkit-background-clip: text;
+    animation: animate-gradient 1s ease-in forwards;
 }
 
 @keyframes fade-up {
@@ -84,5 +75,37 @@ body {
     100% {
         opacity: 1;
         transform: translate(0px) scale(1);
+    }
+}
+
+@keyframes fade-up-welcome-text {
+    0% {
+        transform: translateY(-60px) scale(0.9);
+    }
+
+    100% {
+        transform: translate(0px) scale(1);
+    }
+}
+
+@keyframes animate-gradient {
+    0% {
+        background-position: 200% 0;
+        color: transparent;
+    }
+    100% {
+        background-position: 0% 0;
+        color: var(--color-fg);
+    }
+}
+
+@keyframes load-text {
+    0% {
+        background-position: 200% 0;
+        color: transparent;
+    }
+    100% {
+        background-position: 0% 0;
+        color: var(--color-fg);
     }
 }

@@ -13,26 +13,33 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
 }
 
 .head {
-    font-family: 'Varela', sans-serif;
-    display: flex;
     position: absolute;
-    left: 10%;
+    top: 6%;
+    left: 12%;
 }
 
-@media only screen and (max-width: 768px) {
-    
+form {
+    position: relative;
+    top: 20vh;
+    width: 75%;
+    max-width: 400px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 }
 
 input, select {
+    display: inline;
     width: 100%;
     padding: 0.5rem 0.1rem;
     border: none;
     background-color: var(--color-bg);
     font-size: 1rem;
+    margin-top: 40px;
     color: var(--color-fg);
     border-bottom: 1px solid #757575;
     font-family: 'Varela', sans-serif;
@@ -75,4 +82,23 @@ input[type="radio"] + label:hover {
 input[type="radio"]:checked + label {
     background-color: var(--border); 
     color: var(--color-bg);
+}
+
+.btn-login {
+    position: fixed;
+    background-color: var(--button-bg);
+    color: var(--button-fg);
+    border:  1px solid var(--border);
+    margin-top: 250px;
+    margin-left: 250px;
+    height: 40px;
+    width: 100px;
+    font-family: 'Varela', sans-serif;
+}
+
+.btn-login:hover {
+    background-color: var(--button-bg-hover);
+    color: var(--button-fg-hover);
+    border:  1px solid var(--button-border-hover);
+    cursor: pointer;
 }
