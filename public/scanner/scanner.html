@@ -1,12 +1,118 @@
 <html>
+
 <head>
-    <title>Html-Qrcode Demo</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>Check In</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Varela&display=swap" />
+    <script src="/node_modules/html5-qrcode/html5-qrcode.min.js"></script>
+    <script src="/node_modules/@supabase/supabase-js/dist/umd/supabase.js"></script>
+    <script>
+        function docReady(fn) {
+    if (
+        document.readyState === "complete" || document.readyState === "interactive"
+    ) {
+        setTimeout(fn, 1);
+    } else {
+        document.addEventListener("DOMContentLoaded", fn);
+    }
+}
+
+docReady(function () {
+    const resultContainer = document.getElementById("qr-reader-results");
+    const validationResult = document.getElementById("validation-result");
+    const qrReaderContainer = document.querySelector(".container");
+    const qrReaderCheckIn = document.querySelector(".check-in");
+    let lastResult, countResults = 0;
+
+    qrReaderContainer.style.display = "none";
+    qrReaderCheckIn.style.display = "none";
+
+    function onScanSuccess(decodedText, decodedResult) {
+        if (decodedText !== lastResult) {
+            countResults++;
+            lastResult = decodedText;
+
+            // Call validateTicket without displaying the ID initially
+            validateTicket(decodedText);
+        }
+    }
+
+    function startScanning() {
+        qrReaderContainer.style.display = "block";
+        qrReaderCheckIn.style.display = "block";
+    }
+
+    const html5QrcodeScanner = new Html5QrcodeScanner("qr-reader", { fps: 30, qrbox: 350 });
+
+    html5QrcodeScanner.render(onScanSuccess, startScanning);
+});
+
+async function validateTicket(ticketId) {
+    const { data, error } = await supabase
+        .from('ticket_ids')
+        .select('used')
+        .eq('tickets', ticketId)
+        .single();
+
+    const resultElement = document.getElementById('validation-result');
+    const resultContainer = document.getElementById("qr-reader-results");
+    
+    // Clear previous ticket ID display
+    resultContainer.innerHTML = ""; 
+
+    resultElement.style.display = "block";
+
+    if (error) {
+        resultElement.innerHTML = `<span class="validation-result" style="color: black; background-color: #ff8800;">TICKET ID DOES NOT EXIST</span>`;
+        return;
+    }
+
+    if (data) {
+        // Check if the ticket is unused
+        if (!data.used) {
+            await markTicketAsUsed(ticketId);
+            // Show ticket ID for a valid and unused ticket
+            resultElement.innerHTML = `<span class="validation-result" style="color: black; background-color: #00ff00;">VALID TICKET ID</span>`;
+            resultContainer.innerHTML = `<div>TICKET ID: ${ticketId}</div>`; // Show ticket ID here after validation
+        } else {
+            resultElement.innerHTML = `<span class="validation-result" style="color: black; background-color: red;">TICKET ID ALREADY IN USE</span>`;
+        }
+    } else {
+        resultElement.innerHTML = `<span class="validation-result" style="color: black; background-color: #ff8800;">TICKET ID DOES NOT EXIST</span>`;
+    }
+}
+
+async function markTicketAsUsed(ticketId) {
+    const { error } = await supabase
+        .from('ticket_ids')
+        .update({ used: true })
+        .eq('tickets', ticketId);
+
+    if (error) {
+        const resultElement = document.getElementById('validation-result');
+        resultElement.innerHTML = "Error checking ticket.";
+        console.error("Error fetching ticket:", error.message);
+        console.error("Supabase Error:", error);
+        return;
+    }
+}
+
+    </script>
+    <script src="/supabase.js"></script>
     <style>
         body {
             background-color: #000000;
             color: white !important;
-            font-family: Arial, sans-serif;
+            font-family: "Inter", sans-serif;
+        }
+
+        ::selection {
+            background-color: white;
+            color: black;
         }
 
         #qr-reader {
@@ -15,7 +121,6 @@
             height: 350px !important;
             width: 350px !important;
             position: relative;
-            border-radius: 20px;
             border: none !important;
         }
 
@@ -23,28 +128,95 @@
             width: 100% !important;
             height: 100% !important;
             object-fit: cover;
+            border-radius: 15px;
+            border: none;
+            margin-bottom: 40px;
+        }
+
+        .container {
+            height: 385px;
+            width: 385px;
+            border: 2px solid white;
+            position: fixed;
+            top: 41px;
+            left: 37px;
             border-radius: 20px;
+            z-index: -1;
         }
 
-        #qr-reader .html5-qrcode-camera {
-            border: 2px solid white; /* Border thickness and color */
-            border-radius: 20px; /* Rounded corners */
+        .line-left {
+            left: 37px;
+            top: 85px;
+            position: fixed;
+            height: 300px;
+            width: 3px;
+            background-color: black;
         }
 
-        #qr-reader-results {
-            margin-top: 120px;
+        .line-right {
+            left: 423px;
+            top: 85px;
+            position: fixed;
+            height: 300px;
+            width: 3px;
+            background-color: black;
+        }
+
+        .line-top {
+            left: 83px;
+            top: 40px;
+            position: fixed;
+            height: 3px;
+            width: 300px;
+            background-color: black;
+        }
+
+        .line-bottom {
+            left: 83px;
+            top: 427px;
+            position: fixed;
+            height: 3px;
+            width: 300px;
+            background-color: black;
+        }
+
+        #qr-reader-results div {
+            margin-left: 23%;
+            margin-top: 160px;
             text-align: center;
             font-size: 20px;
+            position: fixed;
+            display: flex;
+            align-items: center;
+            background-color: white;
+            padding: 5px 10px 5px 10px;
+            color: black;
+            font-family: "Inter", sans-serif;
+        }
+
+        #validation-result div {
+            margin-left: 23%;
+            margin-top: 190px;
+            text-align: center;
+            font-size: 20px;
+            position: fixed;
+            display: flex;
+            align-items: center;
+            background-color: white;
+            padding: 3px;
+            color: black;
+            font-family: "Inter", sans-serif;
         }
 
         .check-in {
-            background-color: #000;
-            color: white;
-            border: 1px solid #fff;
+            position: fixed;
+            background-color: #e4e4e4;
+            color: black;
+            border: 1px solid #000;
             height: 50px;
             width: 150px;
-            margin-top: 30px; /* Adjusted for better spacing */
-            margin-left: 145px;
+            margin-top: 410px;
+            margin-left: 150px;
             cursor: pointer;
         }
 
@@ -52,55 +224,81 @@
             background-color: white;
             color: black;
         }
+
+        button {
+            background-color: #000;
+            color: #fff;
+            border: none;
+            height: 25px;
+            width: 250px;
+            padding: 4px;
+            margin: 5px;
+            font-family: "Inter", sans-serif;
+        }
+
+        select {
+            background-color: #000;
+            color: #fff;
+            border: none;
+            height: 25px;
+            width: auto;
+            padding: 4px;
+            margin: 5px;
+        }
+
+        #qr-reader__dashboard_section_csr {
+            color: #e4e4e4;
+        }
+
+        #qr-reader__dashboard_section_csr_scan_button {
+            background-color: red;
+        }
+
+        #html5-qrcode-anchor-scan-type-change {
+            margin-top: 10px;
+        }
+
+        #html5-qrcode-button-camera-permission {
+            width: 300px;
+            margin: 20px;
+            font-size: 15px;
+        }
+
+        #html5-qrcode-anchor-scan-type-change {
+            text-underline-position: under;
+        }
+
+        #qr-reader__header_message {
+            padding: 3px 10px;
+            margin: 4px;
+            background: rgba(203, 36, 49, 0.14);
+            color: rgb(203, 36, 49);
+            border-top: none !important;
+            border-left: 1px solid red;
+        }
+
+        .validation-result span {
+            position: fixed;
+            top: 72%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            padding: 5px 10px 5px 10px;
+        }
     </style>
 </head>
 
 <body>
     <div id="qr-reader"></div>
+    <div class="line-left"></div>
+    <div class="line-right"></div>
+    <div class="line-top"></div>
+    <div class="line-bottom"></div>
+    <div class="container"></div>
     <div id="qr-reader-results"></div>
 
+    <div class="validation-result" id="validation-result"></div>
+
     <button class="check-in">CHECK IN</button>
-
-    <script src="/node_modules/html5-qrcode/html5-qrcode.min.js"></script>
-    <script>
-        function docReady(fn) {
-            if (document.readyState === "complete" || document.readyState === "interactive") {
-                setTimeout(fn, 1);
-            } else {
-                document.addEventListener("DOMContentLoaded", fn);
-            }
-        }
-
-        docReady(function () {
-            var resultContainer = document.getElementById('qr-reader-results');
-            var lastResult, countResults = 0;
-            var html5QrcodeScanner = new Html5QrcodeScanner("qr-reader", { fps: 60, qrbox: 300 });
-
-            function onScanSuccess(decodedText, decodedResult) {
-                if (decodedText !== lastResult) {
-                    ++countResults;
-                    lastResult = decodedText;
-                    resultContainer.innerHTML = `<div>Scan result: ${decodedText}</div>`; // Show the result
-                    console.log(`Scan result ${decodedText}`, decodedResult);
-                    // Stop scanning after one successful scan
-                    html5QrcodeScanner.clear().then(() => {
-                        console.log("QR Code scanning stopped.");
-                    }).catch(err => {
-                        console.error("Failed to clear QR Code scanning.", err);
-                    });
-                }
-            }ls
-
-            // Render the QR code scanner
-            html5QrcodeScanner.render(onScanSuccess);
-
-            document.querySelector('.check-in').addEventListener('click', function () {
-                resultContainer.innerHTML = ''; 
-                lastResult = null; 
-                countResults = 0;
-                html5QrcodeScanner.render(onScanSuccess);
-            });
-        });
-    </script>
 </body>
+
 </html>
