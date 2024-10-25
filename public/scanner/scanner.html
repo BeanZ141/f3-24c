@@ -11,10 +11,10 @@
     <script src="/node_modules/html5-qrcode/html5-qrcode.min.js"></script>
     <script src="/node_modules/@supabase/supabase-js/dist/umd/supabase.js"></script>
     <script>
-        function docReady(fn) {
-    if (
-        document.readyState === "complete" || document.readyState === "interactive"
-    ) {
+let scannedTicketId = null;
+
+function docReady(fn) {
+    if (document.readyState === "complete" || document.readyState === "interactive") {
         setTimeout(fn, 1);
     } else {
         document.addEventListener("DOMContentLoaded", fn);
@@ -26,17 +26,18 @@ docReady(function () {
     const validationResult = document.getElementById("validation-result");
     const qrReaderContainer = document.querySelector(".container");
     const qrReaderCheckIn = document.querySelector(".check-in");
+    const ticketIdInput = document.querySelector(".manual-check")
     let lastResult, countResults = 0;
 
     qrReaderContainer.style.display = "none";
     qrReaderCheckIn.style.display = "none";
+    ticketIdInput.style.display = "none";
 
     function onScanSuccess(decodedText, decodedResult) {
         if (decodedText !== lastResult) {
             countResults++;
             lastResult = decodedText;
-
-            // Call validateTicket without displaying the ID initially
+            scannedTicketId = decodedText;
             validateTicket(decodedText);
         }
     }
@@ -44,10 +45,10 @@ docReady(function () {
     function startScanning() {
         qrReaderContainer.style.display = "block";
         qrReaderCheckIn.style.display = "block";
+        ticketIdInput.style.display = "block";
     }
 
     const html5QrcodeScanner = new Html5QrcodeScanner("qr-reader", { fps: 30, qrbox: 350 });
-
     html5QrcodeScanner.render(onScanSuccess, startScanning);
 });
 
@@ -60,9 +61,6 @@ async function validateTicket(ticketId) {
 
     const resultElement = document.getElementById('validation-result');
     const resultContainer = document.getElementById("qr-reader-results");
-    
-    // Clear previous ticket ID display
-    resultContainer.innerHTML = ""; 
 
     resultElement.style.display = "block";
 
@@ -72,15 +70,55 @@ async function validateTicket(ticketId) {
     }
 
     if (data) {
-        // Check if the ticket is unused
         if (!data.used) {
-            await markTicketAsUsed(ticketId);
-            // Show ticket ID for a valid and unused ticket
             resultElement.innerHTML = `<span class="validation-result" style="color: black; background-color: #00ff00;">VALID TICKET ID</span>`;
-            resultContainer.innerHTML = `<div>TICKET ID: ${ticketId}</div>`; // Show ticket ID here after validation
+            resultContainer.innerHTML = `<div>TICKET ID: ${ticketId}</div>`;
         } else {
             resultElement.innerHTML = `<span class="validation-result" style="color: black; background-color: red;">TICKET ID ALREADY IN USE</span>`;
         }
+    } else {
+        resultElement.innerHTML = `<span class="validation-result" style="color: black; background-color: #ff8800;">TICKET ID DOES NOT EXIST</span>`;
+    }
+}
+
+async function validateAndCheckInTicket() {
+    if (!scannedTicketId) {
+        alert("Please scan a ticket first.");
+        return;
+    }
+
+    const { data, error } = await supabase
+        .from('ticket_ids')
+        .select('used')
+        .eq('tickets', scannedTicketId)
+        .single();
+
+    const resultElement = document.getElementById('validation-result');
+    const resultContainer = document.getElementById("qr-reader-results");
+    const qrReaderCheckIn = document.querySelector(".check-in");
+
+    if (error) {
+        resultElement.innerHTML = `<span class="validation-result" style="color: black; background-color: #ff8800;">TICKET ID DOES NOT EXIST</span>`;
+        return;
+    }
+
+    if (data && !data.used) {
+        await markTicketAsUsed(scannedTicketId);
+        resultContainer.innerHTML = `<div style="background-color: #00ff00;">TICKET ID: ${scannedTicketId}</div>`;
+        resultElement.innerHTML = `<span class="validation-result" style="color: black; background-color: #00ff00;">CHECKED IN</span>`;
+
+        const originalColor = qrReaderCheckIn.style.backgroundColor;
+        qrReaderCheckIn.style.backgroundColor = "#00ff00";
+        setTimeout(() => {qrReaderCheckIn.style.backgroundColor = originalColor; }, 1300);
+
+        setTimeout(() => {
+            scannedTicketId = null;
+            resultElement.innerHTML = "";
+            resultContainer.innerHTML = ""; 
+        }, 1300);
+
+    } else if (data && data.used) {
+        resultElement.innerHTML = `<span class="validation-result" style="color: black; background-color: red;">TICKET ID ALREADY IN USE</span>`;
     } else {
         resultElement.innerHTML = `<span class="validation-result" style="color: black; background-color: #ff8800;">TICKET ID DOES NOT EXIST</span>`;
     }
@@ -95,10 +133,19 @@ async function markTicketAsUsed(ticketId) {
     if (error) {
         const resultElement = document.getElementById('validation-result');
         resultElement.innerHTML = "Error checking ticket.";
-        console.error("Error fetching ticket:", error.message);
-        console.error("Supabase Error:", error);
-        return;
+        console.error("Error updating ticket:", error.message);
     }
+}
+
+// Manual check in
+async function manualCheckIn() {
+    const ticketIdInput = document.getElementById("manual-ticket-id");
+    const ticketId = ticketIdInput.value.trim();
+
+    scannedTicketId = ticketId;
+    await validateAndCheckInTicket();
+    ticketIdInput.style.display = "block";
+    ticketIdInput.value = "";
 }
 
     </script>
@@ -215,8 +262,9 @@ async function markTicketAsUsed(ticketId) {
             border: 1px solid #000;
             height: 50px;
             width: 150px;
-            margin-top: 410px;
-            margin-left: 150px;
+            top: 88%;
+            left: 49%;
+            transform: translate(-50%, -50%);
             cursor: pointer;
         }
 
@@ -284,6 +332,19 @@ async function markTicketAsUsed(ticketId) {
             transform: translate(-50%, -50%);
             padding: 5px 10px 5px 10px;
         }
+
+        .manual-check {
+            position: fixed;
+            left: 13%;
+            top: 55.2%;
+            width: fit-content;
+        }
+
+        .manual-input {
+            position: fixed;
+            left: 15%;
+            top: 59%;
+        }
     </style>
 </head>
 
@@ -298,7 +359,12 @@ async function markTicketAsUsed(ticketId) {
 
     <div class="validation-result" id="validation-result"></div>
 
-    <button class="check-in">CHECK IN</button>
+    <div id="manual-check-in">
+        <input class="manual-input" style="display: none;" type="text" id="manual-ticket-id" placeholder="Enter Ticket ID" />
+        <button class="manual-check" onclick="manualCheckIn()">Manual Check-In</button>
+    </div>
+
+    <button class="check-in" onclick="validateAndCheckInTicket()">CHECK IN</button>
 </body>
 
 </html>
