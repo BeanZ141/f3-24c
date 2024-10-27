@@ -15,6 +15,7 @@ function showSlide(index) {
         if (i === index) {
             slide.classList.add('active');
             slide.style.opacity = 1;
+
         } else {
             slide.style.opacity = 0;
             slide.classList.remove('active');
