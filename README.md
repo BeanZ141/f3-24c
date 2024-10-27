@@ -12,8 +12,7 @@ This project provides a secure and streamlined way to register and verify event 
 - Ticket Validation: Real-time ticket verification with Supabase.
 - Responsive UI: User-friendly and responsive interface.
 
-## Setup and Installation
-### Prerequisites
+## Prerequisites
 - Node.js (version 14 or later)
 - Firebase CLI (for Firebase integration)
 - Supabase Account (for Database management)
