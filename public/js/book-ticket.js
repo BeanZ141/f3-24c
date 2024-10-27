@@ -3,30 +3,30 @@ const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZS
 const supabase = window.supabase.createClient(supabaseUrl, supabaseKey);
 
 document.addEventListener('DOMContentLoaded', function() {
-document.getElementById('ticketForm').addEventListener('submit', async function(event) {
-
-    event.preventDefault();
-
-    const name = document.getElementById('name').value;
-    const email = document.getElementById('email').value;
-    const phone = document.getElementById('phone').value;
-    const dateOfAttendance = document.querySelector('input[name="dateOfAttendance"]:checked').value;
-
-    try {
-        const { data, error } = await supabase
-            .from('Registrations') 
-            .insert([{ name, email, phone, dateOfAttendance }]);
-        
-        if (error) {
-            throw error;
-        }
+    document.getElementById('ticketForm').addEventListener('submit', async function(event) {
     
-        console.log('Data inserted successfully:');
-        alert('Your data has been saved! Proceeding to payment...');
-
-    } catch (error) {
-        console.error('Error inserting data:', error.message);
-        alert('An error occurred while saving your data. Please try again.');
-    }
-});
-});
+        event.preventDefault();
+    
+        const name = document.getElementById('name').value;
+        const email = document.getElementById('email').value;
+        const phone = document.getElementById('phone').value;
+        const dateOfAttendance = document.querySelector('input[name="dateOfAttendance"]:checked').value;
+    
+        try {
+            const { data, error } = await supabase
+                .from('Registrations') 
+                .insert([{ name, email, phone, dateOfAttendance }]);
+            
+            if (error) {
+                throw error;
+            }
+        
+            console.log('Data inserted successfully:');
+            alert('Your data has been saved! Proceeding to payment...');
+    
+        } catch (error) {
+            console.error('Error inserting data:', error.message);
+            alert('An error occurred while saving your data. Please try again.');
+        }
+    });
+    });
