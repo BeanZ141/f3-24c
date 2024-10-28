@@ -33,11 +33,15 @@ document.addEventListener('DOMContentLoaded', function() {
                 .update({ registered: true })
                 .eq('tickets', ticketId);
 
-            if (error) {
-                throw error;
-            }
+            if (error) throw error;
 
-            await sendEmail(name, email, ticketId);
+            await fetch('https://62ae-49-15-229-146.ngrok-free.app/send-email', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ name, email, ticketId })
+            });
 
             console.log('Data inserted and email sent successfully:');
             alert('Your data has been saved! A confirmation email has been sent.');
@@ -50,14 +54,14 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 const sendEmail = async (name, email, ticketId) => {
-    const response = await fetch('https://api.mailgun.net/v3/sandbox-123.mailgun.org/messages', {
+    const response = await fetch('https://api.mailgun.net/v3/sandboxe5457533522246b98ad1eb17e65483a1/messages', {
         method: 'POST',
         headers: {
             'Authorization': `Basic ${btoa(`api:${process.env.MAILGUN_API_KEY}`)}`,
             'Content-Type': 'application/x-www-form-urlencoded'
         },
         body: new URLSearchParams({
-            from: 'Your Event <mailgun@sandboxe5457533522246b98ad1eb17e65483a1.mailgun.org>',
+            from: 'Indovention Event <mailgun@sandboxe5457533522246b98ad1eb17e65483a1.mailgun.org>',
             to: email,
             subject: 'Your Ticket Registration',
             text: `Thank you for registering, ${name}! Your ticket ID is: ${ticketId}`,
