@@ -1,3 +1,6 @@
+const {onRequest} = require("firebase-functions/v2/https");
+const logger = require("firebase-functions/logger");
+
 require('dotenv').config();
 const express = require('express');
 const mailgun = require('mailgun-js');

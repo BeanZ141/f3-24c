@@ -35,7 +35,7 @@ nav a:hover {
     text-decoration-thickness: 2px;
 }
 
-nav a.active {
+.current {
     background-color: var(--nav-bg);
     color: var(--nav-fg);
     font-weight: bold;

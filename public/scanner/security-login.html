@@ -16,10 +16,10 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Varela&display=swap">
-    <link rel="stylesheet" href="/public/css/styles.css">
-    <link rel="stylesheet" href="/public/css/themes.css">
-    <link rel="stylesheet" href="/public/css/security-login.css">
-    <link rel="stylesheet" href="/public/css/navbar.css">
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/themes.css">
+    <link rel="stylesheet" href="css/security-login.css">
+    <link rel="stylesheet" href="css/navbar.css">
 </head>
 <body>
     <h1 class="head">Security Login</h1>
@@ -40,7 +40,7 @@
         </svg>
     </button>
 
-    <script src="/public/js/navbar.js"></script>
+    <script src="js/navbar.js"></script>
 
     <script>
         function loginUser(event) {
@@ -53,7 +53,7 @@
             console.log("Password:", password);
 
             if (email === 'suvarnashinde151@gmail.com' && password === '141') {
-                window.location.href = '/public/scanner/scanner.html';
+                window.location.href = 'scanner.html';
             } else {
                 alert('Login failed: Invalid login credentials');
             }

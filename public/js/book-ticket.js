@@ -35,7 +35,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
             if (error) throw error;
 
-            await fetch('https://62ae-49-15-229-146.ngrok-free.app/send-email', {
+            await fetch('https://f3-24c-a9e76.web.app/send-email', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
