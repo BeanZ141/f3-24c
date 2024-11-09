@@ -165,10 +165,31 @@ input[type="radio"]:checked + label {
     color: #757575;
 }
 
-
 .clear-button:hover {
     color: var(--color-fg);
 }
+
+.alert {
+    position: fixed;
+    top: 2%;
+    right: 3%;
+    padding: 15px 30px;
+    background-color: var(--color-fg);
+    color: var(--color-bg);
+    opacity: 0;
+    width: 200px;
+    visibility: hidden;
+    transition: opacity 0.3s, visibility 0.3s;
+    z-index: 1000;
+}
+
+.alert.show {
+    opacity: 1;
+    visibility: visible;
+}
+
+.alert.success { background-color: var(--color-fg); color: var(--color-bg); }
+.alert.error { background-color: #ff0000; color: #222; }
 
 @keyframes fade-in {
     0% {opacity: 0;}

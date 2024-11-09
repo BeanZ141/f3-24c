@@ -74,6 +74,11 @@
         </svg>
     </button>
 
+    <!--Alert-->
+    <div id="customAlert" class="alert">
+        <span id="alertMessage">This is a custom alert!</span>
+    </div>    
+
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
     <script type="module" src="js/book-ticket.js"></script>
     <script src="js/navbar.js"></script>
@@ -87,6 +92,18 @@
         function toggleClearButton(inputElement) {
             const clearButton = inputElement.nextElementSibling;
             clearButton.style.display = inputElement.value ? 'inline' : 'none';
+        }
+
+        function showAlert(message, type = 'info') {
+            const alertBox = document.getElementById('customAlert');
+            const alertMessage = document.getElementById('alertMessage');
+            alertMessage.innerText = message;
+            alertBox.className = `alert show ${type}`;
+            setTimeout(closeAlert, 5000);
+        }
+
+        function closeAlert() {
+            document.getElementById('customAlert').classList.remove('show');
         }
     </script>
 </body>

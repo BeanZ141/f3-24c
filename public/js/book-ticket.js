@@ -12,6 +12,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const dateOfAttendance = document.querySelector('input[name="dateOfAttendance"]:checked').value;
 
         try {
+            // Check if a user with the same email or phone number already exists in 'Registrations'
             const { data: existingUser, error: checkError } = await supabase
             .from('Registrations')
             .select('*')
@@ -19,47 +20,41 @@ document.addEventListener('DOMContentLoaded', function() {
 
             if (checkError) throw checkError;
 
-            if (existingUser && existingUser.length > 0) {
-                alert('This user is already registered.');
+            if (Array.isArray(existingUser) && existingUser.length > 0) {
+                showAlert('This user is already registered.', 'error');
                 return;
             }
 
+            // Select the first available ticket ID where 'registered' is false (Unregistered ticket)
             const { data: ticketData, error: ticketError } = await supabase
                 .from('ticket_ids')
                 .select('tickets')
                 .eq('registered', false)
                 .limit(1);
 
-            if (ticketError || ticketData.length === 0) {
-                throw new Error('No available tickets');
-            }
+            if (ticketError || ticketData.length === 0) { throw new Error('No available tickets'); }
 
             const ticketId = ticketData[0].tickets;
 
+            // Insert a new registration record with the user's information and ticket ID
             const { data, error } = await supabase
                 .from('Registrations')
                 .insert([{ name, email, phone, dateOfAttendance, registeredTicketId: ticketId }]);
 
             if (error) throw error;
 
+            // Update the 'registered' status of the ticket to TRUE in the 'ticket_ids' table
             await supabase
                 .from('ticket_ids')
                 .update({ registered: true })
                 .eq('tickets', ticketId);
 
-            const { data: existingRegistration } = await supabase
-            .from('Registrations')
-            .select('id')
-            .eq('registeredTicketId', ticketId);
-            
-            if (existingRegistration.length > 0) { throw new Error('This ticket is already registered.'); }
-            
             console.log('Data inserted and email sent successfully:');
-            alert('Your data has been saved! A confirmation email has been sent.');
+            showAlert('Your data has been saved! A confirmation email has been sent.', 'success');
 
         } catch (error) {
             console.error('Error:', error.message);
-            alert('An error occurred while saving your data. Please try again.');
+            showAlert('An error occurred while saving your data. Please try again.', 'error');
         }
     });
 });
