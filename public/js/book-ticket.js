@@ -12,6 +12,18 @@ document.addEventListener('DOMContentLoaded', function() {
         const dateOfAttendance = document.querySelector('input[name="dateOfAttendance"]:checked').value;
 
         try {
+            const { data: existingUser, error: checkError } = await supabase
+            .from('Registrations')
+            .select('*')
+            .or(`email.eq.${email},phone.eq.${phone}`);
+
+            if (checkError) throw checkError;
+
+            if (existingUser && existingUser.length > 0) {
+                alert('This user is already registered.');
+                return;
+            }
+
             const { data: ticketData, error: ticketError } = await supabase
                 .from('ticket_ids')
                 .select('tickets')
@@ -28,21 +40,20 @@ document.addEventListener('DOMContentLoaded', function() {
                 .from('Registrations')
                 .insert([{ name, email, phone, dateOfAttendance, registeredTicketId: ticketId }]);
 
+            if (error) throw error;
+
             await supabase
                 .from('ticket_ids')
                 .update({ registered: true })
                 .eq('tickets', ticketId);
 
-            if (error) throw error;
-
-            await fetch('https://f3-24c-a9e76.web.app/send-email', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({ name, email, ticketId })
-            });
-
+            const { data: existingRegistration } = await supabase
+            .from('Registrations')
+            .select('id')
+            .eq('registeredTicketId', ticketId);
+            
+            if (existingRegistration.length > 0) { throw new Error('This ticket is already registered.'); }
+            
             console.log('Data inserted and email sent successfully:');
             alert('Your data has been saved! A confirmation email has been sent.');
 
@@ -52,25 +63,3 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 });
-
-const sendEmail = async (name, email, ticketId) => {
-    const response = await fetch('https://api.mailgun.net/v3/sandboxe5457533522246b98ad1eb17e65483a1/messages', {
-        method: 'POST',
-        headers: {
-            'Authorization': `Basic ${btoa(`api:${process.env.MAILGUN_API_KEY}`)}`,
-            'Content-Type': 'application/x-www-form-urlencoded'
-        },
-        body: new URLSearchParams({
-            from: 'Indovention Event <mailgun@sandboxe5457533522246b98ad1eb17e65483a1.mailgun.org>',
-            to: email,
-            subject: 'Your Ticket Registration',
-            text: `Thank you for registering, ${name}! Your ticket ID is: ${ticketId}`,
-            html: `<h1>Thank you for registering, ${name}!</h1><p>Your ticket ID is: <strong>${ticketId}</strong></p>`
-        })
-    });
-
-    if (!response.ok) {
-        throw new Error('Failed to send email');
-    }
-    return await response.json();
-};

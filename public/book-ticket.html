@@ -11,7 +11,7 @@
     </script>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-    <link rel="shortcut icon" type="image/jpg" href="/public/images/favicon.png" />
+    <link rel="shortcut icon" type="image/jpg" href="images/favicon.png" />
     <link rel="stylesheet" href="css/styles.css">
     <link rel="stylesheet" href="css/themes.css">
     <link rel="stylesheet" href="css/book-ticket.css">
@@ -25,11 +25,20 @@
         <h1 class="text-loading-animation">BOOK YOUR TICKET</h1>
 
         <form id="ticketForm" class="form">
-            <div class="form-group"><input type="text" id="name" name="name" placeholder="Name" required></div>
-            <div class="form-group"><input type="email" id="email" name="email" placeholder="Email Address" required>
+            <div class="form-group">
+                <input type="text" id="name" name="name" placeholder="Name" required oninput="toggleClearButton(this)">
+                <button type="button" class="clear-button" onclick="clearInput('name')">&times;</button>
             </div>
-            <div class="form-group"><input type="tel" id="phone" name="phone" placeholder="Phone Number"
-                    pattern="[0-9]{10}" required></div>
+
+            <div class="form-group">
+                <input type="email" id="email" name="email" placeholder="Email Address" required oninput="toggleClearButton(this)">
+                <button type="button" class="clear-button" onclick="clearInput('email')">&times;</button>
+            </div>
+
+            <div class="form-group">
+                <input type="tel" id="phone" name="phone" placeholder="Phone Number"pattern="[0-9]{10}" required oninput="toggleClearButton(this)">
+                <button type="button" class="clear-button" onclick="clearInput('phone')">&times;</button>
+            </div>
 
             <div class="form-group text-loading-animation">
                 <p>Select Event Date:</p>
@@ -67,9 +76,19 @@
 
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
     <script type="module" src="js/book-ticket.js"></script>
-    <script type="module" src="/functions/index.js"></script>
     <script src="js/navbar.js"></script>
+    <script>
+        function clearInput(inputId) {
+            const input = document.getElementById(inputId);
+            input.value = '';
+            toggleClearButton(input);
+        }
 
+        function toggleClearButton(inputElement) {
+            const clearButton = inputElement.nextElementSibling;
+            clearButton.style.display = inputElement.value ? 'inline' : 'none';
+        }
+    </script>
 </body>
 
 </html>

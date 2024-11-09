@@ -66,6 +66,27 @@ body {
     animation: animate-gradient 1s ease-in forwards;
 }
 
+.blinker {
+    position: absolute;
+    top: 10%;
+    left: 10%;
+    transform: translate(-50%, -50%);
+    font-size: 1.4rem;
+    animation: blinker 0.3s steps(1) infinite;
+    color: var(--color-fg);
+    font-family: Arial, sans-serif;
+}
+
+#main-content {
+    display: none; 
+}
+
+@keyframes blinker {
+    0% { opacity: 0; }
+    50% { opacity: 1; }
+    100% { opacity: 0; }
+}
+
 @keyframes fade-up {
     0% {
         opacity: 0;

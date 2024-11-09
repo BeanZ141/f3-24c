@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Preloader</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0 user-scalable=no">
+    <style>
+        body {
+            background-color: #000;
+            color: #fff;
+        }
+
+        .blinker {
+            position: absolute;
+            top: 10%;
+            left: 10%;
+            transform: translate(-50%, -50%);
+            font-size: 1.4rem;
+            animation: blinker 0.3s steps(1) infinite;
+            font-family: Arial, sans-serif;
+        }
+
+        @keyframes blinker {
+            0% { opacity: 0; }
+            50% { opacity: 1; }
+            100% { opacity: 0; }
+        }
+    </style>
+</head>
+<body>
+    <div class="blinker">▓</div>
+</body>
+</html>
