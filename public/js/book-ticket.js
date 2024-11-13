@@ -2,59 +2,68 @@ const supabaseUrl = 'https://xiwdkytqnabqawssehrg.supabase.co';
 const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inhpd2RreXRxbmFicWF3c3NlaHJnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MjY5NDE0NTEsImV4cCI6MjA0MjUxNzQ1MX0.4r_O1Za9Q41zpHxdx0JuloECBa-bw7e4m93v241rpgw';
 const supabase = window.supabase.createClient(supabaseUrl, supabaseKey);
 
-document.addEventListener('DOMContentLoaded', function() {
-    document.getElementById('ticketForm').addEventListener('submit', async function(event) {
-        event.preventDefault();
+async function proceedToPayment() {
+    const name = document.getElementById('name').value;
+    const email = document.getElementById('email').value;
+    const phone = document.getElementById('phone').value;
+    const dateOfAttendance = document.querySelector('input[name="dateOfAttendance"]:checked');
 
-        const name = document.getElementById('name').value;
-        const email = document.getElementById('email').value;
-        const phone = document.getElementById('phone').value;
-        const dateOfAttendance = document.querySelector('input[name="dateOfAttendance"]:checked').value;
+    if (!name || !email || !phone || !dateOfAttendance) {
+        showAlert('Please fill out all required fields.', 'error');
+        console.log('Empty form field(s)');
+        return;
+    }
 
-        try {
-            // Check if a user with the same email or phone number already exists in 'Registrations'
-            const { data: existingUser, error: checkError } = await supabase
-            .from('Registrations')
-            .select('*')
-            .or(`email.eq.${email},phone.eq.${phone}`);
-
-            if (checkError) throw checkError;
-
-            if (Array.isArray(existingUser) && existingUser.length > 0) {
-                showAlert('This user is already registered.', 'error');
-                return;
-            }
-
-            // Select the first available ticket ID where 'registered' is false (Unregistered ticket)
-            const { data: ticketData, error: ticketError } = await supabase
-                .from('ticket_ids')
-                .select('tickets')
-                .eq('registered', false)
-                .limit(1);
-
-            if (ticketError || ticketData.length === 0) { throw new Error('No available tickets'); }
-
-            const ticketId = ticketData[0].tickets;
-
-            // Insert a new registration record with the user's information and ticket ID
-            const { data, error } = await supabase
-                .from('Registrations')
-                .insert([{ name, email, phone, dateOfAttendance, registeredTicketId: ticketId }]);
-
-            if (error) throw error;
-
-            // Update the 'registered' status of the ticket to TRUE in the 'ticket_ids' table
-            await supabase
-                .from('ticket_ids')
-                .update({ registered: true })
-                .eq('tickets', ticketId);
-
-            console.log('Data inserted and email sent successfully:');
-            showAlert('Your data has been saved! A confirmation email has been sent.', 'success');
-
-        } catch (error) {
-            console.error('Error:', error.message);
-            showAlert('An error occurred while saving your data. Please try again.', 'error');
+    try {
+        const response = await fetch('https://f3-24c-a9e76.web.app.cloudfunctions.net/app/create-order', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                paymentAmount: 10, // replace with the actual amount
+                userInfo: { name, email, phone, dateOfAttendance: dateOfAttendance.value }
+            })
+        });
+        
+        const result = response.ok ? await response.json() : await response.text();
+        if (response.ok) {
+            window.location.href = result.paymentUrl;
+        } else {
+            console.error('Error:', result);
+            showAlert(result || 'Payment initiation failed', 'error');
         }
+    } catch (error) {
+        console.error('Error initiating payment:', error);
+        showAlert('An error occurred. Please try again.', 'error');
+    }
+}
+
+function clearInput(inputId) {
+    const input = document.getElementById(inputId);
+    input.value = '';
+    toggleClearButton(input);
+}
+
+function toggleClearButton(inputElement) {
+    const clearButton = inputElement.nextElementSibling;
+    clearButton.style.display = inputElement.value ? 'inline' : 'none';
+}
+
+// Custom alert messages
+function showAlert(message, type = 'info') {
+    const alertBox = document.getElementById('customAlert');
+    const alertMessage = document.getElementById('alertMessage');
+    alertMessage.innerText = message;
+    alertBox.className = `alert show ${type}`;
+    setTimeout(closeAlert, 5000);
+}
+
+function closeAlert() {
+    document.getElementById('customAlert').classList.remove('show');
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+    document.getElementById('paymentButton').addEventListener('click', function(event) {
+        event.preventDefault();
+        proceedToPayment();
     });
 });

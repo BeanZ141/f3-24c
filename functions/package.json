@@ -1,5 +1,6 @@
 {
   "name": "functions",
+  "type": "commonjs",
   "description": "Cloud Functions for Firebase",
   "scripts": {
     "serve": "firebase emulators:start --only functions",
@@ -13,12 +14,20 @@
   },
   "main": "index.js",
   "dependencies": {
+    "body-parser": "^1.20.3",
+    "cors": "^2.8.5",
     "dotenv": "^16.4.5",
-    "firebase-admin": "^12.6.0",
-    "firebase-functions": "^6.0.1"
+    "express": "^4.21.1",
+    "firebase-admin": "^12.7.0",
+    "firebase-functions": "^6.1.0",
+    "razorpay": "^2.9.5"
   },
   "devDependencies": {
     "firebase-functions-test": "^3.1.0"
   },
-  "private": true
+  "private": true,
+  "version": "1.0.0",
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
 }
