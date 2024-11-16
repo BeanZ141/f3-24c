@@ -58,18 +58,23 @@ async function validateTicket(ticketId) {
 
     if (error) {
         resultElement.innerHTML = `<span class="validation-result" style="color: black; background-color: #ff8800;">TICKET ID DOES NOT EXIST</span>`;
+        console.log('Ticket ID does not exist.');
         return;
     }
 
     if (data) {
         if (!data.used) {
             resultElement.innerHTML = `<span class="validation-result" style="color: black; background-color: #00ff00;">VALID TICKET ID</span>`;
+            console.log('Valid ticket ID.');
             resultContainer.innerHTML = `<div>TICKET ID: ${ticketId}</div>`;
+            console.log('TICKET ID:', ticketId);
         } else {
             resultElement.innerHTML = `<span class="validation-result" style="color: black; background-color: red;">TICKET ID ALREADY IN USE</span>`;
+            console.log('Ticket ID already in use.');
         }
     } else {
         resultElement.innerHTML = `<span class="validation-result" style="color: black; background-color: #ff8800;">TICKET ID DOES NOT EXIST</span>`;
+        console.log('Ticket ID does not exist.');
     }
 }
 
@@ -91,14 +96,17 @@ async function validateAndCheckInTicket(manual = false) {
 
     if (error) {
         resultElement.innerHTML = `<span class="validation-result" style="color: black; background-color: #fcba03;">TICKET ID DOES NOT EXIST</span>`;
+        console.log('Ticket ID does not exist.');
         return;
     }
 
     if (data && !data.used) {
         await markTicketAsUsed(scannedTicketId);
-        await logAttendance(scannedTicketId, 'scan');
+        await logAttendance(scannedTicketId);
         resultContainer.innerHTML = `<div style="background-color: #00ff00;">TICKET ID: ${scannedTicketId}</div>`;
+        console.log('TICKET ID:', scannedTicketId);
         resultElement.innerHTML = `<span class="validation-result" style="color: black; background-color: #00ff00;">CHECKED IN</span>`;
+        console.log('Checked In.');
 
         const originalColor = qrReaderCheckIn.style.backgroundColor;
         qrReaderCheckIn.style.backgroundColor = "#00ff00";
@@ -113,8 +121,10 @@ async function validateAndCheckInTicket(manual = false) {
 
     } else if (data && data.used) {
         resultElement.innerHTML = `<span class="validation-result" style="color: black; background-color: red;">TICKET ID ALREADY IN USE</span>`;
+        console.log('Ticket ID already in use.');
     } else {
         resultElement.innerHTML = `<span class="validation-result" style="color: black; background-color: #fcba03;">TICKET ID DOES NOT EXIST</span>`;
+        console.log('Ticket ID does not exist.');
     }
 }
 
@@ -144,21 +154,20 @@ async function manualCheckIn() {
     scannedTicketId = ticketId;
     await validateAndCheckInTicket(true);
 
-    await logAttendance(ticketId, 'manual');
+    await logAttendance(ticketId);
 
     ticketIdInput.value = "";
 }
 
-
 // Attendence logging
 async function logAttendance(ticketId) {
-    const { error } = await supabase
+    const { data, error } = await supabase
         .from('attendance_log')
-        .insert([
-            { ticket_id: ticketId, }
-        ]);
+        .insert([{ ticket_id: ticketId }]);
 
     if (error) {
         console.error("Error logging attendance:", error.message);
+    } else {
+        console.log("Attendance logged successfully:", data);
     }
 }

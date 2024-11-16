@@ -7,7 +7,7 @@ function showAlert(message, type = 'info') {
     const alertMessage = document.getElementById('alertMessage');
     alertMessage.innerText = message;
     alertBox.className = `alert show ${type}`;
-    setTimeout(closeAlert, 5000);
+    setTimeout(closeAlert, 6000);
 }
 
 function closeAlert() {
@@ -19,8 +19,7 @@ async function registerUser(ticketId) {
 
     if (!userInfo) {
         showAlert('User information not found. Please try again.', 'error');
-        console.log('No use information found.');
-        window.location.href = '/book-ticket.html';
+        console.log('User information not found.');
         return;
     }
 
@@ -33,10 +32,10 @@ async function registerUser(ticketId) {
 
         if (error) throw error;
         showAlert('Payment successful! Your ticket has been booked.', 'success');
-        console.log('Ticket booked.');
+        console.log('Ticket booked.', data);
 
     } catch (error) {
-        console.error('Error registering user:', error);
+        console.error('Error registering user: ', error);
         showAlert('An error occurred. Please try again later.', 'error');
     }
 }

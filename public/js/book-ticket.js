@@ -6,34 +6,42 @@ async function proceedToPayment() {
     const name = document.getElementById('name').value;
     const email = document.getElementById('email').value;
     const phone = document.getElementById('phone').value;
-    const dateOfAttendance = document.querySelector('input[name="dateOfAttendance"]:checked');
+    const dateOfAttendance = document.querySelector('input[name="dateOfAttendance"]:checked').value;
+    const termsCheckbox = document.querySelector('input[type="checkbox"]');
+    const termsLabel = document.querySelector('.container1');
+    const termsLabelA = document.querySelector('.container1 a');
+    const termsCheckmark = document.querySelector('.checkmark');
 
     if (!name || !email || !phone || !dateOfAttendance) {
-        showAlert('Please fill out all required fields.', 'error');
-        console.log('Empty form field(s)');
+        alert('Please fill out all fields.');
+        return;
+    }
+
+    if (!termsCheckbox.checked) {
+        termsLabel.style.color = 'red';
+        termsLabelA.style.color = 'red';
+        termsCheckmark.style.borderColor = 'red';
+        console.log("Please accept the terms and conditions");
+        termsCheckbox.addEventListener('change', function handleCheckboxChange() {
+            if (termsCheckbox.checked) {
+                termsLabel.style.color = '';
+                termsLabelA.style.color = '';
+                termsCheckmark.style.border = '1px solid var(--border)';
+            }
+            termsCheckbox.removeEventListener('change', handleCheckboxChange);
+        });
         return;
     }
 
     try {
-        const response = await fetch('https://f3-24c-a9e76.web.app.cloudfunctions.net/app/create-order', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-                paymentAmount: 10, // replace with the actual amount
-                userInfo: { name, email, phone, dateOfAttendance: dateOfAttendance.value }
-            })
-        });
+        localStorage.setItem('userInfo', JSON.stringify({ name, email, phone, dateOfAttendance }));
         
-        const result = response.ok ? await response.json() : await response.text();
-        if (response.ok) {
-            window.location.href = result.paymentUrl;
-        } else {
-            console.error('Error:', result);
-            showAlert(result || 'Payment initiation failed', 'error');
-        }
+        const paymentUrl = "https://rzp.io/rzp/9c8NKAQ";
+        window.location.href = paymentUrl;
+
     } catch (error) {
-        console.error('Error initiating payment:', error);
-        showAlert('An error occurred. Please try again.', 'error');
+        console.log('Error saving user info:', error.message);
+        alert('An error occurred. Please try again.');
     }
 }
 

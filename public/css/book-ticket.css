@@ -27,7 +27,7 @@ body {
 
 h1 {
     text-align: center;
-    margin-bottom: 4rem;
+    margin-bottom: 2rem;
     font-size: 1.6rem;
     font-family: 'Varela', sans-serif;
     color: var(--color-fg);
@@ -190,6 +190,72 @@ input[type="radio"]:checked + label {
 
 .alert.success { background-color: var(--color-fg); color: var(--color-bg); }
 .alert.error { background-color: #ff0000; color: #222; }
+
+.container1 {
+    margin-left: 15px;
+    display: block;
+    position: relative;
+    padding-left: 25px;
+    margin-bottom: 30px;
+    cursor: pointer;
+    font-size: 14px;
+    color: var(--tnc-color);
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.container a {
+    font-size: 14px;
+    text-underline-position: under;
+    color: var(--tnc-color);
+}
+
+.container1 input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+}
+
+.checkmark {
+    position: absolute;
+    top: 0;
+    left: 0;
+    border-radius: 4px;
+    height: 15px;
+    width: 15px;
+    background-color: var(--color-bg);
+    border: 1px solid var(--border);
+}
+
+.container1 input:checked ~ .checkmark {
+    background-color: var(--button-bg);
+}
+
+.checkmark:after {
+    content: "";
+    position: absolute;
+    display: none;
+}
+
+.container1 input:checked ~ .checkmark:after {
+    display: block;
+}
+
+.container1 .checkmark:after {
+    content: "";
+    position: absolute;
+    left: 5px;
+    top: 2.5px;
+    width: 3px;
+    height: 6px;
+    border: solid var(--button-fg);
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+}
 
 @keyframes fade-in {
     0% {opacity: 0;}

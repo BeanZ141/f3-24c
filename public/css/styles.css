@@ -59,11 +59,11 @@ body {
 }
 
 .text-loading-animation {
-    background: linear-gradient(45deg, transparent 1%, var(--color-fg) 10%, transparent 30%);
+    background: linear-gradient(90deg, transparent 10%, var(--color-fg) 40%, transparent 100%);
     background-size: 200%;
     background-clip: text;
     -webkit-background-clip: text;
-    animation: animate-gradient 1s ease-in forwards;
+    animation: animate-gradient 1s ease-in-out forwards;
 }
 
 .blinker {
@@ -79,6 +79,24 @@ body {
 
 #main-content {
     display: none; 
+}
+
+.tnc-link {
+    color: var(--tnc-color);
+    font-family: 'Inter', sans-serif;
+    font-size: 0.8rem;
+    text-decoration: none;
+    position: fixed;
+    letter-spacing: 2px;
+    bottom: 4.3%;
+    left: 4%;
+}
+
+.tnc-link:hover {
+    text-decoration: underline;
+    text-underline-position: under;
+    text-underline-offset: 2px;
+    color: var(--color-fg);
 }
 
 @keyframes blinker {
@@ -115,8 +133,7 @@ body {
         color: transparent;
     }
     100% {
-        background-position: 0% 0;
-        color: var(--color-fg);
+        background-position: -200% 0;
     }
 }
 
