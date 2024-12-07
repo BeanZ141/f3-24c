@@ -33,6 +33,20 @@ async function proceedToPayment() {
         return;
     }
 
+    // Email validation
+    const emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
+    if (!emailPattern.test(email)) {
+        showAlert('Please enter a valid email address.');
+        return;
+    }
+
+    // Phone number validation
+    const phonePattern = /^[0-9]{10}$/;
+    if (!phonePattern.test(phone)) {
+        showAlert('Please enter a valid phone number (10 digits).');
+        return;
+    }
+
     try {
         localStorage.setItem('userInfo', JSON.stringify({ name, email, phone, dateOfAttendance }));
         

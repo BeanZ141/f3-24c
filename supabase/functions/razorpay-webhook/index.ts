@@ -1,32 +1,80 @@
-// Follow this setup guide to integrate the Deno language server with your editor:
-// https://deno.land/manual/getting_started/setup_your_environment
-// This enables autocomplete, go to definition, etc.
+const { createClient } = require('@supabase/supabase-js');
+const crypto = require('crypto');
 
-// Setup type definitions for built-in Supabase Runtime APIs
-import "jsr:@supabase/functions-js/edge-runtime.d.ts"
+const razorpaySecret = process.env.RAZORPAY_SECRET;
+const supabaseUrl = "https://xiwdkytqnabqawssehrg.supabase.co";
+const supabaseKey = process.env.SUPABASE_KEY;
+const supabase = createClient(supabaseUrl, supabaseKey);
 
-console.log("Hello from Functions!")
+async function handleRazorpayWebhook(req, res) {
+    const receivedSignature = req.headers['x-razorpay-signature'];
+    const body = JSON.stringify(req.body);
 
-Deno.serve(async (req) => {
-  const { name } = await req.json()
-  const data = {
-    message: `Hello ${name}!`,
-  }
+    const expectedSignature = crypto
+        .createHmac('sha256', process.env.RAZORPAY_SECRET)
+        .update(body)
+        .digest('hex');
 
-  return new Response(
-    JSON.stringify(data),
-    { headers: { "Content-Type": "application/json" } },
-  )
-})
+    if (receivedSignature !== expectedSignature) {
+        console.error('Invalid webhook signature');
+        return res.status(400).send('Invalid signature');
+    }
 
-/* To invoke locally:
+    const { event, payload } = req.body;
 
-  1. Run `supabase start` (see: https://supabase.com/docs/reference/cli/supabase-start)
-  2. Make an HTTP request:
+    if (event === 'payment.captured') {
+        const { order_id, payment } = payload;
+        const { email, name, phone } = payment.entity;
 
-  curl -i --location --request POST 'http://127.0.0.1:54321/functions/v1/razorpay-webhook' \
-    --header 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZS1kZW1vIiwicm9sZSI6ImFub24iLCJleHAiOjE5ODM4MTI5OTZ9.CRXP1A7WOeoJeXxjNni43kdQwgnWNReilDMblYTn_I0' \
-    --header 'Content-Type: application/json' \
-    --data '{"name":"Functions"}'
+        try {
+            const { data: userData, error: userError } = await supabase
+                .from('Registrations')
+                .insert([
+                    {
+                        name: name || "Anonymous",
+                        email: email || "N/A",
+                        phone: phone || "N/A",
+                        dateOfAttendance: new Date().toISOString(),
+                        status: 'confirmed'
+                    }
+                ]);
 
-*/
+            if (userError) {
+                throw userError;
+            }
+
+            const { data: ticketData, error: ticketError } = await supabase
+                .from('ticket_ids')
+                .select('tickets')
+                .eq('registered', false)
+                .eq('used', false)
+                .limit(1);
+
+            if (ticketError || ticketData.length === 0) {
+                throw new Error('No available tickets');
+            }
+
+            const ticketId = ticketData[0].tickets;
+
+            await supabase
+                .from('ticket_ids')
+                .update({ registered: true })
+                .eq('tickets', ticketId);
+
+            await supabase
+                .from('Registrations')
+                .update({ registeredTicketId: ticketId })
+                .eq('email', email); // Assuming email is unique
+
+            console.log('User successfully registered and ticket assigned.');
+            return res.status(200).send('Webhook received and processed');
+        } catch (error) {
+            console.error('Error processing webhook:', error);
+            return res.status(500).send('Database error');
+        }
+    } else {
+        return res.status(400).send('Unhandled event type');
+    }
+}
+
+module.exports = { handleRazorpayWebhook };

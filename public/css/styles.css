@@ -90,13 +90,13 @@ body {
     letter-spacing: 2px;
     bottom: 4.3%;
     left: 4%;
+    padding: 3px;
 }
 
 .tnc-link:hover {
-    text-decoration: underline;
-    text-underline-position: under;
-    text-underline-offset: 2px;
-    color: var(--color-fg);
+    transition: 0.3s;
+    background-color: var(--color-fg);
+    color: var(--color-bg);
 }
 
 @keyframes blinker {
