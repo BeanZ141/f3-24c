@@ -19,7 +19,7 @@ This project provides a secure and streamlined way to register and verify event 
 - SendGrid API Key (for email functionality)
 
 ## Dependencies
-Node.js - JavaScript runtime
-Firebase - Database and Authentication
-Supabase - Real-time database for ticket management
-Twilio SendGrid - Email API for delivering tickets and QR codes
+- Node.js - JavaScript runtime
+- Firebase - Hosting
+- Supabase - Real-time database for ticket management, database and authentication
+- Twilio SendGrid - Email API for delivering tickets and QR codes
