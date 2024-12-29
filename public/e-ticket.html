@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <script>
+        const setTheme = () => {
+            const theme = localStorage.getItem('theme') || 'dark';
+            document.documentElement.classList.toggle('dark-mode', theme === 'dark');
+        };
+        setTheme();
+    </script>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <link rel="shortcut icon" type="image/jpg" href="images/favicon.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Varela&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/payment-status.css">
+    <link rel="stylesheet" href="css/themes.css">
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/e-ticket.css">
+    <title>About the event</title>
+</head>
+
+<body>
+    <h2>PAYMENT SUCCESSFUL</h2>
+
+    <div id="ticket-ui">
+
+    <div class="qr-code" style="height: 200px;">
+        <img class="qr-code-image" src="images/qr-code.png" crossorigin="anonymous" height="200px" width="200px" alt="QR Code Image">
+    </div>
+
+    <div class="ticket-info">
+        <p class="ticket-id">Ticket ID: <b style="user-select: all;">5829185719</b></p>
+        <p class="ticket-event">Event: Indovention 2025</p>
+        <p class="ticket-date">Date: 20/10/2025 | 12:00 PM</p>
+        <p class="registered-name">Name: John Doe</p>
+        <p class="registered-name">Payment Reference: PAY-1234-XYZ</p>
+    </div>
+
+    </div>
+
+    <button id="download-ticket" class="download-ticket">DOWNLOAD E-TICKET</button>
+
+    <a href="book-ticket.html">
+        <button class="book-more">
+            BOOK MORE
+        </button>
+    </a>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
+    <script src="js/payment-status.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script>
+        document.getElementById('download-ticket').addEventListener('click', () => {
+            const ticketElement = document.getElementById('ticket-ui'); // Target the ticket section
+    
+            // Use html2canvas to capture the ticket element
+            html2canvas(ticketElement, { scale: 2 }).then((canvas) => {
+                // Convert canvas to a data URL (image format)
+                const imageData = canvas.toDataURL('image/png');
+    
+                // Create a link element to trigger download
+                const link = document.createElement('a');
+                link.href = imageData;
+                link.download = 'eticket.png'; // Filename with extension
+                link.click(); // Trigger download
+            });
+        });
+    </script>
+    
+    
+
+</body>
+
+</html>
