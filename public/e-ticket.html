@@ -50,28 +50,7 @@
     </a>
 
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
-    <script src="js/payment-status.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
-    <script>
-        document.getElementById('download-ticket').addEventListener('click', () => {
-            const ticketElement = document.getElementById('ticket-ui'); // Target the ticket section
-    
-            // Use html2canvas to capture the ticket element
-            html2canvas(ticketElement, { scale: 2 }).then((canvas) => {
-                // Convert canvas to a data URL (image format)
-                const imageData = canvas.toDataURL('image/png');
-    
-                // Create a link element to trigger download
-                const link = document.createElement('a');
-                link.href = imageData;
-                link.download = 'eticket.png'; // Filename with extension
-                link.click(); // Trigger download
-            });
-        });
-    </script>
-    
-    
-
+    <script src="js/e-ticket.js"></script>
 </body>
 
 </html>

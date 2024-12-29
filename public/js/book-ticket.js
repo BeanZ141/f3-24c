@@ -54,7 +54,7 @@ async function proceedToPayment() {
         window.location.href = paymentUrl;
 
     } catch (error) {
-        console.log('Error saving user info:', error.message);
+        console.log('Error submitting user info:', error.message);
         alert('An error occurred. Please try again.');
     }
 }
