@@ -20,6 +20,9 @@ body {
     --nav-bg: #000000;
     --nav-fg: #ffffff;
     --tnc-color: #3d3d3d;
+    --radio-color: #cccccc;
+    --switch-btn-color: #fff;
+    --section-hover: #e0e0e0;
 }
 
 .dark-mode {
@@ -38,4 +41,7 @@ body {
     --nav-bg: #ffffff;
     --nav-fg: #000000;
     --tnc-color: #c2c2c2;
+    --radio-color: #0f0f0f;
+    --switch-btn-color: #080808;
+    --section-hover: #0c0c0c;
 }

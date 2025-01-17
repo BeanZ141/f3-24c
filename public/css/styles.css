@@ -11,7 +11,7 @@ body {
     user-select: none;
     text-align: center;
     position: relative;
-    top: 90px;
+    top: 100px;
     font-size: 0.9em;
     letter-spacing: 1px;
     font-family: 'Inter', sans-serif;
@@ -53,6 +53,33 @@ body {
 }
 
 .book-ticket:active {
+    background-color: var(--button-bg);
+    color: var(--button-fg);
+    transition: 0ms ease-out;
+}
+
+.category {
+    margin-top: 8px;
+    background-color: var(--button-bg);
+    color: var(--button-fg);
+    font-family: 'Varela', sans-serif;
+    font-size: 1.1em;
+    border: 1px solid var(--border);
+    width: 120px;
+    padding: 0.7rem 1.2rem;
+    transition: 200ms ease-out;
+    letter-spacing: 2px;
+    animation: fade-up 0.7s;
+}
+
+.category:hover {
+    background-color: var(--button-bg-hover);
+    color: var(--button-fg-hover);
+    border: 1px solid var(--button-border-hover);
+    cursor: pointer;
+}
+
+.category:active {
     background-color: var(--button-bg);
     color: var(--button-fg);
     transition: 0ms ease-out;
