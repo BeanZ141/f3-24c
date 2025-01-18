@@ -126,6 +126,24 @@ body {
     color: var(--color-bg);
 }
 
+.ab-us-link {
+    color: var(--tnc-color);
+    font-family: 'Inter', sans-serif;
+    font-size: 0.8rem;
+    text-decoration: none;
+    position: fixed;
+    letter-spacing: 2px;
+    bottom: 4.3%;
+    left: 20%;
+    padding: 3px;
+}
+
+.ab-us-link:hover {
+    transition: 0.3s;
+    background-color: var(--color-fg);
+    color: var(--color-bg);
+}
+
 @keyframes blinker {
     0% { opacity: 0; }
     50% { opacity: 1; }

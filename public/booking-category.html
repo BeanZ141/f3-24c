@@ -39,34 +39,62 @@
         <div class="city-switch">
             <!--From-->
             <div class="input-group">
-                <div class="custom-select" id="from">
+                <div id="from" class="custom-select">
+                    <div class="from">From</div>
                     <div class="select-selected" data-value="Mumbai">Mumbai</div>
                     <div class="select-options">
-                        <div data-value="Mumbai">Mumbai</div>
-                        <div data-value="Chennai">Chennai</div>
-                        <div data-value="Goa">Goa</div>
-                        <div data-value="Hyderabad">Hyderabad</div>
-                        <div data-value="Bengaluru">Bengaluru</div>
-                    </div>
+                        <div data-city="Mumbai" data-airport="Chhatrapati Shivaji International Airport" data-code="BOM">
+                            <span class="city">Mumbai, India</span>
+                            <span class="airport">Chhatrapati Shivaji International Airport</span>
+                            <span class="code">BOM</span>
+                        </div>
+                        <div data-city="Chennai" data-airport="Chennai International Airport" data-code="MAA">
+                            <span class="city">Chennai, India</span>
+                            <span class="airport">Chennai International Airport</span>
+                            <span class="code">MAA</span>
+                        </div>
+                        <div data-city="Hyderabad" data-airport="Chennai International Airport" data-code="MAA">
+                            <span class="city">Hyderabad, India</span>
+                            <span class="airport">Rajiv Gandhi International Airport</span>
+                            <span class="code">HYD</span>
+                        </div>
+                        <div data-city="Goa - Dabolim Airport" data-airport="Goa Dabolim International Airport" data-code="MAA">
+                            <span class="city">Goa - Dabolim Airport, India</span>
+                            <span class="airport">Rajiv Gandhi International Airport</span>
+                            <span class="code">GOI</span>
+                        </div>
                 </div>                
             </div>
             <!--Switch cities-->
             <button id="switch-btn">&#8645;</button>
             <!--To-->
             <div class="input-group">
-                <div class="input-group">
-                    <div class="custom-select" id="to">
-                        <div class="select-selected" data-value="Mumbai">Mumbai</div>
-                        <div class="select-options">
-                            <div data-value="Mumbai">Mumbai</div>
-                            <div data-value="Chennai">Chennai</div>
-                            <div data-value="Goa">Goa</div>
-                            <div data-value="Hyderabad">Hyderabad</div>
-                            <div data-value="Bengaluru">Bengaluru</div>
+                <div id="to" class="custom-select">
+                    <div class="to">To</div>
+                    <div class="select-selected" style="padding-left: 35px;" data-value="Mumbai">Mumbai</div>
+                    <div class="select-options">
+                        <div data-city="Mumbai" data-airport="Chhatrapati Shivaji International Airport" data-code="BOM">
+                            <span class="city">Mumbai, India</span>
+                            <span class="airport">Chhatrapati Shivaji International Airport</span>
+                            <span class="code">BOM</span>
                         </div>
-                    </div>                
+                        <div data-city="Chennai" data-airport="Chennai International Airport" data-code="MAA">
+                            <span class="city">Chennai, India</span>
+                            <span class="airport">Chennai International Airport</span>
+                            <span class="code">MAA</span>
+                        </div>
+                        <div data-city="Hyderabad" data-airport="Chennai International Airport" data-code="MAA">
+                            <span class="city">Hyderabad, India</span>
+                            <span class="airport">Rajiv Gandhi International Airport</span>
+                            <span class="code">HYD</span>
+                        </div>
+                        <div data-city="Goa - Dabolim Airport" data-airport="Goa Dabolim International Airport" data-code="MAA">
+                            <span class="city">Goa - Dabolim Airport, India</span>
+                            <span class="airport">Rajiv Gandhi International Airport</span>
+                            <span class="code">GOI</span>
+                        </div>
                 </div>
-            </div>
+            </div> 
             <!--Departure-->
             <div class="input-group">
                 <input id="departure" type="date">
@@ -95,18 +123,24 @@
 </body>
 <script src="js/navbar.js"></script>
 <script>
-    const switchBtn = document.getElementById('switch-btn');
-const fromInput = document.getElementById('from');
-const toInput = document.getElementById('to');
+// Event listener for the switch button
+document.getElementById('switch-btn').addEventListener('click', () => {
+    const fromSelected = document.querySelector('#from .select-selected');
+    const toSelected = document.querySelector('#to .select-selected');
 
-switchBtn.addEventListener('click', () => {
-    const temp = fromInput.value;
-    fromInput.value = toInput.value;
-    toInput.value = temp;
+    // Swap the innerHTML between from and to
+    const tempHTML = fromSelected.innerHTML;
+    const tempValue = fromSelected.dataset.value;
+
+    fromSelected.innerHTML = toSelected.innerHTML;
+    fromSelected.dataset.value = toSelected.dataset.value;
+
+    toSelected.innerHTML = tempHTML;
+    toSelected.dataset.value = tempValue;
 });
-</script>
-<script>
-    document.querySelectorAll('.custom-select').forEach(select => {
+
+// Event listeners for custom select functionality
+document.querySelectorAll('.custom-select').forEach(select => {
     const selected = select.querySelector('.select-selected');
     const options = select.querySelector('.select-options');
 
@@ -117,8 +151,11 @@ switchBtn.addEventListener('click', () => {
 
     options.querySelectorAll('div').forEach(option => {
         option.addEventListener('click', () => {
-            selected.textContent = option.textContent;
-            selected.dataset.value = option.dataset.value;
+            selected.dataset.value = option.dataset.city;
+            selected.innerHTML = `
+                <div class="city">${option.dataset.city}</div>
+                <div class="airport">${option.dataset.airport}</div>
+            `;
             options.classList.remove('open');
             selected.classList.remove('open');
         });
@@ -131,6 +168,5 @@ switchBtn.addEventListener('click', () => {
         }
     });
 });
-
 </script>
 </html>
