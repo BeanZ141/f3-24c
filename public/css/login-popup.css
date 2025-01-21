@@ -1,0 +1,257 @@
+.login-modal {
+    display: none;
+    box-sizing: border-box;
+    transition: 0.3s, background-color 0.3s, color 0.3s;
+    background-color: var(--radio-color);
+    padding: 3rem;
+    width: 100%;
+    max-width: 400px;
+    position: absolute;
+    transform: translateX(-50%);
+    left: 50%;
+}
+
+.login-modal h1 {
+    text-align: center;
+    margin-bottom: 2rem;
+    font-size: 1.6rem;
+    font-family: 'Varela', sans-serif;
+    color: var(--color-fg);
+    letter-spacing: 2px;
+    font-weight: lighter;
+}
+
+.form-group {
+    margin-bottom: 2rem;
+}
+
+.form-group > p {
+    transition: 0.3s;
+}
+
+p {
+    background: linear-gradient(45deg, transparent 1%, var(--color-fg) 10%, transparent 30%);
+    background-size: 200%;
+    background-clip: text;
+    -webkit-background-clip: text;
+    color: var(--color-fg);
+    animation: animate-gradient 1s ease-in forwards;
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:focus {
+    transition: background-color 0s 5000s, color 0s 5000s !important;
+}
+
+input, select {
+    width: 100%;
+    padding: 0.5rem 0.1rem;
+    border: none;
+    background-color: var(--radio-color);
+    font-size: 1rem;
+    color: var(--color-fg);
+    border-bottom: 1px solid #757575;
+    font-family: 'Varela', sans-serif;
+}
+
+input:hover {
+    color: var(--color-fg);
+    border-bottom: 1px solid var(--border);
+}
+
+input:hover::placeholder {
+    color: var(--color-fg);
+}
+
+input:focus, select:focus {
+    outline: none;
+    color: var(--color-fg);
+    border-bottom: 1px solid var(--border);
+}
+
+input[type="radio"] {
+    display: none;
+}
+
+input[type="radio"] + label {
+    padding: 0.55rem 1.1rem;
+    background-color: var(--color-bg);
+    cursor: pointer;
+    border-bottom: 1px solid transparent;
+    font-size: 1rem;
+    font-weight: 500;
+    color: var(--color-fg);
+    transition: 0.3s;
+}
+
+input[type="radio"] + label:hover {
+    border-bottom: 1px solid var(--border);
+}
+
+input[type="radio"]:checked + label {
+    background-color: var(--border); 
+    color: var(--color-bg);
+}
+
+.btn-primary {
+    width: 100%;
+    padding: 0.75rem;
+    background-color: var(--button-bg);
+    border: 1px solid var(--border);
+    color: var(--button-fg);
+    font-size: 1rem;
+    font-family: 'Varela', sans-serif;
+    cursor: pointer;
+    transition: 0.3s;
+    letter-spacing: 2px;
+}
+
+.btn-primary:hover {
+    background-color: var(--button-bg-hover);
+    color: var(--button-fg-hover);
+    border: 1px solid var(--button-border-hover);
+}
+
+.btn-primary:active {
+    background-color: var(--button-bg);
+    color: var(--button-fg);
+    transition: 100ms;
+}
+
+.clear-button {
+    display: none;
+    position: absolute;
+    margin-top: 10px;
+    margin-left: -20px;
+    padding: 0px 5px 0px 5px;
+    border: none;
+    cursor: pointer;
+    font-size: 1em;
+    background-color: transparent;
+    color: #757575;
+}
+
+.clear-button:hover {
+    color: var(--color-fg);
+}
+
+.alert {
+    position: fixed;
+    top: 2%;
+    right: 3%;
+    padding: 15px 30px;
+    background-color: var(--color-fg);
+    color: var(--color-bg);
+    opacity: 0;
+    width: 200px;
+    visibility: hidden;
+    transition: opacity 0.3s, visibility 0.3s;
+    z-index: 1000;
+}
+
+.alert.show {
+    opacity: 1;
+    visibility: visible;
+}
+
+.alert.success { background-color: var(--color-fg); color: var(--color-bg); }
+.alert.error { background-color: #ff0000; color: #222; }
+
+.container1 {
+    display: block;
+    position: relative;
+    padding-left: 25px;
+    margin-bottom: 30px;
+    cursor: pointer;
+    font-size: 14px;
+    color: var(--tnc-color);
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.login-modal a {
+    font-size: 14px;
+    text-underline-position: under;
+    color: var(--tnc-color);
+}
+
+.container1 input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+}
+
+.checkmark {
+    position: absolute;
+    top: 0;
+    left: 0;
+    border-radius: 4px;
+    height: 15px;
+    width: 15px;
+    background-color: var(--color-bg);
+    border: 1px solid var(--border);
+}
+
+.container1 input:checked ~ .checkmark {
+    background-color: var(--button-bg);
+}
+
+.checkmark:after {
+    content: "";
+    position: absolute;
+    display: none;
+}
+
+.container1 input:checked ~ .checkmark:after {
+    display: block;
+}
+
+.container1 .checkmark:after {
+    content: "";
+    position: absolute;
+    left: 5px;
+    top: 2.5px;
+    width: 3px;
+    height: 6px;
+    border: solid var(--button-fg);
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+}
+
+.login-popup {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: var(--button-bg);
+    color: var(--button-fg);
+    font-family: 'Varela', sans-serif;
+    font-size: 1.1em;
+    border: 1px solid var(--border);
+    padding: 0.7rem 1.2rem;
+    transition: 200ms ease-out;
+    letter-spacing: 2px;
+    animation: fade-in 1.7s;
+}
+
+.login-popup:hover {
+    background-color: var(--button-bg-hover);
+    color: var(--button-fg-hover);
+    border: 1px solid var(--button-border-hover);
+    cursor: pointer;
+}
+
+.login-popup:active {
+    background-color: var(--button-bg);
+    color: var(--button-fg);
+    transition: 0ms ease-out;
+}
+
+@keyframes fade-in {
+    0% {opacity: 0;}
+    100% {opacity: 1;}
+}

@@ -29,10 +29,9 @@ nav a {
 }
 
 nav a:hover {
+    background-color: var(--color-fg);
     font-weight: bold;
-    text-decoration: underline;
-    text-underline-offset: 10px;
-    text-decoration-thickness: 2px;
+    color: var(--color-bg);
 }
 
 .current {

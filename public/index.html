@@ -17,6 +17,7 @@
   <link rel="stylesheet" href="css/navbar.css">
   <link rel="stylesheet" href="css/styles.css">
   <link rel="stylesheet" href="css/themes.css">
+  <link rel="stylesheet" href="css/login-popup.css">
   <title>Project f3-24c</title>
 </head>
 
@@ -29,13 +30,44 @@
 
     <div class="welcome-section">
       <h1 class="welcome-text">WELCOME TO TICKETEASE</h1>
-      <a href="book-ticket.html">
-        <button class="book-ticket">LOGIN</button>
-      </a>
+
+      <!--Service section-->
+  <div class="service-container">
+    <a class="service-item" href="www.youtube.com">FLIGHTS</a>
+    <a class="service-item" href="www.youtube.com">HOTELS</a>
+    <a class="service-item" href="www.youtube.com">TRAINS</a>
+    <a class="service-item" href="www.youtube.com">EVENTS</a>
+  </div>
     </div>
+    
+    <!--Login Form-->
+    <div id="login-popup" class="login-modal">
+      <form id="ticketForm" class="form">
+          <div class="form-group">
+              <input type="text" id="name" name="name" placeholder="Name" required oninput="toggleClearButton(this)">
+              <button type="button" class="clear-button" onclick="clearInput('name')">&times;</button>
+          </div>
 
-    <img src="images/img1.jpg" height="860px" style="position: fixed; top: 0px !important; z-index: -999; ">
+          <div class="form-group">
+              <input type="email" id="email" name="email" placeholder="Email Address" required oninput="toggleClearButton(this)">
+              <button type="button" class="clear-button" onclick="clearInput('email')">&times;</button>
+          </div>
+          
+          <label class="container1 text-loading-animation">I aggree to the <a class="text-loading-animation" href="terms-and-conditions.html">terms and conditions.</a>
+              <input type="checkbox">
+              <span class="checkmark"></span>
+          </label>
 
+          <div class="form-group">
+              <button id="paymentButton" class="btn-primary">REGISTER</button>
+          </div>
+      </form>
+  </div>
+
+
+  
+  <button id="login-btn" class="login-popup">LOGIN</button>
+    
     <a href="terms-and-conditions.html" class="tnc-link">TERMS AND CONDITIONS</a>
     <a href="about-us.html" class="ab-us-link">ABOUT US</a>
 
@@ -56,6 +88,11 @@
       document.querySelector('.blinker').style.display = 'none';
       document.getElementById('main-content').style.display = 'block';
     };
+
+    document.getElementById('login-btn').addEventListener('click', function() {
+    document.getElementById('login-popup').style.display = 'block'; // Show the login modal
+});
+
   </script>
   <script src="js/navbar.js"></script>
 </body>

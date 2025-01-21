@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script>
+        const setTheme = () => {
+            const theme = localStorage.getItem('theme') || 'light';
+            document.documentElement.classList.toggle('dark-mode', theme === 'dark');
+        };
+        setTheme();
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Varela&display=swap" rel="stylesheet">
+    <title>Flight Booking</title>
+    <link rel="stylesheet" href="/public/category/css/trains.css">
+    <link rel="stylesheet" href="/public/css/styles.css">
+    <link rel="stylesheet" href="/public/css/themes.css">
+    <link rel="stylesheet" href="/public/css/navbar.css">
+</head>
+<body>
+    <section class="flight-booking">
+        <!--Trip type-->
+        <label class="container container1">
+            <input type="radio" name="tripType" checked>
+            <span class="checkmark"></span><span class="radio-text">One Way</span>
+        </label> 
+        <label class="container">
+            <input type="radio" name="tripType">
+            <span class="checkmark"></span><span class="radio-text">Round Trip</span>
+        </label> 
+        <label class="container">
+            <input type="radio" name="tripType">
+            <span class="checkmark"></span><span class="radio-text">Multi City</span>
+        </label>
+
+        <!--Select city-->
+        <div class="city-switch">
+            <!--From-->
+            <div class="input-group">
+                <div id="from" class="custom-select">
+                    <div class="from">From</div>
+                    <div class="select-selected" data-value="Mumbai">Mumbai</div>
+                    <div class="select-options">
+                        <div data-city="Mumbai" data-airport="Chhatrapati Shivaji International Airport" data-code="BOM">
+                            <span class="city">Mumbai, India</span>
+                            <span class="airport">Chhatrapati Shivaji International Airport</span>
+                            <span class="code">BOM</span>
+                        </div>
+                        <div data-city="Chennai" data-airport="Chennai International Airport" data-code="MAA">
+                            <span class="city">Chennai, India</span>
+                            <span class="airport">Chennai International Airport</span>
+                            <span class="code">MAA</span>
+                        </div>
+                        <div data-city="Hyderabad" data-airport="Chennai International Airport" data-code="MAA">
+                            <span class="city">Hyderabad, India</span>
+                            <span class="airport">Rajiv Gandhi International Airport</span>
+                            <span class="code">HYD</span>
+                        </div>
+                        <div data-city="Goa - Dabolim Airport" data-airport="Goa Dabolim International Airport" data-code="MAA">
+                            <span class="city">Goa - Dabolim Airport, India</span>
+                            <span class="airport">Rajiv Gandhi International Airport</span>
+                            <span class="code">GOI</span>
+                        </div>
+                </div>                
+            </div>
+            <!--Switch cities-->
+            <button id="switch-btn">&#8645;</button>
+            <!--To-->
+            <div class="input-group">
+                <div id="to" class="custom-select">
+                    <div class="to">To</div>
+                    <div class="select-selected" style="padding-left: 35px;" data-value="Mumbai">Mumbai</div>
+                    <div class="select-options">
+                        <div data-city="Mumbai" data-airport="Chhatrapati Shivaji International Airport" data-code="BOM">
+                            <span class="city">Mumbai, India</span>
+                            <span class="airport">Chhatrapati Shivaji International Airport</span>
+                            <span class="code">BOM</span>
+                        </div>
+                        <div data-city="Chennai" data-airport="Chennai International Airport" data-code="MAA">
+                            <span class="city">Chennai, India</span>
+                            <span class="airport">Chennai International Airport</span>
+                            <span class="code">MAA</span>
+                        </div>
+                        <div data-city="Hyderabad" data-airport="Chennai International Airport" data-code="MAA">
+                            <span class="city">Hyderabad, India</span>
+                            <span class="airport">Rajiv Gandhi International Airport</span>
+                            <span class="code">HYD</span>
+                        </div>
+                        <div data-city="Goa - Dabolim Airport" data-airport="Goa Dabolim International Airport" data-code="MAA">
+                            <span class="city">Goa - Dabolim Airport, India</span>
+                            <span class="airport">Rajiv Gandhi International Airport</span>
+                            <span class="code">GOI</span>
+                        </div>
+                </div>
+            </div> 
+            <!--Departure-->
+            <div class="input-group">
+                <input id="departure" type="date">
+            </div>
+            <!--Travelers and class-->
+            <button class="input-group travelers-and-class">
+                
+            </button>
+        </div>
+    </section>
+
+    <button id="theme-switch">
+        <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e8eaed">
+        <path
+            d="M480-120q-150 0-255-105T120-480q0-150 105-255t255-105q14 0 27.5 1t26.5 3q-41 29-65.5 75.5T444-660q0 90 63 153t153 63q55 0 101-24.5t75-65.5q2 13 3 26.5t1 27.5q0 150-105 255T480-120Z" />
+        </svg>
+        <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e8eaed">
+        <path
+            d="M480-280q-83 0-141.5-58.5T280-480q0-83 58.5-141.5T480-680q83 0 141.5 58.5T680-480q0 83-58.5 141.5T480-280ZM200-440H40v-80h160v80Zm720 0H760v-80h160v80ZM440-760v-160h80v160h-80Zm0 720v-160h80v160h-80ZM256-650l-101-97 57-59 96 100-52 56Zm492 496-97-101 53-55 101 97-57 59Zm-98-550 97-101 59 57-100 96-56-52ZM154-212l101-97 55 53-97 101-59-57Z" />
+        </svg>
+    </button>
+    
+</body>
+<script src="/public/js/navbar.js"></script>
+<script>
+// Event listener for the switch button
+document.getElementById('switch-btn').addEventListener('click', () => {
+    const fromSelected = document.querySelector('#from .select-selected');
+    const toSelected = document.querySelector('#to .select-selected');
+
+    // Swap the innerHTML between from and to
+    const tempHTML = fromSelected.innerHTML;
+    const tempValue = fromSelected.dataset.value;
+
+    fromSelected.innerHTML = toSelected.innerHTML;
+    fromSelected.dataset.value = toSelected.dataset.value;
+
+    toSelected.innerHTML = tempHTML;
+    toSelected.dataset.value = tempValue;
+});
+
+// Event listeners for custom select functionality
+document.querySelectorAll('.custom-select').forEach(select => {
+    const selected = select.querySelector('.select-selected');
+    const options = select.querySelector('.select-options');
+
+    selected.addEventListener('click', () => {
+        options.classList.toggle('open');
+        selected.classList.toggle('open');
+    });
+
+    options.querySelectorAll('div').forEach(option => {
+        option.addEventListener('click', () => {
+            selected.dataset.value = option.dataset.city;
+            selected.innerHTML = `
+                <div class="city">${option.dataset.city}</div>
+                <div class="airport">${option.dataset.airport}</div>
+            `;
+            options.classList.remove('open');
+            selected.classList.remove('open');
+        });
+    });
+
+    document.addEventListener('click', (e) => {
+        if (!select.contains(e.target)) {
+            options.classList.remove('open');
+            selected.classList.remove('open');
+        }
+    });
+});
+</script>
+</html>
