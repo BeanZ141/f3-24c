@@ -25,49 +25,49 @@
   <div class="blinker">▓</div>
   <div id="main-content">
     <nav>
-      <a href="index.html" class="nav-link current">TICKETEASE</a>
+      <a href="index.html">TICKETEASE</a>
+      <button id="login-btn" class="login-popup" onclick="showPopup()">LOGIN</button>
     </nav>
 
     <div class="welcome-section">
       <h1 class="welcome-text">WELCOME TO TICKETEASE</h1>
 
-      <!--Service section-->
-  <div class="service-container">
-    <a class="service-item" href="www.youtube.com">FLIGHTS</a>
-    <a class="service-item" href="www.youtube.com">HOTELS</a>
-    <a class="service-item" href="www.youtube.com">TRAINS</a>
-    <a class="service-item" href="www.youtube.com">EVENTS</a>
-  </div>
+    <img class="service-icon" id="service-icon" style="height: 50px; width: 50px;"> 
+
+    <!--Service section-->
+    <div class="service-container">
+      <a href="www.youtube.com" data-icon="flight.svg">FLIGHTS</a>
+      <a href="www.youtube.com" data-icon="hotel.svg">HOTELS</a>
+      <a href="www.youtube.com" data-icon="train.svg">TRAINS</a>
+      <a href="www.youtube.com" data-icon="event.svg">EVENTS</a>
     </div>
     
-    <!--Login Form-->
+    <!-- Login Form -->
     <div id="login-popup" class="login-modal">
+      <button type="button" class="close-button" onclick="closePopup()">&times;</button>
       <form id="ticketForm" class="form">
-          <div class="form-group">
-              <input type="text" id="name" name="name" placeholder="Name" required oninput="toggleClearButton(this)">
-              <button type="button" class="clear-button" onclick="clearInput('name')">&times;</button>
-          </div>
+        <div class="form-group">
+          <input type="text" id="name" name="name" placeholder="Name" required oninput="toggleClearButton(this)">
+          <button type="button" class="clear-button" onclick="clearInput('name')">&times;</button>
+        </div>
 
-          <div class="form-group">
-              <input type="email" id="email" name="email" placeholder="Email Address" required oninput="toggleClearButton(this)">
-              <button type="button" class="clear-button" onclick="clearInput('email')">&times;</button>
-          </div>
-          
-          <label class="container1 text-loading-animation">I aggree to the <a class="text-loading-animation" href="terms-and-conditions.html">terms and conditions.</a>
-              <input type="checkbox">
-              <span class="checkmark"></span>
-          </label>
+        <div class="form-group">
+          <input type="email" id="email" name="email" placeholder="Email Address" required oninput="toggleClearButton(this)">
+          <button type="button" class="clear-button" onclick="clearInput('email')">&times;</button>
+        </div>
 
-          <div class="form-group">
-              <button id="paymentButton" class="btn-primary">REGISTER</button>
-          </div>
+        <label class="container1 text-loading-animation">I agree to the <a class="text-loading-animation" href="terms-and-conditions.html">terms and conditions.</a>
+          <input type="checkbox" required>
+          <span class="checkmark"></span>
+        </label>
+
+        <div class="form-group">
+          <button id="paymentButton" class="btn-primary">REGISTER</button>
+        </div>
       </form>
-  </div>
+    </div>
 
 
-  
-  <button id="login-btn" class="login-popup">LOGIN</button>
-    
     <a href="terms-and-conditions.html" class="tnc-link">TERMS AND CONDITIONS</a>
     <a href="about-us.html" class="ab-us-link">ABOUT US</a>
 
@@ -81,20 +81,66 @@
           d="M480-280q-83 0-141.5-58.5T280-480q0-83 58.5-141.5T480-680q83 0 141.5 58.5T680-480q0 83-58.5 141.5T480-280ZM200-440H40v-80h160v80Zm720 0H760v-80h160v80ZM440-760v-160h80v160h-80Zm0 720v-160h80v160h-80ZM256-650l-101-97 57-59 96 100-52 56Zm492 496-97-101 53-55 101 97-57 59Zm-98-550 97-101 59 57-100 96-56-52ZM154-212l101-97 55 53-97 101-59-57Z" />
       </svg>
     </button>
-  </div>
+  </img>
 
   <script>
     window.onload = function () {
       document.querySelector('.blinker').style.display = 'none';
       document.getElementById('main-content').style.display = 'block';
     };
-
-    document.getElementById('login-btn').addEventListener('click', function() {
-    document.getElementById('login-popup').style.display = 'block'; // Show the login modal
-});
-
   </script>
   <script src="js/navbar.js"></script>
+  <script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const serviceIcon = document.getElementById("service-icon");
+    const links = document.querySelectorAll(".service-container a");
+
+    function showIcon(iconFile) {
+      serviceIcon.src = `/public/category/icons/${iconFile}`;
+      serviceIcon.classList.remove("hidden");
+      serviceIcon.classList.add("visible");
+    }
+
+    function hideIcon() {
+      serviceIcon.classList.remove("visible");
+      serviceIcon.classList.add("hidden");
+    }
+
+    links.forEach((link) => {
+      link.addEventListener("mouseover", () => {
+        const iconFile = link.getAttribute("data-icon");
+        showIcon(iconFile);
+      });
+
+      link.addEventListener("mouseout", () => {
+        hideIcon();
+      });
+    });
+  });
+  </script>
+  <script>
+  function closePopup() {
+    const loginPopup = document.getElementById("login-popup");
+    loginPopup.style.display = "none";
+  }
+
+  function showPopup() {
+    const loginPopup = document.getElementById("login-popup");
+    loginPopup.style.display = "block";
+  }
+
+  document.addEventListener("click", (event) => {
+    const loginPopup = document.getElementById("login-popup");
+    if (loginPopup.style.display === "block" && !loginPopup.contains(event.target)) {
+      closePopup();
+    }
+  });
+
+  document.addEventListener("DOMContentLoaded", () => {
+    showPopup();
+  });
+
+  </script>
 </body>
 
 </html>

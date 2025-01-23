@@ -106,6 +106,56 @@ input[type="checkbox"] {
     border-bottom: 1px solid var(--radio-color);
 }
 
+/* Special fare radio button */
+
+.radio {
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 16px;
+    font-family: "Varela", sans-serif;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    background-color: var(--color-bg);
+    user-select: none;
+    padding: 15px 15px 15px 30px;
+    transition: all 0.3s ease;
+    border: 1px solid var(--radio-color);
+}
+
+.radio input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+}
+
+.checkmark {
+    position: absolute;
+    top: 9px;
+    left: 10px;
+    height: 13px;
+    width: 13px;
+    background-color: var(--radio-color);
+    border-radius: 50%;
+}
+
+.radio input:checked ~ .checkmark {
+    font-weight: bold;
+    background-color: var(--button-bg);
+    color: var(--color-fg);
+}
+
+.radio input:checked ~ span {
+    font-weight: bold;
+}
+
+.radio:hover {
+    border: 1px solid var(--radio-hover);
+    background-color: var(--section-hover);
+}
+
 .flight-booking > label > .radio-text {
     padding: 0px 5px 0px 5px;
 }
@@ -152,6 +202,7 @@ input[type="checkbox"] {
 .departure {
     font-size: 0.4em;
     font-weight: 200;
+    background-color: var(--color-bg);
     float: inline-start;
     margin: 10px;
 }
@@ -173,8 +224,8 @@ input[type="checkbox"] {
 .travelers-and-class {
     width: 245px;
     height: 110px;
-    border: 1px solid #000;
-    background-color: #000;
+    background-color: var(--color-bg);
+    border: 0px solid #000;
     border-radius: 0px 8px 8px 0px;
 }
 
@@ -185,8 +236,8 @@ input[type="checkbox"] {
 
 .travelers-and-class:hover {
     transition: 0.3s;
-    background-color: #0c0c0c;
-    border: 1px solid #0c0c0c;
+    background-color: var(--radio-color);
+    border: 0px solid #0c0c0c;
 }
 
 /* Custom dropdown menu */

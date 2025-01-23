@@ -6,12 +6,10 @@ nav {
     user-select: none;
     position: fixed;
     display: flex;
-    justify-content: center;
     top: 0;
-    left: 0;
+    left: 0.5rem;
     width: 100%;
     text-align: center;
-    background-color: var(--color-bg);
     padding: 1rem;
     font-family: "Varela", sans-serif;
     margin-left: -10px;
@@ -19,19 +17,21 @@ nav {
 }
 
 nav a {
-    background-color: transparent;
-    color: var(--color-fg);
+    background-color: var(--color-fg);
+    color: var(--color-bg);
     text-decoration: none;
     position: relative;
     padding: 5px 12px;
+    border: 1px solid transparent;
     transition: background-color 0.3s ease, color 0.3s ease;
     animation: fade-up 0.7s;
 }
 
 nav a:hover {
-    background-color: var(--color-fg);
+    background-color: var(--color-bg);
     font-weight: bold;
-    color: var(--color-bg);
+    border: 1px solid var(--border);
+    color: var(--color-fg);
 }
 
 .current {

@@ -172,11 +172,10 @@ input[type="checkbox"] {
 .travelers-and-class {
     width: 182px;
     height: 110px;
-    border: 1px solid #000;
-    background-color: #000;
+    background-color: var(--color-bg);
+    border: 0px solid #000;
     border-radius: 0px 8px 8px 0px;
 }
-
 #from:hover, #to:hover, #departure:hover, #return:hover, #travelers-and-class:hover {
     background-color: var(--section-hover);
     transition: 0.3s;
@@ -184,8 +183,8 @@ input[type="checkbox"] {
 
 .travelers-and-class:hover {
     transition: 0.3s;
-    background-color: #0c0c0c;
-    border: 1px solid #0c0c0c;
+    background-color: var(--radio-color);
+    border: 0px solid #0c0c0c;
 }
 
 /* Custom dropdown menu */

@@ -23,6 +23,8 @@ body {
     --radio-color: #e0e0e0;
     --switch-btn-color: #e0e0e0;
     --section-hover: #e0e0e0;
+    --radio-hover: #f1f1f1;
+    --radio-bg-hover: #414141;
 }
 
 .dark-mode {
@@ -44,4 +46,6 @@ body {
     --radio-color: #0f0f0f;
     --switch-btn-color: #080808;
     --section-hover: #0c0c0c;
+    --radio-hover: #0c0c0c;
+    --radio-bg-hover: #141414;
 }

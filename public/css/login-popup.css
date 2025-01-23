@@ -107,9 +107,9 @@ input[type="radio"]:checked + label {
 }
 
 .btn-primary:hover {
-    background-color: var(--button-bg-hover);
+    background-color: var(--radio-color);
     color: var(--button-fg-hover);
-    border: 1px solid var(--button-border-hover);
+    border: 1px solid var(--tnc-color);
 }
 
 .btn-primary:active {
@@ -160,15 +160,13 @@ input[type="radio"]:checked + label {
 .container1 {
     display: block;
     position: relative;
-    padding-left: 25px;
-    margin-bottom: 30px;
+    padding-left: 1rem;
+    margin-bottom: 1.5rem;
     cursor: pointer;
     font-size: 14px;
     color: var(--tnc-color);
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
     user-select: none;
+    letter-spacing: 0.05rem;
 }
 
 .login-modal a {
@@ -192,7 +190,7 @@ input[type="radio"]:checked + label {
     border-radius: 4px;
     height: 15px;
     width: 15px;
-    background-color: var(--color-bg);
+    background-color: var(--radio-color);
     border: 1px solid var(--border);
 }
 
@@ -224,17 +222,15 @@ input[type="radio"]:checked + label {
 
 .login-popup {
     position: absolute;
-    top: 50%;
-    left: 50%;
+    right: 0;
     transform: translateX(-50%);
     background-color: var(--button-bg);
     color: var(--button-fg);
     font-family: 'Varela', sans-serif;
-    font-size: 1.1em;
+    font-size: 1em;
     border: 1px solid var(--border);
-    padding: 0.7rem 1.2rem;
+    padding: 0.3rem 0.7rem;
     transition: 200ms ease-out;
-    letter-spacing: 2px;
     animation: fade-in 1.7s;
 }
 
@@ -249,6 +245,23 @@ input[type="radio"]:checked + label {
     background-color: var(--button-bg);
     color: var(--button-fg);
     transition: 0ms ease-out;
+}
+
+/* Close Button */
+.close-button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background-color: transparent;
+    border: none;
+    font-size: 1.5rem;
+    color: var(--color-fg);
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+.close-button:hover {
+    color: var(--tnc-color);
 }
 
 @keyframes fade-in {
