@@ -1,11 +1,11 @@
 <html lang="en">
 <head>
   <script>
-    const setTheme = () => {
+      const setTheme = () => {
       const theme = localStorage.getItem('theme') || 'light';
       document.documentElement.classList.toggle('dark-mode', theme === 'dark');
-    };
-    setTheme();
+  };
+  setTheme();
   </script>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -17,6 +17,7 @@
   <link rel="stylesheet" href="css/navbar.css">
   <link rel="stylesheet" href="css/styles.css">
   <link rel="stylesheet" href="css/themes.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
   <link rel="stylesheet" href="css/login-popup.css">
   <title>Project f3-24c</title>
 </head>
@@ -26,50 +27,101 @@
   <div id="main-content">
     <nav>
       <a href="index.html">TICKETEASE</a>
-      <button id="login-btn" class="login-popup" onclick="showPopup()">LOGIN</button>
+      <div id="user-info" style="display: none;">
+          <span id="username-display"></span>
+          <div class="dropdown">
+            <button class="dropdown-btn" onclick="toggleDropdown()">▼</button>
+            <div class="dropdown-content" id="dropdown-menu">
+                <a href="dashboard.html">Dashboard</a>
+                <a href="" onclick="logout()">Logout</a>
+            </div>
+        </div>
+      </div>
+      <button id="login-btn" onclick="showPopup()">LOGIN / SIGNUP</button>
     </nav>
-
+  
     <div class="welcome-section">
       <h1 class="welcome-text">WELCOME TO TICKETEASE</h1>
+      <p class="welcome-description">TicketEase simplifies the way you book flights, trains, hotels, and event tickets with an intuitive and seamless experience. Whether you're planning a business trip, a vacation, or attending an exciting event, our platform offers a streamlined booking process with real-time availability, secure payments, and instant confirmations.</p>
 
-    <img class="service-icon" id="service-icon" style="height: 50px; width: 50px;"> 
+    <img class="service-icon" id="service-icon" style="height: 50px; width: 50px;">
 
     <!--Service section-->
     <div class="service-container">
-      <a href="www.youtube.com" data-icon="flight.svg">FLIGHTS</a>
-      <a href="www.youtube.com" data-icon="hotel.svg">HOTELS</a>
-      <a href="www.youtube.com" data-icon="train.svg">TRAINS</a>
-      <a href="www.youtube.com" data-icon="event.svg">EVENTS</a>
+      <a href="/public/category/flights.html" data-icon="flight.svg">
+        <i class="fas fa-plane"></i> FLIGHTS
+      </a>
+      <a href="/public/category/hotels.html" data-icon="hotel.svg">
+        <i class="fas fa-hotel"></i> HOTELS
+      </a>
+      <a href="/public/category/trains.html" data-icon="train.svg">
+        <i class="fas fa-train"></i> TRAINS
+      </a>
+      <a href="/public/category/events.html" data-icon="event.svg">
+        <i class="fas fa-calendar-alt"></i> EVENTS
+      </a>
     </div>
-    
-    <!-- Login Form -->
+
+    <!-- Login / Signup Popup -->
+    <div id="overlay"></div>
     <div id="login-popup" class="login-modal">
       <button type="button" class="close-button" onclick="closePopup()">&times;</button>
-      <form id="ticketForm" class="form">
-        <div class="form-group">
-          <input type="text" id="name" name="name" placeholder="Name" required oninput="toggleClearButton(this)">
-          <button type="button" class="clear-button" onclick="clearInput('name')">&times;</button>
-        </div>
 
-        <div class="form-group">
-          <input type="email" id="email" name="email" placeholder="Email Address" required oninput="toggleClearButton(this)">
-          <button type="button" class="clear-button" onclick="clearInput('email')">&times;</button>
+      <!-- LOGIN FORM -->
+      <div class="form-toggle">
+        <label>
+          <input type="radio" name="formType" id="radioLogin" checked onclick="showLoginForm()">
+          <span class="toggle-btn">LOGIN<h5 style="position: absolute;color: var(--radio-color);margin-left: 3.3rem;margin-top: -3.1rem;font-size: 2.2em;font-family: 'Inter';">.</h5></span>
+        </label>
+        <label>
+          <input type="radio" name="formType" id="radioSignup"  onclick="showSignupForm()">
+          <span class="toggle-btn">SIGN UP<h5 style="position: absolute;color: var(--radio-color);margin-left: 4.3rem;margin-top: -3.1rem;font-size: 2.2em;font-family: 'Inter';">.</h5></span>
+        </label>
+      </div>
+      <form id="loginForm" class="form">
+        <h4 style="animation: fade-in 0.4s;">LOGIN</h4>
+        <div class="form-group input-wrapper">
+          <input type="email" id="login-email" name="email" placeholder="Email Address" required oninput="toggleClearButton(this)" onblur="toggleClearButton(this)">
+          <button type="button" class="clear-btn" onclick="clearInput(this)">&times;</button>
         </div>
+        <div class="form-group input-wrapper">
+          <input type="password" id="login-password" name="password" placeholder="Password" required oninput="toggleClearButton(this)" onblur="toggleClearButton(this)">
+          <button type="button" class="clear-btn" onclick="clearInput(this)">&times;</button>
+        </div>
+        <button type="submit" class="btn-primary">LOGIN</button>
+      </form>
 
+      <!-- SIGNUP FORM -->
+      <form id="signupForm" class="form" style="display: none;">
+        <h4 style="animation: fade-in 0.4s;">SIGN UP</h4>
+        <div class="form-group input-wrapper">
+          <input type="text" id="signup-username" name="username" placeholder="Username" required oninput="toggleClearButton(this)" onblur="toggleClearButton(this)">
+          <button type="button" class="clear-btn" onclick="clearInput(this)">&times;</button>
+        </div>
+        <div class="form-group input-wrapper">
+          <input type="email" id="signup-email" name="email" placeholder="Email Address" required oninput="toggleClearButton(this)" onblur="toggleClearButton(this)">
+          <button type="button" class="clear-btn" onclick="clearInput(this)">&times;</button>
+        </div>
+        <div class="form-group input-wrapper">
+          <input type="password" id="signup-password" name="password" placeholder="Password" required oninput="toggleClearButton(this)" onblur="toggleClearButton(this)">
+          <button type="button" class="clear-btn" onclick="clearInput(this)">&times;</button>
+        </div>
         <label class="container1 text-loading-animation">I agree to the <a class="text-loading-animation" href="terms-and-conditions.html">terms and conditions.</a>
           <input type="checkbox" required>
           <span class="checkmark"></span>
         </label>
-
-        <div class="form-group">
-          <button id="paymentButton" class="btn-primary">REGISTER</button>
-        </div>
+        <button type="submit" class="btn-primary">SIGN UP</button>
       </form>
     </div>
 
 
     <a href="terms-and-conditions.html" class="tnc-link">TERMS AND CONDITIONS</a>
     <a href="about-us.html" class="ab-us-link">ABOUT US</a>
+
+    <!--Alert-->
+    <div id="customAlert" class="alert">
+      <span id="alertMessage">alert</span>
+    </div>    
 
     <button id="theme-switch">
       <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e8eaed">
@@ -81,66 +133,10 @@
           d="M480-280q-83 0-141.5-58.5T280-480q0-83 58.5-141.5T480-680q83 0 141.5 58.5T680-480q0 83-58.5 141.5T480-280ZM200-440H40v-80h160v80Zm720 0H760v-80h160v80ZM440-760v-160h80v160h-80Zm0 720v-160h80v160h-80ZM256-650l-101-97 57-59 96 100-52 56Zm492 496-97-101 53-55 101 97-57 59Zm-98-550 97-101 59 57-100 96-56-52ZM154-212l101-97 55 53-97 101-59-57Z" />
       </svg>
     </button>
-  </img>
 
-  <script>
-    window.onload = function () {
-      document.querySelector('.blinker').style.display = 'none';
-      document.getElementById('main-content').style.display = 'block';
-    };
-  </script>
-  <script src="js/navbar.js"></script>
-  <script>
-  document.addEventListener("DOMContentLoaded", () => {
-    const serviceIcon = document.getElementById("service-icon");
-    const links = document.querySelectorAll(".service-container a");
-
-    function showIcon(iconFile) {
-      serviceIcon.src = `/public/category/icons/${iconFile}`;
-      serviceIcon.classList.remove("hidden");
-      serviceIcon.classList.add("visible");
-    }
-
-    function hideIcon() {
-      serviceIcon.classList.remove("visible");
-      serviceIcon.classList.add("hidden");
-    }
-
-    links.forEach((link) => {
-      link.addEventListener("mouseover", () => {
-        const iconFile = link.getAttribute("data-icon");
-        showIcon(iconFile);
-      });
-
-      link.addEventListener("mouseout", () => {
-        hideIcon();
-      });
-    });
-  });
-  </script>
-  <script>
-  function closePopup() {
-    const loginPopup = document.getElementById("login-popup");
-    loginPopup.style.display = "none";
-  }
-
-  function showPopup() {
-    const loginPopup = document.getElementById("login-popup");
-    loginPopup.style.display = "block";
-  }
-
-  document.addEventListener("click", (event) => {
-    const loginPopup = document.getElementById("login-popup");
-    if (loginPopup.style.display === "block" && !loginPopup.contains(event.target)) {
-      closePopup();
-    }
-  });
-
-  document.addEventListener("DOMContentLoaded", () => {
-    showPopup();
-  });
-
-  </script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
+<script type="module" src="js/login-signup.js"></script>
+<script src="js/navbar.js"></script>
+<script src="js/index.js"></script>
 </body>
-
 </html>

@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script>
+        const setTheme = () => {
+            const theme = localStorage.getItem('theme') || 'light';
+            document.documentElement.classList.toggle('dark-mode', theme === 'dark');
+        };
+        setTheme();
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Varela&display=swap">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="css/themes.css">
+    <link rel="stylesheet" href="css/styles.css">
+    <title>User Dashboard</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Varela', sans-serif;
+            background-color: var(--color-bg);
+            color: var(--color-fg);
+            font-size: 1em;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        .dashboard-container {
+            display: flex;
+            width: 100%;
+        }
+
+        .sidebar {
+            background-color: var(--color-bg);
+            width: 250px;
+            padding: 20px;
+            flex-shrink: 0;
+            height: 100vh;
+            position: fixed;
+            top: 0;
+            left: 0;
+            border-right: 1px solid #0a0a0a;
+            transition: transform 0.3s ease;
+            z-index: 1000;
+        }
+
+        .sidebar.hidden {
+            transform: translateX(-100%);
+        }
+
+        .sidebar h2 {
+            text-align: center;
+            margin-left: -70px;
+            margin-bottom: 30px;
+            color: var(--color-fg);
+        }
+
+        .sidebar ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .sidebar ul li {
+            margin: 5px 0;
+        }
+
+        .sidebar ul li a {
+            background-color: var(--color-bg);
+            color: var(--color-fg);
+            text-decoration: none;
+            display: block;
+            padding: 10px 15px;
+            transition: 0.2s;
+        }
+
+        .sidebar ul li a:hover {
+            cursor: pointer;
+            background-color: var(--color-fg);
+            color: var(--color-bg);
+            transition: 0.2s;
+        }
+
+        .sidebar ul li a.active {
+            background-color: var(--color-fg);
+            color: var(--color-bg);
+            font-weight: 800;
+            text-align: right;
+            transition: all 0.3s;
+        }
+
+        .main-content {
+            margin-left: 250px;
+            padding: 20px;
+            width: 100%;
+            transition: margin-left 0.3s ease;
+        }
+
+        header h1 {
+            font-size: 2em;
+            margin-bottom: 10px;
+        }
+
+        header p {
+            font-size: 1.2em;
+        }
+
+        .section-content {
+            margin-top: 20px;
+        }
+
+        .section-content h1, p {
+            margin: 5px;
+            margin-left: 25px;
+            display: block;
+            padding: 10px;
+            user-select: auto !important;
+            width: fit-content;
+        }
+
+        .section-content p:hover {
+            background-color: var(--radio-color);
+            user-select: none;
+        }
+
+        .section-content b {
+            user-select: none;
+            margin-right: 5px;
+        }
+
+        .logout-btn {
+            background-color: var(--color-fg);
+            color: var(--color-bg);
+            padding: 10px 15px;
+            margin-left: 35px;
+            border: 1px solid var(--color-bg);
+            font-family: 'Inter', sans-serif;
+            font-size: 1em;
+            cursor: pointer;
+            transition: background 0.3s, color 0.3s;
+        }
+
+        .logout-btn:hover {
+            background-color: var(--color-bg) !important;
+            color: var(--color-fg);
+            border: 1px solid var(--border);
+        }
+
+        .delete-acc-btn {
+            background-color: var(--color-bg);
+            color: red;
+            padding: 10px 15px;
+            margin-left: 35px;
+            border: 1px solid red;
+            font-family: 'Inter', sans-serif;
+            font-size: 1em;
+            cursor: pointer;
+            transition: background 0.3s, color 0.3s;
+        }
+
+        .delete-acc-btn:hover {
+            background-color: red;
+            color: var(--color-bg);
+            border: 1px solid;
+        }
+
+        .toggle-btn {
+            display: none;
+            background: var(--color-bg);
+            color: var(--color-fg);
+            border: none;
+            padding: 10px 15px;
+            font-size: 1.5em;
+            cursor: pointer;
+            position: fixed;
+            top: 20px;
+            right: 5%;
+            z-index: 1001;
+        }
+
+        .toggle-btn:focus {
+            outline: none;
+        }
+
+        @media (max-width: 768px) {
+            .sidebar {
+                transform: translateX(-100%);
+            }
+
+            .sidebar.visible {
+                transform: translateX(0);
+            }
+
+            .main-content {
+                margin-top: 3rem;
+                margin-left: 1rem;
+            }
+
+            .toggle-btn {
+                display: block;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Toggle Button -->
+    <button class="toggle-btn" onclick="toggleSidebar()">☰</button>
+
+    <div class="dashboard-container">
+        <!-- Sidebar -->
+        <nav class="sidebar">
+            <h2>Dashboard</h2>
+            <ul>
+                <li><a onclick="showSection('home')">Home</a></li>
+                <li><a onclick="showSection('account')">Account</a></li>
+                <li><a style="bottom: 3%; position: absolute;" href="index.html">Back</a></li>
+            </ul>
+        </nav>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <!-- Home Section -->
+            <section id="home" class="section-content">
+                <h1>Welcome, John Doe</h1>
+                <p><b>Username :</b> John Doe</p>
+                <p><b>UID :</b> 2918593819</p>
+                <p><b>Email :</b> johndoe69420@gmail.com</p>
+            </section>
+
+            <!-- Account Section -->
+            <section id="account" class="section-content" style="display: none;">
+                <h1>Account</h1>
+                <p>Manage your account settings and preferences here.</p>
+                <div class="buttons">
+                    <button class="logout-btn">Logout</button>
+                    <p style="color: red;">You will not be able to recover your deleted account.</p>
+                    <button class="delete-acc-btn">Delete Account</button>
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <script>
+        document.querySelector('.sidebar ul li a[onclick="showSection(\'home\')"]').classList.add('active');
+
+        function showSection(section) {
+            document.querySelectorAll('.section-content').forEach(sec => sec.style.display = 'none');
+            document.getElementById(section).style.display = 'block';
+
+            document.querySelectorAll('.sidebar ul li a').forEach(link => link.classList.remove('active'));
+            document.querySelector(`.sidebar ul li a[onclick="showSection('${section}')"]`).classList.add('active');
+
+            // Hide sidebar on mobile after clicking a menu item
+            if (window.innerWidth <= 768) {
+                const sidebar = document.querySelector('.sidebar');
+                sidebar.classList.remove('visible');
+            }
+        }
+
+
+        function toggleSidebar() {
+            const sidebar = document.querySelector('.sidebar');
+            sidebar.classList.toggle('visible');
+        }
+    </script>
+</body>
+</html>

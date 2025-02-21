@@ -108,6 +108,34 @@ input[type="checkbox"] {
 
 /* Special fare radio button */
 
+.special-fare {
+    position: absolute;
+    top: 25em;
+    left: 15em;
+}
+
+.special-fare h3 {
+    position: fixed;
+    left: 5em;
+    top: 20.2em;
+    font-weight: normal;
+}
+
+.special-fare .radio {
+    margin-right: 10px;
+    padding-left: 30px;
+}
+
+.special-fare .checkmark {
+    position: absolute;
+    top: -25%;
+    left: 10px;
+    height: 13px;
+    width: 13px;
+    background-color: var(--radio-color);
+    border-radius: 50%;
+}
+
 .radio {
     border-radius: 8px;
     cursor: pointer;
@@ -119,7 +147,7 @@ input[type="checkbox"] {
     background-color: var(--color-bg);
     user-select: none;
     padding: 15px 15px 15px 30px;
-    transition: all 0.3s ease;
+    transition: all 0.2s ease;
     border: 1px solid var(--radio-color);
 }
 
@@ -132,7 +160,6 @@ input[type="checkbox"] {
 }
 
 .checkmark {
-    position: absolute;
     top: 9px;
     left: 10px;
     height: 13px;
@@ -333,4 +360,3 @@ input[type="checkbox"] {
 .select-options.open {
     display: block;
 }
-

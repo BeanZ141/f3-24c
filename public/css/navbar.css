@@ -56,6 +56,14 @@ nav a:hover {
     transition: 0.3s;
 }
 
+#theme-switch:hover {
+    cursor: pointer;
+}
+
+#theme-switch:hover svg {
+    fill: var(--tnc-color);
+}
+
 #theme-switch svg {
     fill: var(--color-fg);
 }
