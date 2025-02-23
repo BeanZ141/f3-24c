@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script>
+        const setTheme = () => {
+        const theme = localStorage.getItem('theme') || 'dark';
+        document.documentElement.classList.toggle('dark-mode', theme === 'dark');
+    };
+    setTheme();
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ticket Scanning Tool</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Varela&display=swap">
+    <link rel="stylesheet" href="/public/css/styles.css">
+    <link rel="stylesheet" href="/public/css/themes.css">
+    <link rel="stylesheet" href="/public/css/navbar.css">
+    <style>
+        body {
+            background-color: var(--color-bg);
+            color: var(--color-fg);
+            font-family: 'Varela', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 70vh;
+            text-align: center;
+            user-select: none;
+        }
+
+        .container {
+            max-width: 800px;
+        }
+
+        h1 {
+            font-family: 'Varela', sans-serif;
+            font-size: 2em;
+            margin-bottom: 30px;
+        }
+
+        p {
+            font-size: 1em;
+            line-height: 1.5;
+            margin-bottom: 50px;
+        }
+
+        .redirect {
+            padding: 10px 20px;
+            background-color: var(--color-bg);
+            color: var(--color-fg);
+            border: none;
+            cursor: pointer;
+            font-size: 1em;
+            text-decoration: none;
+            transition: background-color 0.3s;
+        }
+
+        .redirect:hover {
+            background-color: var(--bg-hover);
+            color: var(--fg-hover);
+            font-weight: 800;
+        }
+
+        .back {
+            position: absolute;
+            top: 7%;
+            left: 5%;
+            padding: 6px 15px;
+            background-color: var(--color-bg);
+            color: var(--color-fg);
+            border: none;
+            cursor: pointer;
+            font-size: 1em;
+            text-decoration: none;
+            transition: background-color 0.3s;
+        }
+
+        .back:hover {
+            background-color: var(--bg-hover);
+            color: var(--fg-hover);
+            font-weight: 800;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a class="back" href="/public/index.html">// Back</a>
+        <h1>Ticket Scanning Tool</h1>
+        <p>
+            The Ticket Scanning Tool is an integrated feature of our website designed for seamless check-in and check-out processes. 
+            This efficient solution logs attendance and securely records user information, ensuring accurate tracking and management of event participation. 
+            Perfect for events of all sizes, the tool enhances the check-in experience while maintaining organized and reliable attendance records.
+        </p>
+        <a class="redirect" href="scanner.html">Continue</a>
+    </div>
+</body>
+</html>

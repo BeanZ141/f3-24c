@@ -15,6 +15,7 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Varela&display=swap">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
     <link rel="stylesheet" href="css/themes.css">
     <link rel="stylesheet" href="css/styles.css">
     <title>User Dashboard</title>
@@ -23,6 +24,7 @@
             box-sizing: border-box;
             margin: 0;
             padding: 0;
+            text-decoration: none;
         }
 
         body {
@@ -77,7 +79,7 @@
         .sidebar ul li a {
             background-color: var(--color-bg);
             color: var(--color-fg);
-            text-decoration: none;
+
             display: block;
             padding: 10px 15px;
             transition: 0.2s;
@@ -211,7 +213,7 @@
         }
     </style>
 </head>
-<body>
+<s>
     <!-- Toggle Button -->
     <button class="toggle-btn" onclick="toggleSidebar()">☰</button>
 
@@ -231,9 +233,9 @@
             <!-- Home Section -->
             <section id="home" class="section-content">
                 <h1>Welcome, John Doe</h1>
-                <p><b>Username :</b> John Doe</p>
-                <p><b>UID :</b> 2918593819</p>
-                <p><b>Email :</b> johndoe69420@gmail.com</p>
+                <p><b></b></p>
+                <p><b></b></p>
+                <p><b></b></p>
             </section>
 
             <!-- Account Section -->
@@ -241,36 +243,39 @@
                 <h1>Account</h1>
                 <p>Manage your account settings and preferences here.</p>
                 <div class="buttons">
-                    <button class="logout-btn">Logout</button>
+                    <button class="logout-btn" onclick="logout()">Logout</button>
                     <p style="color: red;">You will not be able to recover your deleted account.</p>
-                    <button class="delete-acc-btn">Delete Account</button>
+                    <button class="delete-acc-btn" onclick="deleteAccount()">Delete Account</button>
                 </div>
             </section>
         </div>
     </div>
 
-    <script>
-        document.querySelector('.sidebar ul li a[onclick="showSection(\'home\')"]').classList.add('active');
+    <div id="customAlert" class="alert">
+        <span id="alertMessage"></span>
+    </div>
 
-        function showSection(section) {
-            document.querySelectorAll('.section-content').forEach(sec => sec.style.display = 'none');
-            document.getElementById(section).style.display = 'block';
+<script type="module" src="/public/js/dashboard.js"></script>
+<script>
+    document.querySelector('.sidebar ul li a[onclick="showSection(\'home\')"]').classList.add('active');
 
-            document.querySelectorAll('.sidebar ul li a').forEach(link => link.classList.remove('active'));
-            document.querySelector(`.sidebar ul li a[onclick="showSection('${section}')"]`).classList.add('active');
+    function showSection(section) {
+        document.querySelectorAll('.section-content').forEach(sec => sec.style.display = 'none');
+        document.getElementById(section).style.display = 'block';
 
-            // Hide sidebar on mobile after clicking a menu item
-            if (window.innerWidth <= 768) {
-                const sidebar = document.querySelector('.sidebar');
-                sidebar.classList.remove('visible');
-            }
-        }
+        document.querySelectorAll('.sidebar ul li a').forEach(link => link.classList.remove('active'));
+        document.querySelector(`.sidebar ul li a[onclick="showSection('${section}')"]`).classList.add('active');
 
-
-        function toggleSidebar() {
+        if (window.innerWidth <= 768) {
             const sidebar = document.querySelector('.sidebar');
-            sidebar.classList.toggle('visible');
+            sidebar.classList.remove('visible');
         }
-    </script>
+    }
+
+    function toggleSidebar() {
+        const sidebar = document.querySelector('.sidebar');
+        sidebar.classList.toggle('visible');
+    }
+</script>
 </body>
 </html>

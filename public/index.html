@@ -33,7 +33,8 @@
             <button class="dropdown-btn" onclick="toggleDropdown()">▼</button>
             <div class="dropdown-content" id="dropdown-menu">
                 <a href="dashboard.html">Dashboard</a>
-                <a href="" onclick="logout()">Logout</a>
+                <a href="scanner/scanner-info.html">Scan Tickets</a>
+                <a href="#" onclick="logout()">Logout</a>
             </div>
         </div>
       </div>
@@ -44,7 +45,16 @@
       <h1 class="welcome-text">WELCOME TO TICKETEASE</h1>
       <p class="welcome-description">TicketEase simplifies the way you book flights, trains, hotels, and event tickets with an intuitive and seamless experience. Whether you're planning a business trip, a vacation, or attending an exciting event, our platform offers a streamlined booking process with real-time availability, secure payments, and instant confirmations.</p>
 
-    <img class="service-icon" id="service-icon" style="height: 50px; width: 50px;">
+        <div class="loader">
+          <p style="margin: 0;">book</p>
+          <div class="words">
+            <span class="word"></span>
+            <span class="word">flights</span>
+            <span class="word">trains</span>
+            <span class="word">hotels</span>
+            <span class="word">events</span>
+          </div>
+        </div>
 
     <!--Service section-->
     <div class="service-container">
@@ -61,6 +71,8 @@
         <i class="fas fa-calendar-alt"></i> EVENTS
       </a>
     </div>
+
+    <img class="service-icon" id="service-icon" style="height: 50px; width: 50px;">
 
     <!-- Login / Signup Popup -->
     <div id="overlay"></div>
@@ -113,7 +125,6 @@
         <button type="submit" class="btn-primary">SIGN UP</button>
       </form>
     </div>
-
 
     <a href="terms-and-conditions.html" class="tnc-link">TERMS AND CONDITIONS</a>
     <a href="about-us.html" class="ab-us-link">ABOUT US</a>

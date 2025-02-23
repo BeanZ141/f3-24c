@@ -19,3 +19,4 @@ themeSwitch.addEventListener('click', () => {
     document.documentElement.classList.toggle('dark-mode', newTheme === 'dark');
     localStorage.setItem('theme', newTheme);
 });
+

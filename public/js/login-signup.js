@@ -26,13 +26,12 @@ async function signUp() {
         return;
     }
 
-    // Sign up with Supabase
     const { data, error } = await supabase.auth.signUp({
         email,
         password,
         options: {
             data: {
-                username, // Store username in the user's metadata
+                username,
             },
         },
     });
@@ -80,18 +79,25 @@ async function login() {
 async function logout() {
     console.log("Logout button clicked");
 
+    // Clear localStorage and session immediately
+    localStorage.removeItem('user');
+
+    // Sign out from Supabase
     const { error } = await supabase.auth.signOut();
     if (error) {
         showAlert('Logout failed: ' + error.message, 'error');
     } else {
-        localStorage.removeItem('user');
-
+        // Clear UI immediately
         document.getElementById('login-btn').style.display = 'block';
         document.getElementById('user-info').style.display = 'none';
         document.getElementById('username-display').textContent = '';
 
         showAlert('Logged out successfully.', 'success');
-        setTimeout(checkUserSession, 1000);
+
+        // Wait for session to clear before checking again
+        setTimeout(() => {
+            checkUserSession();
+        }, 2000);
     }
 }
 
@@ -99,8 +105,9 @@ async function logout() {
 async function checkUserSession() {
     const { data, error } = await supabase.auth.getSession();
 
-    if (error) {
-        showAlert("Error fetching session:", error, 'error');
+    if (error || !data.session) {
+        document.getElementById('login-btn').style.display = 'block';
+        document.getElementById('user-info').style.display = 'none';
         console.error("Error fetching session:", error);
         return;
     }
@@ -108,12 +115,13 @@ async function checkUserSession() {
     const session = data.session;
     
     if (session && session.user) {
-        console.log("User is logged in:", session.user);
         updateUI(session.user);
-        closePopup();
+        console.log("User is logged in:", session.user);
+    } else {
+        document.getElementById('login-btn').style.display = 'block';
+        document.getElementById('user-info').style.display = 'none';
     }
 }
-
 
 // Updates UI if/after the user is logged in/signed up
 function updateUI(user) {
@@ -167,3 +175,5 @@ function showLoginPopup() {
 }
 
 document.addEventListener("DOMContentLoaded", checkUserSession);
+window.logout = logout;
+window.logout = showLoginPopup;

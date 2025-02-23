@@ -19,9 +19,11 @@ body {
     color: #bbb;
 }
 
-input[type="text"], input[type="date"], select {
+input[type="text"],
+input[type="date"],
+select {
     width: 200px;
-    height: 110px;
+    height: 6.875rem;
     font-size: 1.8rem;
     background-color: #000000;
     color: var(--color-fg);
@@ -40,7 +42,7 @@ input[type="text"], input[type="date"], select {
     cursor: pointer;
     font-size: 1.9rem;
     rotate: 90deg;
-    z-index: 1;     
+    z-index: 1;
 }
 
 #switch-btn:hover {
@@ -75,28 +77,29 @@ input[type="checkbox"] {
 
 .checkmark {
     position: absolute;
-    top: 9px;
-    left: 10px;
-    height: 13px;
-    width: 13px;
+    top: 0.56rem;
+    left: 0.63rem;
+    height: 0.81rem;
+    width: 0.81rem;
     background-color: var(--radio-color);
+    border: 1px solid var(--radio-border);
     border-radius: 50%;
 }
 
-.container input:checked ~ .checkmark {
+.container input:checked~.checkmark {
     background-color: var(--button-bg);
 }
 
-.container input:checked ~ .checkmark + span {
+.container input:checked~.checkmark+span {
     font-weight: bold;
 }
 
-.container input:checked ~ .checkmark + span {
+.container input:checked~.checkmark+span {
     background-color: var(--button-bg);
     font-weight: bold;
 }
 
-.container input:checked ~ span {
+.container input:checked~span {
     font-weight: bold;
     background-color: var(--button-bg);
     color: var(--button-fg);
@@ -107,36 +110,43 @@ input[type="checkbox"] {
 }
 
 /* Special fare radio button */
-
 .special-fare {
-    position: absolute;
-    top: 25em;
-    left: 15em;
+    opacity: 0;
+    position: relative;
+    top: 2.5rem;
+    left: -15rem;
+    z-index: 1;
+    animation: animate-gradient 0.7s ease-in forwards, fade-element 0.7s forwards;
 }
 
 .special-fare h3 {
-    position: fixed;
-    left: 5em;
-    top: 20.2em;
-    font-weight: normal;
+    position: absolute;
+    left: -13%;
+    top: -50%;
+    padding-bottom: 1rem;
+    font-size: 1em;
+    font-weight: 400;
+    user-select: none;
+    animation: animate-gradient 0.7s ease-in forwards;
 }
 
 .special-fare .radio {
-    margin-right: 10px;
-    padding-left: 30px;
+    position: relative;
 }
 
-.special-fare .checkmark {
+.special-fare .checkmark1 {
     position: absolute;
-    top: -25%;
-    left: 10px;
-    height: 13px;
-    width: 13px;
+    top: 24%;
+    left: 8%;
+    height: 12px;
+    width: 12px;
     background-color: var(--radio-color);
+    border: 1px solid var(--radio-border);
     border-radius: 50%;
 }
 
 .radio {
+    display: inline;
     border-radius: 8px;
     cursor: pointer;
     font-size: 16px;
@@ -146,9 +156,23 @@ input[type="checkbox"] {
     -ms-user-select: none;
     background-color: var(--color-bg);
     user-select: none;
-    padding: 15px 15px 15px 30px;
+    padding: 10px 10px 25px 35px;
+    margin-right: 1rem;
     transition: all 0.2s ease;
     border: 1px solid var(--radio-color);
+}
+
+.radio-text {
+    display: inline-block;
+    vertical-align: top;
+}
+
+.subtext {
+    display: block;
+    font-size: 0.6em;
+    color: #888;
+    margin-top: 2px;
+    animation: animate-gradient 0.7s ease-in forwards;
 }
 
 .radio input {
@@ -159,23 +183,19 @@ input[type="checkbox"] {
     width: 0;
 }
 
-.checkmark {
-    top: 9px;
-    left: 10px;
-    height: 13px;
-    width: 13px;
-    background-color: var(--radio-color);
-    border-radius: 50%;
-}
-
-.radio input:checked ~ .checkmark {
+.radio input:checked~.checkmark1 {
     font-weight: bold;
     background-color: var(--button-bg);
     color: var(--color-fg);
 }
 
-.radio input:checked ~ span {
+.radio input:checked~.radio-text {
     font-weight: bold;
+}
+
+.radio:has(input:checked) {
+    background-color: var(--radio-color);
+    border: 1px solid var(--radio-border);
 }
 
 .radio:hover {
@@ -183,17 +203,54 @@ input[type="checkbox"] {
     background-color: var(--section-hover);
 }
 
-.flight-booking > label > .radio-text {
+.radio:hover .tooltip {
+    visibility: visible;
+    opacity: 1;
+}
+
+.tooltip {
+    visibility: hidden;
+    background-color: var(--radio-color);
+    color: var(--color-fg);
+    border: 1px solid var(--radio-border);
+    text-align: center;
+    font-size: 0.7em;
+    border-radius: 4px;
+    padding: 10px 15px;
+    position: absolute;
+    top: 140%;
+    left: 50%;
+    width: 285px;
+    transform: translateX(-50%);
+    white-space: normal;
+    opacity: 0;
+    transition: opacity 0.2s;
+    z-index: 1;
+}
+
+.tooltip::after {
+    content: '';
+    position: absolute;
+    bottom: 99%;
+    left: 45%;
+    transform: rotate(180deg);
+    border-width: 10px;
+    border-style: solid;
+    border-color: var(--radio-color) transparent transparent transparent;
+}
+
+.flight-booking>label>.radio-text {
     padding: 0px 5px 0px 5px;
 }
 
 .flight-booking {
     width: 400px;
-    position: absolute;
-    top: 30vh;
-    left: 10vh;
+    position: relative;
+    top: -20vh;
+    left: 7vh;
     flex-wrap: wrap;
     border-radius: 10px;
+    animation: animate-gradient 0.7s ease-in forwards, fade-element 0.7s forwards;
 }
 
 .city-switch {
@@ -204,6 +261,7 @@ input[type="checkbox"] {
     border: 1px solid #1a1a1a;
     border-radius: 10px;
     margin-top: 10px;
+    animation: animate-gradient 0.7s ease-in forwards, fade-element 0.7s forwards;
 }
 
 #from {
@@ -217,6 +275,7 @@ input[type="checkbox"] {
     float: inline-start;
     margin: 10px;
     margin-left: 21px;
+    animation: animate-gradient 0.7s ease-in forwards;
 }
 
 .to {
@@ -224,39 +283,40 @@ input[type="checkbox"] {
     font-weight: 200;
     float: inline-start;
     margin: 10px;
+    animation: animate-gradient 0.7s ease-in forwards;
 }
 
 .departure {
-    font-size: 0.4em;
+    font-size: 0.7em;
+    position: absolute;
     font-weight: 200;
-    background-color: var(--color-bg);
     float: inline-start;
-    margin: 10px;
+    margin: 0.7rem;
+    margin-left: 1rem;
 }
 
 #to {
-    border-radius: 0px;transition: 0.3s;
+    border-radius: 0px;
+    transition: 0.3s;
 }
 
 #departure {
     width: 155px;
-    border-right: 1px solid #1a1a1a;transition: 0.3s;
+    border-right: 1px solid #1a1a1a;
+    transition: 0.3s;
 }
 
 #return {
     width: 155px;
-    border-right: 1px solid #1a1a1a;transition: 0.3s;
+    border-right: 1px solid #1a1a1a;
+    transition: 0.3s;
 }
 
-.travelers-and-class {
-    width: 245px;
-    height: 110px;
-    background-color: var(--color-bg);
-    border: 0px solid #000;
-    border-radius: 0px 8px 8px 0px;
-}
-
-#from:hover, #to:hover, #departure:hover, #return:hover, #travelers-and-class:hover {
+#from:hover,
+#to:hover,
+#departure:hover,
+#return:hover,
+#travelers-and-class:hover {
     background-color: var(--section-hover);
     transition: 0.3s;
 }
@@ -271,7 +331,7 @@ input[type="checkbox"] {
 
 .custom-select {
     position: relative;
-    height: 110px;
+    height: 6.875rem;
     border-right: 1px solid #1a1a1a;
     width: 300px;
     font-family: 'Varela', sans-serif;
@@ -291,6 +351,7 @@ input[type="checkbox"] {
 .select-selected {
     padding: 35px;
     padding-left: 20px;
+    animation: animate-gradient 0.7s ease-in forwards;
 }
 
 .select-options {
@@ -300,16 +361,15 @@ input[type="checkbox"] {
     top: 70%;
     font-size: 0.5em;
     font-weight: 100;
-    background-color: #080808;
+    background-color: var(--radio-color);
     border-radius: 8px;
-    z-index: 2;
 }
 
 .select-options div {
     display: flex;
     justify-content: space-between;
     padding: 10px 10px 0px 10px;
-    color: #e8eaed;
+    color: #808080;
     flex-direction: column;
 }
 
@@ -349,7 +409,8 @@ input[type="checkbox"] {
 }
 
 .select-options div:hover {
-    background-color: #141414;
+    background-color: var(--radio-hover);
+    color: var(--color-fg);
     border-radius: 8px;
 }
 
@@ -359,4 +420,286 @@ input[type="checkbox"] {
 
 .select-options.open {
     display: block;
+}
+
+/* Date Picker */
+
+.date-picker {
+    position: relative;
+}
+
+.date-trigger {
+    width: 10rem;
+    height: 6.875rem;
+    background: var(--color-bg);
+    color: var(--color-fg);
+    padding: 1.9rem 0.5rem;
+    border: none;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    transition: background 0.2s;
+    border-right: 1px solid #1a1a1a;
+}
+
+.date-trigger:hover {
+    background: var(--radio-color);
+}
+
+.date-display {
+    display: flex;
+    align-items: baseline;
+    gap: 5px;
+}
+
+.date-day {
+    font-size: 2em;
+    margin-right: 0.3rem;
+    font-weight: 600;
+    margin-left: 0.5rem;
+    margin-bottom: -5px;
+    animation: animate-gradient 0.7s ease-in forwards;
+}
+
+.return-description {
+    position: absolute;
+    width: 80px;
+    font-size: 0.75rem;
+    font-family: 'Varela', sans-serif-;
+    text-align: left;
+    top: 30%;
+    left: 10%;
+    animation: animate-gradient 0.7s ease-in forwards;
+}
+
+.arrow-down {
+    border: solid var(--tnc-color);
+    border-width: 0 2px 2px 0;
+    display: inline-block;
+    padding: 3px;
+    content: '';
+    transform: rotate(45deg);
+    -webkit-transform: rotate(45deg);
+    vertical-align: top;
+    margin: 2px 0 0 8px;
+    transition: all 0.3s ease-in-out;
+}
+
+.date-month {
+    font-family: 'Varela', sans-serif;
+    font-size: 1rem;
+    animation: animate-gradient 0.7s ease-in forwards;
+}
+
+.date-weekday {
+    font-family: 'Varela', sans-serif;
+    margin-top: 0.3rem;
+    margin-left: 0.6rem;
+    position: absolute;
+    animation: animate-gradient 0.7s ease-in forwards;
+}
+
+.calendar input[type="date"] {
+    border: none;
+    width: 100%;
+    padding: 10px;
+    box-sizing: border-box;
+}
+
+.date-trigger {
+    width: 10rem;
+    height: 6.875rem;
+    background: var(--color-bg);
+    color: var(--color-fg);
+    padding: 1.9rem 0.5rem;
+    border: none;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    transition: background 0.2s;
+    border-right: 1px solid #1a1a1a;
+}
+
+.date-trigger:active {
+    background: var(--radio-color);
+}
+
+.calendar {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background: var(--radio-color);
+    border: 1px solid #1c1c1c;
+    z-index: 10;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    padding: 10px;
+}
+
+.calendar.active {
+    display: block;
+}
+
+.calendar table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+.calendar th, .calendar td {
+    text-align: center;
+    padding: 5px;
+    cursor: pointer;
+}
+
+.calendar th {
+    color: #666;
+    font-weight: bold;
+}
+
+.calendar td:hover {
+    background-color: #f0f0f0;
+    border-radius: 50%;
+}
+
+.calendar .selected {
+    background-color: #007bff;
+    color: white;
+    border-radius: 50%;
+}
+
+.cancel-btn {
+    display: none;
+    position: absolute;
+    top: 10%;
+    left: 83%;
+    cursor: pointer;
+}
+
+@keyframes fade-element {
+    0% {
+        transform: translateY(1rem) scale(1);
+    }
+
+    100% {
+        transform: translate(0rem) scale(1);
+    }
+}
+
+.travelers-and-class {
+    width: 245px;
+    height: 6.875rem;
+    background-color: var(--color-bg);
+    border: 0px solid #000;
+    border-radius: 0px 8px 8px 0px;
+}
+
+.travel-class {
+    position: absolute;
+    top: 130%;
+    left: 52.9%;
+    background-color: var(--radio-color);
+    padding: 1.3rem;
+}
+
+.travel-class h5, p {
+    font-size: 0.6em;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    padding: 0;
+}
+
+.radio-input input {
+    display: none;
+}
+
+.radio-input {
+    --item_width: 40px;
+    --item_height: 40px;
+    --items: 10;
+    --container_width: calc(var(--item_width) * var(--items));
+    position: relative;
+    display: flex;
+    align-items: center;
+    background-color: var(--radio-color);
+    color: var(--color-fg);
+    width: var(--container_width);
+    overflow: hidden;
+    user-select: none;
+}
+
+.radio-input label {
+    color: var(--color-fg);
+}
+
+.radio-input label:hover {
+    background-color: #a091d9;
+}
+
+.radio-input label:hover span {
+    color: black;
+}
+
+.radio-input label {
+    width: var(--item_width);
+    height: var(--item_height);
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1;
+    font-weight: 600;
+    font-size: 0.8em;
+}
+
+.selection {
+    display: none;
+    position: absolute;
+    width: var(--item_width);
+    height: var(--item_height);
+    width: calc(var(--container_width) / var(--items));
+    z-index: 0;
+    left: 0;
+    top: 0;
+    transition: .15s ease;
+}
+
+.radio-input label:has(input:checked) ~ .selection {
+    background-color: #6d52bf;
+    display: inline-block;
+}
+
+.radio-input label:nth-child(1):has(input:checked) ~ .selection {
+  transform: translateX(calc(var(--container_width) * 0 / var(--items)));
+}
+.radio-input label:nth-child(2):has(input:checked) ~ .selection {
+  transform: translateX(calc(var(--container_width) * 1 / var(--items)));
+}
+.radio-input label:nth-child(3):has(input:checked) ~ .selection {
+  transform: translateX(calc(var(--container_width) * 2 / var(--items)));
+}
+.radio-input label:nth-child(4):has(input:checked) ~ .selection {
+  transform: translateX(calc(var(--container_width) * 3 / var(--items)));
+}
+.radio-input label:nth-child(5):has(input:checked) ~ .selection {
+  transform: translateX(calc(var(--container_width) * 4 / var(--items)));
+}
+.radio-input label:nth-child(6):has(input:checked) ~ .selection {
+  transform: translateX(calc(var(--container_width) * 5 / var(--items)));
+}
+.radio-input label:nth-child(7):has(input:checked) ~ .selection {
+  transform: translateX(calc(var(--container_width) * 6 / var(--items)));
+}
+.radio-input label:nth-child(8):has(input:checked) ~ .selection {
+  transform: translateX(calc(var(--container_width) * 7 / var(--items)));
+}
+.radio-input label:nth-child(9):has(input:checked) ~ .selection {
+  transform: translateX(calc(var(--container_width) * 8 / var(--items)));
+}
+.radio-input label:nth-child(10):has(input:checked) ~ .selection {
+  transform: translateX(calc(var(--container_width) * 9 / var(--items)));
+}
+.radio-input label:nth-child(11):has(input:checked) ~ .selection {
+  transform: translateX(calc(var(--container_width) * 10/ var(--items)));
 }
