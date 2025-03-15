@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script>
+        const setTheme = () => {
+            const theme = localStorage.getItem('theme') || 'dark';
+            document.documentElement.classList.toggle('dark-mode', theme === 'dark');
+        };
+        setTheme();
+    </script>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Varela&display=swap" rel="stylesheet" />
+    <title>Flight Booking Summary</title>
+    <link rel="stylesheet" href="/public/category/css/flight-booking.css">
+    <link rel="stylesheet" href="/public/css/styles.css">
+    <link rel="stylesheet" href="/public/css/themes.css">
+    <link rel="stylesheet" href="/public/css/navbar.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+
+<body>
+
+    <nav style="z-index: 1; background-color: transparent;backdrop-filter: blur(4px);">
+        <a href="index.html" style="margin-left: 8px;">TICKETEASE</a>
+        <div id="user-info" style="display: none;">
+            <span id="username-display"></span>
+            <div class="dropdown">
+                <button class="dropdown-btn" onclick="toggleDropdown()">▼</button>
+                <div class="dropdown-content" id="dropdown-menu">
+                    <a href="dashboard.html">Dashboard</a>
+                    <a href="scanner/scanner-info.html">Scan Tickets</a>
+                    <a href="#" onclick="logout()">Logout</a>
+                </div>
+            </div>
+        </div>
+        
+        <!--Service section-->
+        <div class="service-nav">
+            <a href="/public/category/flights.html" data-icon="flight.svg">
+                <i class="fas fa-plane"></i> FLIGHTS
+            </a>
+            <a href="/public/category/hotels.html" data-icon="hotel.svg">
+                <i class="fas fa-hotel"></i> HOTELS
+            </a>
+            <a href="/public/category/trains.html" data-icon="train.svg">
+                <i class="fas fa-train"></i> TRAINS
+            </a>
+            <a href="/public/category/events.html" data-icon="event.svg">
+                <i class="fas fa-calendar-alt"></i> EVENTS
+            </a>
+        </div>
+        <button id="login-btn" onclick="showPopup()" style="right: 1%">LOGIN / SIGNUP</button>
+    </nav>
+
+    <div class="page-container">
+        <!-- Top Section -->
+        <div class="top-section">
+            <!-- Fare Summary -->
+            <div class="fare-summary">
+                <h2>Fare Summary</h2>
+                <div class="traveller-info">
+                    <div>1 Traveller</div>
+                    <span  class="partially-refund">Partially Refundable</span>
+                </div>
+                <div class="fare-item">
+                    <div>Base Fare</div>
+                    <span>₹6,000</span>
+                </div>
+                <div class="fare-item">
+                    <div>Taxes & Fees</div>
+                    <span>₹1,000</span>
+                </div>
+                <div class="fare-item">
+                    <div>Service Charge</div>
+                    <span>₹19</span>
+                </div>
+                <div class="fare-total">
+                    <div>Total Amount</div>
+                    <div>₹7,019</div>
+                </div>
+            </div>
+
+            <!-- Flight Details -->
+            <div class="flight-details">
+                <h2>Pune > New Delhi</h2>
+                <div class="flight-meta">
+                    Thu 27 Feb → Mon 02 Mar • 2h 10m • Economy<br />
+                    AirIndia Express [ 11h 14m ]
+                </div>
+
+                <!-- Timing Boxes -->
+                <div class="flight-timing">
+                    <div class="time-box">
+                        <h3>01:05</h3>
+                        <p>Pune (PNQ)</p>
+                    </div>
+                    <div class="time-box">
+                        <h3>2h 10m</h3>
+                        <p>Non-stop</p>
+                    </div>
+                    <div class="time-box">
+                        <h3>03:15</h3>
+                        <p>New Delhi (DEL)</p>
+                    </div>
+                </div>
+
+                <div class="baggage-info">
+                    <strong>Check-in Baggage:</strong> 7 kg<br />
+                    <strong>Terminal:</strong> 3
+                </div>
+            </div>
+        </div>
+
+        <!-- Refund Section -->
+        <div class="refund-section">
+            <h2>Refund on Cancellation</h2>
+            <div class="flight-meta">PNQ → DEL</div>
+            <div class="refund-timeline">
+                <div class="now">Now</div>
+                <div>23 Feb<br /><strong>₹3267</strong> refund</div>
+                <div>24 Feb<br /><strong>₹3267</strong> refund</div>
+                <div>25 Feb<br /><strong>₹3267</strong> refund</div>
+                <div>26 Feb<br /><span class="non-refund">Non-Refundable</span></div>
+                <div>Departure</div>
+            </div>
+        </div>
+
+        <span class="line"></span>
+
+        <!-- Bottom Bar (Price & Lock & Continue) -->
+        <div class="bottom-bar">
+            <div class="final-price">₹7,019</div>
+            <div class="lock-price">Lock Price @ ₹199</div>
+            <button onclick="alert('In works')">Continue &rsaquo;</button>
+        </div>
+    </div>
+
+    <button id="theme-switch" style="top: 3px; right: 12%; z-index: 1;animation: fade-up 1s forwards;">
+        <svg height="24px" viewBox="0 -960 960 960" width="24px" fill="#e8eaed">
+            <path
+                d="M480-120q-150 0-255-105T120-480q0-150 105-255t255-105q14 0 27.5 1t26.5 3q-41 29-65.5 75.5T444-660q0 90 63 153t153 63q55 0 101-24.5t75-65.5q2 13 3 26.5t1 27.5q0 150-105 255T480-120Z" />
+        </svg>
+        <svg height="24px" viewBox="0 -960 960 960" width="24px" fill="#e8eaed">
+            <path
+                d="M480-280q-83 0-141.5-58.5T280-480q0-83 58.5-141.5T480-680q83 0 141.5 58.5T680-480q0 83-58.5 141.5T480-280ZM200-440H40v-80h160v80Zm720 0H760v-80h160v80ZM440-760v-160h80v160h-80Zm0 720v-160h80v160h-80ZM256-650l-101-97 57-59 96 100-52 56Zm492 496-97-101 53-55 101 97-57 59Zm-98-550 97-101 59 57-100 96-56-52ZM154-212l101-97 55 53-97 101-59-57Z" />
+        </svg>
+    </button>
+
+    <script src="/public/js/navbar.js"></script>
+</body>
+</html>

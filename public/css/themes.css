@@ -26,6 +26,9 @@ body {
     --radio-hover: #f1f1f1;
     --radio-bg-hover: #414141;
     --radio-border: #c1c1c1;
+    --calendar-bg: #fafafa;
+    --card-hover: rgba(0, 0, 0, 0.1);
+    --card-hover2: rgba(0, 0, 0, 0);
 }
 
 .dark-mode {
@@ -50,4 +53,7 @@ body {
     --radio-hover: #0c0c0c;
     --radio-bg-hover: #141414;
     --radio-border: #1c1c1c;
+    --calendar-bg: #050505;   
+    --card-hover: rgba(255, 255, 255, 0.1);
+    --card-hover2: rgba(255, 255, 255, 0);
 }

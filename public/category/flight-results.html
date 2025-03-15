@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <script>
+        const setTheme = () => {
+            const theme = localStorage.getItem('theme') || 'dark';
+            document.documentElement.classList.toggle('dark-mode', theme === 'dark');
+        };
+        setTheme();
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Varela&display=swap" rel="stylesheet">
+    <title>Flight Search Results</title>
+    <link rel="stylesheet" href="/public/css/styles.css">
+    <link rel="stylesheet" href="/public/css/themes.css">
+    <link rel="stylesheet" href="/public/css/navbar.css">
+    <link rel="stylesheet" href="/public/category/css/flight-results.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+
+<body>
+    <nav style="z-index: 1; background-color: transparent;backdrop-filter: blur(4px);">
+        <a href="index.html">TICKETEASE</a>
+        <div id="user-info" style="display: none;">
+            <span id="username-display"></span>
+            <div class="dropdown">
+                <button class="dropdown-btn" onclick="toggleDropdown()">▼</button>
+                <div class="dropdown-content" id="dropdown-menu">
+                    <a href="dashboard.html">Dashboard</a>
+                    <a href="scanner/scanner-info.html">Scan Tickets</a>
+                    <a href="#" onclick="logout()">Logout</a>
+                </div>
+            </div>
+        </div>
+        
+        <!--Service section-->
+        <div class="service-nav">
+            <a class="active" href="/public/category/flights.html" data-icon="flight.svg">
+                <i class="fas fa-plane"></i> FLIGHTS
+            </a>
+            <a href="/public/category/hotels.html" data-icon="hotel.svg">
+                <i class="fas fa-hotel"></i> HOTELS
+            </a>
+            <a href="/public/category/trains.html" data-icon="train.svg">
+                <i class="fas fa-train"></i> TRAINS
+            </a>
+            <a href="/public/category/events.html" data-icon="event.svg">
+                <i class="fas fa-calendar-alt"></i> EVENTS
+            </a>
+        </div>
+        <button id="login-btn" onclick="showPopup()">LOGIN / SIGNUP</button>
+    </nav>
+
+    <!-- Filter section -->
+    <div class="filter-section">
+        <h3 class="filter-title">Filters</h3>
+        <hr class="filter-divider">
+
+        <div class="filter-group">
+            <!-- Stops -->
+            <p class="filter-category">Stops</p>
+            <label class="filter-checkbox-label">
+                <input class="filter-checkbox stop-filter" type="checkbox" value="Non-Stop">
+                <span>Non-Stop</span>
+                <span>(12)</span>
+            </label>
+            <label class="filter-checkbox-label">
+                <input class="filter-checkbox stop-filter" type="checkbox" value="1 Stop">
+                <span>1 Stop</span>
+                <span>(18)</span>
+            </label>
+            <!-- Airlines -->
+            <p class="filter-category">Airlines</p>
+            <label class="filter-checkbox-label">
+                <input class="filter-checkbox airline-filter" type="checkbox" value="Air India">
+                <span>Air India</span>
+                <span>(04)</span>
+            </label>
+            <label class="filter-checkbox-label">
+                <input class="filter-checkbox airline-filter" type="checkbox" value="SpiceJet">
+                <span>SpiceJet</span>
+                <span>(05)</span>
+            </label>
+            <label class="filter-checkbox-label">
+                <input class="filter-checkbox airline-filter" type="checkbox" value="AirAsia">
+                <span>AirAsia</span>
+                <span>(05)</span>
+            </label>
+            <label class="filter-checkbox-label">
+                <input class="filter-checkbox airline-filter" type="checkbox" value="GoAir">
+                <span>GoAir</span>
+                <span>(06)</span>
+            </label>
+            <label class="filter-checkbox-label">
+                <input class="filter-checkbox airline-filter" type="checkbox" value="Vistara">
+                <span>Vistara</span>
+                <span>(05)</span>
+            </label>
+            <label class="filter-checkbox-label">
+                <input class="filter-checkbox airline-filter" type="checkbox" value="IndiGO">
+                <span>IndiGO</span>
+                <span>(12)</span>
+            </label>
+        </div>
+    </div>
+    
+    <!-- Sory By -->
+    <div class="sort-container">
+        <div class="sort-option active" onclick="sortFlights('reset')">
+            <span class="sort-title">Custom</span>
+            <span class="sort-subtitle">Initial search</span>
+        </div>
+        <div class="sort-option" onclick="sortFlights('price')">
+            <span class="sort-title">Price</span>
+            <span class="sort-subtitle">Low to High</span>
+        </div>
+        <div class="sort-option" onclick="sortFlights('duration')">
+            <span class="sort-title">Fastest</span>
+            <span class="sort-subtitle">Shortest First</span>
+        </div>
+        <div class="sort-option" onclick="sortFlights('departure')">
+            <span class="sort-title">Departure</span>
+            <span class="sort-subtitle">Earliest First</span>
+        </div>
+    </div>
+
+    <!-- Flight Cards -->
+    <div class="flight-cards"></div>
+
+    <!-- Details Section -->
+    <div class="details-panel" id="details-panel">
+        <button class="close-btn" onclick="closeDetails()">CLOSE</button>
+        <h2>Flight Details</h2>
+        <p>More information about the flight will go here...</p>
+    </div>
+
+    <button id="theme-switch">
+        <svg height="24px" viewBox="0 -960 960 960" width="24px" fill="#e8eaed">
+            <path
+                d="M480-120q-150 0-255-105T120-480q0-150 105-255t255-105q14 0 27.5 1t26.5 3q-41 29-65.5 75.5T444-660q0 90 63 153t153 63q55 0 101-24.5t75-65.5q2 13 3 26.5t1 27.5q0 150-105 255T480-120Z" />
+        </svg>
+        <svg height="24px" viewBox="0 -960 960 960" width="24px" fill="#e8eaed">
+            <path
+                d="M480-280q-83 0-141.5-58.5T280-480q0-83 58.5-141.5T480-680q83 0 141.5 58.5T680-480q0 83-58.5 141.5T480-280ZM200-440H40v-80h160v80Zm720 0H760v-80h160v80ZM440-760v-160h80v160h-80Zm0 720v-160h80v160h-80ZM256-650l-101-97 57-59 96 100-52 56Zm492 496-97-101 53-55 101 97-57 59Zm-98-550 97-101 59 57-100 96-56-52ZM154-212l101-97 55 53-97 101-59-57Z" />
+        </svg>
+    </button>
+
+    <script src="/public/js/navbar.js"></script>
+    <script src="/public/category/js/flights.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.0/papaparse.min.js"></script>
+    <script>
+        let originalFlightData = [];
+
+        document.addEventListener('DOMContentLoaded', function () {
+            fetch('flights.csv')
+                .then(response => response.text())
+                .then(csvText => {
+                    const data = Papa.parse(csvText, { header: true }).data;
+                    originalFlightData = [...data];
+                    renderFlightCards(data);
+                })
+                .catch(error => console.error('Error fetching CSV:', error));
+        });
+
+        function renderFlightCards(data) {
+            const flightCardsContainer = document.querySelector('.flight-cards');
+            flightCardsContainer.innerHTML = '';
+
+            data.forEach(flight => {
+                const cardHTML = `
+                <div class="flight-card" onclick="showDetails(this)" 
+                    data-price="${parseInt(flight.cost.replace(/[^0-9]/g, ''))}"
+                    data-duration="${getDurationInMinutes(flight.duration)}"
+                    data-departure="${getTimeInMinutes(flight.boarding)}">
+                    <div class="flight-info">
+                        <div class="company">
+                            <h4 class="flight-company">${flight.company}</h4>
+                            <p class="flight-number">${flight.flight_number}</p>
+                        </div>
+                        <div class="time">
+                            <p class="boarding-time">${flight.boarding}</p>
+                            <p class="boarding-airport">${flight.boarding_airport}</p>
+                        </div>
+                        <div class="duration">
+                            <p class="flight-duration">${flight.duration}</p>
+                            <span class="line"></span>
+                            <p class="flight-stops">${flight.stop}</p>
+                        </div>
+                        <div class="time">
+                            <p class="landing-time">${flight.landing}</p>
+                            <p class="landing-airport">${flight.landing_airport}</p>
+                        </div>
+                        <div class="price">
+                            <h3 class="flight-cost">${flight.cost}</h3>
+                            <p class="flight-offer">${flight.offer}</p>
+                        </div>
+                        <button class="book-btn" onclick="window.location.href='/public/category/flight-booking.html';">BOOK</button>
+                    </div>
+                </div>
+            `;
+                flightCardsContainer.insertAdjacentHTML('beforeend', cardHTML);
+            });
+        }
+
+        function getDurationInMinutes(duration) {
+            const [hours, minutes] = duration.split('h').map(part => parseInt(part.replace('m', '').trim()) || 0);
+            return (hours * 60) + minutes;
+        }
+
+        function getTimeInMinutes(time) {
+            const [hours, minutes] = time.split(':').map(part => parseInt(part));
+            return (hours * 60) + minutes;
+        }
+
+        function sortFlights(sortOption) {
+            document.querySelectorAll('.sort-option').forEach(option => {
+                option.classList.remove('active');
+            });
+
+            event.currentTarget.classList.add('active');
+
+            const flightCardsContainer = document.querySelector('.flight-cards');
+
+            if (sortOption === 'reset') {
+                renderFlightCards(originalFlightData);
+                return;
+            }
+
+        const flightCards = Array.from(flightCardsContainer.children);
+
+        flightCards.sort((a, b) => {
+            const valueA = parseInt(a.dataset[sortOption]);
+            const valueB = parseInt(b.dataset[sortOption]);
+            return valueA - valueB;
+        });
+
+        flightCards.forEach(card => {
+            card.classList.remove('fade-card');
+        });
+
+        setTimeout(() => {
+            flightCardsContainer.innerHTML = '';
+            flightCards.forEach(card => {
+                flightCardsContainer.appendChild(card);
+                requestAnimationFrame(() => {
+                    card.classList.add('fade-card');
+                });
+            });
+        });
+    }
+    </script>
+    <script>
+        function showDetails(card) {
+            const detailsPanel = document.getElementById('details-panel');
+
+            if (detailsPanel.classList.contains('active')) {
+                closeDetails();
+            }
+
+            document.removeEventListener('click', closeOnOutsideClick);
+
+            const company = card.querySelector('.flight-company')?.textContent || 'N/A';
+            const flightNumber = card.querySelector('.flight-number')?.textContent || 'N/A';
+            const boardingTime = card.querySelector('.boarding-time')?.textContent || 'N/A';
+            const flightDuration = card.querySelector('.flight-duration')?.textContent || 'N/A';
+            const landingTime = card.querySelector('.landing-time')?.textContent || 'N/A';
+            const flightStops = card.querySelector('.flight-stops')?.textContent || 'N/A';
+            const flightCost = card.querySelector('.flight-cost')?.textContent || 'N/A';
+
+            detailsPanel.innerHTML = `
+                <button class="close-btn" onclick="closeDetails(event)">CLOSE</button>
+                <h2>Flight Details</h2>
+                <div class="flight-details">
+                    <div class="details-row">
+                        <span class="details-label">Travel Company :</span>
+                        <span class="details-value">${company}</span>
+                    </div>
+                    <div class="details-row">
+                        <span class="details-label">Flight Number :</span>
+                        <span class="details-value">${flightNumber}</span>
+                    </div>
+                    <div class="details-row">
+                        <span class="details-label">Boarding Time :</span>
+                        <span class="details-value">${boardingTime}</span>
+                    </div>
+                    <div class="details-row">
+                        <span class="details-label">Flight Duration :</span>
+                        <span class="details-value">${flightDuration}</span>
+                    </div>
+                    <div class="details-row">
+                        <span class="details-label">Landing Time :</span>
+                        <span class="details-value">${landingTime}</span>
+                    </div>
+                    <div class="details-row">
+                        <span class="details-label">Stops :</span>
+                        <span class="details-value">${flightStops}</span>
+                    </div>
+                    <div class="details-row">
+                        <span class="details-label">Cost :</span>
+                        <span class="details-value">${flightCost}</span>
+                    </div>
+                    <button class="book-btn" style="padding:0.5rem 0.8rem;top:83%;right:10%;position:absolute;" onclick="window.location.href='/public/category/flight-booking.html';">BOOK</button>
+                </div>
+            `;
+
+            detailsPanel.classList.add('active');
+
+            setTimeout(() => {
+                document.addEventListener('click', closeOnOutsideClick);
+            }, 100);
+        }
+
+        function closeDetails(event) {
+            if (event) event.stopPropagation();
+            const detailsPanel = document.getElementById('details-panel');
+            detailsPanel.classList.remove('active');
+            document.removeEventListener('click', closeOnOutsideClick);
+        }
+
+        function closeOnOutsideClick(event) {
+            const detailsPanel = document.getElementById('details-panel');
+            if (detailsPanel.classList.contains('active') && !detailsPanel.contains(event.target)) {
+                closeDetails(event);
+            }
+        }
+
+        document.querySelectorAll('.flight-card').forEach(card => {
+            card.addEventListener('click', function (event) {
+                event.stopPropagation();
+                showDetails(this);
+            });
+        });
+    </script>
+    <script>
+        document.querySelectorAll('.filter-checkbox').forEach(checkbox => {
+            checkbox.addEventListener('change', applyFilters);
+        });
+
+        function sortFlights(sortType) {
+            document.querySelectorAll('.sort-option').forEach(option => {
+                option.classList.remove('active');
+            });
+            document.querySelector(`.sort-option[onclick="sortFlights('${sortType}')"]`).classList.add('active');
+            currentSortType = sortType;
+            applyFilters();
+        }
+
+        let currentSortType = 'reset';
+
+        function applyFilters() {
+            const selectedStops = Array.from(document.querySelectorAll('.stop-filter:checked')).map(cb => cb.value);
+            const selectedAirlines = Array.from(document.querySelectorAll('.airline-filter:checked')).map(cb => cb.value);
+
+            let filteredData = originalFlightData.filter(flight => {
+                const stopValid = selectedStops.length ? selectedStops.includes(flight.stop) : true;
+                const airlineValid = selectedAirlines.length ? selectedAirlines.includes(flight.company) : true;
+
+                return stopValid && airlineValid;
+            });
+
+            filteredData.sort((a, b) => {
+                switch (currentSortType) {
+                    case 'price':
+                        return parseInt(a.cost.replace(/[^0-9]/g, '')) - parseInt(b.cost.replace(/[^0-9]/g, ''));
+                    case 'duration':
+                        return getDurationInMinutes(a.duration) - getDurationInMinutes(b.duration);
+                    case 'departure':
+                        return getTimeInMinutes(a.boarding) - getTimeInMinutes(b.boarding);
+                    case 'reset':
+                    default:
+                        return 0;
+                }
+            });
+            renderFlightCards(filteredData);
+        }
+    </script>
+</body>
+</html>

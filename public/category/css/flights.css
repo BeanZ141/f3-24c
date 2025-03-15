@@ -32,7 +32,7 @@ select {
 
 #switch-btn {
     position: absolute;
-    left: 24.2%;
+    left: 24%;
     background-color: var(--switch-btn-color);
     color: var(--color-fg);
     height: 40px;
@@ -111,7 +111,6 @@ input[type="checkbox"] {
 
 /* Special fare radio button */
 .special-fare {
-    opacity: 0;
     position: relative;
     top: 2.5rem;
     left: -15rem;
@@ -226,6 +225,7 @@ input[type="checkbox"] {
     opacity: 0;
     transition: opacity 0.2s;
     z-index: 1;
+    pointer-events: none;
 }
 
 .tooltip::after {
@@ -392,11 +392,12 @@ input[type="checkbox"] {
 .select-selected .airport {
     font-size: 0.5em;
     font-weight: 100;
-    color: #b0b0b0;
+    color: var(--color-fg);
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
     max-width: 100%;
+    animation: animate-gradient 0.7s ease-in forwards;
 }
 
 .select-options div .code {
@@ -465,8 +466,9 @@ input[type="checkbox"] {
 .return-description {
     position: absolute;
     width: 80px;
-    font-size: 0.75rem;
+    font-size: 0.7rem;
     font-family: 'Varela', sans-serif-;
+    font-weight: 800;
     text-align: left;
     top: 30%;
     left: 10%;
@@ -570,11 +572,24 @@ input[type="checkbox"] {
 }
 
 .cancel-btn {
-    display: none;
     position: absolute;
     top: 10%;
-    left: 83%;
+    left: 81%;
     cursor: pointer;
+    padding: 2px;
+    filter: invert(1);
+}
+
+.cancel-btn:hover {
+    transform: scale(1.1);
+}
+
+.cancel-btn:active {
+    transform: scale(1.2);
+}
+
+.dark-mode .cancel-btn {
+    filter: invert(0);
 }
 
 @keyframes fade-element {
@@ -587,20 +602,41 @@ input[type="checkbox"] {
     }
 }
 
+.travelers {
+    color: var(--color-fg);
+    font-family: 'Varela', sans-serif;
+    font-size: 0.9em;
+    position: absolute;
+    top: 0%;
+    margin: 0.7rem;
+    animation: animate-gradient 0.7s ease-in forwards;
+}
+
+.travelers-display {
+    color: var(--color-fg);
+    font-family: 'Varela', sans-serif;
+    margin-top: 0.8rem;
+    animation: animate-gradient 0.7s ease-in forwards;
+}
+
 .travelers-and-class {
     width: 245px;
     height: 6.875rem;
     background-color: var(--color-bg);
     border: 0px solid #000;
     border-radius: 0px 8px 8px 0px;
+    cursor: pointer;
 }
 
 .travel-class {
     position: absolute;
-    top: 130%;
-    left: 52.9%;
-    background-color: var(--radio-color);
+    top: 30%;
+    left: 49.9%;
+    width: 34rem;
+    height: 20rem;
+    background-color: var(--calendar-bg);
     padding: 1.3rem;
+    user-select: none;
 }
 
 .travel-class h5, p {
@@ -610,19 +646,54 @@ input[type="checkbox"] {
     padding: 0;
 }
 
+.number-of-travelers {
+    margin-left: -5rem;
+    font-size: 2em;
+    font-weight: 600;
+}
+
+.display-class {
+    display: block;
+    width: 200px;
+    margin-left: 1rem;
+    white-space: nowrap;
+    text-align: left;
+}
+
+.children-section {
+    width: 200px;
+    position: absolute;
+}
+
+.infants-section { 
+    width: 200px;
+    left: 50%;
+    position: absolute;
+}
+
+.choose-class {
+    top: 65%;
+    width: 400px;
+    position: absolute;
+}
+
+#class-error {
+    display: block;
+}
+
 .radio-input input {
     display: none;
 }
 
 .radio-input {
-    --item_width: 40px;
-    --item_height: 40px;
+    --item_width: 30px;
+    --item_height: 30px;
     --items: 10;
     --container_width: calc(var(--item_width) * var(--items));
     position: relative;
     display: flex;
     align-items: center;
-    background-color: var(--radio-color);
+    background-color: var(--calendar-bg);
     color: var(--color-fg);
     width: var(--container_width);
     overflow: hidden;
@@ -634,11 +705,11 @@ input[type="checkbox"] {
 }
 
 .radio-input label:hover {
-    background-color: #a091d9;
+    background-color: #85858570;
 }
 
 .radio-input label:hover span {
-    color: black;
+    color: var(--color-fg);
 }
 
 .radio-input label {
@@ -651,6 +722,35 @@ input[type="checkbox"] {
     z-index: 1;
     font-weight: 600;
     font-size: 0.8em;
+}
+
+.choose-class .radio-input {
+    --item_width: auto;
+    --container_width: auto;
+    gap: 5px;
+    flex-wrap: wrap;
+    width: 35rem;
+}
+
+.choose-class .radio-input label {
+    padding: 0px 15px;
+    width: auto;
+    font-weight: 400;
+    text-align: center;
+}
+
+.choose-class .radio-input label:hover {
+    background-color: #85858570;
+}
+
+.choose-class .radio-input label:hover span {
+    color: var(--color-bg);
+}
+
+.choose-class .radio-input label:has(input:checked) {
+    background-color: var(--color-fg);
+    font-weight: 600;
+    color: var(--color-bg);
 }
 
 .selection {
@@ -666,8 +766,33 @@ input[type="checkbox"] {
 }
 
 .radio-input label:has(input:checked) ~ .selection {
-    background-color: #6d52bf;
+    background-color: var(--color-fg);
     display: inline-block;
+}
+
+.radio-input label:has(input:checked) {
+    color: var(--color-bg);
+}
+
+.search-btn {
+    background-color: var(--radio-color);
+    color: var(--color-fg);
+    text-decoration: none;
+    position: absolute;
+    top: 52.5%;
+    left: 80%;
+    padding: 10px 20px;
+    border: 1px solid transparent;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    animation: fade-text 0.7s forwards;
+}
+
+.search-btn:hover {
+    background-color: var(--color-fg);
+    color: var(--color-bg);
+    border: 1px solid var(--border);
+    font-weight: bold;
+    cursor: pointer;
 }
 
 .radio-input label:nth-child(1):has(input:checked) ~ .selection {
@@ -703,3 +828,28 @@ input[type="checkbox"] {
 .radio-input label:nth-child(11):has(input:checked) ~ .selection {
   transform: translateX(calc(var(--container_width) * 10/ var(--items)));
 }
+
+.alert {
+    position: fixed;
+    top: 4%;
+    right: 2%;
+    padding: 15px 30px;
+    background-color: var(--color-fg);
+    color: var(--color-bg);
+    opacity: 0;
+    width: 300px;
+    visibility: hidden;
+    transition: opacity 0.3s, visibility 0.3s;
+    z-index: 1000;
+    letter-spacing: 0.05rem;
+    font-size: 1.03em;
+}
+
+.alert.show {
+    opacity: 1;
+    visibility: visible;
+    animation: fade-text 1s forwards;
+}
+
+.alert.success { background-color: var(--color-fg); color: var(--color-bg); }
+.alert.error { background-color: #ff0000; color: #222; }

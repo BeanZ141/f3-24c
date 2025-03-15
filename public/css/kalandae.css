@@ -1,7 +1,7 @@
 /** Base container **/
 .kalendae {
     display: inline-block;
-    background: var(--radio-color);
+    background: var(--calendar-bg);
     padding: 1rem;
     font-size: 1.2rem;
     font-family: 'Inter', sans-serif;
@@ -17,6 +17,12 @@
 .kalendae * {
 	-moz-box-sizing: border-box;
 	box-sizing: border-box;
+}
+
+.k-blackout {
+	color: #6e6e6e;
+    font-size: 0.8em;
+
 }
 
 /** Popup Container for Kalendae.Input **/
@@ -182,7 +188,7 @@
 
 /** Days inside of the month view **/
 .kalendae .k-days span.k-in-month.k-active {
-    background-color: var(--radio-color);
+    background-color: var(--calendar-bg);
     color: var(--color-fg);
 }
 /** Days outside of the month view (before the first day of the month, after the last day of the month) **/
@@ -201,8 +207,8 @@
 /** Selected day, when inside the selectable area **/
 .kalendae .k-days span.k-selected.k-active,
 .kalendae .k-header.k-active span.k-selected {
-	background:#6d52bf;
-	color:white;
+	background:var(--color-fg);
+	color:var(--color-bg);
 }
 
 /** Days between the start and end points on a range, outside of the selectable area **/
@@ -212,7 +218,7 @@
 
 /** Days between the start and end points on a range, inside of the selectable area **/
 .kalendae .k-days span.k-range.k-in-month {
-	background:#a091d9;
+	background:#858585;
 	color:#333;
 }
 

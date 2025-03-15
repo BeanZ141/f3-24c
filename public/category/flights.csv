@@ -1,0 +1,31 @@
+company,flight_number,boarding,duration,landing,cost,offer,boarding_airport,landing_airport,stop
+Air India,AI 256034,08:00,9h 00m,17:00,₹14995,Extra ₹310 off,PNQ,DEL,1 Stop
+AirAsia,I5 451218,11:45,11h 00m,22:45,₹7963,Extra ₹310 off,DEL,BOM,Non-Stop
+Air India,AI 721956,20:15,4h 45m,01:00,₹6021,Extra ₹310 off,BOM,BLR,1 Stop
+SpiceJet,SG 922731,12:35,11h 00m,23:35,₹7597,Extra ₹310 off,BLR,HYD,1 Stop
+GoAir,G8 841257,13:00,12h 15m,01:15,₹8235,Extra ₹210 off,HYD,MAA,Non-Stop
+Vistara,UK 321184,08:00,7h 45m,15:40,₹3264,Extra ₹310 off,MAA,CCU,1 Stop
+GoAir,G8 219305,05:30,6h 15m,11:45,₹11384,Extra ₹310 off,CCU,GOI,1 Stop
+SpiceJet,SG 650349,04:30,1h 30m,05:25,₹5137,Extra ₹210 off,GOI,JAI,Non-Stop
+AirAsia,I5 175139,20:30,9h 45m,06:10,₹4161,Extra ₹410 off,JAI,AMD,1 Stop
+Vistara,UK 475123,06:30,2h 30m,09:20,₹7853,Extra ₹310 off,AMD,PNQ,1 Stop
+IndiGo,6E 621768,06:40,5h 45m,12:25,₹7158,Extra ₹110 off,PNQ,DEL,1 Stop
+AirAsia,I5 918632,15:30,2h 00m,17:30,₹11075,Extra ₹210 off,DEL,BOM,Non-Stop
+SpiceJet,SG 36917,16:25,3h 30m,19:50,₹11889,Extra ₹310 off,BOM,BLR,Non-Stop
+AirAsia,I5 205416,17:25,6h 45m,00:10,₹10198,Extra ₹110 off,BLR,HYD,1 Stop
+IndiGo,6E 75764,13:50,1h 30m,15:20,₹6308,Extra ₹310 off,HYD,MAA,1 Stop
+GoAir,G8 310612,14:45,2h 45m,17:30,₹7517,Extra ₹310 off,MAA,CCU,Non-Stop
+Vistara,UK 591731,22:25,6h 30m,04:55,₹14405,Extra ₹310 off,CCU,GOI,1 Stop
+IndiGo,6E 815339,09:45,6h 45m,16:25,₹8610,Extra ₹210 off,GOI,JAI,Non-Stop
+GoAir,G8 617642,01:25,5h 00m,06:20,₹4276,Extra ₹110 off,JAI,AMD,Non-Stop
+GoAir,G8 193754,00:45,3h 15m,04:00,₹9079,Extra ₹410 off,AMD,PN,1 Stop
+Air India,AI 543210,07:15,8h 30m,15:45,₹12500,Extra ₹210 off,PNQ,DEL,1 Stop
+Vistara,UK 984321,09:30,10h 00m,19:30,₹9782,Extra ₹310 off,DEL,BOM,Non-Stop
+IndiGo,6E 654789,18:25,5h 15m,23:40,₹5896,Extra ₹110 off,BOM,BLR,1 Stop
+SpiceJet,SG 712365,10:45,10h 30m,21:15,₹8290,Extra ₹210 off,BLR,HYD,1 Stop
+AirAsia,I5 357924,05:00,11h 45m,16:45,₹7543,Extra ₹310 off,HYD,MAA,Non-Stop
+GoAir,G8 235781,06:30,9h 15m,15:45,₹6825,Extra ₹410 off,MAA,CCU,1 Stop
+Vistara,UK 864932,03:45,4h 30m,08:15,₹12345,Extra ₹210 off,CCU,GOI,1 Stop
+IndiGo,6E 748392,11:20,3h 45m,15:05,₹4598,Extra ₹310 off,GOI,JAI,Non-Stop
+SpiceJet,SG 912387,14:15,2h 15m,16:30,₹9999,Extra ₹110 off,JAI,AMD,1 Stop
+Air India,AI 678934,19:35,7h 25m,03:00,₹13845,Extra ₹210 off,AMD,PNQ,Non-Stop

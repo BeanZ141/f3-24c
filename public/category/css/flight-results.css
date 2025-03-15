@@ -1,0 +1,419 @@
+body {
+    font-family: 'Varela', sans-serif;
+    background-color: var(--color-bg);
+    color: var(--color-fg);
+    padding: 150px;
+}
+
+.flight-cards {
+    display: flex;
+    flex-direction: column;
+    max-width: 700px;
+    margin: 0 auto;
+    user-select: none;
+    animation: fade-card 1s forwards, fade-text 1s forwards;
+}
+
+.flight-card {
+    background: var(--color-bg);
+    border: 1px solid var(--radio-border);
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    margin: 0.5rem;
+    position: relative;
+    animation: fade-card 1s forwards;
+    will-change: transform, box-shadow;
+    transition: transform 0.2s !important;
+    transform: translateZ(0);
+}
+
+.flight-card::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(
+        circle,
+        var(--card-hover) 0%,
+        var(--card-hover2) 40%
+    );
+    opacity: 0;
+    transition: opacity 1s ease, transform 0.5s ease;
+    pointer-events: none;
+}
+
+.flight-card:hover::after {
+    transform: scale(4);
+    transition: 0.5s ease;
+    opacity: 1;
+}
+
+.flight-card:hover {
+    box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+    cursor: pointer;
+    transform: scale(1.02) !important;
+}
+
+.flight-card:active {
+    background-color: var(--card-hover);
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    cursor: pointer;
+    transform: scale(1.03) !important;
+    transition: background-color 0.1s !important;
+}
+
+.flight-info {
+    display: grid;
+    grid-template-columns: 100px 70px 110px 70px 110px 110px;
+    align-items: center;
+    gap: 1rem;
+    margin: 0.5rem;
+    position: relative;
+    text-align: center;
+}
+
+.time, .duration, .price {
+    text-align: center;
+}
+
+.price h3 {
+    color: var(--tnc-color);
+    margin: 0;
+    margin-bottom: 20px;
+}
+
+.flight-card:hover .price h3 {
+    color: var(--color-fg);
+}
+
+.company h4 {
+    text-align: left;
+    margin: 1rem;
+}
+
+.line {
+    background-color: var(--radio-border);
+    height: 1px;
+    width: 50px;
+    position: absolute;
+    top: 55%;
+    left: 35%;
+}
+
+p:nth-child(2) {
+    color: #868686;
+    margin-top: -5px;
+    font-size: 0.8em;
+    text-align: left;
+    margin-left: 1rem;
+}
+
+.duration p:nth-child(3) {
+    color: #868686;
+    margin-top: -5px;
+    font-size: 0.8em;
+    text-align: center;
+}
+
+.price p {
+    color: #5f5f5f;
+    font-size: 0.6em;
+    margin: -10px;
+    margin-left: 15px;
+    position: absolute;
+}
+
+.book-btn {
+    background: var(--radio-color);
+    color: var(--color-fg);
+    border: 1px solid var(--radio-border);
+    padding: 0.7rem;
+    border-radius: 5px;
+    cursor: pointer;
+    font-family: 'Varela';
+    transition: 0.2s;
+    position: relative;
+    z-index: 1;
+}
+
+.book-btn:hover {
+    background-color: var(--color-fg);
+    color: var(--color-bg);
+    transform: scale(1.05);
+    font-weight: 800;
+}
+
+.details-panel {
+    position: fixed;
+    top: 0;
+    right: -100%;
+    width: 19%;
+    height: 100%;
+    background: var(--color-bg);
+    box-shadow: -2px 0 5px rgba(0, 0, 0, 0.1);
+    padding: 2rem;
+    overflow-y: auto;
+    transition: right 0.5s ease;
+    z-index: 100;
+}
+
+.details-panel.active {
+    right: 0;
+}
+
+.close-btn {
+    background: var(--radio-color);
+    color: var(--color-fg);
+    border: 1px solid var(--radio-border);
+    font-family: 'Varela';
+    padding: 0.5rem 1rem;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.close-btn:hover {
+    background: var(--color-fg);
+    color: var(--color-bg);
+    border: 1px solid var(--radio-border);
+}
+
+.details-row {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 0.7rem;
+    width: 16rem;
+    padding: 0.8rem;
+    margin-left: -1rem;
+    color: var(--tnc-color);
+    border-top: 1px solid transparent;
+    border-bottom: 1px solid transparent;
+    transition: 0.2s;
+}
+
+.details-row:hover {
+    color: var(--color-fg);
+    border-top: 1px solid var(--radio-border);
+    border-bottom: 1px solid var(--radio-border);
+    width: 14rem;
+    transition: 0.2s;
+}
+
+.details-row:hover .details-label {
+    font-weight: 600;
+}
+
+.details-row:hover .details-value {
+    font-weight: 600;
+}
+
+.details-label {
+    font-weight: 100;
+}
+
+.sort-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--color-bg);
+    border-radius: 10px;
+    border: 1px solid var(--radio-border);
+    overflow: hidden;
+    width: 80%;
+    max-width: 680px;
+    margin: 0 auto;
+    margin-bottom: 0.5rem;
+    user-select: none;
+    animation: fade-card 1s forwards;
+    font-size: 0.9em;
+}
+
+.sort-option {
+    flex: 1;
+    padding: 10px;
+    text-align: center;
+    cursor: pointer;
+    color: var(--tnc-color);
+    transition: background 0.2s, color 0.2s;
+    border-bottom: 0.2px solid transparent;
+}
+
+.sort-option:hover {
+    background: var(--card-hover);
+    color: var(--color-fg);
+}
+
+.sort-option.active {
+    background-color: var(--radio-color);
+    color: var(--color-fg);
+    font-weight: bold;
+    border-bottom: 0.2px solid var(--color-fg);
+}
+
+.sort-option.active .sort-title {
+    font-weight: bold;
+}
+
+.sort-option.active .sort-subtitle {
+    font-weight: 100;
+}
+
+.sort-option.active .sort-subtitle {
+    color: var(--color-fg);
+}
+
+.sort-title {
+    display: block;
+    font-weight: 100;
+}
+
+.sort-subtitle {
+    display: block;
+    font-size: 0.85em;
+    color: #888888;
+}
+
+.sort-option:not(:last-child) {
+    border-right: 1px solid var(--radio-border);
+}
+
+.flight-card:nth-child(1) {animation-delay: 0.0s;}
+.flight-card:nth-child(2) {animation-delay: 0.1s;}
+.flight-card:nth-child(3) {animation-delay: 0.2s;}
+.flight-card:nth-child(4) {animation-delay: 0.3s;}
+.flight-card:nth-child(5) {animation-delay: 0.4s;}
+.flight-card:nth-child(6) {animation-delay: 0.5s;}
+.flight-card:nth-child(7) {animation-delay: 0.6s;}
+.flight-card:nth-child(8) {animation-delay: 0.7s;}
+.flight-card:nth-child(9) {animation-delay: 0.8s;}
+.flight-card:nth-child(10) {animation-delay: 0.9s;}
+
+.filter-section {
+    position: fixed;
+    left: 1.1%;
+    background-color: var(--color-bh);
+    border-radius: 10px;
+    padding: 1rem;
+    width: 245px;
+    color: var(--color-fg);
+    border: 1px solid var(--radio-border);
+    animation: fade-card 1s forwards;
+    user-select: none;
+}
+
+.filter-title {
+    letter-spacing: 1px;
+    font-size: 1.2rem;
+    margin: 0;
+}
+
+.filter-divider {
+    border: 0;
+    border-top: 1px solid var(--radio-border);
+    margin: 0.5rem 0;
+}
+
+.filter-group {
+    margin-top: 1rem;
+}
+
+.filter-category {
+    font-size: 1rem;
+    margin-bottom: 0.5rem;
+}
+
+.filter-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 0.5rem;
+    cursor: pointer;
+    color: #ccc;
+}
+
+.filter-item input {
+    accent-color: #888;
+    width: 1rem;
+    height: 1rem;
+    cursor: pointer;
+}
+
+.filter-item span {
+    font-size: 0.9rem;
+}
+
+.filter-checkbox {
+    appearance: none;
+    width: 18px;
+    height: 18px;
+    border: 1px solid var(--radio-border);
+    border-radius: 5px;
+    background-color: transparent;
+    margin-left: 10px;
+    display: inline-block;
+    position: relative;
+    margin-right: 12px;
+    cursor: pointer;
+}
+
+.filter-checkbox:before {
+    content: "";
+    background-color: var(--color-fg);
+    display: block;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0);
+    width: 10px;
+    height: 10px;
+    border-radius: 3px;
+    transition: all 0.1s ease-in-out;
+}
+
+.filter-checkbox:checked {
+    border-color: var(--color-fg);
+}
+
+.filter-checkbox:checked + span {
+    font-weight: 600;
+}
+
+.filter-checkbox:checked:before {
+    transform: translate(-50%, -50%) scale(1);
+}
+
+.filter-checkbox-label {
+    cursor: pointer;
+    user-select: none;
+    display: flex;
+    align-items: center;
+    margin-bottom: 0.3rem;
+    background-color: transparent;
+    border-radius: 8px;
+    transition: background-color 0.2s;
+}
+
+.filter-checkbox-label:hover {
+    font-weight: 600;
+    background-color: var(--radio-color);
+    transition: background-color 0.2s;
+}
+
+.filter-checkbox-label:hover .filter-checkbox {
+    border-color: var(--tnc-color);
+    transition: background-color 0.2s;
+}
+
+.filter-checkbox-label span {
+    font-size: 0.9rem;
+    font-family: 'Varela', sans-serif;
+    margin: 0.5rem;
+}
+
+.filter-checkbox-label span:nth-child(3) {
+    right: 10%;
+    position: absolute;
+}

@@ -91,7 +91,7 @@ nav a:hover {
     padding: 0.3rem 0.5rem;
     transition: 200ms ease-out;
     font-weight: 100;
-    animation: animate-gradient 0.2s ease-in forwards, fade-text 1s forwards;
+    animation: animate-gradient 0.2s ease-in forwards, fade-up 1s forwards;
 }
 
 #login-btn:hover {
@@ -149,4 +149,45 @@ nav a:hover {
     background-color: var(--tnc-color);
     border: 0;
     color: var(--color-bg);
+}
+
+/* Navbar Service Section */
+
+.service-nav {
+    position: relative;
+    display: flex; 
+    left: 22%;
+    margin-top: 0;
+    font-family: 'Varela', sans-serif;
+    animation: fade-text 1s forwards;
+}
+
+.service-nav a {
+    text-decoration: none;
+    color: var(--color-fg);
+    background-color: var(--color-bg);
+    font-size: 0.8rem;
+    padding: 8px 20px;    
+    transition: 200ms;
+    font-weight: 100;
+}
+
+.service-nav a:hover {
+    text-decoration: none;
+    color: var(--fg-hover);
+    background-color: var(--bg-hover);
+    font-weight: bold;
+    padding: 8px 20px;   
+    transition: 200ms;
+}
+
+.service-nav .active {
+    color: var(--bg-hover);
+    font-weight: bold;
+    border-bottom: 1px solid var(--bg-hover);
+    letter-spacing: 2px;
+}
+
+.service-nav i {
+    margin-right: 0.5rem;
 }
