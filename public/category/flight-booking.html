@@ -67,19 +67,19 @@
                 </div>
                 <div class="fare-item">
                     <div>Base Fare</div>
-                    <span>₹6,000</span>
+                    <span>₹12850</span>
                 </div>
                 <div class="fare-item">
                     <div>Taxes & Fees</div>
-                    <span>₹1,000</span>
+                    <span>₹1028</span>
                 </div>
                 <div class="fare-item">
                     <div>Service Charge</div>
-                    <span>₹19</span>
+                    <span>₹1117</span>
                 </div>
                 <div class="fare-total">
                     <div>Total Amount</div>
-                    <div>₹7,019</div>
+                    <div>x x x x</div>
                 </div>
             </div>
 
@@ -87,8 +87,8 @@
             <div class="flight-details">
                 <h2>Pune > New Delhi</h2>
                 <div class="flight-meta">
-                    Thu 27 Feb → Mon 02 Mar • 2h 10m • Economy<br />
-                    AirIndia Express [ 11h 14m ]
+                    xxx xx xxx → xxx xx xxx • xx xx • xxxx<br />
+                    xxxx x [ xx xx ]
                 </div>
 
                 <!-- Timing Boxes -->
@@ -150,5 +150,25 @@
     </button>
 
     <script src="/public/js/navbar.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const flightDetails = JSON.parse(localStorage.getItem('selectedFlight'));
+            
+            if (flightDetails) {
+                document.querySelector('.flight-details h2').textContent = `${flightDetails.boardingAirport} > ${flightDetails.landingAirport}`;
+                document.querySelector('.flight-meta').innerHTML = 
+                    `${flightDetails.flightNumber} • ${flightDetails.duration} • ${flightDetails.stops}<br />${flightDetails.company}`;
+                document.querySelector('.time-box:nth-child(1) h3').textContent = flightDetails.boardingTime;
+                document.querySelector('.time-box:nth-child(1) p').textContent = flightDetails.boardingAirport;
+                document.querySelector('.time-box:nth-child(2) h3').textContent = flightDetails.duration;
+                document.querySelector('.time-box:nth-child(2) p').textContent = flightDetails.stops;
+                document.querySelector('.time-box:nth-child(3) h3').textContent = flightDetails.landingTime;
+                document.querySelector('.time-box:nth-child(3) p').textContent = flightDetails.landingAirport;
+                document.querySelector('.fare-total div:nth-child(2)').textContent = flightDetails.cost;
+                document.querySelector('.final-price').textContent = flightDetails.cost;
+                document.querySelector('.refund-section .flight-meta').textContent = `${flightDetails.boardingAirport} > ${flightDetails.landingAirport}`;
+            }
+        });
+    </script>    
 </body>
 </html>

@@ -81,7 +81,7 @@ document.addEventListener("click", (event) => {
 window.addEventListener("load", () => {
     setTimeout(() => {
         showPopup();
-    }, 2500);
+    }, 11000);
 });
 
 document.getElementById("login-btn").addEventListener("click", (event) => {

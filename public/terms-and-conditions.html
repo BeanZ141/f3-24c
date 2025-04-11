@@ -2,6 +2,11 @@
 <html lang="en">
 <head>
     <script>
+        document.addEventListener('DOMContentLoaded', () => {
+        window.scrollTo(0, 0);
+    });
+    </script>
+    <script>
     const setTheme = () => {
         const theme = localStorage.getItem('theme') || 'light';
         document.documentElement.classList.toggle('dark-mode', theme === 'dark');
@@ -27,32 +32,33 @@
         <a href="index.html" class="nav-link">TICKETEASE</a>
     </nav>
 
-    <div class="t-and-c-info">
-        <h2>Terms and Conditions for Ticket Booking</h2>
-        <h3>Last Updated: 10 / 12 / 2024</h3>
-        <div class="t-and-c-content">
-            <p>
-                Thank you for choosing to book a ticket with us. By proceeding with the booking, you agree to comply with the following Terms and Conditions. 
-                Please read these terms carefully before confirming your ticket purchase.
-            </p>
-            <h4>No Refund Policy</h4>
-            <ul>
-                <li><strong>All Sales are Final:</strong> Once a ticket is purchased, it is non-refundable.</li>
-                <li><strong>No Exchanges:</strong> Tickets cannot be exchanged or transferred to another date, time, or event.</li>
-                <li><strong>Non-Transferable:</strong> Tickets are strictly non-transferable and are valid only for the individual whose name appears on the booking confirmation.</li>
-            </ul>
-    
-            <h4>Booking Confirmation and Payment</h4>
-            <ul>
-                <li><strong>Booking Confirmation:</strong> A booking is confirmed upon completion of the payment process. You will receive an email confirmation with details of your ticket.</li>
-                <li><strong>Payment:</strong> All ticket prices are inclusive of applicable taxes. Payments are processed securely.</li>
-            </ul>
+    <div class="t-and-c-info" style="animation: fade-card 1s forwards;">
+            <h2>Terms and Conditions for Ticket Booking</h2>
+            <h3>Last Updated: 10 / 12 / 2024</h3>
+            <div class="t-and-c-content" style="animation: fade-card 1s forwards;">
+                <p>
+                    Thank you for choosing to book a ticket with us. By proceeding with the booking, you agree to comply with the following Terms and Conditions. 
+                    Please read these terms carefully before confirming your ticket purchase.
+                </p>
 
-            <h4>Admission and Conduct</h4>
-            <ul>
-                <li><strong>Admission Rights:</strong> The organizer reserves the right to refuse admission to any ticket holder who violates venue policies, exhibits inappropriate behavior, or is under the influence of drugs or alcohol.</li>
-                <li><strong>Code of Conduct:</strong>  All attendees are expected to follow event rules and regulations, including respecting fellow attendees, event staff, and venue property.</li>
-            </ul>
+                <h4>No Refund Policy</h4>
+                <ul>
+                    <li><strong>All Sales are Final:</strong> Once a ticket is purchased, it is non-refundable.</li>
+                    <li><strong>No Exchanges:</strong> Tickets cannot be exchanged or transferred to another date, time, or event.</li>
+                    <li><strong>Non-Transferable:</strong> Tickets are strictly non-transferable and are valid only for the individual whose name appears on the booking confirmation.</li>
+                </ul>
+
+                <h4>Booking Confirmation and Payment</h4>
+                <ul>
+                    <li><strong>Booking Confirmation:</strong> A booking is confirmed upon completion of the payment process. You will receive an email confirmation with details of your ticket.</li>
+                    <li><strong>Payment:</strong> All ticket prices are inclusive of applicable taxes. Payments are processed securely.</li>
+                </ul>
+
+                <h4>Admission and Conduct</h4>
+                <ul>
+                    <li><strong>Admission Rights:</strong> The organizer reserves the right to refuse admission to any ticket holder who violates venue policies, exhibits inappropriate behavior, or is under the influence of drugs or alcohol.</li>
+                    <li><strong>Code of Conduct:</strong>  All attendees are expected to follow event rules and regulations, including respecting fellow attendees, event staff, and venue property.</li>
+                </ul>
         </div>
     </div>
     

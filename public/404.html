@@ -1,38 +1,78 @@
 <!DOCTYPE html>
-<html>
-  <head>
+<html lang="en">
+<head>
     <script>
       const setTheme = () => {
-          const theme = localStorage.getItem('theme') || 'light';
-          document.documentElement.classList.toggle('dark-mode', theme === 'dark');
+        const theme = localStorage.getItem('theme') || 'dark';
+        document.documentElement.classList.toggle('dark-mode', theme === 'dark');
       };
       setTheme();
-  </script>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>404 - Not Found</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Varela&display=swap">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300..700;1,300..700&family=Unna:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/styles.css">
     <link rel="stylesheet" href="css/themes.css">
-    <title>Page Not Found</title>
-
-    <style media="screen">
-      body {user-select: none; background: var(--color-bg); color: var(--color-fg); font-family: Roboto, Helvetica, Arial, sans-serif; margin: 0; padding: 0; }
-      #message { background: var(--color-bg); max-width: 360px; margin: 100px auto 16px; padding: 32px 24px 16px; border-radius: 5px; }
-      #message h3 { color: #000000; font-weight: normal; font-size: 16px; margin: 16px 0 12px; }
-      #message h2 { color: #ffa100; font-weight: bold; font-size: 16px; margin: 0 0 8px; }
-      #message h1 { font-size: 22px; font-weight: 300; color: #000000; margin: 0 0 16px;}
-      #message p { line-height: 140%; margin: 16px 0 24px; font-size: 14px; }
-      #message a { display: block; text-align: center; background: #039be5; text-transform: uppercase; text-decoration: none; color: var(--color-fg); padding: 16px; border-radius: 4px; }
-      #load { color: rgba(0,0,0,0.4); text-align: center; font-size: 13px; }
-      @media (max-width: 600px) {
-        body, #message { margin-top: 0; background: var(--color-bg); box-shadow: none; }
-        body { border-top: 16px solid #ffa100; }
-      }
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            text-align: center;
+        }
+        #message {
+            background: transparent;
+            max-width: 400px;
+            padding: 20px;
+        }
+        #message h2 {
+            font-size: 6rem;
+            font-weight: bold;
+            color: var(--color-fg);
+            margin-bottom: 20px;
+        }
+        #message h1 {
+            font-family: 'DM Sans';
+            font-size: 2.5rem;
+            font-weight: bold;
+            margin-bottom: 50px;
+        }
+        #message a {
+            display: inline-block;
+            font-family: 'Varela';
+            letter-spacing: 1px;
+            padding: 12px 24px;
+            background: var(--color-fg);
+            color: var(--color-bg);
+            border: 1px solid transparent;
+            text-decoration: none;
+            font-size: 1rem;
+        }
+        #message a:hover {
+          background: var(--color-bg);
+          color: var(--color-fg);
+          border: 1px solid var(--tnc-color);
+        }
     </style>
-  </head>
-  <body>
+</head>
+<body>
     <div id="message">
-      <h2>404</h2>
-      <h1>Page Not Found</h1>
-      <p>The specified file was not found on this website. Please check the URL for mistakes and try again.</p>
+        <h2>404</h2>
+        <h1>The page you’re looking for can’t be found.</h1>
+        <a href="/public/index.html">GO BACK</a>
     </div>
-  </body>
+</body>
 </html>

@@ -24,7 +24,7 @@
 
 <body>
     <nav style="z-index: 1; background-color: transparent;backdrop-filter: blur(4px);">
-        <a href="index.html">TICKETEASE</a>
+        <a href="/public/index.html">TICKETEASE</a>
         <div id="user-info" style="display: none;">
             <span id="username-display"></span>
             <div class="dropdown">
@@ -198,7 +198,7 @@
                             <h3 class="flight-cost">${flight.cost}</h3>
                             <p class="flight-offer">${flight.offer}</p>
                         </div>
-                        <button class="book-btn" onclick="window.location.href='/public/category/flight-booking.html';">BOOK</button>
+                        <button class="book-btn" onclick="storeFlightDetails(this)">BOOK</button>
                     </div>
                 </div>
             `;
@@ -253,6 +253,26 @@
         });
     }
     </script>
+    <script>
+        function storeFlightDetails(button) {
+            const card = button.closest('.flight-card');
+            
+            const flightDetails = {
+                company: card.querySelector('.flight-company').textContent,
+                flightNumber: card.querySelector('.flight-number').textContent,
+                boardingTime: card.querySelector('.boarding-time').textContent,
+                boardingAirport: card.querySelector('.boarding-airport').textContent,
+                duration: card.querySelector('.flight-duration').textContent,
+                stops: card.querySelector('.flight-stops').textContent,
+                landingTime: card.querySelector('.landing-time').textContent,
+                landingAirport: card.querySelector('.landing-airport').textContent,
+                cost: card.querySelector('.flight-cost').textContent
+            };
+    
+            localStorage.setItem('selectedFlight', JSON.stringify(flightDetails));
+            window.location.href = '/public/category/flight-booking.html';
+        }
+    </script>    
     <script>
         function showDetails(card) {
             const detailsPanel = document.getElementById('details-panel');

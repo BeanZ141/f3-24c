@@ -1,102 +1,123 @@
 body {
-    user-select: none;
+    background-color: var(--color-bg);
+    color: var(--color-fg);
     margin: 0;
     padding: 0;
 }
 
-.slideshow-container {
-    top: 60px !important;
-    width: 100vw;
-    margin: auto;
-    overflow: hidden;
-    position: relative;
-    height: 500px;
-    animation: image-fade-in 1.7s;
+::selection {
+    background-color: var(--color-fg);
+    color: var(--color-bg);
 }
 
-.slide {
-    display: block;
-    position: absolute;
-    width: 100%;
-    height: 500px;
-    object-fit: cover;
-    top: 0;
-    left: 0;
-    opacity: 0;
-    transform: scale(1.02);
-    transition: opacity 0.6s ease-in-out, transform 0.6s ease-in-out;
-    z-index: 1;
+.about-us-container {
+    width: 95%;
+    margin: 30px auto;
+    text-align: center;
 }
 
-.active {
-    z-index: 2;
-    opacity: 1;
-    transform: scale(1) translate(0, 0);
+h1 {
+    font-family: "DM Sans", serif;
+    font-size: 26px;
+    font-weight: 100;
+    text-align: left;
 }
 
-.swiping {
-    transition: none; 
+.insights-section h2 {
+    font-size: 38px;
+    font-family: "Cormorant Garamond", serif;
+    font-weight: 100;
+    text-align: left;
+    width: 29%;
+    margin-bottom: 40px;
 }
 
-.progress-bar {
-    width: 0%;
-    height: 1px;
-    z-index: 2;
-    background-color: #fff;
-    position: absolute;
-    bottom: 10px;
-    left: 50%;
-    transform: translateX(-50%);
-    transition: width 200ms linear;
+.insights-section {
+    display: flex;
+    justify-content: space-between;
+    text-align: center;
+    margin-bottom: 50px;
 }
 
-.slide-info {
-    position: absolute;
-    top: 470px;
-    left: 25px;
-    transform: translateX(-50%);
-    color: white;
-    font-family: sans-serif;
-    font-size: 0.7rem;
-    font-weight: thin;
-    z-index: 10;
-    background-color: rgba(0, 0, 0, 0.6);
-    padding: 3px 6px;
-    border-radius: 5px;
+.insight {
+    width: 90%;
+    margin: 20px;
+    transition: 200ms;
+    user-select: none;
 }
 
-p {
-    position: relative;
-    width: 400px;
-    top:55px;
-    left: 10px;
-    font-weight: lighter;
-    font-size: 0.8em;
-    font-family: 'Varela', sans-serif;
-    background: linear-gradient(45deg, transparent 1%, var(--color-fg) 10%, transparent 30%);
-    background-size: 200%;
-    background-clip: text;
-    -webkit-background-clip: text;
-    color: var(--color-fg);
-    animation: animate-gradient 1s ease-in forwards;
+.insight:hover {
+    background-color: var(--color-fg);
+    color: var(--color-bg);
+    transition: 200ms;
 }
 
-.slide-text {
-    position: absolute;
-    bottom: 20px;
-    left: 20px;
-    color: var(--color-fg);
-    font-size: 1.5rem;
-    font-family: 'Varela', sans-serif;
+.insight:hover p {
+    color: var(--color-bg);
+}
+
+.insight:hover h3 {
     font-weight: bold;
-    background-color: rgba(0, 0, 0, 0.1);
-    backdrop-filter: blur(1px);
-    padding: 5px 10px;
-    margin: 40px;
-    z-index: 3;
 }
 
-@keyframes image-fade-in {
-    0% {opacity: 0;}
-    100% {opacity: 1;}
+.insight-container {
+    display: flex;
+    position: absolute;
+    top: 30%;
+    left: 50%;
+    width: 90%;
+    transform: translate(-50%);
+}
+
+.insight h1 {
+    font-family: "Unna", serif;
+    text-align: center;
+    font-size: 72px;
+    font-weight: 400;
+    margin: 20px 0 0 0;
+}
+
+.insight h3 {
+    font-family: "Cormorant Garamond", serif;
+    font-size: 1rem;
+    font-weight: 400;
+    margin: 15px;
+}
+
+.insight p {
+    font-family: "DM Sans", serif;
+    font-size: 16px;
+    line-height: 1.6;
+    margin: 20px;
+    color: var(--color-fg);
+}
+
+.insight h4 {
+    font-size: 14px;
+    font-weight: 700;
+    margin-top: 10px;
+    letter-spacing: 1px;
+}
+
+.cta-section {
+    text-align: center;
+    margin-top: 50px;
+}
+
+.cta-section h2 {
+    font-size: 24px;
+    font-weight: 700;
+}
+
+.cta-button {
+    background-color: black;
+    color: white;
+    font-size: 16px;
+    padding: 14px 32px;
+    border: none;
+    cursor: pointer;
+    margin-top: 30px;
+    text-transform: uppercase;
+    font-weight: bold;
+    letter-spacing: 1px;
 }

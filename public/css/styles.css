@@ -13,10 +13,9 @@ body {
     text-align: center;
     position: relative;
     top: 8rem;
-    font-size: 0.9em;
-    font-family: 'Inter', sans-serif;
-    font-weight: thin;
-    letter-spacing: 3px;
+    font-size: 1.1em;
+    font-family: "Cormorant Garamond", serif;
+    letter-spacing: 0px;
 }
 
 .welcome-section > h1 {
@@ -24,6 +23,7 @@ body {
     font-weight: 100;
     display: inline-block;
     animation: animate-gradient 1s ease-in forwards, fade-text 1s forwards;
+    animation-delay: 7000ms;
 }
 
 .welcome-text {
@@ -33,6 +33,7 @@ body {
     -webkit-background-clip: text;
     color: var(--color-fg);
     animation: animate-gradient 1s ease-in forwards, fade-text 1s forwards;
+    animation-delay: 7000ms;
 }
 
 .category {
@@ -47,6 +48,7 @@ body {
     transition: 200ms ease-out;
     letter-spacing: 2px;
     animation: fade-up 1s;
+    animation-delay: 7000ms;
 }
 
 .category:hover {
@@ -68,6 +70,7 @@ body {
     background-clip: text;
     -webkit-background-clip: text;
     animation: animate-gradient 1s ease-in-out forwards;
+    animation-delay: 7000ms;
 }
 
 .blinker {
@@ -77,6 +80,7 @@ body {
     transform: translate(-50%, -50%);
     font-size: 1.4rem;
     animation: blinker 0.3s steps(1) infinite;
+    animation-delay: 7000ms;
     color: var(--color-fg);
     font-family: Arial, sans-serif;
 }
@@ -91,6 +95,8 @@ body {
     bottom: 4.3%;
     left: 2%;
     padding: 3px;
+    animation: fade-card 1s ease-in-out forwards;
+    animation-delay: 7000ms;
 }
 
 .tnc-link:hover {
@@ -109,6 +115,8 @@ body {
     bottom: 4.3%;
     left: 19%;
     padding: 3px;
+    animation: fade-card 1s ease-in-out forwards;
+    animation-delay: 7000ms;
 }
 
 .ab-us-link:hover {
@@ -119,7 +127,7 @@ body {
 
 /* Service Section */
 
-.service-container {
+.service-container-mobile {
     position: absolute;
     display: flex; 
     justify-content: center;
@@ -129,9 +137,10 @@ body {
     transform: translateX(-50%);
     font-family: 'Varela', sans-serif;
     animation: fade-text 1s forwards;
+    animation-delay: 7000ms;
 }
 
-.service-container a {
+.service-container-mobile a {
     text-decoration: none;
     color: var(--color-fg);
     background-color: var(--color-bg);
@@ -141,7 +150,7 @@ body {
     font-weight: 100;
 }
 
-.service-container a:hover {
+.service-container-mobile a:hover {
     text-decoration: none;
     color: var(--fg-hover);
     background-color: var(--bg-hover);
@@ -151,6 +160,7 @@ body {
 }
 
 .service-icon {
+    display: none;
     width: 50px;
     height: 50px;
     position: absolute;
@@ -182,7 +192,7 @@ body {
 }
 
 .welcome-description {
-    font-family: 'Inter', sans-serif;
+    font-family: "DM Sans", sans-serif;
     font-size: 1rem;
     letter-spacing: normal;
     color: var(--color-fg);
@@ -193,6 +203,7 @@ body {
     position: absolute;
     left:20%;
     animation: animate-gradient 1s ease-in forwards, fade-text 1s forwards;
+    animation-delay: 7000ms;
 }
 
 #username-display:hover {
@@ -208,6 +219,7 @@ body {
     cursor: pointer;
     position: absolute;
     animation: animate-gradient 1s ease-in forwards, fade-text 1s forwards;
+    animation-delay: 7000ms;
 }
 
 .loader {
@@ -221,11 +233,12 @@ body {
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
-    margin-top: 115px;
+    margin-top: 135px;
     left: 45%;
     position: absolute;
     transform: translate(-50%);
     animation: animate-gradient 1s ease-in forwards, fade-text 1s forwards;
+    animation-delay: 7000ms;
 }
 
 .words {
@@ -248,9 +261,165 @@ body {
     display: block;
     height: 100%;
     padding-left: 3px;
-    color: #956afa;
+    color: var(--tnc-color);
     animation: spin_4991 6s infinite;
+    animation-delay: 7000ms;
 }
+
+/* Updated service container */
+
+.grid {
+    position: absolute;
+    top: 380%;
+    left: 50%;
+    transform: translate(-50%);
+    display: grid;
+    grid-template-columns: repeat(4, 161px);
+    gap: 3px;
+}
+
+.service-container {
+    background-color: var(--color-bg);
+    border: 1px solid var(--color-bg);
+    height: 50px;
+    width: 160px;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    transition: 200ms;
+    z-index: 1;
+    animation: fade-text 1s forwards;
+    animation-delay: 7000ms;
+}
+
+a.service-link {
+    display: block;
+    text-decoration: none;
+    color: inherit;
+    width: 160px;
+    height: 50px;
+    position: relative;
+    cursor: pointer;
+}
+
+.service-overlay {
+    width: 95px;
+    height: 19px;
+    background-color: var(--color-bg);
+    visibility: hidden;
+    transform: scaleX(0);
+    transform-origin: center;
+    transition: transform 250ms, visibility 0s linear 200ms;
+    position: absolute;
+    z-index: 2;
+    cursor: pointer;
+}
+
+.service-container:hover .service-overlay {
+    visibility: visible;
+    transform: scaleX(1.3);
+    transition: transform 250ms, visibility 0s linear 0s;
+}
+
+.service-container:hover {
+    background-color: var(--color-fg);
+    border: 1px solid transparent;
+    transition: 300ms;
+}
+
+.service-container:hover .name {
+    left: 60px;
+    transition: 400ms;
+}
+
+.service-container img {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    transition: 100ms;
+    z-index: 0;
+    transform-origin: center;
+    filter: invert(1);
+}
+
+.dark-mode .service-container img {
+    filter: invert(0);
+}
+
+.service-container:hover .logo {
+    transform: translate(-50%, -50%) scale(2.5);
+    transition: transform 200ms;
+}
+
+.logo {
+    height: 30px !important;
+}
+
+.name {
+    color: #555555;
+    font-size: 10px;
+    font-family: 'Varela';
+    position: absolute;
+    top: 19px;
+    left: 3px;
+    transition: 100ms;
+}
+
+.square-left {
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    width: 3px;
+    height: 3px;
+    background-color: var(--radio-color);
+    z-index: 2;
+}
+
+.square-right {
+    position: absolute;
+    top: 2px;
+    left: 154px;
+    width: 3px;
+    height: 3px;
+    background-color: var(--radio-color);
+    z-index: 2;
+}
+
+.square-bottom-right {
+    position: absolute;
+    top: 45px;
+    left: 154px;
+    width: 3px;
+    height: 3px;
+    background-color: var(--radio-color);
+    z-index: 2;
+}
+
+.service-name {
+    font-size: 11px;
+    font-family: 'Varela';
+    z-index: 2;
+    color: var(--fg-color) !important;
+    visibility: hidden;
+    cursor: default;
+    white-space: nowrap;
+    display: inline-block;
+    text-align: center;
+    justify-content: center;
+    clip-path: inset(0 100% 0 0);
+}
+
+.service-container:hover .service-name {
+    visibility: visible;
+    color: black;
+    cursor: pointer;
+    transition: clip-path 0.3s;
+    clip-path: inset(0 0 0 0);
+}
+
 
 .alert {
     position: fixed;
@@ -272,6 +441,7 @@ body {
     opacity: 1;
     visibility: visible;
     animation: fade-text 1s forwards;
+    animation-delay: 7000ms;
 }
 
 .alert.success { background-color: var(--color-fg); color: var(--color-bg); }
@@ -345,9 +515,14 @@ body {
         top: 8vh;
     }
 
-    .service-container {
+    .service-container-mobile {
+        display: block;
         left: 0%;
         margin-top: 250px;
+    }
+
+    .service-container {
+        display: none;
     }
 
     .loader {
@@ -374,6 +549,7 @@ body {
     }
 
     .service-icon {
+        display: block;
         top: 650%;
     }
 }
@@ -418,4 +594,57 @@ body {
         -webkit-transform: translateY(-400%);
         transform: translateY(-400%);
     }
+}
+
+#preloader {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: var(--color-bg);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    z-index: 9999;
+    transition: opacity 1s ease-out;
+}
+
+.reveal-text {
+    font-family: "Cormorant Garamond", serif;
+    font-size: 6rem;
+    opacity: 0;
+    margin-bottom: 220px !important;
+    animation: fade-in 4s ease-in-out forwards, fade-out 2s ease-in-out 5s forwards;
+}
+
+.reveal-text-subtitle {
+    font-family: 'Inter';
+    font-size: 1.5rem;
+    opacity: 0;
+    animation: fade-in-subtitle 4s ease-in-out 1s forwards, fade-out 2s ease-in-out 5s forwards;
+}
+
+@keyframes fade-in {
+    0% { opacity: 0; }
+    100% { opacity: 1; }
+}
+
+@keyframes fade-out {
+    0% { opacity: 1; }
+    100% { opacity: 0; }
+}
+
+@keyframes fade-in-subtitle {
+    0% { opacity: 0; transform: translateY(0px); }
+    100% { opacity: 1; transform: translateY(-40px); }
+}
+
+
+/* Fades out the entire preloader */
+.fade-preloader {
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 1s ease-out, visibility 1s ease-out;
 }

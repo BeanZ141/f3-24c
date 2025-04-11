@@ -17,6 +17,10 @@
         text-decoration: none;
     }
 
+    ::-webkit-scrollbar {
+        display: none;
+    }
+
     .page-container {
         max-width: 1300px;
         max-height: 580px;
@@ -30,6 +34,7 @@
         display: flex;
         flex-wrap: wrap;
         gap: 20px;
+        animation: fade-card 1s forwards;
     }
 
     .fare-summary,
@@ -141,6 +146,7 @@
         border-radius: 10px;
         padding: 20px;
         border: 1px solid var(--radio-border);
+        animation: fade-card 1.2s forwards;
     }
 
     .refund-section h2 {
@@ -189,6 +195,7 @@
         padding: 20px;
         margin-top: 35px;
         margin-bottom: 40px;
+        animation: fade-card 1.4s forwards;
     }
 
     .bottom-bar .final-price {
@@ -233,6 +240,7 @@
         margin-left: 15px;
         position: absolute;
         bottom: 131px;
+        animation: fade-card 1.2s forwards;
     }
     
     

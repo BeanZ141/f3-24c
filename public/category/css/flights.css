@@ -258,14 +258,14 @@ input[type="checkbox"] {
     left: auto;
     position: fixed;
     align-items: center;
-    border: 1px solid #1a1a1a;
+    border: 1px solid var(--radio-border);
     border-radius: 10px;
     margin-top: 10px;
     animation: animate-gradient 0.7s ease-in forwards, fade-element 0.7s forwards;
 }
 
 #from {
-    border-right: 1px solid #1c1c1c;
+    border-right: 1px solid var(--radio-border);
     transition: 0.3s;
 }
 
@@ -302,13 +302,13 @@ input[type="checkbox"] {
 
 #departure {
     width: 155px;
-    border-right: 1px solid #1a1a1a;
+    border-right: 1px solid var(--radio-border);
     transition: 0.3s;
 }
 
 #return {
     width: 155px;
-    border-right: 1px solid #1a1a1a;
+    border-right: 1px solid var(--radio-border);
     transition: 0.3s;
 }
 
@@ -332,7 +332,7 @@ input[type="checkbox"] {
 .custom-select {
     position: relative;
     height: 6.875rem;
-    border-right: 1px solid #1a1a1a;
+    border-right: 1px solid var(--radio-border);
     width: 300px;
     font-family: 'Varela', sans-serif;
     font-size: 1.8rem;
@@ -441,7 +441,7 @@ input[type="checkbox"] {
     align-items: center;
     cursor: pointer;
     transition: background 0.2s;
-    border-right: 1px solid #1a1a1a;
+    border-right: 1px solid var(--radio-border);
 }
 
 .date-trigger:hover {
@@ -521,7 +521,7 @@ input[type="checkbox"] {
     align-items: center;
     cursor: pointer;
     transition: background 0.2s;
-    border-right: 1px solid #1a1a1a;
+    border-right: 1px solid var(--radio-border);
 }
 
 .date-trigger:active {
