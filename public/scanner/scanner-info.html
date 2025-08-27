@@ -1,13 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <script>
-        const setTheme = () => {
-        const theme = localStorage.getItem('theme') || 'dark';
-        document.documentElement.classList.toggle('dark-mode', theme === 'dark');
-    };
-    setTheme();
-    </script>
+    <script src="/public/js/theme.js"></script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ticket Scanning Tool</title>
@@ -22,7 +16,7 @@
         body {
             background-color: var(--color-bg);
             color: var(--color-fg);
-            font-family: 'Varela', sans-serif;
+            font-family: 'Space Mono', monospace;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -36,7 +30,7 @@
         }
 
         h1 {
-            font-family: 'Varela', sans-serif;
+            font-family: 'Space Mono', monospace;
             font-size: 2em;
             margin-bottom: 30px;
         }

@@ -16,7 +16,7 @@
     text-align: center;
     margin-bottom: 2rem;
     font-size: 1.6rem;
-    font-family: 'Varela', sans-serif;
+    font-family: 'Space Mono', monospace;
     color: var(--color-fg);
     letter-spacing: 2px;
     font-weight: lighter;
@@ -53,7 +53,7 @@ input, select {
     font-size: 1rem;
     color: var(--color-fg);
     border-bottom: 1px solid #757575;
-    font-family: 'Varela', sans-serif;
+    font-family: 'Space Mono', monospace;
 }
 
 input:hover {
@@ -108,7 +108,7 @@ input[type="radio"]:checked + label {
     border: 1px solid var(--border);
     color: var(--button-fg);
     font-size: 1rem;
-    font-family: 'Varela', sans-serif;
+    font-family: 'Space Mono', monospace;
     cursor: pointer;
     transition: 0.3s;
     letter-spacing: 2px;
@@ -152,12 +152,16 @@ input[type="radio"]:checked + label {
 .container1 {
     display: block;
     position: relative;
+    margin-left: 2.5rem;
     margin-bottom: 1.8rem;
     cursor: pointer;
     font-size: 14px;
+    align-items: center;
+    justify-content: center;
+    align-content: center;
     color: var(--tnc-color);
     user-select: none;
-    letter-spacing: 0.02rem;
+    font-family: 'Space Mono', monospace;
 }
 
 .login-modal a {
@@ -177,7 +181,8 @@ input[type="radio"]:checked + label {
 .checkmark {
     position: absolute;
     top: 0;
-    left: 2.5em;
+    left: -2.5em;
+    margin-top: 1px;
     border-radius: 4px;
     height: 15px;
     width: 15px;
@@ -239,6 +244,7 @@ input[type="radio"]:checked + label {
 
 #login-popup {
     display: none;
+    top: 27%;
     transition: opacity 0.5s ease, transform 0.5s ease;
     box-sizing: border-box;
     background-color: var(--radio-color);
@@ -247,6 +253,7 @@ input[type="radio"]:checked + label {
     max-width: 430px;
     position: fixed;
     left: 50%;
+    transform: translateX(-50%);
     z-index: 1001;
     animation: fade-in 0.5s;
 }
@@ -288,19 +295,18 @@ input[type="radio"]:checked + label {
 .toggle-btn {
     display: inline-block;
     padding: 0.7rem 1rem;
-    font-family: 'Inter';
+    font-family: 'Space Mono', monospace;
     font-size: 0.9rem;
     background: var(--radio-color);
     color: var(--color-fg);
-    border-bottom: 1px solid var(--border);
+    border-bottom: 1px solid transparent;
     letter-spacing: 1px;
     transition: 0.2s;
 }
 
 .toggle-btn:hover {
-    box-shadow: 0px 0px 15px var(--tnc-color);
     transition: 0.2s;
-    border-bottom: 1px solid transparent;
+    border-bottom: 1px solid var(--border);
 }
 
 .form-toggle input:checked + .toggle-btn {

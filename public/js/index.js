@@ -1,56 +1,79 @@
-window.onload = function () {
-    document.querySelector('.blinker').style.display = 'none';
-    document.getElementById('main-content').style.display = 'block';
-};
+function showSplashScreen() {
+    const splashScreen = document.getElementById('splash-screen');
+    const mainContent = document.getElementById('main-content');
 
-// Service container icons
-document.addEventListener("DOMContentLoaded", () => {
-    const serviceIcon = document.getElementById("service-icon");
-    const links = document.querySelectorAll(".service-container a");
+    const hasVisited = sessionStorage.getItem('hasVisited');
+    
+    if (!hasVisited) {
 
-    function showIcon(iconFile) {
-        serviceIcon.src = `/public/category/icons/${iconFile}`;
-        serviceIcon.classList.remove("hidden");
-        serviceIcon.classList.add("visible");
+        splashScreen.style.display = 'flex';
+        mainContent.style.display = 'none';
+
+        sessionStorage.setItem('hasVisited', 'true');
+        
+        setTimeout(() => {
+            splashScreen.classList.add('fade-out');
+            
+            setTimeout(() => {
+                splashScreen.style.display = 'none';
+                showMainContent();
+            }, 800);
+        }, 2500);
+    } else {
+        splashScreen.style.display = 'none';
+        showMainContent();
     }
+}
 
-    function hideIcon() {
-        serviceIcon.classList.remove("visible");
-        serviceIcon.classList.add("hidden");
-    }
+function showMainContent() {
+    const mainContent = document.getElementById('main-content');
+    mainContent.style.display = 'block';
 
-    links.forEach((link) => {
-        link.addEventListener("mouseover", () => {
-            const iconFile = link.getAttribute("data-icon");
-            showIcon(iconFile);
+    setTimeout(() => {
+        mainContent.classList.add('show');
+        const services = document.querySelectorAll('.service');
+        services.forEach((service, index) => {
+            setTimeout(() => {
+                ScrambleEffect(service);
+            }, 200 + (index * 100));
         });
-
-        link.addEventListener("mouseout", () => {
-            hideIcon();
-        });
-    });
-});
-
-function showLoginForm() {
-    document.getElementById("loginForm").style.display = "block";
-    document.getElementById("signupForm").style.display = "none";
+    }, 100);
 }
 
-function showSignupForm() {
-    document.getElementById("signupForm").style.display = "block";
-    document.getElementById("loginForm").style.display = "none";
+function ScrambleEffect(element) {
+    const originalText = element.textContent;
+    const scrambleChars = 'QhYbEwVrUkDoLmJcZxSaGpNfTiHoMjRdPeWnKsBqXvClAzFuGyT';
+    const maxScrambles = 30;
+    let scrambleCount = 0;
+
+    const scrambleInterval = setInterval(() => {
+        if (scrambleCount >= maxScrambles) {
+            clearInterval(scrambleInterval);
+            element.textContent = originalText;
+            return;
+        }
+
+        let scrambledText = '';
+
+        for (let i = 0; i < originalText.length; i++) {
+            const settlePoint = Math.floor((i / originalText.length) * maxScrambles);
+
+            if (scrambleCount < settlePoint) {
+                scrambledText += scrambleChars[Math.floor(Math.random() * scrambleChars.length)];
+            } else {scrambledText += originalText[i];}
+        }
+
+        element.textContent = scrambledText;
+        scrambleCount++;
+    }, 50);
 }
 
-function showPopup() {
-    document.getElementById("login-popup").style.display = "block";
-    document.getElementById("overlay").style.display = "block";
-    showLoginForm();
-}
+window.onload = function () { showSplashScreen(); };
 
-function closePopup() {
-    document.getElementById("login-popup").style.display = "none";
-    document.getElementById("overlay").style.display = "none";
-}
+function showLoginForm() { document.getElementById("loginForm").style.display = "block"; document.getElementById("signupForm").style.display = "none"; }
+function showSignupForm() { document.getElementById("signupForm").style.display = "block"; document.getElementById("loginForm").style.display = "none"; }
+function showPopup() { document.getElementById("login-popup").style.display = "block"; document.getElementById("overlay").style.display = "block"; showLoginForm(); }
+function closePopup() { document.getElementById("login-popup").style.display = "none"; document.getElementById("overlay").style.display = "none"; }
 
 // Login Popup
 function showPopup() {
@@ -73,15 +96,7 @@ document.addEventListener("click", (event) => {
         loginPopup.classList.contains("show") &&
         !loginPopup.contains(event.target) &&
         !event.target.closest("#login-btn")
-    ) {
-        closePopup();
-    }
-});
-
-window.addEventListener("load", () => {
-    setTimeout(() => {
-        showPopup();
-    }, 11000);
+    ) { closePopup(); }
 });
 
 document.getElementById("login-btn").addEventListener("click", (event) => {
@@ -98,17 +113,11 @@ function showAlert(message, type = 'info') {
     setTimeout(closeAlert, 5000);
 }
 
-function closeAlert() {
-    document.getElementById('customAlert').classList.remove('show');
-}
+function closeAlert() { document.getElementById('customAlert').classList.remove('show'); }
 
 function toggleClearButton(input) {
     const clearBtn = input.nextElementSibling;
-    if (input.value.length > 0) {
-        clearBtn.style.display = "block";
-    } else {
-        clearBtn.style.display = "none";
-    }
+    if (input.value.length > 0) { clearBtn.style.display = "block"; } else { clearBtn.style.display = "none"; }
 }
 
 function clearInput(button) {
@@ -127,7 +136,5 @@ document.addEventListener("click", function(event) {
     const dropdown = document.getElementById("dropdown-menu");
     const button = document.querySelector(".dropdown-btn");
 
-    if (!button.contains(event.target) && !dropdown.contains(event.target)) {
-        dropdown.style.display = "none";
-    }
+    if (!button.contains(event.target) && !dropdown.contains(event.target)) { dropdown.style.display = "none"; }
 });

@@ -1,22 +1,21 @@
 <html lang="en">
 
 <head>
-  <script>
-    const setTheme = () => {
-      const theme = localStorage.getItem('theme') || 'light';
-      document.documentElement.classList.toggle('dark-mode', theme === 'dark');
-    };
-    setTheme();
-  </script>
+  <script src="js/theme.js"></script>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-  <link rel="shortcut icon" type="image/jpg" href="images/favicon.png" />
+  <link rel="icon" href="images/favicon.png" type="image/png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap">
+  <link rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Varela&display=swap">
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300..700;1,300..700&family=Unna:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap" rel="stylesheet">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300..700;1,300..700&family=Unna:ital,wght@0,400;0,700;1,400;1,700&display=swap"
+    rel="stylesheet">
+  <link
+    href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap"
+    rel="stylesheet">
   <link rel="stylesheet" href="css/navbar.css">
   <link rel="stylesheet" href="css/styles.css">
   <link rel="stylesheet" href="css/themes.css">
@@ -26,14 +25,14 @@
 </head>
 
 <body>
-  <div id="preloader">
-    <h1 class="reveal-text" id="title">THIS IS TICKETEASE</h1>
-    <p class="reveal-text-subtitle" id="subtitle">Your journey, Simplified.</p>
+  <!-- Splash Screen -->
+  <div id="splash-screen">
+    <div class="splash-text">TICKETEASE</div>
   </div>
-  <div class="blinker">▓</div>
+
   <div id="main-content">
     <nav>
-      <a href="index.html">TICKETEASE</a>
+      <a href="../index.html">TICKETEASE</a>
       <div id="user-info" style="display: none;">
         <span id="username-display"></span>
         <div class="dropdown">
@@ -45,201 +44,97 @@
           </div>
         </div>
       </div>
-      <button id="login-btn" onclick="showPopup()">LOGIN / SIGNUP</button>
-    </nav>
-
-    <div class="welcome-section">
-      <h1 class="welcome-text">WELCOME TO TICKETEASE</h1>
-      <p class="welcome-description">TicketEase simplifies the way you book flights, trains, hotels, and event tickets
-        with an intuitive and seamless experience. Whether you're planning a business trip, a vacation, or attending an
-        exciting event, our platform offers a streamlined booking process with real-time availability, secure payments,
-        and instant confirmations.</p>
-
-      <div class="loader">
-        <p style="margin: 0;">book</p>
-        <div class="words">
-          <span class="word"></span>
-          <span class="word">flights</span>
-          <span class="word">trains</span>
-          <span class="word">hotels</span>
-          <span class="word">events</span>
-        </div>
-      </div>
-
-      <!-- Service section PC  f h t e -->
-      <div class="grid">
-        <a href="/public/category/flights.html" class="service-link">
-            <div class="service-container">
-                <div class="service-overlay"></div>
-                <span class="service-name">FLIGHTS</span>
-                <span class="name">FLIGHTS</span>
-                <div class="square-left"></div>
-                <div class="square-left" style="left: 7px;"></div>
-                <div class="square-right"></div>
-                <div class="square-right" style="left: 149px;"></div>
-                <div class="square-bottom-right"></div>
-                <div class="square-bottom-right" style="left: 142px; width: 11px;"></div>
-                <img class="logo" style="height: 25px !important;" src="/public/images/flight.svg">
-            </div>
-        </a>
-
-        <a href="/public/category/hotels.html" class="service-link">
-            <div class="service-container">
-                <div class="service-overlay"></div>
-                <span class="service-name">HOTELS</span>
-                <div class="square-left"></div>
-                <div class="square-left" style="left: 7px;"></div>
-                <div class="square-right"></div>
-                <div class="square-right" style="left: 149px;"></div>
-                <div class="square-bottom-right"></div>
-                <div class="square-bottom-right" style="left: 142px; width: 11px;"></div>
-                <img class="logo" src="/public/images/hotel.svg">
-                <span class="name">HOTELS</span>
-            </div>
-        </a>
-
-        <a href="/public/category/trains.html" class="service-link">
-            <div class="service-container">
-                <div class="service-overlay"></div>
-                <span class="service-name">TRAINS</span>
-                <span class="name">TRAINS</span>
-                <div class="square-left"></div>
-                <div class="square-left" style="left: 7px;"></div>
-                <div class="square-right"></div>
-                <div class="square-right" style="left: 149px;"></div>
-                <div class="square-bottom-right"></div>
-                <div class="square-bottom-right" style="left: 142px; width: 11px;"></div>
-                <img class="logo" src="/public/images/train.svg">
-            </div>
-        </a>
-
-        <a href="/public/category/events.html" class="service-link">
-            <div class="service-container">
-                <div class="service-overlay"></div>
-                <span class="service-name">EVENTS</span>
-                <span class="name">EVENTS</span>
-                <div class="square-left"></div>
-                <div class="square-left" style="left: 7px;"></div>
-                <div class="square-right"></div>
-                <div class="square-right" style="left: 149px;"></div>
-                <div class="square-bottom-right"></div>
-                <div class="square-bottom-right" style="left: 142px; width: 11px;"></div>
-                <img class="logo" src="/public/images/event.svg">
-            </div>
-        </a>
-      </div>
-
-      <!--Service section Mobile-->
-      <div class="service-container-mobile" style="display: none;">
-        <a href="/public/category/flights.html" data-icon="flight.svg">
-          <i class="fas fa-plane"></i> FLIGHTS
-        </a>
-        <a href="/public/category/hotels.html" data-icon="hotel.svg">
-          <i class="fas fa-hotel"></i> HOTELS
-        </a>
-        <a href="/public/category/trains.html" data-icon="train.svg">
-          <i class="fas fa-train"></i> TRAINS
-        </a>
-        <a href="/public/category/events.html" data-icon="event.svg">
-          <i class="fas fa-calendar-alt"></i> EVENTS
-        </a>
-      </div>
-
-
-
-      <img class="service-icon" id="service-icon" style="height: 50px; width: 50px;">
-
-      <!-- Login / Signup Popup -->
-      <div id="overlay"></div>
-      <div id="login-popup" class="login-modal">
-        <button type="button" class="close-button" onclick="closePopup()">&times;</button>
-
-        <!-- LOGIN FORM -->
-        <div class="form-toggle">
-          <label>
-            <input type="radio" name="formType" id="radioLogin" checked onclick="showLoginForm()">
-            <span class="toggle-btn">LOGIN<h5 style="position: absolute;color: var(--radio-color);margin-left: 3.2rem;margin-top: -3rem;font-size: 2.2em;font-family: 'Inter';">.</h5></span>
-          </label>
-          <label>
-            <input type="radio" name="formType" id="radioSignup" onclick="showSignupForm()">
-            <span class="toggle-btn">SIGN UP<h5 style="position: absolute;color: var(--radio-color);margin-left: 4.1rem;margin-top: -3rem;font-size: 2.2em;font-family: 'Inter';">.</h5></span>
-          </label>
-        </div>
-        <form id="loginForm" class="form">
-          <h4 style="animation: fade-in 0.4s;font-family: 'Varela';">LOGIN</h4>
-          <div class="form-group input-wrapper">
-            <input type="email" id="login-email" name="email" placeholder="Email Address" required
-              oninput="toggleClearButton(this)" onblur="toggleClearButton(this)">
-            <button type="button" class="clear-btn" onclick="clearInput(this)">&times;</button>
-          </div>
-          <div class="form-group input-wrapper">
-            <input type="password" id="login-password" name="password" placeholder="Password" required
-              oninput="toggleClearButton(this)" onblur="toggleClearButton(this)">
-            <button type="button" class="clear-btn" onclick="clearInput(this)">&times;</button>
-          </div>
-          <button type="submit" class="btn-primary">LOGIN</button>
-        </form>
-
-        <!-- SIGNUP FORM -->
-        <form id="signupForm" class="form" style="display: none;">
-          <h4 style="animation: fade-in 0.4s;font-family: 'Varela';">SIGN UP</h4>
-          <div class="form-group input-wrapper">
-            <input type="text" id="signup-username" name="username" placeholder="Username" required
-              oninput="toggleClearButton(this)" onblur="toggleClearButton(this)">
-            <button type="button" class="clear-btn" onclick="clearInput(this)">&times;</button>
-          </div>
-          <div class="form-group input-wrapper">
-            <input type="email" id="signup-email" name="email" placeholder="Email Address" required
-              oninput="toggleClearButton(this)" onblur="toggleClearButton(this)">
-            <button type="button" class="clear-btn" onclick="clearInput(this)">&times;</button>
-          </div>
-          <div class="form-group input-wrapper">
-            <input type="password" id="signup-password" name="password" placeholder="Password" required
-              oninput="toggleClearButton(this)" onblur="toggleClearButton(this)">
-            <button type="button" class="clear-btn" onclick="clearInput(this)">&times;</button>
-          </div>
-          <label class="container1 text-loading-animation">I agree to the <a class="text-loading-animation"
-              href="terms-and-conditions.html">terms and conditions.</a>
-            <input type="checkbox" required>
-            <span class="checkmark"></span>
-          </label>
-          <button type="submit" class="btn-primary">SIGN UP</button>
-        </form>
-      </div>
-
-      <a href="terms-and-conditions.html" class="tnc-link">TERMS AND CONDITIONS</a>
-      <a href="about-us.html" class="ab-us-link">ABOUT US</a>
-
-      <!--Alert-->
-      <div id="customAlert" class="alert">
-        <span id="alertMessage">alert</span>
-      </div>
 
       <button id="theme-switch">
         <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e8eaed">
-          <path
-            d="M480-120q-150 0-255-105T120-480q0-150 105-255t255-105q14 0 27.5 1t26.5 3q-41 29-65.5 75.5T444-660q0 90 63 153t153 63q55 0 101-24.5t75-65.5q2 13 3 26.5t1 27.5q0 150-105 255T480-120Z" />
+          <path d="M480-120q-150 0-255-105T120-480q0-150 105-255t255-105q14 0 27.5 1t26.5 3q-41 29-65.5 75.5T444-660q0 90 63 153t153 63q55 0 101-24.5t75-65.5q2 13 3 26.5t1 27.5q0 150-105 255T480-120Z" />
         </svg>
         <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e8eaed">
-          <path
-            d="M480-280q-83 0-141.5-58.5T280-480q0-83 58.5-141.5T480-680q83 0 141.5 58.5T680-480q0 83-58.5 141.5T480-280ZM200-440H40v-80h160v80Zm720 0H760v-80h160v80ZM440-760v-160h80v160h-80Zm0 720v-160h80v160h-80ZM256-650l-101-97 57-59 96 100-52 56Zm492 496-97-101 53-55 101 97-57 59Zm-98-550 97-101 59 57-100 96-56-52ZM154-212l101-97 55 53-97 101-59-57Z" />
+          <path d="M480-280q-83 0-141.5-58.5T280-480q0-83 58.5-141.5T480-680q83 0 141.5 58.5T680-480q0 83-58.5 141.5T480-280ZM200-440H40v-80h160v80Zm720 0H760v-80h160v80ZM440-760v-160h80v160h-80Zm0 720v-160h80v160h-80ZM256-650l-101-97 57-59 96 100-52 56Zm492 496-97-101 53-55 101 97-57 59Zm-98-550 97-101 59 57-100 96-56-52ZM154-212l101-97 55 53-97 101-59-57Z" />
         </svg>
       </button>
+      <button id="login-btn" onclick="showPopup()">LOGIN / SIGNUP</button>
+    </nav>
 
-      <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
-      <script type="module" src="js/login-signup.js"></script>
-      <script src="js/navbar.js"></script>
-      <script src="js/index.js"></script>
-      <script>
-        document.addEventListener("DOMContentLoaded", () => {
-          setTimeout(() => {
-            document.getElementById("preloader").style.opacity = "0";
-            setTimeout(() => {
-              document.getElementById("preloader").style.display = "none";
-              document.getElementById("main-content").style.display = "block";
-            }, 1000);
-          }, 7000);
-        });
-      </script>
+    <div class="services-grid">
+      <a href="./category/flights.html" class="service flights">Flights</a>
+      <a href="./category/hotels.html" class="service hotels">Hotels</a>
+      <a href="./category/trains.html" class="service trains">Trains</a>
+      <a href="./category/events.html" class="service events">Events</a>
+    </div>
+
+    <!-- Login / Signup Popup -->
+    <div id="overlay"></div>
+    <div id="login-popup" class="login-modal">
+      <button type="button" class="close-button" onclick="closePopup()">&times;</button>
+
+      <!-- LOGIN FORM -->
+      <div class="form-toggle">
+        <label>
+          <input type="radio" name="formType" id="radioLogin" checked onclick="showLoginForm()">
+          <span class="toggle-btn">LOGIN<h5
+              style="position: absolute;color: var(--radio-color);margin-left: 3.2rem;margin-top: -3rem;font-size: 2.2em;font-family: 'Inter';">
+              .</h5></span>
+        </label>
+        <label>
+          <input type="radio" name="formType" id="radioSignup" onclick="showSignupForm()">
+          <span class="toggle-btn">SIGN UP<h5
+              style="position: absolute;color: var(--radio-color);margin-left: 4.1rem;margin-top: -3rem;font-size: 2.2em;font-family: 'Inter';">
+              .</h5></span>
+        </label>
+      </div>
+      <form id="loginForm" class="form">
+        <h4 style="animation: fade-in 0.4s;font-family: 'Varela';">LOGIN</h4>
+        <div class="form-group input-wrapper">
+          <input type="email" id="login-email" name="email" placeholder="Email Address" required
+            oninput="toggleClearButton(this)" onblur="toggleClearButton(this)">
+          <button type="button" class="clear-btn" onclick="clearInput(this)">&times;</button>
+        </div>
+        <div class="form-group input-wrapper">
+          <input type="password" id="login-password" name="password" placeholder="Password" required
+            oninput="toggleClearButton(this)" onblur="toggleClearButton(this)">
+          <button type="button" class="clear-btn" onclick="clearInput(this)">&times;</button>
+        </div>
+        <button type="submit" class="btn-primary">LOGIN</button>
+      </form>
+
+      <!-- SIGNUP FORM -->
+      <form id="signupForm" class="form" style="display: none;">
+        <h4 style="animation: fade-in 0.4s;font-family: 'Varela';">SIGN UP</h4>
+        <div class="form-group input-wrapper">
+          <input type="text" id="signup-username" name="username" placeholder="Username" required
+            oninput="toggleClearButton(this)" onblur="toggleClearButton(this)">
+          <button type="button" class="clear-btn" onclick="clearInput(this)">&times;</button>
+        </div>
+        <div class="form-group input-wrapper">
+          <input type="email" id="signup-email" name="email" placeholder="Email Address" required
+            oninput="toggleClearButton(this)" onblur="toggleClearButton(this)">
+          <button type="button" class="clear-btn" onclick="clearInput(this)">&times;</button>
+        </div>
+        <div class="form-group input-wrapper">
+          <input type="password" id="signup-password" name="password" placeholder="Password" required
+            oninput="toggleClearButton(this)" onblur="toggleClearButton(this)">
+          <button type="button" class="clear-btn" onclick="clearInput(this)">&times;</button>
+        </div>
+        <label class="container1 text-loading-animation">I agree to the <a class="text-loading-animation"
+            href="terms-and-conditions.html">terms and conditions.</a>
+          <input type="checkbox" required>
+          <span class="checkmark"></span>
+        </label>
+        <button type="submit" class="btn-primary">SIGN UP</button>
+      </form>
+    </div>
+
+    <a href="terms-and-conditions.html" class="tnc-link">TERMS AND CONDITIONS</a>
+    <a href="about-us.html" class="ab-us-link">ABOUT US</a>
+
+    <!--Alert-->
+    <div id="customAlert" class="alert"><span id="alertMessage">alert</span></div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
+    <script src="js/login-signup.js"></script>
+    <script src="js/navbar.js"></script>
+    <script src="js/index.js"></script>
 </body>
+
 </html>

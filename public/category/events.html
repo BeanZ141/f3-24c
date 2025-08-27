@@ -1,172 +1,343 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <script>
-        const setTheme = () => {
-            const theme = localStorage.getItem('theme') || 'light';
-            document.documentElement.classList.toggle('dark-mode', theme === 'dark');
-        };
-        setTheme();
-    </script>
+    <script src="../js/theme.js"></script>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Varela&display=swap" rel="stylesheet">
-    <title>Flight Booking</title>
-    <link rel="stylesheet" href="css/booking-category.css">
-    <link rel="stylesheet" href="css/styles.css">
-    <link rel="stylesheet" href="css/themes.css">
-    <link rel="stylesheet" href="css/navbar.css">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <title>Event Search Results</title>
+    <link rel="stylesheet" href="/public/css/styles.css">
+    <link rel="stylesheet" href="/public/css/themes.css">
+    <link rel="stylesheet" href="/public/css/navbar.css">
+    <link rel="stylesheet" href="/public/category/css/events.css">
 </head>
+
 <body>
-    <section class="flight-booking">
-        <!--Trip type-->
-        <label class="container container1">
-            <input type="radio" name="tripType" checked>
-            <span class="checkmark"></span><span class="radio-text">One Way</span>
-        </label> 
-        <label class="container">
-            <input type="radio" name="tripType">
-            <span class="checkmark"></span><span class="radio-text">Round Trip</span>
-        </label> 
-        <label class="container">
-            <input type="radio" name="tripType">
-            <span class="checkmark"></span><span class="radio-text">Multi City</span>
-        </label>
-
-        <!--Select city-->
-        <div class="city-switch">
-            <!--From-->
-            <div class="input-group">
-                <div id="from" class="custom-select">
-                    <div class="from">From</div>
-                    <div class="select-selected" data-value="Mumbai">Mumbai</div>
-                    <div class="select-options">
-                        <div data-city="Mumbai" data-airport="Chhatrapati Shivaji International Airport" data-code="BOM">
-                            <span class="city">Mumbai, India</span>
-                            <span class="airport">Chhatrapati Shivaji International Airport</span>
-                            <span class="code">BOM</span>
-                        </div>
-                        <div data-city="Chennai" data-airport="Chennai International Airport" data-code="MAA">
-                            <span class="city">Chennai, India</span>
-                            <span class="airport">Chennai International Airport</span>
-                            <span class="code">MAA</span>
-                        </div>
-                        <div data-city="Hyderabad" data-airport="Chennai International Airport" data-code="MAA">
-                            <span class="city">Hyderabad, India</span>
-                            <span class="airport">Rajiv Gandhi International Airport</span>
-                            <span class="code">HYD</span>
-                        </div>
-                        <div data-city="Goa - Dabolim Airport" data-airport="Goa Dabolim International Airport" data-code="MAA">
-                            <span class="city">Goa - Dabolim Airport, India</span>
-                            <span class="airport">Rajiv Gandhi International Airport</span>
-                            <span class="code">GOI</span>
-                        </div>
-                </div>                
-            </div>
-            <!--Switch cities-->
-            <button id="switch-btn">&#8645;</button>
-            <!--To-->
-            <div class="input-group">
-                <div id="to" class="custom-select">
-                    <div class="to">To</div>
-                    <div class="select-selected" style="padding-left: 35px;" data-value="Mumbai">Mumbai</div>
-                    <div class="select-options">
-                        <div data-city="Mumbai" data-airport="Chhatrapati Shivaji International Airport" data-code="BOM">
-                            <span class="city">Mumbai, India</span>
-                            <span class="airport">Chhatrapati Shivaji International Airport</span>
-                            <span class="code">BOM</span>
-                        </div>
-                        <div data-city="Chennai" data-airport="Chennai International Airport" data-code="MAA">
-                            <span class="city">Chennai, India</span>
-                            <span class="airport">Chennai International Airport</span>
-                            <span class="code">MAA</span>
-                        </div>
-                        <div data-city="Hyderabad" data-airport="Chennai International Airport" data-code="MAA">
-                            <span class="city">Hyderabad, India</span>
-                            <span class="airport">Rajiv Gandhi International Airport</span>
-                            <span class="code">HYD</span>
-                        </div>
-                        <div data-city="Goa - Dabolim Airport" data-airport="Goa Dabolim International Airport" data-code="MAA">
-                            <span class="city">Goa - Dabolim Airport, India</span>
-                            <span class="airport">Rajiv Gandhi International Airport</span>
-                            <span class="code">GOI</span>
-                        </div>
+    <nav style="z-index: 1; background-color: transparent;backdrop-filter: blur(4px);">
+        <a href="/public/index.html">TICKETEASE</a>
+        <div id="user-info" style="display: none;">
+            <span id="username-display"></span>
+            <div class="dropdown">
+                <button class="dropdown-btn" onclick="toggleDropdown()">▼</button>
+                <div class="dropdown-content" id="dropdown-menu">
+                    <a href="dashboard.html">Dashboard</a>
+                    <a href="scanner/scanner-info.html">Scan Tickets</a>
+                    <a href="#" onclick="logout()">Logout</a>
                 </div>
-            </div> 
-            <!--Departure-->
-            <div class="input-group">
-                <input id="departure" type="date">
             </div>
-            <!--Return-->
-            <div class="input-group">
-                <input id="return" type="date">
-            </div>
-            <!--Travelers and class-->
-            <button class="input-group travelers-and-class">
-                
-            </button>
         </div>
-    </section>
 
-    <button id="theme-switch">
-        <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e8eaed">
-        <path
-            d="M480-120q-150 0-255-105T120-480q0-150 105-255t255-105q14 0 27.5 1t26.5 3q-41 29-65.5 75.5T444-660q0 90 63 153t153 63q55 0 101-24.5t75-65.5q2 13 3 26.5t1 27.5q0 150-105 255T480-120Z" />
+        <!--Service section-->
+        <div class="service-nav">
+            <a href="/public/category/flights.html" data-icon="flight.svg">
+                <i class="fas fa-plane"></i> FLIGHTS
+            </a>
+            <a href="/public/category/hotels.html" data-icon="hotel.svg">
+                <i class="fas fa-hotel"></i> HOTELS
+            </a>
+            <a href="/public/category/trains.html" data-icon="train.svg">
+                <i class="fas fa-train"></i> TRAINS
+            </a>
+            <a class="active" href="/public/category/events.html" data-icon="event.svg">
+                <i class="fas fa-calendar-alt"></i> EVENTS
+            </a>
+        </div>
+        <button id="login-btn" onclick="showPopup()">LOGIN / SIGNUP</button>
+
+        <button id="theme-switch">
+        <svg height="24px" viewBox="0 -960 960 960" width="24px" fill="#e8eaed">
+            <path
+                d="M480-120q-150 0-255-105T120-480q0-150 105-255t255-105q14 0 27.5 1t26.5 3q-41 29-65.5 75.5T444-660q0 90 63 153t153 63q55 0 101-24.5t75-65.5q2 13 3 26.5t1 27.5q0 150-105 255T480-120Z" />
         </svg>
-        <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e8eaed">
-        <path
-            d="M480-280q-83 0-141.5-58.5T280-480q0-83 58.5-141.5T480-680q83 0 141.5 58.5T680-480q0 83-58.5 141.5T480-280ZM200-440H40v-80h160v80Zm720 0H760v-80h160v80ZM440-760v-160h80v160h-80Zm0 720v-160h80v160h-80ZM256-650l-101-97 57-59 96 100-52 56Zm492 496-97-101 53-55 101 97-57 59Zm-98-550 97-101 59 57-100 96-56-52ZM154-212l101-97 55 53-97 101-59-57Z" />
+        <svg height="24px" viewBox="0 -960 960 960" width="24px" fill="#e8eaed">
+            <path
+                d="M480-280q-83 0-141.5-58.5T280-480q0-83 58.5-141.5T480-680q83 0 141.5 58.5T680-480q0 83-58.5 141.5T480-280ZM200-440H40v-80h160v80Zm720 0H760v-80h160v80ZM440-760v-160h80v160h-80Zm0 720v-160h80v160h-80ZM256-650l-101-97 57-59 96 100-52 56Zm492 496-97-101 53-55 101 97-57 59ZM-98-212l101-97 55 53-97 101-59-57Z" />
         </svg>
     </button>
-</body>
-<script src="js/navbar.js"></script>
-<script>
-// Event listener for the switch button
-document.getElementById('switch-btn').addEventListener('click', () => {
-    const fromSelected = document.querySelector('#from .select-selected');
-    const toSelected = document.querySelector('#to .select-selected');
+    </nav>
 
-    // Swap the innerHTML between from and to
-    const tempHTML = fromSelected.innerHTML;
-    const tempValue = fromSelected.dataset.value;
+    <!-- Filter section -->
+    <div class="filter-section">
+        <h3 class="filter-title">Filters</h3>
+        <hr class="filter-divider">
 
-    fromSelected.innerHTML = toSelected.innerHTML;
-    fromSelected.dataset.value = toSelected.dataset.value;
+        <div class="filter-group">
+            <!-- Date Filters -->
+            <p class="filter-category">Date</p>
+            <label class="filter-checkbox-label">
+                <input class="filter-checkbox date-filter" type="checkbox" value="Today">
+                <span>Today</span>
+                <span>[12]</span>
+            </label>
+            <label class="filter-checkbox-label">
+                <input class="filter-checkbox date-filter" type="checkbox" value="Tomorrow">
+                <span>Tomorrow</span>
+                <span>[18]</span>
+            </label>
+            <label class="filter-checkbox-label">
+                <input class="filter-checkbox date-filter" type="checkbox" value="This Weekend">
+                <span>This Weekend</span>
+                <span>[18]</span>
+            </label>
+            <!-- Price Filters -->
+            <p class="filter-category">Price</p>
+            <label class="filter-checkbox-label">
+                <input class="filter-checkbox price-filter" type="checkbox" value="Free">
+                <span>Free</span>
+                <span>[02]</span>
+            </label>
+            <label class="filter-checkbox-label">
+                <input class="filter-checkbox price-filter" type="checkbox" value="0-500">
+                <span>0 - 500</span>
+                <span>[05]</span>
+            </label>
+            <label class="filter-checkbox-label">
+                <input class="filter-checkbox price-filter" type="checkbox" value="501-2000">
+                <span>501 - 2000</span>
+                <span>[05]</span>
+            </label>
+            <label class="filter-checkbox-label">
+                <input class="filter-checkbox price-filter" type="checkbox" value="Above 2000">
+                <span>Above 2000</span>
+                <span>[06]</span>
+            </label>
+        </div>
+    </div>
 
-    toSelected.innerHTML = tempHTML;
-    toSelected.dataset.value = tempValue;
-});
+    <!-- Event Categories -->
+    <div class="category-container">
+        <div class="category-option active" onclick="filterEvents('reset')">
+            <span class="category-title">Unfiltered</span>
+        </div>
+        <div class="category-option" onclick="filterEvents('comedy')">
+            <span class="category-title">Comedy Shows</span>
+        </div>
+        <div class="category-option" onclick="filterEvents('workshops')">
+            <span class="category-title">Workshops</span>
+        </div>
+        <div class="category-option" onclick="filterEvents('music')">
+            <span class="category-title">Music Shows</span>
+        </div>
+        <div class="category-option" onclick="filterEvents('exhibitions')">
+            <span class="category-title">Exhibitions</span>
+        </div>
+        <div class="category-option" onclick="filterEvents('conferences')">
+            <span class="category-title">Conferences</span>
+        </div>
+    </div>
 
-// Event listeners for custom select functionality
-document.querySelectorAll('.custom-select').forEach(select => {
-    const selected = select.querySelector('.select-selected');
-    const options = select.querySelector('.select-options');
+    <!-- Event Cards -->
+    <div class="event-cards"></div>
 
-    selected.addEventListener('click', () => {
-        options.classList.toggle('open');
-        selected.classList.toggle('open');
-    });
+    <!-- Details Section -->
+    <div class="details-panel" id="details-panel">
+        <button class="close-btn" onclick="closeDetails()">CLOSE</button>
+        <div class="event-details-content"></div> <!-- This is the container we need -->
+    </div>
 
-    options.querySelectorAll('div').forEach(option => {
-        option.addEventListener('click', () => {
-            selected.dataset.value = option.dataset.city;
-            selected.innerHTML = `
-                <div class="city">${option.dataset.city}</div>
-                <div class="airport">${option.dataset.airport}</div>
+    <script src="/public/js/navbar.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.0/papaparse.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            let originalEventData = [];
+            let currentFilter = 'reset';
+
+            fetch('/public/category/events.csv')
+                .then(response => response.text())
+                .then(csvText => {
+                    const results = Papa.parse(csvText, {
+                        header: true,
+                        skipEmptyLines: true
+                    });
+                    originalEventData = processCSVData(results.data);
+                    updateFilterCounts();
+                    renderEventCards(originalEventData);
+                })
+                .catch(error => {
+                    console.error('Error loading events:', error);
+                    loadMockData();
+                });
+
+            function processCSVData(data) {
+                return data.map(event => ({
+                    ...event,
+                    priceValue: event.price === "Free" ? 0 : parseInt(event.price.replace(/[^0-9]/g, '')) || 0,
+                    dateCategory: getDateCategory(event.date),
+                    formattedDate: formatDate(event.date)
+                }));
+            }
+
+            function getDateCategory(dateStr) {
+                const today = new Date();
+                const eventDate = new Date(dateStr);
+                const tomorrow = new Date();
+                tomorrow.setDate(today.getDate() + 1);
+
+                if (eventDate.toDateString() === today.toDateString()) return "Today";
+                if (eventDate.toDateString() === tomorrow.toDateString()) return "Tomorrow";
+
+                if (eventDate.getDay() === 6 || eventDate.getDay() === 0) {
+                    const thisWeekend = new Date(today);
+                    thisWeekend.setDate(today.getDate() + (6 - today.getDay())); // Next Saturday
+                    const nextWeekend = new Date(thisWeekend);
+                    nextWeekend.setDate(thisWeekend.getDate() + 7);
+
+                    if (eventDate >= thisWeekend && eventDate < nextWeekend) {
+                        return "This Weekend";
+                    }
+                }
+                return "";
+            }
+
+            function formatDate(dateStr) {
+                const options = { weekday: 'short', month: 'short', day: 'numeric' };
+                return new Date(dateStr).toLocaleDateString('en-US', options);
+            }
+
+            function updateFilterCounts() {
+                document.querySelectorAll('.date-filter').forEach(filter => {
+                    const value = filter.value;
+                    const count = originalEventData.filter(event => event.dateCategory === value).length;
+                    const countSpan = filter.nextElementSibling.nextElementSibling;
+                    if (countSpan) countSpan.textContent = `[${count}]`;
+                });
+
+                document.querySelectorAll('.price-filter').forEach(filter => {
+                    const value = filter.value;
+                    let count = 0;
+
+                    if (value === "Free") {
+                        count = originalEventData.filter(event => event.price === "Free").length;
+                    }
+                    else if (value === "0-500") {
+                        count = originalEventData.filter(event => event.priceValue > 0 && event.priceValue <= 500).length;
+                    }
+                    else if (value === "501-2000") {
+                        count = originalEventData.filter(event => event.priceValue > 500 && event.priceValue <= 2000).length;
+                    }
+                    else if (value === "Above 2000") {
+                        count = originalEventData.filter(event => event.priceValue > 2000).length;
+                    }
+
+                    const countSpan = filter.nextElementSibling.nextElementSibling;
+                    if (countSpan) countSpan.textContent = `[${count}]`;
+                });
+            }
+
+            function renderEventCards(data) {
+                const eventCardsContainer = document.querySelector('.event-cards');
+                eventCardsContainer.innerHTML = '';
+
+                if (data.length === 0) {
+                    eventCardsContainer.innerHTML = '<div class="no-events">No events found matching your filters.</div>';
+                    return;
+                }
+
+                data.forEach(event => {
+                    const cardHTML = `
+            <div class="event-card" onclick="showEventDetails(${event.id})" 
+                data-category="${event.category}"
+                data-date="${event.dateCategory}"
+                data-price="${event.priceValue}">
+                <div class="event-image" style="background-image: url('/public/category/assets/events/${event.image || 'default.jpg'}')"></div>
+                <div class="event-info">
+                    <h4 class="event-name">${event.name}</h4>
+                    <p class="event-price">${event.price}</p>
+                </div>
+                <button class="book-btn" onclick="event.stopPropagation(); storeEventDetails(${event.id})">BOOK</button>
+            </div>
             `;
-            options.classList.remove('open');
-            selected.classList.remove('open');
-        });
-    });
+                    eventCardsContainer.insertAdjacentHTML('beforeend', cardHTML);
+                });
+            }
 
-    document.addEventListener('click', (e) => {
-        if (!select.contains(e.target)) {
-            options.classList.remove('open');
-            selected.classList.remove('open');
-        }
-    });
-});
-</script>
+            function filterEvents(filterOption) {
+                document.querySelectorAll('.category-option').forEach(option => {
+                    option.classList.remove('active');
+                });
+
+                event.currentTarget.classList.add('active');
+                currentFilter = filterOption;
+                applyFilters();
+            }
+
+            function applyFilters() {
+                const selectedDates = Array.from(document.querySelectorAll('.date-filter:checked')).map(cb => cb.value);
+                const selectedPrices = Array.from(document.querySelectorAll('.price-filter:checked')).map(cb => cb.value);
+
+                let filteredData = originalEventData;
+
+                if (currentFilter !== 'reset') { filteredData = filteredData.filter(event => event.category === currentFilter); }
+                if (selectedDates.length > 0) { filteredData = filteredData.filter(event => selectedDates.includes(event.dateCategory)); }
+                if (selectedPrices.length > 0) {
+                    filteredData = filteredData.filter(event => {
+                        if (selectedPrices.includes("Free") && event.price === "Free") return true;
+                        if (selectedPrices.includes("0-500") && event.priceValue > 0 && event.priceValue <= 500) return true;
+                        if (selectedPrices.includes("501-2000") && event.priceValue > 500 && event.priceValue <= 2000) return true;
+                        if (selectedPrices.includes("Above 2000") && event.priceValue > 2000) return true;
+                        return false;
+                    });
+                }
+
+                renderEventCards(filteredData);
+            }
+
+            function showEventDetails(eventId) {
+                const event = originalEventData.find(e => e.id == eventId);
+                if (!event) return;
+
+                const detailsPanel = document.getElementById('details-panel');
+                const content = detailsPanel.querySelector('.event-details-content');
+
+                content.innerHTML = `
+            <h2>${event.name}</h2>
+            <div class="event-meta">
+                <p><i class="fas fa-map-marker-alt"></i> <strong>Location:</strong> ${event.location}</p>
+                <p><i class="far fa-calendar-alt"></i> <strong>Date:</strong> ${event.formattedDate}</p>
+                <p><i class="far fa-clock"></i> <strong>Time:</strong> ${event.start_time} - ${event.end_time}</p>
+                <p><i class="fas fa-tag"></i> <strong>Price:</strong> ${event.price}</p>
+                ${event.available_tickets > 0 || event.available_tickets == -1 ?
+                        `<p><i class="fas fa-ticket-alt"></i> <strong>Tickets:</strong> ${event.available_tickets == -1 ? 'Available' : `${event.available_tickets} remaining`}</p>` :
+                        '<p class="sold-out">SOLD OUT</p>'}
+            </div>
+            <div class="event-description">
+                <h3>About the Event</h3>
+                <p>${event.description}</p>
+            </div>
+            ${event.available_tickets > 0 || event.available_tickets == -1 ?
+                        `<button class="book-btn" onclick="storeEventDetails(${event.id})">BOOK NOW</button>` :
+                        '<button class="book-btn disabled" disabled>SOLD OUT</button>'}
+        `;
+
+                detailsPanel.classList.add('active');
+            }
+
+            function storeEventDetails(eventId) {
+                const event = originalEventData.find(e => e.id == eventId);
+                if (!event) return;
+
+                localStorage.setItem('selectedEvent', JSON.stringify(event));
+                window.location.href = '/public/category/event-booking.html';
+            }
+
+            function closeDetails() { document.getElementById('details-panel').classList.remove('active'); }
+
+
+            document.querySelectorAll('.filter-checkbox').forEach(checkbox => {
+                checkbox.addEventListener('change', applyFilters);
+            });
+
+            window.filterEvents = filterEvents;
+            window.showEventDetails = showEventDetails;
+            window.storeEventDetails = storeEventDetails;
+            window.closeDetails = closeDetails;
+        });
+    </script>
+</body>
 </html>

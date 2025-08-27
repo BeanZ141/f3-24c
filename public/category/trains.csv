@@ -1,0 +1,16 @@
+company,train_number,departure,duration,arrival,cost,offer,boarding_station,arrival_station,stops
+Indian Railways,12034,06:00,4h 30m,10:30,₹1250,Saver ₹100 off,Pune Jn,Mumbai CSMT,Direct
+IRCTC Tejas,22119,07:45,6h 15m,14:00,₹1850,Meal Included,Mumbai CSMT,Ahmedabad Jn,Direct
+Indian Railways,12627,22:10,10h 45m,08:55,₹2430,Extra ₹150 off,Bangalore City,Chennai Egmore,1 Stop
+Indian Railways,12951,05:30,16h 00m,21:30,₹2895,Meal Included,Mumbai Central,New Delhi,2 Stops
+Vande Bharat,22438,15:15,8h 30m,23:45,₹3025,Saver ₹210 off,Varanasi Jn,New Delhi,Direct
+Indian Railways,12295,23:55,12h 05m,12:00,₹1980,Free WiFi,Patna Jn,Kolkata Howrah,1 Stop
+Indian Railways,16526,09:10,13h 25m,22:35,₹1540,Extra ₹90 off,Bangalore City,Hyderabad Deccan,Direct
+IRCTC Tejas,22171,14:40,7h 20m,22:00,₹2150,Meal Included,Lucknow Jn,New Delhi,Direct
+Indian Railways,12953,20:25,17h 15m,13:40,₹3120,Extra ₹200 off,Mumbai Central,Jaipur Jn,2 Stops
+Vande Bharat,22222,06:35,5h 30m,12:05,₹2495,Saver ₹180 off,Delhi Jn,Varanasi Jn,Direct
+Indian Railways,12616,11:25,20h 45m,08:10,₹3275,Extra ₹150 off,Chennai Central,Hyderabad Deccan,2 Stops
+Indian Railways,12723,16:50,21h 10m,14:00,₹2840,Free Meals,Hyderabad Deccan,New Delhi,1 Stop
+Indian Railways,11058,08:20,25h 35m,09:55,₹3450,Saver ₹220 off,Amritsar Jn,Pune Jn,2 Stops
+Vande Bharat,22435,05:50,6h 45m,12:35,₹1999,Extra ₹100 off,Delhi Jn,Kanpur Central,Direct
+IRCTC Tejas,82501,13:30,12h 30m,02:00,₹2250,Meal Included,Lucknow Jn,Mumbai CSMT,1 Stop

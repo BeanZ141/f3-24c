@@ -12,17 +12,24 @@ document.getElementById('switch-btn').addEventListener('click', () => {
     toSelected.dataset.value = tempValue;
 });
 
+document.getElementById("switch-btn").addEventListener("click", function () {
+    this.classList.toggle("rotated");
+});
+
 document.querySelectorAll('.custom-select').forEach(select => {
     const selected = select.querySelector('.select-selected');
     const options = select.querySelector('.select-options');
 
-    selected.addEventListener('click', () => {
+    selected.addEventListener('click', (e) => {
+        e.stopPropagation();
+        document.querySelectorAll('.select-options').forEach(o => { if (o !== options) o.classList.remove('open'); });
         options.classList.toggle('open');
         selected.classList.toggle('open');
     });
 
     options.querySelectorAll('div').forEach(option => {
-        option.addEventListener('click', () => {
+        option.addEventListener('click', (e) => {
+            e.stopPropagation();
             selected.dataset.value = option.dataset.city;
             selected.innerHTML = `
                 <div class="city">${option.dataset.city}</div>
@@ -33,11 +40,9 @@ document.querySelectorAll('.custom-select').forEach(select => {
         });
     });
 
-    document.addEventListener('click', (e) => {
-        if (!select.contains(e.target)) {
-            options.classList.remove('open');
-            selected.classList.remove('open');
-        }
+    document.addEventListener('click', () => {
+        options.classList.remove('open');
+        selected.classList.remove('open');
     });
 });
 
@@ -202,6 +207,26 @@ function showAlert(message, type = 'info') {
 // Close Alert
 function closeAlert() {
     document.getElementById('customAlert').classList.remove('show');
+}
+
+// Search flights function
+async function searchFlights() {
+    const fromSelected = document.querySelector('#from .select-selected');
+    const toSelected = document.querySelector('#to .select-selected');
+    
+    if (!fromSelected.dataset.value || !toSelected.dataset.value) {
+        showAlert('Please select both departure and arrival cities', 'error');
+        return;
+    }
+
+    // Build URL with search parameters
+    const params = new URLSearchParams({
+        from: fromSelected.dataset.value,
+        to: toSelected.dataset.value
+    });
+
+    // Navigate to results page with parameters
+    window.location.href = `/public/category/flight-results.html?${params.toString()}`;
 }
 
 // Toggle Round Trip

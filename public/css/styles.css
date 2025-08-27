@@ -1,39 +1,73 @@
 body {
     -webkit-font-smoothing: antialiased;
+    margin: 0;
+    -webkit-overflow-scrolling: none;
+    scrollbar-width: 0 !important;
+}
+
+#splash-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: var(--color-bg);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 10000;
+    opacity: 1;
+    transition: opacity 0.8s ease-out;
+}
+
+#splash-screen.fade-out { opacity: 0; }
+
+.splash-text {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 4rem;
+    font-weight: 300;
+    color: var(--color-fg);
+    letter-spacing: 0.2em;
+    text-align: center;
+    animation: splash-fade-in 1s ease-in-out forwards;
+}
+
+/* Responsive font sizing for splash screen */
+@media (max-width: 768px) {
+    .splash-text {
+        font-size: 2.5rem;
+        letter-spacing: 0.15em;
+    }
+}
+
+@media (max-width: 480px) {
+    .splash-text {
+        font-size: 2rem;
+        letter-spacing: 0.1em;
+    }
+}
+
+@keyframes splash-fade-in {0% {opacity: 0;}100% {opacity: 1;}}
+
+#main-content {
+    display: none;
+    opacity: 0;
+    transition: opacity 0.8s ease-in-out;
+}
+
+#main-content.show {
+    display: block;
+    opacity: 1;
+}
+
+/* Ensure smooth transitions for main content elements */
+nav, .services-grid, .tnc-link, .ab-us-link {
+    transition: opacity 0.8s ease-in-out, transform 0.8s ease-in-out;
 }
 
 ::selection {
     background-color: var(--selection-bg);
     color: var(--selection-fg)
-}
-
-.welcome-section {
-    position: relative;
-    user-select: none;
-    text-align: center;
-    position: relative;
-    top: 8rem;
-    font-size: 1.1em;
-    font-family: "Cormorant Garamond", serif;
-    letter-spacing: 0px;
-}
-
-.welcome-section > h1 {
-    position: relative;
-    font-weight: 100;
-    display: inline-block;
-    animation: animate-gradient 1s ease-in forwards, fade-text 1s forwards;
-    animation-delay: 7000ms;
-}
-
-.welcome-text {
-    background: linear-gradient(45deg, transparent 1%, var(--color-fg) 10%, transparent 30%);
-    background-size: 200%;
-    background-clip: text;
-    -webkit-background-clip: text;
-    color: var(--color-fg);
-    animation: animate-gradient 1s ease-in forwards, fade-text 1s forwards;
-    animation-delay: 7000ms;
 }
 
 .category {
@@ -48,7 +82,6 @@ body {
     transition: 200ms ease-out;
     letter-spacing: 2px;
     animation: fade-up 1s;
-    animation-delay: 7000ms;
 }
 
 .category:hover {
@@ -70,7 +103,6 @@ body {
     background-clip: text;
     -webkit-background-clip: text;
     animation: animate-gradient 1s ease-in-out forwards;
-    animation-delay: 7000ms;
 }
 
 .blinker {
@@ -80,23 +112,22 @@ body {
     transform: translate(-50%, -50%);
     font-size: 1.4rem;
     animation: blinker 0.3s steps(1) infinite;
-    animation-delay: 7000ms;
     color: var(--color-fg);
     font-family: Arial, sans-serif;
 }
 
 .tnc-link {
     color: var(--tnc-color);
-    font-family: 'Varela', sans-serif;
+    font-family: 'Space Mono', monospace;
     font-size: 0.8rem;
     text-decoration: none;
     position: fixed;
     letter-spacing: 2px;
     bottom: 4.3%;
     left: 2%;
-    padding: 3px;
+    padding: 2px 7px;
+    z-index: 1;
     animation: fade-card 1s ease-in-out forwards;
-    animation-delay: 7000ms;
 }
 
 .tnc-link:hover {
@@ -107,16 +138,16 @@ body {
 
 .ab-us-link {
     color: var(--tnc-color);
-    font-family: 'Varela', sans-serif;
+    font-family: 'Space Mono', monospace;
     font-size: 0.8rem;
     text-decoration: none;
     position: fixed;
-    letter-spacing: 2px;
+    letter-spacing: 4px;
     bottom: 4.3%;
     left: 19%;
-    padding: 3px;
+    padding: 2px 7px;
+    z-index: 1;
     animation: fade-card 1s ease-in-out forwards;
-    animation-delay: 7000ms;
 }
 
 .ab-us-link:hover {
@@ -137,7 +168,6 @@ body {
     transform: translateX(-50%);
     font-family: 'Varela', sans-serif;
     animation: fade-text 1s forwards;
-    animation-delay: 7000ms;
 }
 
 .service-container-mobile a {
@@ -203,7 +233,6 @@ body {
     position: absolute;
     left:20%;
     animation: animate-gradient 1s ease-in forwards, fade-text 1s forwards;
-    animation-delay: 7000ms;
 }
 
 #username-display:hover {
@@ -218,8 +247,7 @@ body {
     gap: 10px;
     cursor: pointer;
     position: absolute;
-    animation: animate-gradient 1s ease-in forwards, fade-text 1s forwards;
-    animation-delay: 7000ms;
+    animation: fade-up 1s forwards;
 }
 
 .loader {
@@ -238,7 +266,6 @@ body {
     position: absolute;
     transform: translate(-50%);
     animation: animate-gradient 1s ease-in forwards, fade-text 1s forwards;
-    animation-delay: 7000ms;
 }
 
 .words {
@@ -263,7 +290,6 @@ body {
     padding-left: 3px;
     color: var(--tnc-color);
     animation: spin_4991 6s infinite;
-    animation-delay: 7000ms;
 }
 
 /* Updated service container */
@@ -291,7 +317,7 @@ body {
     transition: 200ms;
     z-index: 1;
     animation: fade-text 1s forwards;
-    animation-delay: 7000ms;
+
 }
 
 a.service-link {
@@ -441,7 +467,6 @@ a.service-link {
     opacity: 1;
     visibility: visible;
     animation: fade-text 1s forwards;
-    animation-delay: 7000ms;
 }
 
 .alert.success { background-color: var(--color-fg); color: var(--color-bg); }
@@ -477,7 +502,7 @@ a.service-link {
 
 @keyframes fade-card {
     0% {
-        transform: translateY(100px);
+        transform: translateY(20px);
         opacity: 0;
     }
     100% {
@@ -486,15 +511,7 @@ a.service-link {
     }
 }
 
-@keyframes animate-gradient {
-    0% {
-        background-position: 200% 0;
-        color: transparent;
-    }
-    100% {
-        background-position: -200% 0;
-    }
-}
+@keyframes animate-gradient { 0% { background-position: 200% 0; color: transparent; } 100% { background-position: -200% 0; }}
 
 @keyframes load-text {
     0% {
@@ -626,25 +643,75 @@ a.service-link {
     animation: fade-in-subtitle 4s ease-in-out 1s forwards, fade-out 2s ease-in-out 5s forwards;
 }
 
-@keyframes fade-in {
-    0% { opacity: 0; }
-    100% { opacity: 1; }
+.category-name {
+    position: fixed;
+    top: 8vh;
+    left: 10vh;
+    font-size: 2rem;
+    font-family: 'Inter', sans-serif;
+    font-weight: 300;
+    animation: fade-in-left 1s forwards;
 }
 
-@keyframes fade-out {
-    0% { opacity: 1; }
-    100% { opacity: 0; }
-}
+@keyframes fade-in { 0% { opacity: 0; } 100% { opacity: 1; } }
+@keyframes fade-out { 0% { opacity: 1; } 100% { opacity: 0; } }
+@keyframes fade-in-subtitle { 0% { opacity: 0; transform: translateY(0px); } 100% { opacity: 1; transform: translateY(-40px); } }
+@keyframes fade-in-left { 0% { opacity: 0; transform: translateX(-80px); letter-spacing: 10px; } 100% { opacity: 1; transform: translateX(0px); letter-spacing: 0px; } }
 
-@keyframes fade-in-subtitle {
-    0% { opacity: 0; transform: translateY(0px); }
-    100% { opacity: 1; transform: translateY(-40px); }
-}
-
-
-/* Fades out the entire preloader */
 .fade-preloader {
     opacity: 0;
     visibility: hidden;
     transition: opacity 1s ease-out, visibility 1s ease-out;
+}
+.services-grid { 
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    width: 100%;
+    height: 100vh;
+    user-select: none;
+}
+
+.service {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.25rem;
+    font-family: 'Space Mono', monospace;
+    font-weight: 100;
+    border-right: 0.5px solid var(--radio-color);
+    color: var(--color-fg);
+    text-decoration: none; /* Remove underline */
+    overflow: hidden;
+    z-index: 1;
+    transition: color 0.3s ease-in-out;
+}
+
+.service:last-child {
+    border-right: none; /* Remove last column border */
+}
+
+.service::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-size: cover;
+    background-position: center;
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+    z-index: -1;
+}
+
+.flights::before { background-image: url('../images/flights.jpg'); }
+.hotels::before { background-image: url('../images/hotels.jpg'); }
+.trains::before { background-image: url('../images/trains.jpg'); }
+.events::before { background-image: url('../images/events1.jpg'); }
+
+.service:hover::before {
+    opacity: 1;
+}
+
+.service:hover {
+    font-weight: 700;
+    cursor: pointer;
 }

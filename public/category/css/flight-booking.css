@@ -2,7 +2,7 @@
         margin: 0;
         padding: 0;
         box-sizing: border-box;
-        font-family: 'Varela', sans-serif;
+        font-family: 'Space Mono', monospace;
     }
 
     body {
@@ -40,7 +40,7 @@
     .fare-summary,
     .flight-details {
         flex: 1;
-        background-color: var(--radio-color);
+        background-color: var(--color-bg);
         border: 1px solid var(--radio-border);
         border-radius: 10px;
         padding: 20px;
@@ -55,40 +55,44 @@
     .fare-summary .traveller-info {
         display: flex;
         justify-content: space-between;
-        margin-bottom: 10px;
     }
 
     .fare-summary .traveller-info span {
+        text-align: center;
+        align-content: center;
         color: var(--color-fg);
     }
 
     .fare-summary .fare-item {
         display: flex;
         justify-content: space-between;
-        margin: 5px 0;
+        margin: 11px 0;
         border-bottom: 1px solid transparent;
     }
 
-    .fare-summary .fare-item span {
-        color: var(--color-fg);
-    }
+    .fare-summary .fare-item span { color: var(--color-fg); }
 
-    .fare-summary .fare-item:hover {
-        font-weight: 800;
-    }
+    .fare-summary .fare-item:hover { font-weight: 800; }
 
     .fare-summary .fare-total {
         display: flex;
         justify-content: space-between;
-        margin-top: 35px;
+        background-color: var(--radio-color);
+        border-radius: 7px;
+        border: 1px solid var(--radio-border);
+        padding: 3px 10px;
+        margin-top: 15px;
         font-weight: bold;
         font-size: 1.1rem;
     }
 
-    .fare-summary .partially-refund {
+    .fare-summary .partial-refund {
+        background-color: var(--radio-color);
+        border: 1px solid var(--radio-border);
+        border-radius: 7px;
+        padding: 3px 10px;
         font-size: 1rem;
         color: #43a047 !important;
-        margin-bottom: 15px;
     }
 
     .flight-details h2 {
@@ -109,7 +113,7 @@
     }
 
     .flight-details .time-box {
-        background: var(--radio-color);
+        background: var(--color-bg);
         border: 1px solid var(--radio-border);
         padding: 10px;
         border-radius: 8px;
@@ -119,7 +123,7 @@
     }
 
     .flight-details .time-box:hover {
-        background: var(--radio-border);
+        background: var(--color-bg);
         border: 1px solid var(--radio-color);
         transition: 0.2s;
     }
@@ -142,7 +146,7 @@
     }
 
     .refund-section {
-        background-color: var(--radio-color);
+        background-color: var(--color-bg);
         border-radius: 10px;
         padding: 20px;
         border: 1px solid var(--radio-border);
@@ -189,12 +193,12 @@
         display: flex;
         justify-content: space-between;
         align-items: center;
-        background-color: var(--radio-color);
+        background-color: var(--color-bg);
         border: 1px solid var(--radio-border);
         border-radius: 10px;
         padding: 20px;
-        margin-top: 35px;
-        margin-bottom: 40px;
+        margin-top: 2px;
+        margin-bottom: 0px;
         animation: fade-card 1.4s forwards;
     }
 
@@ -211,18 +215,20 @@
     }
 
     .bottom-bar button {
-        background: #ff6f00;
-        border: none;
+        background: var(--color-fg);
+        color: var(--color-bg);
+        border: 1px solid transparent;
         border-radius: 8px;
         padding: 10px 20px;
-        color: var(--color-fg);
         font-size: 1rem;
         cursor: pointer;
         transition: 0.3s;
     }
 
     .bottom-bar button:hover {
-        background: #e68200;
+        background: var(--color-bg);
+        color: var(--color-fg);
+        border: 1px solid var(--radio-border);
         transform: scale(1.05);
         transition: 0.3s;
     }
@@ -239,7 +245,7 @@
         );
         margin-left: 15px;
         position: absolute;
-        bottom: 131px;
+        bottom: 120px;
         animation: fade-card 1.2s forwards;
     }
     

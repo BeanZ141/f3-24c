@@ -1,0 +1,31 @@
+id,name,category,date,price,location,image,description,start_time,end_time,available_tickets
+1,Samay Raina,comedy,2024-01-05,₹1290 onwards,"Old City, Jaipur",1.jpg,"Stand-up special by Samay Raina with sharp takes, crowd work, and fresh material.",07:00,11:00,25
+2,Comedy Food Night,comedy,2023-12-23,₹300 onwards,"Central Park, Chennai",2.jpg,"A night of stand-up sets paired with curated food stalls—laugh, eat, repeat.",18:00,21:00,800
+3,New Year Comedy Countdown,comedy,2023-12-31,₹2500 onwards,"Beachside Resort, Goa",3.jpg,Comedy showcase that carries you into the midnight countdown with music and MCs.,20:00,02:00,500
+4,Upper Middle Below,comedy,2023-12-16,₹399 onwards,"Creative Arts Center, Delhi",4.jpg,"Satirical stand-up on middle‑class quirks, status games, and everyday chaos.",10:00,16:00,20
+5,Daily Kaam Ka Hai,comedy,2023-12-20,₹499 onwards,"Theater Studio, Pune",5.jpg,"Relatable stand-up on the daily kaam grind—office tales, deadlines, and chai breaks.",14:00,17:00,15
+6,Kisiki Batana Mt,comedy,2023-12-15,₹500 onwards,"The Laugh Factory, Mumbai",6.jpg,Confessional comedy where secrets spill—‘kisiki batana mat’ vibes guaranteed.,19:00,21:30,150
+7,Freshers Party,comedy,2024-01-12,₹499 onwards,Ranthambore National Park,7.jpg,"Freshers’ welcome party with stand-up, improv, and campus-style games.",06:00,18:00,12
+8,Maheep Singh,comedy,2024-01-16,₹3500 onwards,Manali Base Camp,8.jpg,Solo stand-up hour by Maheep Singh—observational humor and quick crowd work.,05:00,19:00,30
+9,Pasandeeda Aurat,comedy,2024-01-18,₹499 onwards,"Music Academy, Kolkata",9.jpg,"Hindi stand-up/storytelling exploring love, labels, and the idea of a ‘pasandeeda aurat’.",11:00,14:00,20
+10,Open Mic,comedy,2024-01-23,₹399 onwards,"Juhu Beach, Mumbai",10.jpg,"Open mic for new and seasoned comics—5–7 minute sets, limited walk-in slots.",06:30,08:30,50
+11,TEENAGE: Pranav Poet,comedy,2023-12-17,₹499 onwards,"Bandstand Amphitheater, Bangalore",11.jpg,"Poetry-meets-comedy set from Pranav on teenage angst, crushes, and growing up.",18:00,23:00,500
+12,Abracadabra,comedy,2023-12-21,₹1000 onwards,"Royal Opera House, Mumbai",12.jpg,"Comedy-meets-magic show—visual tricks, witty patter, and audience participation.",19:30,22:00,200
+13,The Mixed Open Mic,comedy,2023-12-24,₹299 onwards,"St. Andrew's Church, Kolkata",13.jpg,"Mixed open mic: stand-up, poetry, music—anything goes, anything funny.",18:00,20:00,250
+14,Surnburn Festival,music,2024-01-08,₹6000 onwards,"Art House Cinema, Delhi",music1.jpg,"High-energy EDM fest—massive stage production, lasers, and headline DJs.",18:00,21:00,80
+15,DJ Snake,music,2024-01-09,₹1500 onwards,"Dance Loft, Bangalore",music2.jpg,"DJ Snake live—global hits, heavy drops, and an arena-scale visual show.",19:30,23:00,120
+16,Satrangi Re,music,2024-01-13,₹800 onwards,"The Vinyl Bar, Pune",music3.jpg,"A multicolour tribute night—Bollywood melodies across eras, unplugged and live.",20:00,23:30,200
+17,PLUNGE Desi,music,2024-01-15,₹500 onwards,"Cultural Grounds, Bhopal",music4.jpg,"Desi bass night—Punjabi, Bollywood remixes, and hip‑hop to keep you moving.",17:00,21:00,350
+18,Rastey By Fiddlecraft,music,2024-01-21,₹1200 onwards,"The Indie Stage, Pune",music5.jpg,Fiddlecraft performs ‘Rastey’—indie rock storytelling with sing‑along hooks.,19:00,23:00,300
+19,Mooseverse,music,2023-12-18,₹5999,National Gallery of Modern Art,music6.jpg,Immersive audio‑visual concert set in the ‘Mooseverse’—electronic and alt vibes.,09:00,18:00,-1
+20,Filmfare,music,2024-01-06,₹2999,"Eco Park, Pune",music7.jpg,Live tribute to Filmfare classics—iconic Bollywood songs performed by a house band.,09:00,17:00,-1
+21,Circus Maximus,music,2024-01-06,₹6999,"Eco Park, Pune",music8.jpg,Theatrical dance‑music show with circus‑style acts and big‑room drops.,09:00,17:00,-1
+22,Supercars Show,exhibitions,2024-01-10,₹900,"City Library, Mumbai",exhibition1.jpg,"Showcase of supercars—close-up displays, rev sessions, and owner meetups.",16:00,18:00,50
+23,Pottery Painting Date,workshops,2024-01-14,₹300,"Science City, Ahmedabad",w1.jpg,"Couples’ pottery painting session—guided, beginner‑friendly; take home your piece.",10:00,18:00,600
+24,Pottery Painting Workshop,workshops,2024-01-19,₹800,"Botanical Hall, Hyderabad",w2.jpg,"Hands‑on pottery painting workshop—basics, glazing tips, and creative finishes.",09:00,17:00,-1
+25,Petals & Resin,workshops,2024-01-20,₹499,"City Sports Complex, Chennai",w3.jpg,DIY resin art with pressed petals—make coasters or keepsakes to take home.,06:00,12:00,2000
+26,Clay Mirror Art,workshops,2024-01-22,₹799,"Gallery Café, Delhi",w4.jpg,"Create ornate mirrors with clay frames—design, sculpt, and finish your piece.",18:30,21:30,80
+27,Floral Resin Art,workshops,2023-12-19,₹399,"Convention Center, Hyderabad",w5.jpg,Beginner resin art class focused on floral arrangements and preservation.,08:30,18:30,300
+28,Clay & Pottery + Painting,workshops,2023-12-22,₹899,"Tech Park, Bangalore",w6.jpg,Combo workshop: hand‑build pottery and paint your creation in one sitting.,09:00,17:00,150
+29,Stone Painting,workshops,2024-01-07,₹299,"Innovation Hub, Gurgaon",w7.jpg,"Relaxed stone‑painting workshop—mandalas, patterns, and nature motifs.",17:00,21:00,100
+30,Leaders Connect Fest,conferences,2024-01-17,₹1599,"Tech Lounge, Mumbai",c1.jpg,"Leaders’ mini‑conference with keynotes, panels, and curated networking.",14:00,18:00,80

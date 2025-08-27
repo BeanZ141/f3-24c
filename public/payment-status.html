@@ -2,19 +2,14 @@
 <html lang="en">
 
 <head>
-    <script>
-        const setTheme = () => {
-            const theme = localStorage.getItem('theme') || 'light';
-            document.documentElement.classList.toggle('dark-mode', theme === 'dark');
-        };
-        setTheme();
-    </script>
+    <script src="js/theme.js"></script>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <link rel="shortcut icon" type="image/jpg" href="images/favicon.png" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Varela&display=swap" rel="stylesheet">
+    <link rel="icon" href="icons/favicon.png" type="image/png">
     <link rel="stylesheet" href="css/payment-status.css">
     <link rel="stylesheet" href="css/themes.css">
     <link rel="stylesheet" href="css/styles.css">

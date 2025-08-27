@@ -1,51 +1,437 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <script>
-        const setTheme = () => {
-            const theme = localStorage.getItem('theme') || 'light';
-            document.documentElement.classList.toggle('dark-mode', theme === 'dark');
-        };
-        setTheme();
-    </script>
+    <script src="js/theme.js"></script>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>About Us - TicketEase</title>
-    <link rel="stylesheet" href="css/styles.css">
-    <link rel="stylesheet" href="css/about-us.css">
-    <link rel="stylesheet" href="css/themes.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>About Ticketease</title>
+    <link rel="icon" href="images/favicon.png" type="image/png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Varela&display=swap">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Varela&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300..700;1,300..700&family=Unna:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/themes.css">
+    <link rel="stylesheet" href="css/navbar.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--color-bg);
+            color: var(--color-fg);
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 80px 40px 40px;
+        }
+
+        .hero-section {
+            text-align: center;
+            margin-bottom: 120px;
+            padding: 60px 0;
+        }
+
+        .hero-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 4rem;
+            font-weight: 300;
+            margin-bottom: 30px;
+            letter-spacing: 0.1em;
+            animation: fadeInUp 1s ease-out;
+        }
+
+        .hero-subtitle {
+            font-family: 'DM Sans', sans-serif;
+            font-size: 1.2rem;
+            font-weight: 300;
+            max-width: 600px;
+            margin: 0 auto;
+            opacity: 0.8;
+            animation: fadeInUp 1s ease-out 0.2s both;
+        }
+
+        .section {
+            margin-bottom: 100px;
+            opacity: 0;
+            animation: fadeInUp 1s ease-out forwards;
+        }
+
+        .section:nth-child(2) { animation-delay: 0.3s; }
+        .section:nth-child(3) { animation-delay: 0.4s; }
+        .section:nth-child(4) { animation-delay: 0.5s; }
+        .section:nth-child(5) { animation-delay: 0.6s; }
+
+        .section-number {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 8rem;
+            font-weight: 300;
+            opacity: 0.1;
+            line-height: 0.8;
+            margin-bottom: -60px;
+            user-select: none;
+        }
+
+        .section-title {
+            font-family: 'Varela', sans-serif;
+            font-size: 2.5rem;
+            font-weight: 400;
+            margin-bottom: 30px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .section-content {
+            font-family: 'DM Sans', sans-serif;
+            font-size: 1.1rem;
+            line-height: 1.8;
+            max-width: 800px;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+            margin: 60px 0;
+        }
+
+        .feature-card {
+            background-color: var(--radio-color);
+            padding: 40px;
+            border-radius: 8px;
+            transition: transform 0.3s ease, background-color 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            background-color: var(--color-fg);
+            color: var(--color-bg);
+        }
+
+        .feature-icon {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            color: var(--color-fg);
+        }
+
+        .feature-card:hover .feature-icon {
+            color: var(--color-bg);
+        }
+
+        .feature-title {
+            font-family: 'Varela', sans-serif;
+            font-size: 1.3rem;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+
+        .feature-description {
+            font-size: 1rem;
+            line-height: 1.6;
+            opacity: 0.9;
+        }
+
+        .stats-section {
+            background-color: var(--radio-color);
+            padding: 80px 40px;
+            margin: 80px -40px;
+            text-align: center;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 40px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .stat-item {
+            padding: 20px;
+        }
+
+        .stat-number {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 3rem;
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: var(--color-fg);
+        }
+
+        .stat-label {
+            font-family: 'DM Sans', sans-serif;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            opacity: 0.8;
+        }
+
+        .tech-stack {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin: 40px 0;
+        }
+
+        .tech-item {
+            background-color: var(--color-fg);
+            color: var(--color-bg);
+            padding: 12px 24px;
+            border-radius: 25px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: transform 0.2s ease;
+        }
+
+        .tech-item:hover {
+            transform: scale(1.05);
+        }
+
+        .quote-section {
+            text-align: center;
+            margin: 100px 0;
+            padding: 60px 40px;
+            background-color: var(--radio-color);
+            border-radius: 12px;
+        }
+
+        .quote-text {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 2rem;
+            font-weight: 300;
+            font-style: italic;
+            line-height: 1.4;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .cta-section {
+            text-align: center;
+            margin: 80px 0;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background-color: var(--color-fg);
+            color: var(--color-bg);
+            padding: 16px 40px;
+            text-decoration: none;
+            font-family: 'Varela', sans-serif;
+            font-size: 1.1rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+        }
+
+        .cta-button:hover {
+            background-color: var(--color-bg);
+            color: var(--color-fg);
+            border: 2px solid var(--color-fg);
+            transform: translateY(-2px);
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 60px 20px 20px;
+            }
+            
+            .hero-title {
+                font-size: 2.5rem;
+            }
+            
+            .section-number {
+                font-size: 5rem;
+                margin-bottom: -40px;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+            }
+            
+            .stats-section {
+                margin: 60px -20px;
+                padding: 60px 20px;
+            }
+            
+            .quote-text {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
 </head>
 <body>
+    <nav>
+        <a href="index.html">TICKETEASE</a>
+        <button id="theme-switch">
+            <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e8eaed">
+                <path d="M480-120q-150 0-255-105T120-480q0-150 105-255t255-105q14 0 27.5 1t26.5 3q-41 29-65.5 75.5T444-660q0 90 63 153t153 63q55 0 101-24.5t75-65.5q2 13 3 26.5t1 27.5q0 150-105 255T480-120Z" />
+            </svg>
+            <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e8eaed">
+                <path d="M480-280q-83 0-141.5-58.5T280-480q0-83 58.5-141.5T480-680q83 0 141.5 58.5T680-480q0 83-58.5 141.5T480-280ZM200-440H40v-80h160v80Zm720 0H760v-80h160v80ZM440-760v-160h80v160h-80Zm0 720v-160h80v160h-80ZM256-650l-101-97 57-59 96 100-52 56Zm492 496-97-101 53-55 101 97-57 59Zm-98-550 97-101 59 57-100 96-56-52ZM154-212l101-97 55 53-97 101-59-57Z" />
+            </svg>
+        </button>
+    </nav>
 
-    <div class="about-us-container">
-        <h1>About TicketEase</h1>
+    <div class="container">
+        <div class="hero-section">
+            <h1 class="hero-title">TICKETEASE</h1>
+            <p class="hero-subtitle">Unified Ticketing Platform — Bringing discovery, booking, and entry verification for travel and events into a single, seamless experience.</p>
+        </div>
 
-        <div class="insights-section">
-            <h2>Three Insights You Need to Know</h2>
-            <div class="insight-container">
-                <div class="insight">
-                    <h1>01</h1>
-                    <h3>SIMPLIFYING TICKET BOOKING</h3>
-                    <p>TicketEase is designed to make ticket booking effortless. Whether it’s flights, trains, hotels, or events, our platform provides a centralized solution for all your booking needs.</p>
+        <div class="section">
+            <div class="section-number">01</div>
+            <h2 class="section-title">Our Mission</h2>
+            <div class="section-content">
+                <p>We're solving the fragmentation in travel and event booking. No more juggling multiple platforms, inconsistent interfaces, or separate payment systems. Ticketease consolidates flights, hotels, trains, and events into one unified experience.</p>
+                <p>Our platform eliminates the friction between discovery and departure, providing users with a streamlined journey from search to validation.</p>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="section-number">02</div>
+            <h2 class="section-title">What We Offer</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-search"></i></div>
+                    <h3 class="feature-title">Unified Search</h3>
+                    <p class="feature-description">Search across flights, hotels, trains, and events with intelligent filtering and real-time results.</p>
                 </div>
-                <div class="insight">
-                    <h1>02</h1>
-                    <h3>SEAMLESS USER EXPERIENCE</h3>
-                    <p>With a responsive design and intuitive interface, TicketEase ensures a smooth experience across devices. Real-time updates and secure payment options make booking hassle-free.</p>
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-credit-card"></i></div>
+                    <h3 class="feature-title">Streamlined Booking</h3>
+                    <p class="feature-description">Guided checkout process with secure payment integration and instant digital ticket issuance.</p>
                 </div>
-                <div class="insight">
-                    <h1>03</h1>
-                    <h3>SCALABLE AND RELIABLE</h3>
-                    <p>Built with modern technologies like React.js and Supabase, TicketEase is scalable, secure, and ready to grow with your needs.</p>
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-qrcode"></i></div>
+                    <h3 class="feature-title">QR Code Validation</h3>
+                    <p class="feature-description">Secure ticket verification with real-time validation and fraud prevention technology.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-chart-line"></i></div>
+                    <h3 class="feature-title">Real-time Analytics</h3>
+                    <p class="feature-description">Live attendance tracking and booking insights for organizers and service providers.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-mobile-alt"></i></div>
+                    <h3 class="feature-title">Responsive Design</h3>
+                    <p class="feature-description">Optimized experience across all devices with fast load times and intuitive navigation.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-shield-alt"></i></div>
+                    <h3 class="feature-title">Secure Platform</h3>
+                    <p class="feature-description">Enterprise-grade security with encrypted data transmission and PCI DSS compliance.</p>
                 </div>
             </div>
         </div>
+
+        <div class="stats-section">
+            <h2 class="section-title" style="margin-bottom: 60px;">Platform Performance</h2>
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <div class="stat-number">2.1s</div>
+                    <div class="stat-label">Average Page Load</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">1000+</div>
+                    <div class="stat-label">Concurrent Users</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">95%</div>
+                    <div class="stat-label">Validation Success</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">99.8%</div>
+                    <div class="stat-label">System Uptime</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="section-number">03</div>
+            <h2 class="section-title">Technology Stack</h2>
+            <div class="section-content">
+                <p>Built with modern web technologies for scalability, performance, and reliability:</p>
+                <div class="tech-stack">
+                    <span class="tech-item">HTML5 & CSS3</span>
+                    <span class="tech-item">JavaScript ES6+</span>
+                    <span class="tech-item">Supabase</span>
+                    <span class="tech-item">Firebase Hosting</span>
+                    <span class="tech-item">Razorpay</span>
+                    <span class="tech-item">HTML5 QR Code</span>
+                    <span class="tech-item">Webpack</span>
+                    <span class="tech-item">Babel</span>
+                </div>
+                <p>Our architecture ensures real-time data synchronization, secure payment processing, and seamless user experience across all devices.</p>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="section-number">04</div>
+            <h2 class="section-title">Innovation</h2>
+            <div class="section-content">
+                <p>Ticketease introduces several innovative features to the booking industry:</p>
+                <ul style="list-style: none; padding: 0; margin: 30px 0;">
+                    <li style="margin: 20px 0; padding-left: 30px; position: relative;">
+                        <span style="position: absolute; left: 0; color: var(--color-fg); font-weight: bold;">→</span>
+                        <strong>Cross-category Integration:</strong> First platform to unify travel and event booking
+                    </li>
+                    <li style="margin: 20px 0; padding-left: 30px; position: relative;">
+                        <span style="position: absolute; left: 0; color: var(--color-fg); font-weight: bold;">→</span>
+                        <strong>Real-time Validation:</strong> Instant QR code verification with fraud prevention
+                    </li>
+                    <li style="margin: 20px 0; padding-left: 30px; position: relative;">
+                        <span style="position: absolute; left: 0; color: var(--color-fg); font-weight: bold;">→</span>
+                        <strong>Live Analytics:</strong> Real-time attendance tracking and operational insights
+                    </li>
+                    <li style="margin: 20px 0; padding-left: 30px; position: relative;">
+                        <span style="position: absolute; left: 0; color: var(--color-fg); font-weight: bold;">→</span>
+                        <strong>Unified Experience:</strong> Consistent interface across all service categories
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="quote-section">
+            <p class="quote-text">"We exist where you need to move. Bridging the gap between discovery and departure, one unified experience at a time."</p>
+        </div>
+
+        <div class="section">
+            <div class="section-number">05</div>
+            <h2 class="section-title">Future Vision</h2>
+            <div class="section-content">
+                <p>Our roadmap includes exciting enhancements:</p>
+                <p><strong>Short-term:</strong> Mobile applications, advanced analytics, multi-language support, and enhanced security features.</p>
+                <p><strong>Long-term:</strong> AI-powered recommendations, global expansion, blockchain integration, and enterprise solutions for corporate travel management.</p>
+                <p>We're building the foundation for the future of unified booking platforms, with scalable architecture ready for international markets and advanced features.</p>
+            </div>
+        </div>
+
+        <div class="cta-section">
+            <h2 class="section-title">Experience Ticketease</h2>
+            <p style="font-size: 1.1rem; margin-bottom: 40px; opacity: 0.9;">Ready to simplify your booking experience?</p>
+            <a href="index.html" class="cta-button">Start Booking</a>
+        </div>
     </div>
+
+    <script src="js/navbar.js"></script>
 </body>
 </html>
