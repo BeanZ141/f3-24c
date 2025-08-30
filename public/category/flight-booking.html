@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <script src="../js/theme.js"></script>
     <meta charset="UTF-8" />
@@ -8,17 +9,16 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Varela&display=swap" rel="stylesheet" />
     <title>Flight Booking Summary</title>
-    <link rel="stylesheet" href="/public/category/css/flight-booking.css">
-    <link rel="stylesheet" href="/public/css/styles.css">
-    <link rel="stylesheet" href="/public/css/themes.css">
-    <link rel="stylesheet" href="/public/css/navbar.css">
+    <link rel="stylesheet" href="../category/css/flight-booking.css">
+    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="stylesheet" href="../css/themes.css">
+    <link rel="stylesheet" href="../css/navbar.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 
 <body>
-
     <nav style="z-index: 1; background-color: transparent;backdrop-filter: blur(4px);">
-        <a href="index.html" style="margin-left: 8px;">TICKETEASE</a>
+        <a href="../index.html" style="margin-left: 8px;">TICKETEASE</a>
         <div id="user-info" style="display: none;">
             <span id="username-display"></span>
             <div class="dropdown">
@@ -30,24 +30,24 @@
                 </div>
             </div>
         </div>
-        
+
         <!--Service section-->
         <div class="service-nav">
-            <a href="/public/category/flights.html" data-icon="flight.svg">
+            <a href="../category/flights.html" data-icon="flight.svg">
                 <i class="fas fa-plane"></i> FLIGHTS
             </a>
-            <a href="/public/category/hotels.html" data-icon="hotel.svg">
+            <a href="../category/hotels.html" data-icon="hotel.svg">
                 <i class="fas fa-hotel"></i> HOTELS
             </a>
-            <a href="/public/category/trains.html" data-icon="train.svg">
+            <a href="../category/trains.html" data-icon="train.svg">
                 <i class="fas fa-train"></i> TRAINS
             </a>
-            <a href="/public/category/events.html" data-icon="event.svg">
+            <a href="../category/events.html" data-icon="event.svg">
                 <i class="fas fa-calendar-alt"></i> EVENTS
             </a>
         </div>
         <button id="login-btn" onclick="showPopup()" style="right: 1%">LOGIN / SIGNUP</button>
-    
+
         <button id="theme-switch">
             <svg height="24px" viewBox="0 -960 960 960" width="24px" fill="#e8eaed">
                 <path
@@ -72,15 +72,15 @@
                 </div>
                 <div class="fare-item">
                     <div>Base Fare</div>
-                    <span>₹12850</span>
+                    <span>× × × ×</span>
                 </div>
                 <div class="fare-item">
                     <div>Taxes & Fees</div>
-                    <span>₹1028</span>
+                    <span>× × × ×</span>
                 </div>
                 <div class="fare-item">
                     <div>Service Charge</div>
-                    <span>₹1117</span>
+                    <span>× × × ×</span>
                 </div>
                 <div class="fare-total">
                     <div>Total Amount</div>
@@ -137,32 +137,218 @@
 
         <!-- Bottom Bar (Price & Lock & Continue) -->
         <div class="bottom-bar">
-            <div class="final-price">₹7,019</div>
+            <div class="final-price">₹ × × × ×</div>
             <div class="lock-price">Lock Price @ ₹199</div>
-            <button onclick="alert('In works')">Continue &rsaquo;</button>
+            <button onclick="initiatePayment()" id="continue-btn">Continue &rsaquo;</button>
         </div>
     </div>
 
-    <script src="/public/js/navbar.js"></script>
+    <!-- Razorpay SDK -->
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+    <script src="../js/navbar.js"></script>
     <script>
+        let flightDetails = null;
+        let totalAmount = 0;
+
         document.addEventListener('DOMContentLoaded', function () {
-            const flightDetails = JSON.parse(localStorage.getItem('selectedFlight'));
-            
+            flightDetails = JSON.parse(localStorage.getItem('selectedFlight'));
+            console.log('Retrieved flight details:', flightDetails);
+
             if (flightDetails) {
-                document.querySelector('.flight-details h2').textContent = `${flightDetails.boardingAirport} > ${flightDetails.landingAirport}`;
-                document.querySelector('.flight-meta').innerHTML = 
-                    `${flightDetails.flightNumber} • ${flightDetails.duration} • ${flightDetails.stops}<br />${flightDetails.company}`;
-                document.querySelector('.time-box:nth-child(1) h3').textContent = flightDetails.boardingTime;
-                document.querySelector('.time-box:nth-child(1) p').textContent = flightDetails.boardingAirport;
-                document.querySelector('.time-box:nth-child(2) h3').textContent = flightDetails.duration;
-                document.querySelector('.time-box:nth-child(2) p').textContent = flightDetails.stops;
-                document.querySelector('.time-box:nth-child(3) h3').textContent = flightDetails.landingTime;
-                document.querySelector('.time-box:nth-child(3) p').textContent = flightDetails.landingAirport;
-                document.querySelector('.fare-total div:nth-child(2)').textContent = flightDetails.cost;
-                document.querySelector('.final-price').textContent = flightDetails.cost;
-                document.querySelector('.refund-section .flight-meta').textContent = `${flightDetails.boardingAirport} > ${flightDetails.landingAirport}`;
+                updateFlightDisplay();
+            } else {
+                console.error('No flight details found in localStorage');
+                showAlert('No flight selected. Using sample data for testing.', 'info');
+
+                // Use sample data for testing
+                flightDetails = {
+                    company: 'IndiGO',
+                    flightNumber: '6E-123',
+                    boardingTime: '06:00',
+                    boardingAirport: 'BOM',
+                    duration: '2h 15m',
+                    stops: 'Non-Stop',
+                    landingTime: '08:15',
+                    landingAirport: 'GOI',
+                    cost: '₹4,500'
+                };
+
+                // Update display with sample data
+                updateFlightDisplay();
             }
         });
-    </script>    
+
+        function updateFlightDisplay() {
+            if (!flightDetails) return;
+
+            console.log('Updating flight display with:', flightDetails);
+
+            // Update flight details display
+            document.querySelector('.flight-details h2').textContent = `${flightDetails.boardingAirport || 'N/A'} > ${flightDetails.landingAirport || 'N/A'}`;
+            document.querySelector('.flight-meta').innerHTML =
+                `${flightDetails.flightNumber || 'N/A'} • ${flightDetails.duration || 'N/A'} • ${flightDetails.stops || 'N/A'}<br />${flightDetails.company || 'N/A'}`;
+
+            // Update timing boxes
+            document.querySelector('.time-box:nth-child(1) h3').textContent = flightDetails.boardingTime || 'N/A';
+            document.querySelector('.time-box:nth-child(1) p').textContent = flightDetails.boardingAirport || 'N/A';
+            document.querySelector('.time-box:nth-child(2) h3').textContent = flightDetails.duration || 'N/A';
+            document.querySelector('.time-box:nth-child(2) p').textContent = flightDetails.stops || 'N/A';
+            document.querySelector('.time-box:nth-child(3) h3').textContent = flightDetails.landingTime || 'N/A';
+            document.querySelector('.time-box:nth-child(3) p').textContent = flightDetails.landingAirport || 'N/A';
+
+            // Calculate and display pricing
+            const baseFare = parseInt((flightDetails.cost || '0').replace(/[^0-9]/g, '')) || 0;
+            const taxes = Math.round(baseFare * 0.08); // 8% taxes
+            const serviceCharge = Math.round(baseFare * 0.05); // 5% service charge
+            totalAmount = baseFare + taxes + serviceCharge;
+
+            console.log('Pricing calculation:', { baseFare, taxes, serviceCharge, totalAmount });
+
+            // Update fare breakdown - using more specific selectors
+            const fareItems = document.querySelectorAll('.fare-item span');
+            console.log('Found fare items:', fareItems.length);
+            if (fareItems.length >= 3) {
+                fareItems[0].textContent = `₹${baseFare}`;  // Base Fare
+                fareItems[1].textContent = `₹${taxes}`;    // Taxes & Fees
+                fareItems[2].textContent = `₹${serviceCharge}`; // Service Charge
+                console.log('Updated fare items:', {
+                    baseFare: fareItems[0].textContent,
+                    taxes: fareItems[1].textContent,
+                    serviceCharge: fareItems[2].textContent
+                });
+            } else {
+                console.error('Could not find fare item spans');
+            }
+
+            document.querySelector('.fare-total div:nth-child(2)').textContent = `₹${totalAmount}`;
+            document.querySelector('.final-price').textContent = `₹${totalAmount}`;
+            document.querySelector('.refund-section .flight-meta').textContent = `${flightDetails.boardingAirport || 'N/A'} → ${flightDetails.landingAirport || 'N/A'}`;
+        }
+
+        // Razorpay Payment Integration
+        function initiatePayment() {
+            if (!flightDetails) {
+                alert('Flight details not found. Please go back and select a flight.');
+                return;
+            }
+
+            const options = {
+                key: 'rzp_test_RARdpJpmGuxtwo', // Replace with your Razorpay Test Key ID
+                amount: totalAmount * 100, // Amount in paise (multiply by 100)
+                currency: 'INR',
+                name: 'Ticketease',
+                description: `Flight Booking: ${flightDetails.boardingAirport} to ${flightDetails.landingAirport}`,
+                image: '../images/favicon.png', // Your logo
+                order_id: '', // Optional: Generate order_id from backend
+                handler: function (response) {
+                    // Payment successful
+                    console.log('Payment successful:', response);
+                    handlePaymentSuccess(response);
+                },
+                prefill: {
+                    name: 'Customer Name', // You can get this from user session
+                    email: 'customer@example.com',
+                    contact: '9999999999'
+                },
+                notes: {
+                    flight_number: flightDetails.flightNumber,
+                    route: `${flightDetails.boardingAirport} to ${flightDetails.landingAirport}`,
+                    booking_date: new Date().toISOString()
+                },
+                theme: {
+                    color: '#000000' // Your brand color
+                },
+                modal: {
+                    ondismiss: function () {
+                        console.log('Payment modal closed');
+                        showAlert('Payment cancelled', 'error');
+                    }
+                }
+            };
+
+            const rzp = new Razorpay(options);
+
+            rzp.on('payment.failed', function (response) {
+                console.log('Payment failed:', response.error);
+                handlePaymentFailure(response.error);
+            });
+
+            rzp.open();
+        }
+
+        function handlePaymentSuccess(response) {
+            // Store payment details
+            const paymentData = {
+                razorpay_payment_id: response.razorpay_payment_id,
+                razorpay_order_id: response.razorpay_order_id,
+                razorpay_signature: response.razorpay_signature,
+                amount: totalAmount,
+                flight_details: flightDetails,
+                booking_date: new Date().toISOString(),
+                status: 'success'
+            };
+
+            localStorage.setItem('paymentData', JSON.stringify(paymentData));
+
+            // Show success message
+            showAlert('Payment successful! Redirecting to confirmation...', 'success');
+
+            // Redirect to success page after 2 seconds
+            setTimeout(() => {
+                window.location.href = '../payment-status.html?status=success';
+            }, 2000);
+        }
+
+        function handlePaymentFailure(error) {
+            console.error('Payment failed:', error);
+
+            const errorData = {
+                error_code: error.code,
+                error_description: error.description,
+                error_source: error.source,
+                error_step: error.step,
+                error_reason: error.reason,
+                amount: totalAmount,
+                flight_details: flightDetails,
+                booking_date: new Date().toISOString(),
+                status: 'failed'
+            };
+
+            localStorage.setItem('paymentError', JSON.stringify(errorData));
+
+            showAlert(`Payment failed: ${error.description}`, 'error');
+
+            // Optionally redirect to failure page
+            setTimeout(() => {
+                window.location.href = '../payment-status.html?status=failed';
+            }, 3000);
+        }
+
+        // Custom alert function
+        function showAlert(message, type = 'info') {
+            const alertBox = document.createElement('div');
+            alertBox.className = `alert show ${type}`;
+            alertBox.innerHTML = `<span>${message}</span>`;
+            alertBox.style.cssText = `
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                padding: 15px 25px;
+                background-color: ${type === 'success' ? '#4CAF50' : type === 'error' ? '#f44336' : '#2196F3'};
+                color: white;
+                border-radius: 4px;
+                z-index: 10000;
+                font-family: 'Varela', sans-serif;
+                box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            `;
+
+            document.body.appendChild(alertBox);
+
+            setTimeout(() => {
+                alertBox.remove();
+            }, 5000);
+        }
+    </script>
 </body>
+
 </html>

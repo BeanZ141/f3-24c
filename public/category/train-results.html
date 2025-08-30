@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <script src="../js/theme.js"></script>
     <meta charset="UTF-8">
@@ -7,7 +8,8 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Varela&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap"
+        rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <title>Train Search Results</title>
     <link rel="stylesheet" href="../css/styles.css">
@@ -30,7 +32,7 @@
                 </div>
             </div>
         </div>
-        
+
         <!--Service section-->
         <div class="service-nav">
             <a href="../category/flights.html" data-icon="flight.svg">
@@ -47,7 +49,7 @@
             </a>
         </div>
         <button id="login-btn" onclick="showPopup()">LOGIN / SIGNUP</button>
-    
+
         <button id="theme-switch">
             <svg height="24px" viewBox="0 -960 960 960" width="24px" fill="#e8eaed">
                 <path
@@ -102,7 +104,7 @@
             </label>
         </div>
     </div>
-    
+
     <!-- Sort By -->
     <div class="sort-container">
         <div class="sort-option active" onclick="sortTrains('reset')">
@@ -154,7 +156,7 @@
                 const data = await DatabaseService.getTrains(filters);
                 originalTrainData = [...data];
                 renderTrainCards(data);
-                
+
                 // Update filter counts
                 updateFilterCounts(data);
             } catch (error) {
@@ -252,7 +254,7 @@
 
         function storeTrainDetails(button) {
             const card = button.closest('.flight-card');
-            
+
             const trainDetails = {
                 company: card.querySelector('.flight-company').textContent,
                 trainNumber: card.querySelector('.flight-number').textContent,
@@ -264,7 +266,7 @@
                 arrivalStation: card.querySelector('.landing-airport').textContent,
                 cost: card.querySelector('.flight-cost').textContent
             };
-    
+
             localStorage.setItem('selectedTrain', JSON.stringify(trainDetails));
             window.location.href = '../book-ticket.html';
         }
@@ -380,7 +382,7 @@
 
             try {
                 let filteredData = await DatabaseService.getTrains(filters);
-                
+
                 // Apply client-side sorting
                 filteredData.sort((a, b) => {
                     switch (currentSortType) {
@@ -395,7 +397,7 @@
                             return 0;
                     }
                 });
-                
+
                 renderTrainCards(filteredData);
             } catch (error) {
                 console.error('Error applying filters:', error);
@@ -407,7 +409,7 @@
             // Update stop filter counts
             const stopCounts = {};
             const companyCounts = {};
-            
+
             data.forEach(train => {
                 stopCounts[train.stops] = (stopCounts[train.stops] || 0) + 1;
                 companyCounts[train.company] = (companyCounts[train.company] || 0) + 1;
@@ -452,4 +454,5 @@
     <div id="customAlert" class="alert"><span id="alertMessage">alert</span></div>
 
 </body>
+
 </html>

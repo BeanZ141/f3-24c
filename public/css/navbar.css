@@ -54,6 +54,8 @@ nav a:hover {
     animation: fade-up 1s;
 }
 
+@media (max-width: 768px) { #theme-switch { right: 40%; } }
+
 #theme-switch:hover { cursor: pointer; background-color: var(--color-fg); }
 #theme-switch:hover svg { fill: var(--color-bg); }
 #theme-switch svg { fill: var(--color-fg); }

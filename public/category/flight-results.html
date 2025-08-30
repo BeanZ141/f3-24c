@@ -18,7 +18,7 @@
 
 <body>
     <nav style="z-index: 1; background-color: transparent;backdrop-filter: blur(4px);">
-        <a href="/public/index.html">TICKETEASE</a>
+        <a href="../index.html">TICKETEASE</a>
         <div id="user-info" style="display: none;">
             <span id="username-display"></span>
             <div class="dropdown">
@@ -144,9 +144,9 @@
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-    <script src="/public/js/database.js"></script>
-    <script src="/public/js/navbar.js"></script>
-    <script src="/public/category/js/flights.js"></script>
+    <script src="../js/database.js"></script>
+    <script src="../js/navbar.js"></script>
+    <script src="js/flights.js"></script>
     <script>
         let originalFlightData = [];
 
@@ -161,50 +161,134 @@
                     stops: urlParams.get('stops') ? [urlParams.get('stops')] : null
                 };
 
+                console.log('URL filters:', filters);
+
+                // Test database connection first
+                await testDatabaseConnection();
+
                 // Fetch flights from database
                 const data = await DatabaseService.getFlights(filters);
+                console.log('Fetched flight data:', data);
                 originalFlightData = [...data];
-                renderFlightCards(data);
                 
-                // Update filter counts
-                updateFilterCounts(data);
+                if (data.length === 0) {
+                    showAlert('No flights found for the selected route. Showing sample data.', 'info');
+                    // Show sample data if no flights found
+                    const sampleData = getSampleFlightData();
+                    renderFlightCards(sampleData);
+                    updateFilterCounts(sampleData);
+                } else {
+                    renderFlightCards(data);
+                    updateFilterCounts(data);
+                }
             } catch (error) {
                 console.error('Error fetching flights:', error);
-                showAlert('Error loading flights. Please try again.', 'error');
+                showAlert('Error loading flights. Showing sample data.', 'error');
+                // Show sample data on error
+                const sampleData = getSampleFlightData();
+                renderFlightCards(sampleData);
+                updateFilterCounts(sampleData);
             }
         });
+
+        async function testDatabaseConnection() {
+            try {
+                console.log('Testing database connection...');
+                await DatabaseService.waitForSupabase();
+                
+                // Test if flights table exists and get ALL data
+                const { data: allFlights, error: allFlightsError } = await supabase
+                    .from('flights')
+                    .select('*');
+                
+                console.log('ALL flights in database:', { allFlights, allFlightsError });
+                console.log('Total flights found:', allFlights ? allFlights.length : 0);
+                
+                // Check column names
+                if (allFlights && allFlights.length > 0) {
+                    console.log('First flight columns:', Object.keys(allFlights[0]));
+                    console.log('Sample flight data:', allFlights[0]);
+                }
+            } catch (error) {
+                console.error('Database test failed:', error);
+            }
+        }
+
+        function getSampleFlightData() {
+            return [
+                {
+                    company: 'IndiGO',
+                    flight_number: '6E-123',
+                    boarding: '06:00',
+                    boarding_airport: 'BOM',
+                    duration: '2h 15m',
+                    stop: 'Non-Stop',
+                    landing: '08:15',
+                    landing_airport: 'GOI',
+                    cost: '₹4,500',
+                    offer: 'Save ₹500'
+                },
+                {
+                    company: 'SpiceJet',
+                    flight_number: 'SG-456',
+                    boarding: '10:30',
+                    boarding_airport: 'BOM',
+                    duration: '2h 10m',
+                    stop: 'Non-Stop',
+                    landing: '12:40',
+                    landing_airport: 'GOI',
+                    cost: '₹3,800',
+                    offer: 'Save ₹200'
+                },
+                {
+                    company: 'Air India',
+                    flight_number: 'AI-789',
+                    boarding: '14:45',
+                    boarding_airport: 'BOM',
+                    duration: '2h 20m',
+                    stop: 'Non-Stop',
+                    landing: '17:05',
+                    landing_airport: 'GOI',
+                    cost: '₹5,200',
+                    offer: 'Save ₹300'
+                }
+            ];
+        }
 
         function renderFlightCards(data) {
             const flightCardsContainer = document.querySelector('.flight-cards');
             flightCardsContainer.innerHTML = '';
 
+            console.log('Rendering flight cards with data:', data);
+
             data.forEach(flight => {
+                console.log('Processing flight:', flight);
                 const cardHTML = `
                 <div class="flight-card" onclick="showDetails(this)" 
-                    data-price="${parseInt(flight.cost.replace(/[^0-9]/g, ''))}"
-                    data-duration="${getDurationInMinutes(flight.duration)}"
-                    data-departure="${getTimeInMinutes(flight.boarding)}">
+                    data-price="${parseInt((flight.cost || '0').replace(/[^0-9]/g, ''))}"
+                    data-duration="${getDurationInMinutes(flight.duration || '0h 0m')}"
+                    data-departure="${getTimeInMinutes(flight.boarding || '00:00')}">
                     <div class="flight-info">
                         <div class="company">
-                            <h4 class="flight-company">${flight.company}</h4>
-                            <p class="flight-number">${flight.flight_number}</p>
+                            <h4 class="flight-company">${flight.company || 'N/A'}</h4>
+                            <p class="flight-number">${flight.flight_number || 'N/A'}</p>
                         </div>
                         <div class="time">
-                            <p class="boarding-time">${flight.boarding}</p>
-                            <p class="boarding-airport">${flight.boarding_airport}</p>
+                            <p class="boarding-time">${flight.boarding || 'N/A'}</p>
+                            <p class="boarding-airport">${flight.boarding_airport || 'N/A'}</p>
                         </div>
                         <div class="duration">
-                            <p class="flight-duration">${flight.duration}</p>
+                            <p class="flight-duration">${flight.duration || 'N/A'}</p>
                             <span class="line"></span>
-                            <p class="flight-stops">${flight.stop}</p>
+                            <p class="flight-stops">${flight.stop || 'N/A'}</p>
                         </div>
                         <div class="time">
-                            <p class="landing-time">${flight.landing}</p>
-                            <p class="landing-airport">${flight.landing_airport}</p>
+                            <p class="landing-time">${flight.landing || 'N/A'}</p>
+                            <p class="landing-airport">${flight.landing_airport || 'N/A'}</p>
                         </div>
                         <div class="price">
-                            <h3 class="flight-cost">${flight.cost}</h3>
-                            <p class="flight-offer">${flight.offer}</p>
+                            <h3 class="flight-cost">${flight.cost || 'N/A'}</h3>
+                            <p class="flight-offer">${flight.offer || 'N/A'}</p>
                         </div>
                         <button class="book-btn" onclick="storeFlightDetails(this)">BOOK</button>
                     </div>
@@ -274,11 +358,12 @@
                 stops: card.querySelector('.flight-stops').textContent,
                 landingTime: card.querySelector('.landing-time').textContent,
                 landingAirport: card.querySelector('.landing-airport').textContent,
-                cost: card.querySelector('.flight-cost').textContent
+                cost: card.querySelector('.flight-cost').textContent,
+                offer: card.querySelector('.flight-offer').textContent
             };
     
             localStorage.setItem('selectedFlight', JSON.stringify(flightDetails));
-            window.location.href = '/public/category/flight-booking.html';
+            window.location.href = 'flight-booking.html';
         }
     </script>    
     <script>
@@ -331,7 +416,7 @@
                         <span class="details-label">Cost :</span>
                         <span class="details-value">${flightCost}</span>
                     </div>
-                    <button class="book-btn" style="padding:0.5rem 0.8rem;top:83%;right:10%;position:absolute;" onclick="window.location.href='/public/category/flight-booking.html';">BOOK</button>
+                    <button class="book-btn" style="padding:0.5rem 0.8rem;top:83%;right:10%;position:absolute;" onclick="storeFlightDetailsFromPanel(this)">BOOK</button>
                 </div>
             `;
 
@@ -354,6 +439,38 @@
             if (detailsPanel.classList.contains('active') && !detailsPanel.contains(event.target)) {
                 closeDetails(event);
             }
+        }
+
+        function storeFlightDetailsFromPanel(button) {
+            const detailsPanel = document.getElementById('details-panel');
+            const flightDetails = {
+                company: detailsPanel.querySelector('.details-value').textContent,
+                flightNumber: detailsPanel.querySelectorAll('.details-value')[1].textContent,
+                boardingTime: detailsPanel.querySelectorAll('.details-value')[2].textContent,
+                boardingAirport: 'N/A', // Will be filled from the active card
+                duration: detailsPanel.querySelectorAll('.details-value')[3].textContent,
+                stops: detailsPanel.querySelectorAll('.details-value')[5].textContent,
+                landingTime: detailsPanel.querySelectorAll('.details-value')[4].textContent,
+                landingAirport: 'N/A', // Will be filled from the active card
+                cost: detailsPanel.querySelectorAll('.details-value')[6].textContent,
+                offer: 'N/A'
+            };
+
+            // Try to get airport info from the currently displayed flight cards
+            const flightCards = document.querySelectorAll('.flight-card');
+            for (let card of flightCards) {
+                const cardCompany = card.querySelector('.flight-company').textContent;
+                const cardFlightNumber = card.querySelector('.flight-number').textContent;
+                if (cardCompany === flightDetails.company && cardFlightNumber === flightDetails.flightNumber) {
+                    flightDetails.boardingAirport = card.querySelector('.boarding-airport').textContent;
+                    flightDetails.landingAirport = card.querySelector('.landing-airport').textContent;
+                    flightDetails.offer = card.querySelector('.flight-offer').textContent;
+                    break;
+                }
+            }
+
+            localStorage.setItem('selectedFlight', JSON.stringify(flightDetails));
+            window.location.href = 'flight-booking.html';
         }
 
         document.querySelectorAll('.flight-card').forEach(card => {
@@ -451,6 +568,31 @@
                     countSpan.textContent = `[${count}]`;
                 }
             });
+        }
+
+        // Custom alert function
+        function showAlert(message, type = 'info') {
+            const alertBox = document.createElement('div');
+            alertBox.className = `alert show ${type}`;
+            alertBox.innerHTML = `<span>${message}</span>`;
+            alertBox.style.cssText = `
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                padding: 15px 25px;
+                background-color: ${type === 'success' ? '#4CAF50' : type === 'error' ? '#f44336' : '#2196F3'};
+                color: white;
+                border-radius: 4px;
+                z-index: 10000;
+                font-family: 'Varela', sans-serif;
+                box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            `;
+
+            document.body.appendChild(alertBox);
+
+            setTimeout(() => {
+                alertBox.remove();
+            }, 5000);
         }
     </script>
 </body>

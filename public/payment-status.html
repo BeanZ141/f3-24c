@@ -3,38 +3,273 @@
 
 <head>
     <script src="js/theme.js"></script>
-    <meta charset="UTF-8" />
+    <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-    <link rel="shortcut icon" type="image/jpg" href="images/favicon.png" />
+    <link rel="icon" href="images/favicon.png" type="image/png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Varela&display=swap" rel="stylesheet">
-    <link rel="icon" href="icons/favicon.png" type="image/png">
-    <link rel="stylesheet" href="css/payment-status.css">
-    <link rel="stylesheet" href="css/themes.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Varela&display=swap">
     <link rel="stylesheet" href="css/styles.css">
-    <title>About the event</title>
+    <link rel="stylesheet" href="css/themes.css">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>Payment Status · Ticketease</title>
+    <meta name="color-scheme" content="light dark" />
+    <link rel="icon" href="images/favicon.png" type="image/png" />
+    <style>
+        html,body {height: 100%;}
+
+        body {
+            margin: 0;
+            font-family: 'Space Mono', monospace !important;
+            background: var(--color-bg);
+            color: var(--fg);
+        }
+
+        .wrap {min-height: 100%;display: grid;place-items: center;}
+
+        .card {
+            width: 100%;
+            max-width: 560px;
+            background: var(--color-bg);
+            border: 1px solid var(--radio-border);
+            border-radius: 13px;
+            padding: 28px;
+        }
+
+        .head {
+            display: grid;
+            grid-template-columns: 56px 1fr;
+            gap: 16px;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+
+        .status-icon {
+            width: 56px;
+            height: 56px;
+            display: grid;
+            place-items: center;
+            border-radius: 50%;
+            background: linear-gradient(180deg, rgba(255, 255, 255, .06), rgba(255, 255, 255, 0));
+            border: 1px solid var(--radio-border);
+        }
+
+        .status-icon svg {width: 28px;height: 28px;}
+
+        .title {
+            margin: 0;
+            font-size: 1.25rem;
+            letter-spacing: .04em;
+            text-transform: uppercase;
+            font-weight: 600;
+        }
+
+        .subtitle {
+            margin: 4px 0 0 0;
+            color: var(--muted);
+            font-size: .95rem;
+        }
+
+        .details {
+            margin-top: 18px;
+            border-top: 1px dashed var(--radio-border);
+            padding-top: 16px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px 16px;
+        }
+
+        .detail {display: grid;gap: 6px;}
+
+        .label {
+            color: var(--muted);
+            font-size: .9rem;
+            text-decoration: underline;
+            text-underline-offset: 4px;
+            text-decoration-color: var(--tnc-color);
+            letter-spacing: .04em;
+            text-transform: uppercase;
+        }
+
+        .value {font-variant-numeric: tabular-nums;}
+
+        .actions {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-top: 22px;
+        }
+
+        .btn {
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 16px;
+            border-radius: 10px;
+            border: 1px solid var(--radio-border);
+            background: var(--color-bg);
+            color: var(--color-fg);
+            text-decoration: none;
+            font-weight: 600;
+            letter-spacing: .04em;
+            text-transform: uppercase;
+            transition: transform .08s ease, background .15s ease, border-color .15s ease, opacity .15s ease;
+            will-change: transform;
+            cursor: pointer;
+        }
+
+        .btn:hover {
+            border: 1px solid var(--color-fg);
+            background: var(--color-fg) !important;
+            color: var(--color-bg);
+        }
+
+        .btn:hover {background: var(--btn-bg-hover);}
+        .btn:active {transform: translateY(1px);}
+
+        .muted-note {
+            margin-top: 20px;
+            margin-bottom: 0px;
+            color: var(--muted);
+            font-size: .85rem;
+        }
+
+        .ok {color: var(--success);}
+        .fail {color: var(--danger);}
+        .unk {color: var(--warn);}
+    </style>
 </head>
 
 <body>
-    <h2>PAYMENT SUCCESSFUL</h2>
-    <h5>You're in.</h5>
-    <h6><span style="color: green;font-family: verdana;">▊</span> Please check your email for your ticket ID and further details. If you do
-        not see the email, make sure to check
-        your spam or junk folder.</h6>
+    <main class="wrap">
+        <section class="card" aria-live="polite">
+            <header class="head">
+                <div class="status-icon" id="statusIcon" aria-hidden="true">
+                    <!-- Icon injected by JS -->
+                </div>
+                <div>
+                    <h1 class="title" id="statusTitle">Payment Status</h1>
+                    <p class="subtitle" id="statusSubtitle">Checking your payment…</p>
+                </div>
+            </header>
 
-    <a href="book-ticket.html">
-        <button class="book-more">
-            BOOK MORE
-        </button>
-    </a>
+            <div class="details" id="details">
+                <div class="detail">
+                    <div class="label">Payment ID</div>
+                    <div class="value" id="paymentId">—</div>
+                </div>
+                <div class="detail">
+                    <div class="label">Amount</div>
+                    <div class="value" id="paymentAmount">—</div>
+                </div>
+                <div class="detail">
+                    <div class="label">Route</div>
+                    <div class="value" id="flightRoute">—</div>
+                </div>
+                <div class="detail">
+                    <div class="label">Date</div>
+                    <div class="value" id="bookingDate">—</div>
+                </div>
+            </div>
 
-    <div id="customAlert" class="alert">
-        <span id="alertMessage"></span>
-    </div>
+            <div class="actions">
+                <a id="primaryLink" href="category/flights.html" class="btn"><span id="primaryText">Book More
+                        Flights</span></a>
+                <a id="secondaryLink" href="index.html" class="btn" style="opacity:.9"><span id="secondaryText">Go
+                        Home</span></a>
+            </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
-    <script src="js/payment-status.js"></script>
+            <p class="muted-note" id="note" hidden>Tip: Save your Payment ID for future reference.</p>
+        </section>
+    </main>
+
+    <script>
+        (function () {
+            const $ = (id) => document.getElementById(id);
+            const params = new URLSearchParams(location.search);
+            const status = (params.get('status') || '').toLowerCase();
+
+            const icons = {
+                success: `<svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="10" opacity=".12" class="ok" stroke="currentColor"/><path class="ok" d="M8.5 12.5l2.5 2.5 4.5-5.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>`,
+                failed: `<svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="10" opacity=".12" class="fail" stroke="currentColor"/><path class="fail" d="M15.5 8.5l-7 7M8.5 8.5l7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>`,
+                unknown: `<svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="10" opacity=".12" class="unk" stroke="currentColor"/><path class="unk" d="M9.5 9a3 3 0 116 0c0 2-2 2-2 4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><circle class="unk" cx="12" cy="17" r="1.2" fill="currentColor"/></svg>`
+            };
+
+            function setText(id, text) { $(id).textContent = text; }
+            function hide(el) { el.hidden = true; }
+            function show(el) { el.hidden = false; }
+
+            const statusIcon = $("statusIcon");
+            const details = $("details");
+
+            // Pull saved paymentData from localStorage, if any
+            let paymentData = {};
+            try { paymentData = JSON.parse(localStorage.getItem('paymentData') || '{}') || {}; } catch (_) { }
+
+            const prettyAmount = (v) => {
+                if (v == null || v === '') return '—';
+                const num = Number(v);
+                return isFinite(num) ? `₹${num.toLocaleString('en-IN')}` : String(v);
+            };
+
+            const prettyDate = (v) => {
+                if (!v) return '—';
+                const d = new Date(v);
+                return isNaN(d) ? '—' : d.toLocaleDateString('en-IN', { year: 'numeric', month: 'short', day: '2-digit' });
+            };
+
+            function renderSuccess() {
+                statusIcon.innerHTML = icons.success;
+                setText('statusTitle', 'Payment Successful');
+                setText('statusSubtitle', "You're all set.");
+
+                setText('paymentId', paymentData.razorpay_payment_id || '—');
+                setText('paymentAmount', prettyAmount(paymentData.amount));
+
+                const fd = paymentData.flight_details || {};
+                const route = [fd.boardingAirport, fd.landingAirport].filter(Boolean).join(' → ');
+                setText('flightRoute', route || '—');
+
+                setText('bookingDate', prettyDate(paymentData.booking_date));
+
+                setText('primaryText', 'Book More Flights');
+                setText('secondaryText', 'Go Home');
+                $("primaryLink").setAttribute('href', 'category/flights.html');
+                $("secondaryLink").setAttribute('href', 'index.html');
+
+                show($("note"));
+            }
+
+            function renderFailed() {
+                statusIcon.innerHTML = icons.failed;
+                setText('statusTitle', 'Payment Failed');
+                setText('statusSubtitle', 'Something went wrong.');
+                hide(details);
+                setText('primaryText', 'Try Again');
+                setText('secondaryText', 'Go Home');
+                $("primaryLink").setAttribute('href', 'category/flights.html');
+                $("secondaryLink").setAttribute('href', 'index.html');
+            }
+
+            function renderUnknown() {
+                statusIcon.innerHTML = icons.unknown;
+                setText('statusTitle', 'Payment Status Unknown');
+                setText('statusSubtitle', 'We could not verify your payment.');
+                hide(details);
+                setText('primaryText', 'Contact Support');
+                setText('secondaryText', 'Go Home');
+                $("primaryLink").setAttribute('href', 'support.html');
+                $("secondaryLink").setAttribute('href', 'index.html');
+            }
+
+            if (status === 'success') renderSuccess();
+            else if (status === 'failed') renderFailed();
+            else renderUnknown();
+        })();
+    </script>
 </body>
 
 </html>
