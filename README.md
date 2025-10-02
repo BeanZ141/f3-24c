@@ -1,9 +1,9 @@
-## Ticket Management system
-### Project | f3-24c
-A web-based application for ticket registration and verification, featuring QR code generation and secure email delivery via SendGrid.
+## TicketEase | Ticket Management system
+### Project | f3-24c [TicketEase]
+_Ticketease_ is a unified ticketing platform that brings discovery, booking, and entry verification for travel and events into a single, seamless experience. The service operates through a simple flow. Its purpose is to help users quickly find and compare flights, hotels, trains, and event options, complete secure checkout with confidence, and receive instant digital tickets that are easy to access and present at the venue
 
 ## Overview
-This project provides a secure and streamlined way to register and verify event attendees. It leverages Firebase for database management, Supabase for ticket storage, and Twilio SendGrid to deliver QR codes and ticket IDs to registered users via email.
+This project provides a secure and streamlined way to register and verify event attendees. It leverages Firebase for hosting and Supabase for ticket storage and backend management.
 
 ## Features
 - User Registration: Collects attendee information and securely stores it.
@@ -16,10 +16,8 @@ This project provides a secure and streamlined way to register and verify event 
 - Node.js (version 14 or later)
 - Firebase CLI (for Firebase integration)
 - Supabase Account (for Database management)
-- SendGrid API Key (for email functionality)
 
 ## Dependencies
 - Node.js - JavaScript runtime
 - Firebase - Hosting
 - Supabase - Real-time database for ticket management, database and authentication
-- Twilio SendGrid - Email API for delivering tickets and QR codes
