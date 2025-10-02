@@ -8,17 +8,20 @@
     <link rel="icon" href="images/favicon.png" type="image/png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap">
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Varela&display=swap">
     <link rel="stylesheet" href="css/styles.css">
     <link rel="stylesheet" href="css/themes.css">
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
     <title>Payment Status · Ticketease</title>
-    <meta name="color-scheme" content="light dark" />
     <link rel="icon" href="images/favicon.png" type="image/png" />
     <style>
-        html,body {height: 100%;}
+        html,
+        body {
+            height: 100%;
+        }
 
         body {
             margin: 0;
@@ -27,7 +30,11 @@
             color: var(--fg);
         }
 
-        .wrap {min-height: 100%;display: grid;place-items: center;}
+        .wrap {
+            min-height: 100%;
+            display: grid;
+            place-items: center;
+        }
 
         .card {
             width: 100%;
@@ -56,9 +63,13 @@
             border: 1px solid var(--radio-border);
         }
 
-        .status-icon svg {width: 28px;height: 28px;}
+        .status-icon svg {
+            width: 28px;
+            height: 28px;
+        }
 
         .title {
+            color: var(--color-fg);
             margin: 0;
             font-size: 1.25rem;
             letter-spacing: .04em;
@@ -68,7 +79,7 @@
 
         .subtitle {
             margin: 4px 0 0 0;
-            color: var(--muted);
+            color: var(--color-fg);
             font-size: .95rem;
         }
 
@@ -81,10 +92,13 @@
             gap: 12px 16px;
         }
 
-        .detail {display: grid;gap: 6px;}
+        .detail {
+            display: grid;
+            gap: 6px;
+        }
 
         .label {
-            color: var(--muted);
+            color: var(--color-fg);
             font-size: .9rem;
             text-decoration: underline;
             text-underline-offset: 4px;
@@ -93,7 +107,10 @@
             text-transform: uppercase;
         }
 
-        .value {font-variant-numeric: tabular-nums;}
+        .value {
+            color: var(--color-fg);
+            font-variant-numeric: tabular-nums;
+        }
 
         .actions {
             display: grid;
@@ -127,19 +144,32 @@
             color: var(--color-bg);
         }
 
-        .btn:hover {background: var(--btn-bg-hover);}
-        .btn:active {transform: translateY(1px);}
+        .btn:hover {
+            background: var(--btn-bg-hover);
+        }
+
+        .btn:active {
+            transform: translateY(1px);
+        }
 
         .muted-note {
             margin-top: 20px;
             margin-bottom: 0px;
-            color: var(--muted);
+            color: var(--color-fg);
             font-size: .85rem;
         }
 
-        .ok {color: var(--success);}
-        .fail {color: var(--danger);}
-        .unk {color: var(--warn);}
+        .ok {
+            color: var(--success);
+        }
+
+        .fail {
+            color: var(--danger);
+        }
+
+        .unk {
+            color: var(--warn);
+        }
     </style>
 </head>
 
@@ -176,7 +206,7 @@
             </div>
 
             <div class="actions">
-                <a id="primaryLink" href="category/flights.html" class="btn"><span id="primaryText">Book More
+                <a id="primaryLink" href="./index.html" class="btn"><span id="primaryText">Book More
                         Flights</span></a>
                 <a id="secondaryLink" href="index.html" class="btn" style="opacity:.9"><span id="secondaryText">Go
                         Home</span></a>
@@ -193,9 +223,9 @@
             const status = (params.get('status') || '').toLowerCase();
 
             const icons = {
-                success: `<svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="10" opacity=".12" class="ok" stroke="currentColor"/><path class="ok" d="M8.5 12.5l2.5 2.5 4.5-5.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>`,
-                failed: `<svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="10" opacity=".12" class="fail" stroke="currentColor"/><path class="fail" d="M15.5 8.5l-7 7M8.5 8.5l7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>`,
-                unknown: `<svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="10" opacity=".12" class="unk" stroke="currentColor"/><path class="unk" d="M9.5 9a3 3 0 116 0c0 2-2 2-2 4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><circle class="unk" cx="12" cy="17" r="1.2" fill="currentColor"/></svg>`
+                success: `<svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="10" opacity=".12" class="ok" stroke="var(--color-fg)"/><path class="ok" d="M8.5 12.5l2.5 2.5 4.5-5.5" stroke="var(--color-fg)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>`,
+                failed: `<svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="10" opacity=".12" class="fail" stroke="var(--color-fg)"/><path class="fail" d="M15.5 8.5l-7 7M8.5 8.5l7 7" stroke="var(--color-fg)" stroke-width="2" stroke-linecap="round"/></svg>`,
+                unknown: `<svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="10" opacity=".12" class="unk" stroke="var(--color-fg)"/><path class="unk" d="M9.5 9a3 3 0 116 0c0 2-2 2-2 4" stroke="var(--color-fg)" stroke-width="2" stroke-linecap="round"/><circle class="unk" cx="12" cy="17" r="1.2" fill="var(--color-fg)"/></svg>`
             };
 
             function setText(id, text) { $(id).textContent = text; }
@@ -235,9 +265,9 @@
 
                 setText('bookingDate', prettyDate(paymentData.booking_date));
 
-                setText('primaryText', 'Book More Flights');
+                setText('primaryText', 'Book More');
                 setText('secondaryText', 'Go Home');
-                $("primaryLink").setAttribute('href', 'category/flights.html');
+                $("primaryLink").setAttribute('href', 'index.html');
                 $("secondaryLink").setAttribute('href', 'index.html');
 
                 show($("note"));
@@ -250,7 +280,7 @@
                 hide(details);
                 setText('primaryText', 'Try Again');
                 setText('secondaryText', 'Go Home');
-                $("primaryLink").setAttribute('href', 'category/flights.html');
+                $("primaryLink").setAttribute('href', 'index.html');
                 $("secondaryLink").setAttribute('href', 'index.html');
             }
 

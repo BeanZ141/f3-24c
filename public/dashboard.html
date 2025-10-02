@@ -1,283 +1,457 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <script>
-        const setTheme = () => {
-            const theme = localStorage.getItem('theme') || 'light';
-            document.documentElement.classList.toggle('dark-mode', theme === 'dark');
-        };
-        setTheme();
-    </script>
+    <script src="js/theme.js"></script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Varela&display=swap">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
-    <link rel="icon" href="icons/favicon.png" type="image/png">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+    <link rel="icon" href="images/favicon.png" type="image/png">
     <link rel="stylesheet" href="css/themes.css">
     <link rel="stylesheet" href="css/styles.css">
-    <title>User Dashboard</title>
-    <style>
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            text-decoration: none;
-        }
-
-        body {
-            font-family: 'Varela', sans-serif;
-            background-color: var(--color-bg);
-            color: var(--color-fg);
-            font-size: 1em;
-            display: flex;
-            flex-direction: column;
-            min-height: 100vh;
-        }
-
-        .dashboard-container {
-            display: flex;
-            width: 100%;
-        }
-
-        .sidebar {
-            background-color: var(--color-bg);
-            width: 250px;
-            padding: 20px;
-            flex-shrink: 0;
-            height: 100vh;
-            position: fixed;
-            top: 0;
-            left: 0;
-            border-right: 1px solid #0a0a0a;
-            transition: transform 0.3s ease;
-            z-index: 1000;
-        }
-
-        .sidebar.hidden {
-            transform: translateX(-100%);
-        }
-
-        .sidebar h2 {
-            text-align: center;
-            margin-left: -70px;
-            margin-bottom: 30px;
-            color: var(--color-fg);
-            animation: animate-gradient 0.7s ease-in forwards;
-        }
-
-        .sidebar ul {
-            list-style: none;
-            padding: 0;
-        }
-
-        .sidebar ul li {
-            margin: 5px 0;
-        }
-
-        .sidebar ul li a {
-            background-color: var(--color-bg);
-            color: var(--color-fg);
-            display: block;
-            padding: 10px 15px;
-            transition: 0.2s;
-            animation: animate-gradient 0.7s ease-in forwards;
-        }
-
-        .sidebar ul li a:hover {
-            cursor: pointer;
-            background-color: var(--color-fg);
-            color: var(--color-bg);
-            transition: 0.2s;
-        }
-
-        .sidebar ul li a.active {
-            background-color: var(--color-fg);
-            color: var(--color-bg);
-            font-weight: 800;
-            text-align: right;
-            transition: all 0.3s;
-        }
-
-        .main-content {
-            margin-left: 250px;
-            padding: 20px;
-            width: 100%;
-            transition: margin-left 0.3s ease;
-        }
-
-        header h1 {
-            font-size: 2em;
-            margin-bottom: 10px;
-        }
-
-        header p {
-            font-size: 1.2em;
-        }
-
-        .section-content {
-            margin-top: 20px;
-        }
-
-        .section-content h1, p {
-            margin: 5px;
-            margin-left: 25px;
-            display: block;
-            padding: 10px;
-            user-select: auto !important;
-            width: fit-content;
-        }
-
-        .section-content p:hover {
-            background-color: var(--radio-color);
-            user-select: none;
-        }
-
-        .section-content b {
-            user-select: none;
-            margin-right: 5px;
-        }
-
-        .logout-btn {
-            background-color: var(--color-fg);
-            color: var(--color-bg);
-            padding: 10px 15px;
-            margin-left: 35px;
-            border: 1px solid var(--color-bg);
-            font-family: 'Inter', sans-serif;
-            font-size: 1em;
-            cursor: pointer;
-            transition: background 0.3s, color 0.3s;
-        }
-
-        .logout-btn:hover {
-            background-color: var(--color-bg) !important;
-            color: var(--color-fg);
-            border: 1px solid var(--border);
-        }
-
-        .delete-acc-btn {
-            background-color: var(--color-bg);
-            color: red;
-            padding: 10px 15px;
-            margin-left: 35px;
-            border: 1px solid red;
-            font-family: 'Inter', sans-serif;
-            font-size: 1em;
-            cursor: pointer;
-            transition: background 0.3s, color 0.3s;
-        }
-
-        .delete-acc-btn:hover {
-            background-color: red;
-            color: var(--color-bg);
-            border: 1px solid;
-        }
-
-        .toggle-btn {
-            display: none;
-            background: var(--color-bg);
-            color: var(--color-fg);
-            border: none;
-            padding: 10px 15px;
-            font-size: 1.5em;
-            cursor: pointer;
-            position: fixed;
-            top: 20px;
-            right: 5%;
-            z-index: 1001;
-        }
-
-        .toggle-btn:focus {
-            outline: none;
-        }
-
-        @media (max-width: 768px) {
-            .sidebar {
-                transform: translateX(-100%);
-            }
-
-            .sidebar.visible {
-                transform: translateX(0);
-            }
-
-            .main-content {
-                margin-top: 3rem;
-                margin-left: 1rem;
-            }
-
-            .toggle-btn {
-                display: block;
-            }
-        }
-    </style>
+    <link rel="stylesheet" href="css/dashboard.css">
+    <title>Dashboard - Ticketease</title>
 </head>
-<s>
-    <!-- Toggle Button -->
-    <button class="toggle-btn" onclick="toggleSidebar()">☰</button>
-
-    <div class="dashboard-container">
-        <!-- Sidebar -->
-        <nav class="sidebar">
-            <h2>Dashboard</h2>
-            <ul>
-                <li><a onclick="showSection('home')">Home</a></li>
-                <li><a onclick="showSection('account')">Account</a></li>
-                <li><a style="bottom: 3%; position: absolute;" href="index.html">Back</a></li>
-            </ul>
-        </nav>
-
-        <!-- Main Content -->
-        <div class="main-content">
-            <!-- Home Section -->
-            <section id="home" class="section-content">
-                <h1>Welcome, user</h1>
-                <p><b></b></p>
-                <p><b></b></p>
-                <p><b></b></p>
-            </section>
-
-            <!-- Account Section -->
-            <section id="account" class="section-content" style="display: none;">
-                <h1>Account</h1>
-                <p>Manage your account settings and preferences here.</p>
-                <div class="buttons">
-                    <button class="logout-btn" onclick="logout()">Logout</button>
-                    <p style="color: red;">You will not be able to recover your deleted account.</p>
-                    <button class="delete-acc-btn" onclick="deleteAccount()">Delete Account</button>
+<body>
+    <!-- Header -->
+    <header class="dashboard-header">
+        <div class="header-content">
+            <div class="header-left">
+                <a href="index.html" class="logo">TICKETEASE</a>
+                <span class="divider">/</span>
+                <span class="page-title">Dashboard</span>
+            </div>
+            <div class="header-right">
+                <button id="theme-switch" class="theme-btn">
+                    <svg height="20px" viewBox="0 -960 960 960" width="20px" fill="currentColor">
+                        <path d="M480-120q-150 0-255-105T120-480q0-150 105-255t255-105q14 0 27.5 1t26.5 3q-41 29-65.5 75.5T444-660q0 90 63 153t153 63q55 0 101-24.5t75-65.5q2 13 3 26.5t1 27.5q0 150-105 255T480-120Z" />
+                    </svg>
+                    <svg height="20px" viewBox="0 -960 960 960" width="20px" fill="currentColor">
+                        <path d="M480-280q-83 0-141.5-58.5T280-480q0-83 58.5-141.5T480-680q83 0 141.5 58.5T680-480q0 83-58.5 141.5T480-280ZM200-440H40v-80h160v80Zm720 0H760v-80h160v80ZM440-760v-160h80v160h-80Zm0 720v-160h80v160h-80ZM256-650l-101-97 57-59 96 100-52 56Zm492 496-97-101 53-55 101 97-57 59Zm-98-550 97-101 59 57-100 96-56-52ZM154-212l101-97 55 53-97 101-59-57Z" />
+                    </svg>
+                </button>
+                <div class="user-menu">
+                    <span id="user-name">User</span>
+                    <button onclick="logout()" class="logout-btn">Logout</button>
                 </div>
-            </section>
+            </div>
         </div>
-    </div>
+    </header>
 
+    <!-- Navigation -->
+    <nav class="dashboard-nav">
+        <div class="nav-content">
+            <button class="nav-item active" onclick="showSection('overview')">Overview</button>
+            <button class="nav-item" onclick="showSection('bookings')">Bookings</button>
+            <button class="nav-item" onclick="showSection('payments')">Payments</button>
+            <button class="nav-item" onclick="showSection('profile')">Profile</button>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="dashboard-main">
+        <!-- Overview Section -->
+        <section id="overview" class="section active">
+            <div class="section-header">
+                <h1>Welcome back, <span id="welcome-name">User</span></h1>
+                <p>Here's your booking summary</p>
+            </div>
+
+            <!-- Stats Grid -->
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-content">
+                        <h3 id="total-bookings">0</h3>
+                        <p>Total Bookings</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-content">
+                        <h3 id="total-spent">₹0</h3>
+                        <p>Total Spent</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-content">
+                        <h3 id="recent-bookings">0</h3>
+                        <p>This Month</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Recent Activity -->
+            <div class="recent-section">
+                <h2>Recent Activity</h2>
+                <div class="activity-list" id="recent-activity">
+                    <div class="empty-state">
+                        <p>No recent activity</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Bookings Section -->
+        <section id="bookings" class="section">
+            <div class="section-header">
+                <h1>My Bookings</h1>
+                <p>Manage your reservations</p>
+            </div>
+
+            <!-- Booking Filters -->
+            <div class="filter-tabs">
+                <button class="filter-tab active" onclick="filterBookings('all')">All</button>
+                <button class="filter-tab" onclick="filterBookings('flights')">Flights</button>
+                <button class="filter-tab" onclick="filterBookings('hotels')">Hotels</button>
+                <button class="filter-tab" onclick="filterBookings('trains')">Trains</button>
+                <button class="filter-tab" onclick="filterBookings('events')">Events</button>
+            </div>
+
+            <!-- Bookings List -->
+            <div class="bookings-container" id="bookings-container">
+                <div class="empty-state">
+                    <p>No bookings found</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Payments Section -->
+        <section id="payments" class="section">
+            <div class="section-header">
+                <h1>Payment History</h1>
+                <p>View your transaction history</p>
+            </div>
+
+            <div class="payments-container" id="payments-container">
+                <div class="empty-state">
+                    <p>No payments found</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Profile Section -->
+        <section id="profile" class="section">
+            <div class="section-header">
+                <h1>Profile Settings</h1>
+                <p>Manage your account information</p>
+            </div>
+
+            <div class="profile-container">
+                <form class="profile-form" onsubmit="updateProfile(event)">
+                    <div class="form-group">
+                        <label for="profile-username">Username</label>
+                        <input type="text" id="profile-username" name="username" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="profile-email">Email</label>
+                        <input type="email" id="profile-email" name="email" required readonly>
+                    </div>
+                    <div class="form-group">
+                        <label for="profile-phone">Phone Number</label>
+                        <input type="tel" id="profile-phone" name="phone">
+                    </div>
+                    <button type="submit" class="save-btn">Save Changes</button>
+                </form>
+            </div>
+        </section>
+    </main>
+
+    <!-- Alert -->
     <div id="customAlert" class="alert">
         <span id="alertMessage"></span>
     </div>
 
-<script type="module" src="js/dashboard.js"></script>
-<script>
-    document.querySelector('.sidebar ul li a[onclick="showSection(\'home\')"]').classList.add('active');
+    <script>
+        // Global variables
+        let currentUser = null;
+        let allBookings = [];
+        let allPayments = [];
 
-    function showSection(section) {
-        document.querySelectorAll('.section-content').forEach(sec => sec.style.display = 'none');
-        document.getElementById(section).style.display = 'block';
+        // Initialize dashboard
+        document.addEventListener('DOMContentLoaded', function() {
+            initializeDashboard();
+        });
 
-        document.querySelectorAll('.sidebar ul li a').forEach(link => link.classList.remove('active'));
-        document.querySelector(`.sidebar ul li a[onclick="showSection('${section}')"]`).classList.add('active');
+        function initializeDashboard() {
+            // Check user session
+            currentUser = JSON.parse(localStorage.getItem('user'));
+            if (!currentUser) {
+                window.location.href = 'index.html';
+                return;
+            }
 
-        if (window.innerWidth <= 768) {
-            const sidebar = document.querySelector('.sidebar');
-            sidebar.classList.remove('visible');
+            // Update user name displays
+            document.getElementById('user-name').textContent = currentUser.user_metadata?.username || 'User';
+            document.getElementById('welcome-name').textContent = currentUser.user_metadata?.username || 'User';
+
+            // Load data
+            loadBookings();
+            loadPayments();
+            updateStats();
+            loadProfile();
         }
-    }
 
-    function toggleSidebar() {
-        const sidebar = document.querySelector('.sidebar');
-        sidebar.classList.toggle('visible');
-    }
-</script>
+        function loadBookings() {
+            // Get all payment data from localStorage (successful bookings)
+            const paymentData = JSON.parse(localStorage.getItem('paymentData') || '{}');
+            const bookingData = JSON.parse(localStorage.getItem('bookingData') || '{}');
+            
+            allBookings = [];
+            
+            // Add paid bookings
+            if (paymentData.status === 'success') {
+                allBookings.push({
+                    id: paymentData.razorpay_payment_id || Date.now(),
+                    type: paymentData.type || 'unknown',
+                    amount: paymentData.amount || 0,
+                    date: paymentData.booking_date || new Date().toISOString(),
+                    status: 'confirmed',
+                    details: paymentData.flight_details || paymentData.hotel_details || paymentData.train_details || paymentData.event_details || {}
+                });
+            }
+
+            // Add free bookings (events)
+            if (bookingData.status === 'confirmed' && !bookingData.payment_required) {
+                allBookings.push({
+                    id: Date.now() + 1,
+                    type: bookingData.type || 'event',
+                    amount: 0,
+                    date: bookingData.booking_date || new Date().toISOString(),
+                    status: 'confirmed',
+                    details: bookingData.event_details || {}
+                });
+            }
+
+            displayBookings(allBookings);
+        }
+
+        function loadPayments() {
+            const paymentData = JSON.parse(localStorage.getItem('paymentData') || '{}');
+            
+            allPayments = [];
+            
+            if (paymentData.status === 'success' && paymentData.amount > 0) {
+                allPayments.push({
+                    id: paymentData.razorpay_payment_id,
+                    amount: paymentData.amount,
+                    date: paymentData.booking_date,
+                    type: paymentData.type,
+                    status: 'success'
+                });
+            }
+
+            displayPayments(allPayments);
+        }
+
+        function updateStats() {
+            const totalBookings = allBookings.length;
+            const totalSpent = allPayments.reduce((sum, payment) => sum + (payment.amount || 0), 0);
+            const thisMonth = new Date();
+            const recentBookings = allBookings.filter(booking => {
+                const bookingDate = new Date(booking.date);
+                return bookingDate.getMonth() === thisMonth.getMonth() && 
+                       bookingDate.getFullYear() === thisMonth.getFullYear();
+            }).length;
+
+            document.getElementById('total-bookings').textContent = totalBookings;
+            document.getElementById('total-spent').textContent = `₹${totalSpent.toLocaleString('en-IN')}`;
+            document.getElementById('recent-bookings').textContent = recentBookings;
+
+            // Update recent activity
+            updateRecentActivity();
+        }
+
+        function updateRecentActivity() {
+            const activityContainer = document.getElementById('recent-activity');
+            
+            if (allBookings.length === 0) {
+                activityContainer.innerHTML = '<div class="empty-state"><p>No recent activity</p></div>';
+                return;
+            }
+
+            const recentBookings = allBookings
+                .sort((a, b) => new Date(b.date) - new Date(a.date))
+                .slice(0, 3);
+
+            activityContainer.innerHTML = recentBookings.map(booking => `
+                <div class="activity-item">
+                    <div class="activity-content">
+                        <h4>${getBookingTitle(booking)}</h4>
+                        <p>${formatDate(booking.date)} • ${booking.amount > 0 ? `₹${booking.amount.toLocaleString('en-IN')}` : 'Free'}</p>
+                    </div>
+                    <span class="activity-status ${booking.status}">${booking.status}</span>
+                </div>
+            `).join('');
+        }
+
+        function displayBookings(bookings) {
+            const container = document.getElementById('bookings-container');
+            
+            if (bookings.length === 0) {
+                container.innerHTML = '<div class="empty-state"><p>No bookings found</p></div>';
+                return;
+            }
+
+            container.innerHTML = bookings.map(booking => `
+                <div class="booking-card">
+                    <div class="booking-header">
+                        <div class="booking-info">
+                            <h3>${getBookingTitle(booking)}</h3>
+                            <p>${formatDate(booking.date)}</p>
+                        </div>
+                        <div class="booking-meta">
+                            <span class="booking-type">${booking.type}</span>
+                            <span class="booking-amount">${booking.amount > 0 ? `₹${booking.amount.toLocaleString('en-IN')}` : 'Free'}</span>
+                        </div>
+                    </div>
+                    <div class="booking-details">
+                        ${getBookingDetails(booking)}
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function displayPayments(payments) {
+            const container = document.getElementById('payments-container');
+            
+            if (payments.length === 0) {
+                container.innerHTML = '<div class="empty-state"><p>No payments found</p></div>';
+                return;
+            }
+
+            container.innerHTML = payments.map(payment => `
+                <div class="payment-card">
+                    <div class="payment-info">
+                        <h4>Payment ID: ${payment.id}</h4>
+                        <p>${formatDate(payment.date)} • ${payment.type}</p>
+                    </div>
+                    <div class="payment-amount">₹${payment.amount.toLocaleString('en-IN')}</div>
+                </div>
+            `).join('');
+        }
+
+        function getBookingTitle(booking) {
+            const details = booking.details;
+            switch (booking.type) {
+                case 'flight':
+                    return `${details.boardingAirport || 'N/A'} → ${details.landingAirport || 'N/A'}`;
+                case 'hotel':
+                    return details.name || 'Hotel Booking';
+                case 'train':
+                    return `${details.boarding_station || 'N/A'} → ${details.arrival_station || 'N/A'}`;
+                case 'event':
+                    return details.name || 'Event Booking';
+                default:
+                    return 'Booking';
+            }
+        }
+
+        function getBookingDetails(booking) {
+            const details = booking.details;
+            switch (booking.type) {
+                case 'flight':
+                    return `<p>Flight: ${details.flightNumber || 'N/A'} • ${details.duration || 'N/A'}</p>`;
+                case 'hotel':
+                    return `<p>Location: ${details.location || 'N/A'} • Rating: ${details.rating || 'N/A'}</p>`;
+                case 'train':
+                    return `<p>Train: ${details.train_number || 'N/A'} • ${details.duration || 'N/A'}</p>`;
+                case 'event':
+                    return `<p>Date: ${details.date || 'N/A'} • Location: ${details.location || 'N/A'}</p>`;
+                default:
+                    return '<p>Booking details</p>';
+            }
+        }
+
+        function formatDate(dateString) {
+            return new Date(dateString).toLocaleDateString('en-IN', {
+                year: 'numeric',
+                month: 'short',
+                day: 'numeric'
+            });
+        }
+
+        function loadProfile() {
+            if (currentUser) {
+                document.getElementById('profile-username').value = currentUser.user_metadata?.username || '';
+                document.getElementById('profile-email').value = currentUser.email || '';
+                document.getElementById('profile-phone').value = currentUser.user_metadata?.phone || '';
+            }
+        }
+
+        function updateProfile(event) {
+            event.preventDefault();
+            
+            const formData = new FormData(event.target);
+            const updatedUser = {
+                ...currentUser,
+                user_metadata: {
+                    ...currentUser.user_metadata,
+                    username: formData.get('username'),
+                    phone: formData.get('phone')
+                }
+            };
+
+            localStorage.setItem('user', JSON.stringify(updatedUser));
+            currentUser = updatedUser;
+            
+            // Update displays
+            document.getElementById('user-name').textContent = updatedUser.user_metadata.username;
+            document.getElementById('welcome-name').textContent = updatedUser.user_metadata.username;
+            
+            showAlert('Profile updated successfully', 'success');
+        }
+
+        function showSection(sectionName) {
+            // Hide all sections
+            document.querySelectorAll('.section').forEach(section => {
+                section.classList.remove('active');
+            });
+            
+            // Show selected section
+            document.getElementById(sectionName).classList.add('active');
+            
+            // Update navigation
+            document.querySelectorAll('.nav-item').forEach(item => {
+                item.classList.remove('active');
+            });
+            event.target.classList.add('active');
+        }
+
+        function filterBookings(type) {
+            const filteredBookings = type === 'all' ? allBookings : allBookings.filter(booking => booking.type === type);
+            displayBookings(filteredBookings);
+            
+            // Update filter tabs
+            document.querySelectorAll('.filter-tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            event.target.classList.add('active');
+        }
+
+        function logout() {
+            localStorage.removeItem('user');
+            localStorage.removeItem('paymentData');
+            localStorage.removeItem('bookingData');
+            window.location.href = 'index.html';
+        }
+
+        function showAlert(message, type = 'info') {
+            const alertBox = document.getElementById('customAlert');
+            const alertMessage = document.getElementById('alertMessage');
+            
+            alertMessage.textContent = message;
+            alertBox.className = `alert show ${type}`;
+            
+            setTimeout(() => {
+                alertBox.classList.remove('show');
+            }, 3000);
+        }
+
+        // Theme toggle functionality
+        document.getElementById('theme-switch').addEventListener('click', function() {
+            document.documentElement.classList.toggle('dark-mode');
+            localStorage.setItem('theme', document.documentElement.classList.contains('dark-mode') ? 'dark' : 'light');
+        });
+    </script>
 </body>
 </html>

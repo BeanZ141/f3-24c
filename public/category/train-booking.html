@@ -7,8 +7,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Varela&display=swap" rel="stylesheet" />
-    <title>Flight Booking Summary</title>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet" />
+    <title>Train Booking Summary</title>
     <link rel="stylesheet" href="../category/css/flight-booking.css">
     <link rel="stylesheet" href="../css/styles.css">
     <link rel="stylesheet" href="../css/themes.css">
@@ -39,7 +39,7 @@
             <a href="../category/hotels.html" data-icon="hotel.svg">
                 <i class="fas fa-hotel"></i> HOTELS
             </a>
-            <a href="../category/trains.html" data-icon="train.svg">
+            <a class="active" href="../category/trains.html" data-icon="train.svg">
                 <i class="fas fa-train"></i> TRAINS
             </a>
             <a href="../category/events.html" data-icon="event.svg">
@@ -65,9 +65,9 @@
         <div class="top-section">
             <!-- Fare Summary -->
             <div class="fare-summary">
-                <h2>Fare Summary</h2>
+                <h2>Booking Summary</h2>
                 <div class="traveller-info">
-                    <div>1 Traveller</div>
+                    <div>1 Passenger</div>
                     <span class="partial-refund">Partially Refundable</span>
                 </div>
                 <div class="fare-item">
@@ -75,7 +75,7 @@
                     <span>× × × ×</span>
                 </div>
                 <div class="fare-item">
-                    <div>Taxes & Fees</div>
+                    <div>Reservation Fee</div>
                     <span>× × × ×</span>
                 </div>
                 <div class="fare-item">
@@ -90,55 +90,61 @@
 
             <!-- Flight Details -->
             <div class="flight-details">
-                <h2>Pune > New Delhi</h2>
+                <h2>Mumbai > Delhi</h2>
                 <div class="flight-meta">
-                    xxx xx xxx → xxx xx xxx • xx xx • xxxx<br />
-                    xxxx x [ xx xx ]
+                    <div class="train-info" style="margin-bottom: 8px;">
+                        <i class="fas fa-train" style="color: var(--color-primary); margin-right: 5px;"></i>
+                        <span>Train Name - Train Number</span>
+                    </div>
+                    <div class="class-info">
+                        <i class="fas fa-chair" style="color: var(--color-primary); margin-right: 5px;"></i>
+                        AC 3 Tier (3A) • Seat/Berth: 45
+                    </div>
                 </div>
 
                 <!-- Timing Boxes -->
                 <div class="flight-timing">
                     <div class="time-box">
-                        <h3>01:05</h3>
-                        <p>Pune (PNQ)</p>
+                        <h3>Departure</h3>
+                        <p>08:15</p>
                     </div>
                     <div class="time-box">
-                        <h3>2h 10m</h3>
-                        <p>Non-stop</p>
+                        <h3>Duration</h3>
+                        <p>16h 30m</p>
                     </div>
                     <div class="time-box">
-                        <h3>03:15</h3>
-                        <p>New Delhi (DEL)</p>
+                        <h3>Arrival</h3>
+                        <p>00:45+1</p>
                     </div>
                 </div>
 
                 <div class="baggage-info">
-                    <strong>Check-in Baggage:</strong> 7 kg<br />
-                    <strong>Terminal:</strong> 3
+                    <strong>Class:</strong> AC 3 Tier (3A)<br />
+                    <strong>Platform:</strong> TBD • <strong>Coach:</strong> S4
                 </div>
             </div>
         </div>
 
         <!-- Refund Section -->
         <div class="refund-section">
-            <h2>Refund on Cancellation</h2>
-            <div class="flight-meta">PNQ → DEL</div>
+            <h2>Cancellation Policy</h2>
+            <div class="flight-meta">Mumbai → Delhi • AC 3 Tier</div>
             <div class="refund-timeline">
                 <div class="now">Now</div>
-                <div>23 Feb<br /><strong>₹3267</strong> refund</div>
-                <div>24 Feb<br /><strong>₹3267</strong> refund</div>
-                <div>25 Feb<br /><strong>₹3267</strong> refund</div>
-                <div>26 Feb<br /><span class="non-refund">Non-Refundable</span></div>
+                <div>48h before<br><strong>₹240</strong> fee</div>
+                <div>12h before<br><strong>₹480</strong> fee</div>
+                <div>4h before<br><strong>₹960</strong> fee</div>
+                <div>After chart<br><span class="non-refund">Non-Refundable</span></div>
                 <div>Departure</div>
             </div>
         </div>
 
-        <span class="line"></span>
+        <span class="line" style="bottom: 113px !important"></span>
 
         <!-- Bottom Bar (Price & Lock & Continue) -->
         <div class="bottom-bar">
             <div class="final-price">₹ × × × ×</div>
-            <div class="lock-price">Lock Price @ ₹199</div>
+            <div class="lock-price">IRCTC Booking Fee: ₹15</div>
             <button onclick="initiatePayment()" id="continue-btn">Book Now &rsaquo;</button>
         </div>
     </div>
@@ -147,73 +153,92 @@
     <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
     <script src="../js/navbar.js"></script>
     <script>
-        let flightDetails = null;
+        let trainDetails = null;
         let totalAmount = 0;
 
         document.addEventListener('DOMContentLoaded', function () {
-            flightDetails = JSON.parse(localStorage.getItem('selectedFlight'));
-            console.log('Retrieved flight details:', flightDetails);
+            trainDetails = JSON.parse(localStorage.getItem('selectedTrain'));
+            console.log('Retrieved train details:', trainDetails);
 
-            if (flightDetails) {
-                updateFlightDisplay();
+            if (trainDetails) {
+                updateTrainDisplay();
             } else {
-                console.error('No flight details found in localStorage');
-                showAlert('No flight selected. Using sample data for testing.', 'info');
+                console.error('No train details found in localStorage');
+                showAlert('No train selected. Using sample data for testing.', 'info');
 
                 // Use sample data for testing
-                flightDetails = {
-                    company: 'IndiGO',
-                    flightNumber: '6E-123',
-                    boardingTime: '06:00',
-                    boardingAirport: 'BOM',
-                    duration: '2h 15m',
-                    stops: 'Non-Stop',
-                    landingTime: '08:15',
-                    landingAirport: 'GOI',
-                    cost: '₹4,500'
+                trainDetails = {
+                    company: 'Indian Railways',
+                    train_number: '12951',
+                    departure: '05:30',
+                    duration: '16h 00m',
+                    arrival: '21:30',
+                    cost: '₹2895',
+                    offer: 'Meal Included',
+                    boarding_station: 'Mumbai Central',
+                    arrival_station: 'New Delhi',
+                    stops: '2 Stops'
                 };
 
                 // Update display with sample data
-                updateFlightDisplay();
+                updateTrainDisplay();
             }
         });
 
-        function updateFlightDisplay() {
-            if (!flightDetails) return;
+        function updateTrainDisplay() {
+            if (!trainDetails) return;
 
-            console.log('Updating flight display with:', flightDetails);
+            console.log('Updating train display with:', trainDetails);
 
-            // Update flight details display
-            document.querySelector('.flight-details h2').textContent = `${flightDetails.boardingAirport || 'N/A'} > ${flightDetails.landingAirport || 'N/A'}`;
-            document.querySelector('.flight-meta').innerHTML =
-                `${flightDetails.flightNumber || 'N/A'} • ${flightDetails.duration || 'N/A'} • ${flightDetails.stops || 'N/A'}<br />${flightDetails.company || 'N/A'}`;
+            // Update train details display
+            const fromStation = trainDetails.boarding_station || 'Mumbai';
+            const toStation = trainDetails.arrival_station || 'Delhi';
+            document.querySelector('.flight-details h2').textContent = `${fromStation} > ${toStation}`;
+            
+            // Update train info
+            document.querySelector('.train-info span').textContent = 
+                `${trainDetails.company || 'Indian Railways'} - ${trainDetails.train_number || 'Train Number'}`;
+            
+            // Update class info
+            document.querySelector('.class-info').innerHTML = 
+                `<i class="fas fa-chair" style="color: var(--color-primary); margin-right: 5px;"></i>
+                 AC 3 Tier (3A) • ${trainDetails.stops || 'Direct'}`;
 
             // Update timing boxes
-            document.querySelector('.time-box:nth-child(1) h3').textContent = flightDetails.boardingTime || 'N/A';
-            document.querySelector('.time-box:nth-child(1) p').textContent = flightDetails.boardingAirport || 'N/A';
-            document.querySelector('.time-box:nth-child(2) h3').textContent = flightDetails.duration || 'N/A';
-            document.querySelector('.time-box:nth-child(2) p').textContent = flightDetails.stops || 'N/A';
-            document.querySelector('.time-box:nth-child(3) h3').textContent = flightDetails.landingTime || 'N/A';
-            document.querySelector('.time-box:nth-child(3) p').textContent = flightDetails.landingAirport || 'N/A';
+            document.querySelector('.time-box:nth-child(1) h3').textContent = 'Departure';
+            document.querySelector('.time-box:nth-child(1) p').textContent = trainDetails.departure || '05:30';
+            document.querySelector('.time-box:nth-child(2) h3').textContent = 'Duration';
+            document.querySelector('.time-box:nth-child(2) p').textContent = trainDetails.duration || '16h 00m';
+            document.querySelector('.time-box:nth-child(3) h3').textContent = 'Arrival';
+            document.querySelector('.time-box:nth-child(3) p').textContent = trainDetails.arrival || '21:30';
+
+            // Update class and coach info
+            document.querySelector('.baggage-info').innerHTML = 
+                `<strong>Class:</strong> AC 3 Tier (3A)<br />
+                 <strong>Offer:</strong> ${trainDetails.offer || 'Standard booking'}`;
+
+            // Update passenger info
+            document.querySelector('.traveller-info div').textContent = '1 Passenger';
 
             // Calculate and display pricing
-            const baseFare = parseInt((flightDetails.cost || '0').replace(/[^0-9]/g, '')) || 0;
-            const taxes = Math.round(baseFare * 0.08); // 8% taxes
-            const serviceCharge = Math.round(baseFare * 0.05); // 5% service charge
-            totalAmount = baseFare + taxes + serviceCharge;
+            const costString = trainDetails.cost || '₹2895';
+            const baseFare = parseInt(costString.replace(/[^0-9]/g, '')) || 2895;
+            const reservationFee = 40; // Standard reservation fee
+            const serviceCharge = 15; // IRCTC booking fee
+            totalAmount = baseFare + reservationFee + serviceCharge;
 
-            console.log('Pricing calculation:', { baseFare, taxes, serviceCharge, totalAmount });
+            console.log('Pricing calculation:', { baseFare, reservationFee, serviceCharge, totalAmount });
 
-            // Update fare breakdown - using more specific selectors
+            // Update fare breakdown
             const fareItems = document.querySelectorAll('.fare-item span');
             console.log('Found fare items:', fareItems.length);
             if (fareItems.length >= 3) {
-                fareItems[0].textContent = `₹${baseFare}`;  // Base Fare
-                fareItems[1].textContent = `₹${taxes}`;    // Taxes & Fees
-                fareItems[2].textContent = `₹${serviceCharge}`; // Service Charge
+                fareItems[0].textContent = `₹${baseFare}`;        // Base Fare
+                fareItems[1].textContent = `₹${reservationFee}`;  // Reservation Fee
+                fareItems[2].textContent = `₹${serviceCharge}`;   // Service Charge
                 console.log('Updated fare items:', {
                     baseFare: fareItems[0].textContent,
-                    taxes: fareItems[1].textContent,
+                    reservationFee: fareItems[1].textContent,
                     serviceCharge: fareItems[2].textContent
                 });
             } else {
@@ -222,13 +247,15 @@
 
             document.querySelector('.fare-total div:nth-child(2)').textContent = `₹${totalAmount}`;
             document.querySelector('.final-price').textContent = `₹${totalAmount}`;
-            document.querySelector('.refund-section .flight-meta').textContent = `${flightDetails.boardingAirport || 'N/A'} → ${flightDetails.landingAirport || 'N/A'}`;
+            document.querySelector('.lock-price').textContent = `IRCTC Booking Fee: ₹${serviceCharge}`;
+            document.querySelector('.refund-section .flight-meta').textContent = 
+                `${fromStation} → ${toStation} • AC 3 Tier`;
         }
 
         // Razorpay Payment Integration
         function initiatePayment() {
-            if (!flightDetails) {
-                alert('Flight details not found. Please go back and select a flight.');
+            if (!trainDetails) {
+                alert('Train details not found. Please go back and select a train.');
                 return;
             }
 
@@ -237,7 +264,7 @@
                 amount: totalAmount * 100, // Amount in paise (multiply by 100)
                 currency: 'INR',
                 name: 'Ticketease',
-                description: `Flight Booking: ${flightDetails.boardingAirport} to ${flightDetails.landingAirport}`,
+                description: `Train Booking: ${trainDetails.trainName} (${trainDetails.trainNumber})`,
                 image: '../images/favicon.png', // Your logo
                 order_id: '', // Optional: Generate order_id from backend
                 handler: function (response) {
@@ -251,8 +278,11 @@
                     contact: '9999999999'
                 },
                 notes: {
-                    flight_number: flightDetails.flightNumber,
-                    route: `${flightDetails.boardingAirport} to ${flightDetails.landingAirport}`,
+                    company: trainDetails.company,
+                    train_number: trainDetails.train_number,
+                    route: `${trainDetails.boarding_station} to ${trainDetails.arrival_station}`,
+                    class: 'AC 3 Tier (3A)',
+                    stops: trainDetails.stops,
                     booking_date: new Date().toISOString()
                 },
                 theme: {
@@ -283,9 +313,10 @@
                 razorpay_order_id: response.razorpay_order_id,
                 razorpay_signature: response.razorpay_signature,
                 amount: totalAmount,
-                flight_details: flightDetails,
+                train_details: trainDetails,
                 booking_date: new Date().toISOString(),
-                status: 'success'
+                status: 'success',
+                type: 'train'
             };
 
             localStorage.setItem('paymentData', JSON.stringify(paymentData));
@@ -295,7 +326,7 @@
 
             // Redirect to success page after 2 seconds
             setTimeout(() => {
-                window.location.href = '../payment-status.html?status=success';
+                window.location.href = '../payment-status.html?status=success&type=train';
             }, 2000);
         }
 
@@ -309,9 +340,10 @@
                 error_step: error.step,
                 error_reason: error.reason,
                 amount: totalAmount,
-                flight_details: flightDetails,
+                train_details: trainDetails,
                 booking_date: new Date().toISOString(),
-                status: 'failed'
+                status: 'failed',
+                type: 'train'
             };
 
             localStorage.setItem('paymentError', JSON.stringify(errorData));
@@ -320,7 +352,7 @@
 
             // Optionally redirect to failure page
             setTimeout(() => {
-                window.location.href = '../payment-status.html?status=failed';
+                window.location.href = '../payment-status.html?status=failed&type=train';
             }, 3000);
         }
 
@@ -338,7 +370,7 @@
                 color: white;
                 border-radius: 4px;
                 z-index: 10000;
-                font-family: 'Varela', sans-serif;
+                font-family: 'Space Mono', monospace;
                 box-shadow: 0 4px 8px rgba(0,0,0,0.2);
             `;
 

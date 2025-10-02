@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script src="js/theme.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Varela&display=swap" rel="stylesheet">
+    <title>Support - Ticketease</title>
+    <link rel="icon" href="images/favicon.png" type="image/png">
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/themes.css">
+    <link rel="stylesheet" href="css/navbar.css">
+    <link rel="stylesheet" href="css/support.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+
+<body>
+    <nav style="z-index: 1; background-color: transparent;backdrop-filter: blur(4px);">
+        <a href="index.html">TICKETEASE</a>
+        <div id="user-info" style="display: none;">
+            <span id="username-display"></span>
+            <div class="dropdown">
+                <button class="dropdown-btn" onclick="toggleDropdown()">▼</button>
+                <div class="dropdown-content" id="dropdown-menu">
+                    <a href="dashboard.html">Dashboard</a>
+                    <a href="scanner/scanner-info.html">Scan Tickets</a>
+                    <a href="#" onclick="logout()">Logout</a>
+                </div>
+            </div>
+        </div>
+        
+        <!--Service section-->
+        <div class="service-nav">
+            <a href="category/flights.html" data-icon="flight.svg">
+                <i class="fas fa-plane"></i> FLIGHTS
+            </a>
+            <a href="category/hotels.html" data-icon="hotel.svg">
+                <i class="fas fa-hotel"></i> HOTELS
+            </a>
+            <a href="category/trains.html" data-icon="train.svg">
+                <i class="fas fa-train"></i> TRAINS
+            </a>
+            <a href="category/events.html" data-icon="event.svg">
+                <i class="fas fa-calendar-alt"></i> EVENTS
+            </a>
+        </div>
+        <button id="login-btn" onclick="showPopup()">LOGIN / SIGNUP</button>
+        
+        <button id="theme-switch">
+            <svg height="24px" viewBox="0 -960 960 960" width="24px" fill="#e8eaed">
+                <path d="M480-120q-150 0-255-105T120-480q0-150 105-255t255-105q14 0 27.5 1t26.5 3q-41 29-65.5 75.5T444-660q0 90 63 153t153 63q55 0 101-24.5t75-65.5q2 13 3 26.5t1 27.5q0 150-105 255T480-120Z" />
+            </svg>
+            <svg height="24px" viewBox="0 -960 960 960" width="24px" fill="#e8eaed">
+                <path d="M480-280q-83 0-141.5-58.5T280-480q0-83 58.5-141.5T480-680q83 0 141.5 58.5T680-480q0 83-58.5 141.5T480-280ZM200-440H40v-80h160v80Zm720 0H760v-80h160v80ZM440-760v-160h80v160h-80Zm0 720v-160h80v160h-80ZM256-650l-101-97 57-59 96 100-52 56Zm492 496-97-101 53-55 101 97-57 59Zm-98-550 97-101 59 57-100 96-56-52ZM154-212l101-97 55 53-97 101-59-57Z" />
+            </svg>
+        </button>
+    </nav>
+
+    <div class="support-container">
+        <!-- Header Section -->
+        <div class="support-header">
+            <h1>Support Center</h1>
+            <p>Get help with your Ticketease experience</p>
+        </div>
+
+        <!-- Quick Actions -->
+        <div class="quick-actions">
+            <div class="action-card" onclick="scrollToSection('faq')">
+                <i class="fas fa-question-circle"></i>
+                <h3>FAQ</h3>
+                <p>Find answers to common questions</p>
+            </div>
+            <div class="action-card" onclick="scrollToSection('contact')">
+                <i class="fas fa-envelope"></i>
+                <h3>Contact Us</h3>
+                <p>Get in touch with our support team</p>
+            </div>
+            <div class="action-card" onclick="scrollToSection('guides')">
+                <i class="fas fa-book"></i>
+                <h3>User Guides</h3>
+                <p>Learn how to use Ticketease</p>
+            </div>
+            <div class="action-card" onclick="scrollToSection('status')">
+                <i class="fas fa-server"></i>
+                <h3>Service Status</h3>
+                <p>Check our current service status</p>
+            </div>
+        </div>
+
+        <!-- Search Bar -->
+        <div class="search-section">
+            <div class="search-bar">
+                <i class="fas fa-search"></i>
+                <input type="text" id="support-search" placeholder="Search for help articles, guides, or FAQs..." onkeyup="searchSupport()">
+            </div>
+        </div>
+
+        <!-- FAQ Section -->
+        <section id="faq" class="support-section">
+            <h2>Frequently Asked Questions</h2>
+            <div class="faq-container">
+                <div class="faq-category">
+                    <h3><i class="fas fa-plane"></i> Booking & Reservations</h3>
+                    <div class="faq-item">
+                        <div class="faq-question" onclick="toggleFAQ(this)">
+                            <span>How do I book a flight ticket?</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p>To book a flight ticket:</p>
+                            <ol>
+                                <li>Go to the Flights section</li>
+                                <li>Enter your departure and destination cities</li>
+                                <li>Select your travel dates and passenger count</li>
+                                <li>Click "Search" to view available flights</li>
+                                <li>Choose your preferred flight and click "Book"</li>
+                                <li>Complete the payment process</li>
+                            </ol>
+                        </div>
+                    </div>
+                    <div class="faq-item">
+                        <div class="faq-question" onclick="toggleFAQ(this)">
+                            <span>Can I cancel or modify my booking?</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p>Yes, you can cancel or modify your booking depending on the fare rules:</p>
+                            <ul>
+                                <li>Log in to your account and go to "My Bookings"</li>
+                                <li>Select the booking you want to modify</li>
+                                <li>Choose "Cancel" or "Modify" option</li>
+                                <li>Cancellation charges may apply based on the fare type</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="faq-item">
+                        <div class="faq-question" onclick="toggleFAQ(this)">
+                            <span>How do I get my ticket after booking?</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p>After successful payment, your digital ticket will be:</p>
+                            <ul>
+                                <li>Sent to your registered email address</li>
+                                <li>Available in your dashboard under "My Tickets"</li>
+                                <li>Accessible via QR code for easy check-in</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="faq-category">
+                    <h3><i class="fas fa-credit-card"></i> Payment & Refunds</h3>
+                    <div class="faq-item">
+                        <div class="faq-question" onclick="toggleFAQ(this)">
+                            <span>What payment methods do you accept?</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p>We accept the following payment methods:</p>
+                            <ul>
+                                <li>Credit Cards (Visa, MasterCard, American Express)</li>
+                                <li>Debit Cards</li>
+                                <li>Net Banking</li>
+                                <li>UPI (Google Pay, PhonePe, Paytm)</li>
+                                <li>Digital Wallets</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="faq-item">
+                        <div class="faq-question" onclick="toggleFAQ(this)">
+                            <span>How long does it take to process refunds?</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p>Refund processing times vary by payment method:</p>
+                            <ul>
+                                <li>Credit/Debit Cards: 5-7 business days</li>
+                                <li>Net Banking: 3-5 business days</li>
+                                <li>UPI/Wallets: 1-3 business days</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="faq-category">
+                    <h3><i class="fas fa-qrcode"></i> QR Code & Check-in</h3>
+                    <div class="faq-item">
+                        <div class="faq-question" onclick="toggleFAQ(this)">
+                            <span>How do I use the QR code for check-in?</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p>Using your QR code is simple:</p>
+                            <ol>
+                                <li>Open your digital ticket from email or dashboard</li>
+                                <li>Present the QR code at the venue/airport</li>
+                                <li>Staff will scan the code for verification</li>
+                                <li>Your attendance will be logged automatically</li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- User Guides Section -->
+        <section id="guides" class="support-section">
+            <h2>User Guides</h2>
+            <div class="guides-grid">
+                <div class="guide-card">
+                    <i class="fas fa-play-circle"></i>
+                    <h3>Getting Started</h3>
+                    <p>Learn the basics of using Ticketease for your first booking</p>
+                    <button class="guide-btn">View Guide</button>
+                </div>
+                <div class="guide-card">
+                    <i class="fas fa-mobile-alt"></i>
+                    <h3>Mobile Experience</h3>
+                    <p>Tips for using Ticketease on your mobile device</p>
+                    <button class="guide-btn">View Guide</button>
+                </div>
+                <div class="guide-card">
+                    <i class="fas fa-shield-alt"></i>
+                    <h3>Account Security</h3>
+                    <p>Keep your account safe with these security best practices</p>
+                    <button class="guide-btn">View Guide</button>
+                </div>
+                <div class="guide-card">
+                    <i class="fas fa-ticket-alt"></i>
+                    <h3>Managing Bookings</h3>
+                    <p>How to view, modify, and cancel your reservations</p>
+                    <button class="guide-btn">View Guide</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact" class="support-section">
+            <h2>Contact Support</h2>
+            <div class="contact-grid">
+                <div class="contact-method">
+                    <i class="fas fa-envelope"></i>
+                    <h3>Email Support</h3>
+                    <p>Get detailed help via email</p>
+                    <a href="mailto:support@ticketease.com" class="contact-btn">support@ticketease.com</a>
+                    <span class="response-time">Response within 24 hours</span>
+                </div>
+                <div class="contact-method">
+                    <i class="fas fa-phone"></i>
+                    <h3>Phone Support</h3>
+                    <p>Speak directly with our team</p>
+                    <a href="tel:+911234567890" class="contact-btn">+91 123 456 7890</a>
+                    <span class="response-time">Mon-Fri, 9 AM - 6 PM IST</span>
+                </div>
+                <div class="contact-method">
+                    <i class="fas fa-comments"></i>
+                    <h3>Live Chat</h3>
+                    <p>Instant help when you need it</p>
+                    <button class="contact-btn" onclick="openLiveChat()">Start Chat</button>
+                    <span class="response-time">Available 24/7</span>
+                </div>
+            </div>
+
+            <!-- Contact Form -->
+            <div class="contact-form-section">
+                <h3>Send us a Message</h3>
+                <form class="contact-form" onsubmit="submitContactForm(event)">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="contact-name">Name *</label>
+                            <input type="text" id="contact-name" name="name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="contact-email">Email *</label>
+                            <input type="email" id="contact-email" name="email" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="contact-subject">Subject *</label>
+                        <select id="contact-subject" name="subject" required>
+                            <option value="">Select a topic</option>
+                            <option value="booking">Booking Issues</option>
+                            <option value="payment">Payment Problems</option>
+                            <option value="refund">Refund Request</option>
+                            <option value="technical">Technical Support</option>
+                            <option value="feedback">Feedback</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="contact-message">Message *</label>
+                        <textarea id="contact-message" name="message" rows="5" placeholder="Please describe your issue or question in detail..." required></textarea>
+                    </div>
+                    <button type="submit" class="submit-btn">Send Message</button>
+                </form>
+            </div>
+        </section>
+
+        <!-- Service Status Section -->
+        <section id="status" class="support-section">
+            <h2>Service Status</h2>
+            <div class="status-grid">
+                <div class="status-item operational">
+                    <div class="status-indicator"></div>
+                    <div class="status-info">
+                        <h3>Booking System</h3>
+                        <span class="status-text">Operational</span>
+                    </div>
+                </div>
+                <div class="status-item operational">
+                    <div class="status-indicator"></div>
+                    <div class="status-info">
+                        <h3>Payment Gateway</h3>
+                        <span class="status-text">Operational</span>
+                    </div>
+                </div>
+                <div class="status-item operational">
+                    <div class="status-indicator"></div>
+                    <div class="status-info">
+                        <h3>QR Code System</h3>
+                        <span class="status-text">Operational</span>
+                    </div>
+                </div>
+                <div class="status-item operational">
+                    <div class="status-indicator"></div>
+                    <div class="status-info">
+                        <h3>Email Notifications</h3>
+                        <span class="status-text">Operational</span>
+                    </div>
+                </div>
+            </div>
+            <p class="status-note">All systems are currently running smoothly. Last updated: <span id="status-time"></span></p>
+        </section>
+    </div>
+
+    <!-- Alert -->
+    <div id="customAlert" class="alert"><span id="alertMessage">alert</span></div>
+
+    <script src="js/navbar.js"></script>
+    <script type="module" src="js/login-signup.js"></script>
+    <script>
+        // FAQ Toggle
+        function toggleFAQ(element) {
+            const answer = element.nextElementSibling;
+            const icon = element.querySelector('i');
+            
+            if (answer.style.display === 'block') {
+                answer.style.display = 'none';
+                icon.style.transform = 'rotate(0deg)';
+                element.classList.remove('active');
+            } else {
+                answer.style.display = 'block';
+                icon.style.transform = 'rotate(180deg)';
+                element.classList.add('active');
+            }
+        }
+
+        // Smooth scroll to section
+        function scrollToSection(sectionId) {
+            document.getElementById(sectionId).scrollIntoView({
+                behavior: 'smooth'
+            });
+        }
+
+        // Search functionality
+        function searchSupport() {
+            const searchTerm = document.getElementById('support-search').value.toLowerCase();
+            const faqItems = document.querySelectorAll('.faq-item');
+            const guideCards = document.querySelectorAll('.guide-card');
+            
+            // Search FAQ items
+            faqItems.forEach(item => {
+                const question = item.querySelector('.faq-question span').textContent.toLowerCase();
+                const answer = item.querySelector('.faq-answer').textContent.toLowerCase();
+                
+                if (question.includes(searchTerm) || answer.includes(searchTerm)) {
+                    item.style.display = 'block';
+                } else {
+                    item.style.display = searchTerm === '' ? 'block' : 'none';
+                }
+            });
+
+            // Search guide cards
+            guideCards.forEach(card => {
+                const title = card.querySelector('h3').textContent.toLowerCase();
+                const description = card.querySelector('p').textContent.toLowerCase();
+                
+                if (title.includes(searchTerm) || description.includes(searchTerm)) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = searchTerm === '' ? 'block' : 'none';
+                }
+            });
+        }
+
+        // Contact form submission
+        function submitContactForm(event) {
+            event.preventDefault();
+            
+            const formData = new FormData(event.target);
+            const data = Object.fromEntries(formData);
+            
+            // Simulate form submission
+            showAlert('Thank you for your message! We\'ll get back to you within 24 hours.', 'success');
+            event.target.reset();
+        }
+
+        // Live chat (placeholder)
+        function openLiveChat() {
+            showAlert('Live chat will be available soon! Please use email or phone support for now.', 'info');
+        }
+
+        // Update status timestamp
+        function updateStatusTime() {
+            const now = new Date();
+            document.getElementById('status-time').textContent = now.toLocaleString();
+        }
+
+        // Custom alert function
+        function showAlert(message, type = 'info') {
+            const alertBox = document.getElementById('customAlert');
+            const alertMessage = document.getElementById('alertMessage');
+            
+            alertMessage.textContent = message;
+            alertBox.className = `alert show ${type}`;
+            
+            setTimeout(() => {
+                alertBox.classList.remove('show');
+            }, 5000);
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            updateStatusTime();
+            setInterval(updateStatusTime, 60000); // Update every minute
+        });
+    </script>
+</body>
+</html>

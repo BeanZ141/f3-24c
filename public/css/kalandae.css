@@ -3,7 +3,7 @@
     display: inline-block;
     background: var(--calendar-bg);
     padding: 1rem;
-    font-size: 1.2rem;
+    font-size: 0.7rem;
     font-family: 'Inter', sans-serif;
     cursor: default;
     position: absolute;
@@ -176,6 +176,7 @@
 .kalendae .k-days span {
     text-align: center;
     width: 3rem;
+    align-content: center;
     height: 3rem;
     padding: 0.7rem;
 }
@@ -193,7 +194,7 @@
     color: var(--color-fg);
 }
 /** Days outside of the month view (before the first day of the month, after the last day of the month) **/
-.kalendae .k-days span.k-out-of-month {color:#6e6e6e; font-size: 0.8em; padding: 0.9375rem;}
+.kalendae .k-days span.k-out-of-month {color:#6e6e6e; font-size: 0.8em;}
 
 /** Selectable  **/
 .kalendae .k-days span.k-active {

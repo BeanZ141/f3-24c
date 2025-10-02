@@ -85,7 +85,7 @@
             </label>
             <label class="filter-checkbox-label">
                 <input class="filter-checkbox airline-filter" type="checkbox" value="IndiGO">
-                <span>Free Cancellation</span>
+                <span>Free Cancels</span>
                 <span>(07)</span>
             </label>
         </div>
@@ -232,7 +232,7 @@
             offer: card.querySelector('.hotel-offer').textContent
         };
         localStorage.setItem('selectedHotel', JSON.stringify(hotelDetails));
-        window.location.href = 'category/hotel-booking.html';
+        window.location.href = 'hotel-booking.html';
     }
 
     async function applyHotelFilters() {

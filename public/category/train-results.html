@@ -268,7 +268,7 @@
             };
 
             localStorage.setItem('selectedTrain', JSON.stringify(trainDetails));
-            window.location.href = '../book-ticket.html';
+            window.location.href = './train-booking.html';
         }
 
         function showDetails(card) {
@@ -330,7 +330,6 @@
                         <span class="details-label">Cost :</span>
                         <span class="details-value">${trainCost}</span>
                     </div>
-                    <button class="book-btn" style="padding:0.5rem 0.8rem;top:85%;right:10%;position:absolute;" onclick="window.location.href='../book-ticket.html';">BOOK</button>
                 </div>
             `;
 

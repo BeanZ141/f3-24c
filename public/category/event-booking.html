@@ -122,6 +122,8 @@
         </div>
     </main>
 
+    <!-- Razorpay SDK -->
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
     <script src="/public/js/navbar.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function () {
@@ -204,11 +206,172 @@
 			});
             updateTotals();
 
-            bookBtn.addEventListener('click', function () {window.location.href = '/public/category/booking-success.html';});
+            bookBtn.addEventListener('click', function () {
+                if (bookBtn.disabled) return;
+                initiatePayment();
+            });
 
             cancelBtn.addEventListener('click', function () {
                 window.location.href = '/public/category/events.html';
             });
+
+            // Razorpay Payment Integration
+            window.initiatePayment = function() {
+                const qty = parseInt(qtyEl.value || '1', 10);
+                const totalAmount = perTicketPrice * qty;
+
+                if (totalAmount === 0) {
+                    // Free event - no payment needed
+                    handleFreeEventBooking();
+                    return;
+                }
+
+                const options = {
+                    key: 'rzp_test_RARdpJpmGuxtwo', // Replace with your Razorpay Test Key ID
+                    amount: totalAmount * 100, // Amount in paise (multiply by 100)
+                    currency: 'INR',
+                    name: 'Ticketease',
+                    description: `Event Booking: ${eventData.name}`,
+                    image: '/public/images/favicon.png', // Your logo
+                    order_id: '', // Optional: Generate order_id from backend
+                    handler: function (response) {
+                        // Payment successful
+                        console.log('Payment successful:', response);
+                        handlePaymentSuccess(response, qty, totalAmount);
+                    },
+                    prefill: {
+                        name: 'Customer Name', // You can get this from user session
+                        email: 'customer@example.com',
+                        contact: '9999999999'
+                    },
+                    notes: {
+                        event_name: eventData.name,
+                        event_date: eventData.date,
+                        event_location: eventData.location,
+                        ticket_quantity: qty,
+                        price_per_ticket: perTicketPrice,
+                        booking_date: new Date().toISOString()
+                    },
+                    theme: {
+                        color: '#000000' // Your brand color
+                    },
+                    modal: {
+                        ondismiss: function () {
+                            console.log('Payment modal closed');
+                            showAlert('Payment cancelled', 'error');
+                        }
+                    }
+                };
+
+                const rzp = new Razorpay(options);
+
+                rzp.on('payment.failed', function (response) {
+                    console.log('Payment failed:', response.error);
+                    handlePaymentFailure(response.error, qty, totalAmount);
+                });
+
+                rzp.open();
+            };
+
+            function handleFreeEventBooking() {
+                const qty = parseInt(qtyEl.value || '1', 10);
+                
+                // Store booking details for free events
+                const bookingData = {
+                    event_details: eventData,
+                    ticket_quantity: qty,
+                    total_amount: 0,
+                    booking_date: new Date().toISOString(),
+                    status: 'confirmed',
+                    type: 'event',
+                    payment_required: false
+                };
+
+                localStorage.setItem('bookingData', JSON.stringify(bookingData));
+                showAlert('Free event booked successfully! Redirecting...', 'success');
+
+                // Redirect to success page after 2 seconds
+                setTimeout(() => {
+                    window.location.href = '/public/payment-status.html?status=success&type=event&free=true';
+                }, 2000);
+            }
+
+            function handlePaymentSuccess(response, qty, totalAmount) {
+                // Store payment details
+                const paymentData = {
+                    razorpay_payment_id: response.razorpay_payment_id,
+                    razorpay_order_id: response.razorpay_order_id,
+                    razorpay_signature: response.razorpay_signature,
+                    amount: totalAmount,
+                    event_details: eventData,
+                    ticket_quantity: qty,
+                    booking_date: new Date().toISOString(),
+                    status: 'success',
+                    type: 'event'
+                };
+
+                localStorage.setItem('paymentData', JSON.stringify(paymentData));
+
+                // Show success message
+                showAlert('Payment successful! Redirecting to confirmation...', 'success');
+
+                // Redirect to success page after 2 seconds
+                setTimeout(() => {
+                    window.location.href = '/public/payment-status.html?status=success&type=event';
+                }, 2000);
+            }
+
+            function handlePaymentFailure(error, qty, totalAmount) {
+                console.error('Payment failed:', error);
+
+                const errorData = {
+                    error_code: error.code,
+                    error_description: error.description,
+                    error_source: error.source,
+                    error_step: error.step,
+                    error_reason: error.reason,
+                    amount: totalAmount,
+                    event_details: eventData,
+                    ticket_quantity: qty,
+                    booking_date: new Date().toISOString(),
+                    status: 'failed',
+                    type: 'event'
+                };
+
+                localStorage.setItem('paymentError', JSON.stringify(errorData));
+
+                showAlert(`Payment failed: ${error.description}`, 'error');
+
+                // Optionally redirect to failure page
+                setTimeout(() => {
+                    window.location.href = '/public/payment-status.html?status=failed&type=event';
+                }, 3000);
+            }
+
+            // Custom alert function
+            function showAlert(message, type = 'info') {
+                const alertBox = document.createElement('div');
+                alertBox.className = `alert show ${type}`;
+                alertBox.innerHTML = `<span>${message}</span>`;
+                alertBox.style.cssText = `
+                    position: fixed;
+                    top: 20px;
+                    right: 20px;
+                    padding: 15px 25px;
+                    background-color: ${type === 'success' ? '#4CAF50' : type === 'error' ? '#f44336' : '#2196F3'};
+                    color: white;
+                    border-radius: 4px;
+                    z-index: 10000;
+                    font-family: 'Space Mono', monospace;
+                    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+                `;
+
+                document.body.appendChild(alertBox);
+
+                setTimeout(() => {
+                    alertBox.remove();
+                }, 5000);
+            }
         });
     </script>
 </body>

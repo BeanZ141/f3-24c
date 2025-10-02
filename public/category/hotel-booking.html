@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <script src="../js/theme.js"></script>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap"
+        rel="stylesheet" />
+    <title>Hotel Booking Summary</title>
+    <link rel="stylesheet" href="../category/css/flight-booking.css">
+    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="stylesheet" href="../css/themes.css">
+    <link rel="stylesheet" href="../css/navbar.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+
+<body>
+    <nav style="z-index: 1; background-color: transparent;backdrop-filter: blur(4px);">
+        <a href="../index.html" style="margin-left: 8px;">TICKETEASE</a>
+        <div id="user-info" style="display: none;">
+            <span id="username-display"></span>
+            <div class="dropdown">
+                <button class="dropdown-btn" onclick="toggleDropdown()">▼</button>
+                <div class="dropdown-content" id="dropdown-menu">
+                    <a href="dashboard.html">Dashboard</a>
+                    <a href="scanner/scanner-info.html">Scan Tickets</a>
+                    <a href="#" onclick="logout()">Logout</a>
+                </div>
+            </div>
+        </div>
+
+        <!--Service section-->
+        <div class="service-nav">
+            <a href="../category/flights.html" data-icon="flight.svg">
+                <i class="fas fa-plane"></i> FLIGHTS
+            </a>
+            <a class="active" href="../category/hotels.html" data-icon="hotel.svg">
+                <i class="fas fa-hotel"></i> HOTELS
+            </a>
+            <a href="../category/trains.html" data-icon="train.svg">
+                <i class="fas fa-train"></i> TRAINS
+            </a>
+            <a href="../category/events.html" data-icon="event.svg">
+                <i class="fas fa-calendar-alt"></i> EVENTS
+            </a>
+        </div>
+        <button id="login-btn" onclick="showPopup()" style="right: 1%">LOGIN / SIGNUP</button>
+
+        <button id="theme-switch">
+            <svg height="24px" viewBox="0 -960 960 960" width="24px" fill="#e8eaed">
+                <path
+                    d="M480-120q-150 0-255-105T120-480q0-150 105-255t255-105q14 0 27.5 1t26.5 3q-41 29-65.5 75.5T444-660q0 90 63 153t153 63q55 0 101-24.5t75-65.5q2 13 3 26.5t1 27.5q0 150-105 255T480-120Z" />
+            </svg>
+            <svg height="24px" viewBox="0 -960 960 960" width="24px" fill="#e8eaed">
+                <path
+                    d="M480-280q-83 0-141.5-58.5T280-480q0-83 58.5-141.5T480-680q83 0 141.5 58.5T680-480q0 83-58.5 141.5T480-280ZM200-440H40v-80h160v80Zm720 0H760v-80h160v80ZM440-760v-160h80v160h-80Zm0 720v-160h80v160h-80ZM256-650l-101-97 57-59 96 100-52 56Zm492 496-97-101 53-55 101 97-57 59Zm-98-550 97-101 59 57-100 96-56-52ZM154-212l101-97 55 53-97 101-59-57Z" />
+            </svg>
+        </button>
+    </nav>
+
+    <div class="page-container">
+        <!-- Top Section -->
+        <div class="top-section">
+            <!-- Fare Summary -->
+            <div class="fare-summary">
+                <h2>Booking Summary</h2>
+                <div class="traveller-info">
+                    <div>1 Room • 2 Guests</div>
+                    <span class="partial-refund">Free Cancellation</span>
+                </div>
+                <div class="fare-item">
+                    <div>Room Charges</div>
+                    <span>× × × ×</span>
+                </div>
+                <div class="fare-item">
+                    <div>Taxes & Fees</div>
+                    <span>× × × ×</span>
+                </div>
+                <div class="fare-item">
+                    <div>Service Charge</div>
+                    <span>× × × ×</span>
+                </div>
+                <div class="fare-total">
+                    <div>Total Amount</div>
+                    <div>× × × ×</div>
+                </div>
+            </div>
+
+            <!-- Flight Details -->
+            <div class="flight-details">
+                <h2>Hotel Name</h2>
+                <div class="flight-meta">
+                    <div class="rating" style="margin-bottom: 8px;">
+                        <i class="fas fa-star" style="color: #FFD700;"></i>
+                        <i class="fas fa-star" style="color: #FFD700;"></i>
+                        <i class="fas fa-star" style="color: #FFD700;"></i>
+                        <i class="fas fa-star" style="color: #FFD700;"></i>
+                        <i class="far fa-star" style="color: #FFD700;"></i>
+                        <span style="margin-left: 8px;">4.2 (1,234 reviews)</span>
+                    </div>
+                    <div class="location">
+                        <i class="fas fa-map-marker-alt" style="color: var(--color-primary); margin-right: 5px;"></i>
+                        Hotel Location, City
+                    </div>
+                </div>
+
+                <!-- Timing Boxes -->
+                <div class="flight-timing">
+                    <div class="time-box">
+                        <h3>Check-in</h3>
+                        <p>Mar 15, 2025</p>
+                    </div>
+                    <div class="time-box">
+                        <h3>2 Nights</h3>
+                        <p>3 Days</p>
+                    </div>
+                    <div class="time-box">
+                        <h3>Check-out</h3>
+                        <p>Mar 17, 2025</p>
+                    </div>
+                </div>
+
+                <div class="baggage-info">
+                    <strong>Room Type:</strong> Deluxe Room<br />
+                    <strong>Amenities:</strong> WiFi, AC, TV, Room Service
+                </div>
+            </div>
+        </div>
+
+        <!-- Refund Section -->
+        <div class="refund-section">
+            <h2>Cancellation Policy</h2>
+            <div class="flight-meta">Free Cancellation until 24 hours before check-in</div>
+            <div class="refund-timeline">
+                <div class="now">Now</div>
+                <div>Mar 13<br /><strong>Full Refund</strong></div>
+                <div>Mar 14<br /><strong>₹500 fee</strong></div>
+                <div>Mar 15<br /><span class="non-refund">Non-Refundable</span></div>
+                <div>Check-in</div>
+            </div>
+        </div>
+
+        <span class="line" style="bottom: 113px !important"></span>
+
+        <!-- Bottom Bar (Price & Lock & Continue) -->
+        <div class="bottom-bar">
+            <div class="final-price">₹ × × × ×</div>
+            <div class="lock-price">Per night: ₹ × × × ×</div>
+            <button onclick="initiatePayment()" id="continue-btn">Book Now &rsaquo;</button>
+        </div>
+    </div>
+
+    <!-- Razorpay SDK -->
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+    <script src="../js/navbar.js"></script>
+    <script>
+        let hotelDetails = null;
+        let totalAmount = 0;
+
+        document.addEventListener('DOMContentLoaded', function () {
+            hotelDetails = JSON.parse(localStorage.getItem('selectedHotel'));
+            console.log('Retrieved hotel details:', hotelDetails);
+
+            if (hotelDetails) {
+                updateHotelDisplay();
+            } else {
+                console.error('No hotel details found in localStorage');
+                showAlert('No hotel selected. Using sample data for testing.', 'info');
+
+                // Use sample data for testing
+                hotelDetails = {
+                    name: 'Hotel Ananya Palace',
+                    location: 'Jaipur',
+                    rating: 9.2,
+                    reviews: 378,
+                    price: 1499,
+                    offer: '+ ₹277 taxes & fees per night',
+                    features: 'Free Wi-Fi;Room Service;Breakfast Included',
+                    checkIn: 'Mar 15, 2025',
+                    checkOut: 'Mar 17, 2025',
+                    nights: 2,
+                    guests: 2,
+                    rooms: 1
+                };
+
+                // Update display with sample data
+                updateHotelDisplay();
+            }
+        });
+
+        function updateHotelDisplay() {
+            if (!hotelDetails) return;
+
+            console.log('Updating hotel display with:', hotelDetails);
+
+            // Update hotel details display
+            document.querySelector('.flight-details h2').textContent = hotelDetails.name || 'Hotel Name';
+
+            // Update rating
+            const ratingContainer = document.querySelector('.rating');
+            const stars = ratingContainer.querySelectorAll('i');
+            const rating = hotelDetails.rating || 4.2;
+            stars.forEach((star, index) => {
+                if (index < Math.floor(rating)) {
+                    star.className = 'fas fa-star';
+                } else if (index < rating) {
+                    star.className = 'fas fa-star-half-alt';
+                } else {
+                    star.className = 'far fa-star';
+                }
+            });
+            ratingContainer.querySelector('span').textContent = `${rating} (${hotelDetails.reviews || 0} reviews)`;
+
+            // Update location
+            document.querySelector('.location').innerHTML = `<i class="fas fa-map-marker-alt" style="color: var(--color-primary); margin-right: 5px;"></i> ${hotelDetails.location || 'Location'}`;
+
+            // Update timing boxes (check-in, duration, check-out)
+            document.querySelector('.time-box:nth-child(1) h3').textContent = 'Check-in';
+            document.querySelector('.time-box:nth-child(1) p').textContent = hotelDetails.checkIn || 'Check-in Date';
+            document.querySelector('.time-box:nth-child(2) h3').textContent = `${hotelDetails.nights || 1} Nights`;
+            document.querySelector('.time-box:nth-child(2) p').textContent = `${(hotelDetails.nights || 1) + 1} Days`;
+            document.querySelector('.time-box:nth-child(3) h3').textContent = 'Check-out';
+            document.querySelector('.time-box:nth-child(3) p').textContent = hotelDetails.checkOut || 'Check-out Date';
+
+            // Update room info (using baggage-info class)
+            const features = (hotelDetails.features || 'Basic amenities').split(';').join(', ');
+            document.querySelector('.baggage-info').innerHTML =
+                `<strong>Room Type:</strong> Standard Room<br />
+                 <strong>Amenities:</strong> ${features}`;
+
+            // Update guest info (using traveller-info class)
+            document.querySelector('.traveller-info div').textContent =
+                `${hotelDetails.rooms || 1} Room • ${hotelDetails.guests || 2} Guests`;
+
+            // Calculate and display pricing
+            const basePrice = hotelDetails.price || 1499;
+            const roomCharges = basePrice * (hotelDetails.nights || 1);
+            // Extract taxes from offer string (e.g., "+ ₹277 taxes & fees per night")
+            const taxMatch = (hotelDetails.offer || '').match(/₹(\d+)/);
+            const taxesPerNight = taxMatch ? parseInt(taxMatch[1]) : Math.round(basePrice * 0.18);
+            const taxes = taxesPerNight * (hotelDetails.nights || 1);
+            const serviceCharge = Math.round(roomCharges * 0.02); // 2% service charge
+            totalAmount = roomCharges + taxes + serviceCharge;
+
+            console.log('Pricing calculation:', { roomCharges, taxes, serviceCharge, totalAmount });
+
+            // Update fare breakdown - using more specific selectors
+            const fareItems = document.querySelectorAll('.fare-item span');
+            console.log('Found fare items:', fareItems.length);
+            if (fareItems.length >= 3) {
+                fareItems[0].textContent = `₹${roomCharges}`;  // Room Charges
+                fareItems[1].textContent = `₹${taxes}`;       // Taxes & Fees
+                fareItems[2].textContent = `₹${serviceCharge}`; // Service Charge
+                console.log('Updated fare items:', {
+                    roomCharges: fareItems[0].textContent,
+                    taxes: fareItems[1].textContent,
+                    serviceCharge: fareItems[2].textContent
+                });
+            } else {
+                console.error('Could not find fare item spans');
+            }
+
+            document.querySelector('.fare-total div:nth-child(2)').textContent = `₹${totalAmount}`;
+            document.querySelector('.final-price').textContent = `₹${totalAmount}`;
+            document.querySelector('.lock-price').textContent = `Per night: ₹${hotelDetails.price || 1499}`;
+            document.querySelector('.refund-section .flight-meta').textContent = 'Free Cancellation until 24 hours before check-in';
+        }
+
+        // Razorpay Payment Integration
+        function initiatePayment() {
+            if (!hotelDetails) {
+                alert('Hotel details not found. Please go back and select a hotel.');
+                return;
+            }
+
+            const options = {
+                key: 'rzp_test_RARdpJpmGuxtwo', // Replace with your Razorpay Test Key ID
+                amount: totalAmount * 100, // Amount in paise (multiply by 100)
+                currency: 'INR',
+                name: 'Ticketease',
+                description: `Hotel Booking: ${hotelDetails.name} - ${hotelDetails.location}`,
+                image: '../images/favicon.png', // Your logo
+                order_id: '', // Optional: Generate order_id from backend
+                handler: function (response) {
+                    // Payment successful
+                    console.log('Payment successful:', response);
+                    handlePaymentSuccess(response);
+                },
+                prefill: {
+                    name: 'Customer Name', // You can get this from user session
+                    email: 'customer@example.com',
+                    contact: '9999999999'
+                },
+                notes: {
+                    hotel_name: hotelDetails.name,
+                    location: hotelDetails.location,
+                    check_in: hotelDetails.checkIn,
+                    check_out: hotelDetails.checkOut,
+                    nights: hotelDetails.nights,
+                    booking_date: new Date().toISOString()
+                },
+                theme: {
+                    color: '#000000' // Your brand color
+                },
+                modal: {
+                    ondismiss: function () {
+                        console.log('Payment modal closed');
+                        showAlert('Payment cancelled', 'error');
+                    }
+                }
+            };
+
+            const rzp = new Razorpay(options);
+
+            rzp.on('payment.failed', function (response) {
+                console.log('Payment failed:', response.error);
+                handlePaymentFailure(response.error);
+            });
+
+            rzp.open();
+        }
+
+        function handlePaymentSuccess(response) {
+            // Store payment details
+            const paymentData = {
+                razorpay_payment_id: response.razorpay_payment_id,
+                razorpay_order_id: response.razorpay_order_id,
+                razorpay_signature: response.razorpay_signature,
+                amount: totalAmount,
+                hotel_details: hotelDetails,
+                booking_date: new Date().toISOString(),
+                status: 'success',
+                type: 'hotel'
+            };
+
+            localStorage.setItem('paymentData', JSON.stringify(paymentData));
+
+            // Show success message
+            showAlert('Payment successful! Redirecting to confirmation...', 'success');
+
+            // Redirect to success page after 2 seconds
+            setTimeout(() => {
+                window.location.href = '../payment-status.html?status=success&type=hotel';
+            }, 2000);
+        }
+
+        function handlePaymentFailure(error) {
+            console.error('Payment failed:', error);
+
+            const errorData = {
+                error_code: error.code,
+                error_description: error.description,
+                error_source: error.source,
+                error_step: error.step,
+                error_reason: error.reason,
+                amount: totalAmount,
+                hotel_details: hotelDetails,
+                booking_date: new Date().toISOString(),
+                status: 'failed',
+                type: 'hotel'
+            };
+
+            localStorage.setItem('paymentError', JSON.stringify(errorData));
+
+            showAlert(`Payment failed: ${error.description}`, 'error');
+
+            // Optionally redirect to failure page
+            setTimeout(() => {
+                window.location.href = '../payment-status.html?status=failed&type=hotel';
+            }, 3000);
+        }
+
+        // Custom alert function
+        function showAlert(message, type = 'info') {
+            const alertBox = document.createElement('div');
+            alertBox.className = `alert show ${type}`;
+            alertBox.innerHTML = `<span>${message}</span>`;
+            alertBox.style.cssText = `
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                padding: 15px 25px;
+                background-color: ${type === 'success' ? '#4CAF50' : type === 'error' ? '#f44336' : '#2196F3'};
+                color: white;
+                border-radius: 4px;
+                z-index: 10000;
+                font-family: 'Space Mono', monospace;
+                box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            `;
+
+            document.body.appendChild(alertBox);
+
+            setTimeout(() => {
+                alertBox.remove();
+            }, 5000);
+        }
+    </script>
+</body>
+
+</html>
