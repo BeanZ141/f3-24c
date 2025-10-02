@@ -8,7 +8,7 @@ This project provides a secure and streamlined way to register and verify event 
 ## Features
 - User Registration: Collects attendee information and securely stores it.
 - Email Verification: Sends QR codes and ticket IDs to registered users.
-- QR Code Generation: Creates QR codes for easy ticket scanning and verification.
+- QR Code Generation: Creates QR codes for easy ticket scanning and verification for event organizing.
 - Ticket Validation: Real-time ticket verification with Supabase.
 - Responsive UI: User-friendly and responsive interface.
 
