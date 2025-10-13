@@ -105,28 +105,30 @@
         </div>
     </div>
 
-    <!-- Sort By -->
-    <div class="sort-container">
-        <div class="sort-option active" onclick="sortTrains('reset')">
-            <span class="sort-title">Custom</span>
-            <span class="sort-subtitle">Initial search</span>
+    <div class="flight-card-center">
+        <!-- Sort By -->
+        <div class="sort-container">
+            <div class="sort-option active" onclick="sortTrains('reset')">
+                <span class="sort-title">Custom</span>
+                <span class="sort-subtitle">Initial search</span>
+            </div>
+            <div class="sort-option" onclick="sortTrains('price')">
+                <span class="sort-title">Price</span>
+                <span class="sort-subtitle">Low to High</span>
+            </div>
+            <div class="sort-option" onclick="sortTrains('duration')">
+                <span class="sort-title">Fastest</span>
+                <span class="sort-subtitle">Shortest First</span>
+            </div>
+            <div class="sort-option" onclick="sortTrains('departure')">
+                <span class="sort-title">Departure</span>
+                <span class="sort-subtitle">Earliest First</span>
+            </div>
         </div>
-        <div class="sort-option" onclick="sortTrains('price')">
-            <span class="sort-title">Price</span>
-            <span class="sort-subtitle">Low to High</span>
-        </div>
-        <div class="sort-option" onclick="sortTrains('duration')">
-            <span class="sort-title">Fastest</span>
-            <span class="sort-subtitle">Shortest First</span>
-        </div>
-        <div class="sort-option" onclick="sortTrains('departure')">
-            <span class="sort-title">Departure</span>
-            <span class="sort-subtitle">Earliest First</span>
-        </div>
-    </div>
 
-    <!-- Train Cards -->
-    <div class="flight-cards"></div>
+        <!-- Train Cards -->
+        <div class="flight-cards"></div>
+    </div>
 
     <!-- Details Section -->
     <div class="details-panel" id="details-panel">

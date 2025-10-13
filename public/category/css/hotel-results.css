@@ -1,8 +1,17 @@
+.hotel-card-center {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    margin: 0 auto;
+}
+
 .hotel-cards {
     display: flex;
     flex-direction: column;
-    width: 900px;
-    margin: 0px auto 0px 150px;
+    max-width: 900px;
+    width: 100%;
     user-select: none;
     animation: fade-card 1s forwards, fade-text 1s forwards;
 }
@@ -187,9 +196,10 @@
     border: 1px solid var(--radio-border);
     overflow: hidden;
     width: 100%;
-    max-width: 883px;
+    max-width: 900px;
+    margin: 0 auto;
+    margin-bottom: 0.5rem;
     user-select: none;
     animation: fade-card 1s forwards;
     font-size: 0.9em;
-    margin: 0px auto 0px 157px;
 }

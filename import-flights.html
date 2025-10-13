@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Import Flights Data</title>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+        }
+
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 15px 32px;
+            font-size: 16px;
+            border: none;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        #status {
+            margin-top: 20px;
+            padding: 15px;
+            border-radius: 4px;
+        }
+
+        .success {
+            background-color: #d4edda;
+            color: #155724;
+        }
+
+        .error {
+            background-color: #f8d7da;
+            color: #721c24;
+        }
+
+        .info {
+            background-color: #d1ecf1;
+            color: #0c5460;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Import Flights Data to Supabase</h1>
+    <p>This will import the flight data from flights.csv into your Supabase database.</p>
+    <button onclick="importFlights()">Import Flights Data</button>
+    <div id="status"></div>
+
+    <script src="public/js/database.js"></script>
+    <script>
+        const flightsData = [
+            { company: "Air India", flight_number: "AI 256034", boarding: "08:00", duration: "9h 00m", landing: "17:00", cost: "₹14995", offer: "Extra ₹310 off", boarding_airport: "PNQ", landing_airport: "DEL", stop: "1 Stop" },
+            { company: "AirAsia", flight_number: "I5 451218", boarding: "11:45", duration: "11h 00m", landing: "22:45", cost: "₹7963", offer: "Extra ₹310 off", boarding_airport: "DEL", landing_airport: "BOM", stop: "Non-Stop" },
+            { company: "Air India", flight_number: "AI 721956", boarding: "20:15", duration: "4h 45m", landing: "01:00", cost: "₹6021", offer: "Extra ₹310 off", boarding_airport: "BOM", landing_airport: "BLR", stop: "1 Stop" },
+            { company: "SpiceJet", flight_number: "SG 922731", boarding: "12:35", duration: "11h 00m", landing: "23:35", cost: "₹7597", offer: "Extra ₹310 off", boarding_airport: "BLR", landing_airport: "HYD", stop: "1 Stop" },
+            { company: "GoAir", flight_number: "G8 841257", boarding: "13:00", duration: "12h 15m", landing: "01:15", cost: "₹8235", offer: "Extra ₹210 off", boarding_airport: "HYD", landing_airport: "MAA", stop: "Non-Stop" },
+            { company: "Vistara", flight_number: "UK 321184", boarding: "08:00", duration: "7h 45m", landing: "15:40", cost: "₹3264", offer: "Extra ₹310 off", boarding_airport: "MAA", landing_airport: "CCU", stop: "1 Stop" },
+            { company: "GoAir", flight_number: "G8 219305", boarding: "05:30", duration: "6h 15m", landing: "11:45", cost: "₹11384", offer: "Extra ₹310 off", boarding_airport: "CCU", landing_airport: "GOI", stop: "1 Stop" },
+            { company: "SpiceJet", flight_number: "SG 650349", boarding: "04:30", duration: "1h 30m", landing: "05:25", cost: "₹5137", offer: "Extra ₹210 off", boarding_airport: "GOI", landing_airport: "JAI", stop: "Non-Stop" },
+            { company: "AirAsia", flight_number: "I5 175139", boarding: "20:30", duration: "9h 45m", landing: "06:10", cost: "₹4161", offer: "Extra ₹410 off", boarding_airport: "JAI", landing_airport: "AMD", stop: "1 Stop" },
+            { company: "Vistara", flight_number: "UK 475123", boarding: "06:30", duration: "2h 30m", landing: "09:20", cost: "₹7853", offer: "Extra ₹310 off", boarding_airport: "AMD", landing_airport: "PNQ", stop: "1 Stop" },
+            { company: "IndiGo", flight_number: "6E 621768", boarding: "06:40", duration: "5h 45m", landing: "12:25", cost: "₹7158", offer: "Extra ₹110 off", boarding_airport: "PNQ", landing_airport: "DEL", stop: "1 Stop" },
+            { company: "AirAsia", flight_number: "I5 918632", boarding: "15:30", duration: "2h 00m", landing: "17:30", cost: "₹11075", offer: "Extra ₹210 off", boarding_airport: "DEL", landing_airport: "BOM", stop: "Non-Stop" },
+            { company: "SpiceJet", flight_number: "SG 36917", boarding: "16:25", duration: "3h 30m", landing: "19:50", cost: "₹11889", offer: "Extra ₹310 off", boarding_airport: "BOM", landing_airport: "BLR", stop: "Non-Stop" },
+            { company: "AirAsia", flight_number: "I5 205416", boarding: "17:25", duration: "6h 45m", landing: "00:10", cost: "₹10198", offer: "Extra ₹110 off", boarding_airport: "BLR", landing_airport: "HYD", stop: "1 Stop" },
+            { company: "IndiGo", flight_number: "6E 75764", boarding: "13:50", duration: "1h 30m", landing: "15:20", cost: "₹6308", offer: "Extra ₹310 off", boarding_airport: "HYD", landing_airport: "MAA", stop: "1 Stop" },
+            { company: "GoAir", flight_number: "G8 310612", boarding: "14:45", duration: "2h 45m", landing: "17:30", cost: "₹7517", offer: "Extra ₹310 off", boarding_airport: "MAA", landing_airport: "CCU", stop: "Non-Stop" },
+            { company: "Vistara", flight_number: "UK 591731", boarding: "22:25", duration: "6h 30m", landing: "04:55", cost: "₹14405", offer: "Extra ₹310 off", boarding_airport: "CCU", landing_airport: "GOI", stop: "1 Stop" },
+            { company: "IndiGo", flight_number: "6E 815339", boarding: "09:45", duration: "6h 45m", landing: "16:25", cost: "₹8610", offer: "Extra ₹210 off", boarding_airport: "GOI", landing_airport: "JAI", stop: "Non-Stop" },
+            { company: "GoAir", flight_number: "G8 617642", boarding: "01:25", duration: "5h 00m", landing: "06:20", cost: "₹4276", offer: "Extra ₹110 off", boarding_airport: "JAI", landing_airport: "AMD", stop: "Non-Stop" },
+            { company: "GoAir", flight_number: "G8 193754", boarding: "00:45", duration: "3h 15m", landing: "04:00", cost: "₹9079", offer: "Extra ₹410 off", boarding_airport: "AMD", landing_airport: "PNQ", stop: "1 Stop" },
+            { company: "Air India", flight_number: "AI 543210", boarding: "07:15", duration: "8h 30m", landing: "15:45", cost: "₹12500", offer: "Extra ₹210 off", boarding_airport: "PNQ", landing_airport: "DEL", stop: "1 Stop" },
+            { company: "Vistara", flight_number: "UK 984321", boarding: "09:30", duration: "10h 00m", landing: "19:30", cost: "₹9782", offer: "Extra ₹310 off", boarding_airport: "DEL", landing_airport: "BOM", stop: "Non-Stop" },
+            { company: "IndiGo", flight_number: "6E 654789", boarding: "18:25", duration: "5h 15m", landing: "23:40", cost: "₹5896", offer: "Extra ₹110 off", boarding_airport: "BOM", landing_airport: "BLR", stop: "1 Stop" },
+            { company: "SpiceJet", flight_number: "SG 712365", boarding: "10:45", duration: "10h 30m", landing: "21:15", cost: "₹8290", offer: "Extra ₹210 off", boarding_airport: "BLR", landing_airport: "HYD", stop: "1 Stop" },
+            { company: "AirAsia", flight_number: "I5 357924", boarding: "05:00", duration: "11h 45m", landing: "16:45", cost: "₹7543", offer: "Extra ₹310 off", boarding_airport: "HYD", landing_airport: "MAA", stop: "Non-Stop" },
+            { company: "GoAir", flight_number: "G8 235781", boarding: "06:30", duration: "9h 15m", landing: "15:45", cost: "₹6825", offer: "Extra ₹410 off", boarding_airport: "MAA", landing_airport: "CCU", stop: "1 Stop" },
+            { company: "Vistara", flight_number: "UK 864932", boarding: "03:45", duration: "4h 30m", landing: "08:15", cost: "₹12345", offer: "Extra ₹210 off", boarding_airport: "CCU", landing_airport: "GOI", stop: "1 Stop" },
+            { company: "IndiGo", flight_number: "6E 748392", boarding: "11:20", duration: "3h 45m", landing: "15:05", cost: "₹4598", offer: "Extra ₹310 off", boarding_airport: "GOI", landing_airport: "JAI", stop: "Non-Stop" },
+            { company: "SpiceJet", flight_number: "SG 912387", boarding: "14:15", duration: "2h 15m", landing: "16:30", cost: "₹9999", offer: "Extra ₹110 off", boarding_airport: "JAI", landing_airport: "AMD", stop: "1 Stop" },
+            { company: "Air India", flight_number: "AI 678934", boarding: "19:35", duration: "7h 25m", landing: "03:00", cost: "₹13845", offer: "Extra ₹210 off", boarding_airport: "AMD", landing_airport: "PNQ", stop: "Non-Stop" }
+        ];
+
+        async function importFlights() {
+            const statusDiv = document.getElementById('status');
+            statusDiv.className = 'info';
+            statusDiv.innerHTML = 'Importing flights data...';
+
+            try {
+                await DatabaseService.waitForSupabase();
+
+                // First, check if table exists and has data
+                const { data: existingData, error: checkError } = await supabase
+                    .from('flights')
+                    .select('*')
+                    .limit(1);
+
+                if (checkError) {
+                    statusDiv.className = 'error';
+                    statusDiv.innerHTML = `Error: ${checkError.message}<br>Make sure the 'flights' table exists in Supabase.`;
+                    return;
+                }
+
+                // Delete existing data
+                const { error: deleteError } = await supabase
+                    .from('flights')
+                    .delete()
+                    .neq('id', 0); // Delete all rows
+
+                if (deleteError) {
+                    console.warn('Could not delete existing data:', deleteError);
+                }
+
+                // Insert new data
+                const { data, error } = await supabase
+                    .from('flights')
+                    .insert(flightsData);
+
+                if (error) {
+                    statusDiv.className = 'error';
+                    statusDiv.innerHTML = `Error importing data: ${error.message}`;
+                    console.error('Import error:', error);
+                } else {
+                    statusDiv.className = 'success';
+                    statusDiv.innerHTML = `Successfully imported ${flightsData.length} flights!<br>You can now close this page and search for flights.`;
+                    console.log('Import successful:', data);
+                }
+            } catch (error) {
+                statusDiv.className = 'error';
+                statusDiv.innerHTML = `Error: ${error.message}`;
+                console.error('Import error:', error);
+            }
+        }
+    </script>
+</body>
+
+</html>

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <script src="../js/theme.js"></script>
     <meta charset="UTF-8">
@@ -7,8 +8,10 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Varela&display=swap" rel="stylesheet">
-    <title>Trains</title>
-    <link rel="icon" href="icons/favicon.png" type="image/png">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap"
+        rel="stylesheet">
+    <title>train Booking</title>
+    <link rel="icon" href="../images/favicon.png" type="image/png">
     <link rel="stylesheet" href="../category/css/trains.css">
     <link rel="stylesheet" href="../css/styles.css">
     <link rel="stylesheet" href="../css/themes.css">
@@ -16,7 +19,10 @@
     <link rel="stylesheet" href="../css/kalandae.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/gh/Twipped/Kalendae/build/kalendae.standalone.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="../js/database.js"></script>
 </head>
+
 <body>
     <nav style="z-index: 1; background-color: transparent;backdrop-filter: blur(4px);">
         <a href="../index.html">TICKETEASE</a>
@@ -31,16 +37,16 @@
                 </div>
             </div>
         </div>
-        
+
         <!--Service section-->
         <div class="service-nav">
-            <a href="../category/flights.html" data-icon="flight.svg">
+            <a href="../category/trains.html" data-icon="train.svg">
                 <i class="fas fa-plane"></i> FLIGHTS
             </a>
             <a href="../category/hotels.html" data-icon="hotel.svg">
                 <i class="fas fa-hotel"></i> HOTELS
             </a>
-            <a class="active" href="..//category/trains.html" data-icon="train.svg">
+            <a class="active" href="../category/trains.html" data-icon="train.svg">
                 <i class="fas fa-train"></i> TRAINS
             </a>
             <a href="../category/events.html" data-icon="event.svg">
@@ -50,32 +56,29 @@
         <button id="login-btn" onclick="showPopup()">LOGIN / SIGNUP</button>
 
         <button id="theme-switch">
-        <svg height="24px" viewBox="0 -960 960 960" width="24px" fill="#e8eaed">
-        <path
-            d="M480-120q-150 0-255-105T120-480q0-150 105-255t255-105q14 0 27.5 1t26.5 3q-41 29-65.5 75.5T444-660q0 90 63 153t153 63q55 0 101-24.5t75-65.5q2 13 3 26.5t1 27.5q0 150-105 255T480-120Z" />
-        </svg>
-        <svg height="24px" viewBox="0 -960 960 960" width="24px" fill="#e8eaed">
-        <path
-            d="M480-280q-83 0-141.5-58.5T280-480q0-83 58.5-141.5T480-680q83 0 141.5 58.5T680-480q0 83-58.5 141.5T480-280ZM200-440H40v-80h160v80Zm720 0H760v-80h160v80ZM440-760v-160h80v160h-80Zm0 720v-160h80v160h-80ZM256-650l-101-97 57-59 96 100-52 56Zm492 496-97-101 53-55 101 97-57 59Zm-98-550 97-101 59 57-100 96-56-52ZM154-212l101-97 55 53-97 101-59-57Z" />
-        </svg>
-    </button>
+            <svg height="24px" viewBox="0 -960 960 960" width="24px" fill="#e8eaed">
+                <path
+                    d="M480-120q-150 0-255-105T120-480q0-150 105-255t255-105q14 0 27.5 1t26.5 3q-41 29-65.5 75.5T444-660q0 90 63 153t153 63q55 0 101-24.5t75-65.5q2 13 3 26.5t1 27.5q0 150-105 255T480-120Z" />
+            </svg>
+            <svg height="24px" viewBox="0 -960 960 960" width="24px" fill="#e8eaed">
+                <path
+                    d="M480-280q-83 0-141.5-58.5T280-480q0-83 58.5-141.5T480-680q83 0 141.5 58.5T680-480q0 83-58.5 141.5T480-280ZM200-440H40v-80h160v80Zm720 0H760v-80h160v80ZM440-760v-160h80v160h-80Zm0 720v-160h80v160h-80ZM256-650l-101-97 57-59 96 100-52 56Zm492 496-97-101 53-55 101 97-57 59Zm-98-550 97-101 59 57-100 96-56-52ZM154-212l101-97 55 53-97 101-59-57Z" />
+            </svg>
+        </button>
     </nav>
 
     <h5 class="category-name">TRAINS</h5>
 
-    <section class="flight-booking">
-            <!--Trip type-->
-            <label class="container">
-                <input type="radio" name="tripType" id="one-way" value="one-way" checked onchange="toggleRoundTrip()">
-                <span class="checkmark"></span><span class="radio-text">Book Train Tickets</span>
-            </label> 
-            <label class="container">
-                <input type="radio" name="tripType" id="round-trip" value="round-trip" onchange="toggleRoundTrip()">
-                <span class="checkmark"></span><span class="radio-text">Check PRN Status</span>
-            </label> 
-
+    <section class="train-booking">
         <!--Select city-->
         <div class="city-switch">
+            <div class="way">
+                <label class="container">
+                    <input type="radio" name="tripType" id="one-way" value="one-way" checked
+                        onchange="toggleRoundTrip()">
+                    <span class="checkmark"></span><span class="radio-text">Book Train Tickets</span>
+                </label>
+            </div>
             <!--From-->
             <div class="input-group">
                 <div id="from" class="custom-select" style="width: 380px;">
@@ -86,7 +89,8 @@
                         <div class="airport">Chhatrapati Shivaji International Airport</div>
                     </div>
                     <div class="select-options">
-                        <div data-city="Mumbai" data-airport="Chhatrapati Shivaji International Airport" data-code="BOM">
+                        <div data-city="Mumbai" data-airport="Chhatrapati Shivaji International Airport"
+                            data-code="BOM">
                             <span class="city">Mumbai, India</span>
                             <span class="airport">Chhatrapati Shivaji International Airport</span>
                             <span class="code">BOM</span>
@@ -101,182 +105,208 @@
                             <span class="airport">Rajiv Gandhi International Airport</span>
                             <span class="code">HYD</span>
                         </div>
-                        <div data-city="Goa - Dabolim Airport" data-airport="Goa Dabolim International Airport" data-code="MAA">
+                        <div data-city="Goa - Dabolim Airport" data-airport="Goa Dabolim International Airport"
+                            data-code="MAA">
                             <span class="city">Goa - Dabolim Airport, India</span>
                             <span class="airport">Rajiv Gandhi International Airport</span>
                             <span class="code">GOI</span>
                         </div>
-                </div>
-            </div>
-            <!--Switch cities-->
-            <button id="switch-btn" style="left: 30.8%;">&#8645;</button>
-            <!--To-->
-            <div class="input-group">
-                <div id="to" class="custom-select" style="width: 380px;">
-                    <div class="to">To</div>
-                    <!--Initial option-->
-                    <div class="select-selected" data-value="Goa">
-                        <div class="city">Goa Dabolim Airport, India</div>
-                        <div class="airport">Goa Dabolim International Airport</div>
                     </div>
-                    <div class="select-options">
-                        <div data-city="Mumbai" data-airport="Chhatrapati Shivaji International Airport" data-code="BOM">
-                            <span class="city">Mumbai, India</span>
-                            <span class="airport">Chhatrapati Shivaji International Airport</span>
-                            <span class="code">BOM</span>
-                        </div>
-                        <div data-city="Chennai" data-airport="Chennai International Airport" data-code="MAA">
-                            <span class="city">Chennai, India</span>
-                            <span class="airport">Chennai International Airport</span>
-                            <span class="code">MAA</span>
-                        </div>
-                        <div data-city="Hyderabad" data-airport="Chennai International Airport" data-code="MAA">
-                            <span class="city">Hyderabad, India</span>
-                            <span class="airport">Rajiv Gandhi International Airport</span>
-                            <span class="code">HYD</span>
-                        </div>
-                        <div data-city="Goa - Dabolim Airport" data-airport="Goa Dabolim International Airport" data-code="MAA">
-                            <span class="city">Goa - Dabolim Airport, India</span>
-                            <span class="airport">Rajiv Gandhi International Airport</span>
-                            <span class="code">GOI</span>
-                        </div>
                 </div>
-            </div> 
-            <!--Departure-->
-            <div class="input-group">
-                <div class="date-picker">
-                    <div class="departure">Departure <span class="arrow-down"></span></div>
-                    <button class="date-trigger" onclick="toggleSingleCalendar()">
-                        <div class="text-left">
-                            <div class="date-display">
-                                <span class="date-day">13</span>
-                                <span class="date-month">Mar'25</span>
+                <!--Switch cities-->
+                <button id="switch-btn">&#8645;</button>
+                <!--To-->
+                <div class="input-group">
+                    <div id="to" class="custom-select" style="width: 380px;">
+                        <div class="to">To</div>
+                        <!--Initial option-->
+                        <div class="select-selected" data-value="Goa">
+                            <div class="city">Goa Dabolim Airport, India</div>
+                            <div class="airport">Goa Dabolim International Airport</div>
+                        </div>
+                        <div class="select-options">
+                            <div data-city="Mumbai" data-airport="Chhatrapati Shivaji International Airport"
+                                data-code="BOM">
+                                <span class="city">Mumbai, India</span>
+                                <span class="airport">Chhatrapati Shivaji International Airport</span>
+                                <span class="code">BOM</span>
                             </div>
-                            <div class="date-weekday">Thursday</div>
+                            <div data-city="Chennai" data-airport="Chennai International Airport" data-code="MAA">
+                                <span class="city">Chennai, India</span>
+                                <span class="airport">Chennai International Airport</span>
+                                <span class="code">MAA</span>
+                            </div>
+                            <div data-city="Hyderabad" data-airport="Chennai International Airport" data-code="MAA">
+                                <span class="city">Hyderabad, India</span>
+                                <span class="airport">Rajiv Gandhi International Airport</span>
+                                <span class="code">HYD</span>
+                            </div>
+                            <div data-city="Goa - Dabolim Airport" data-airport="Goa Dabolim International Airport"
+                                data-code="MAA">
+                                <span class="city">Goa - Dabolim Airport, India</span>
+                                <span class="airport">Rajiv Gandhi International Airport</span>
+                                <span class="code">GOI</span>
+                            </div>
+                        </div>
+                    </div>
+                    <!--Departure-->
+                    <div class="input-group">
+                        <div class="date-picker">
+                            <div class="departure">Departure <span class="arrow-down"></span></div>
+                            <button class="date-trigger" onclick="toggleSingleCalendar()">
+                                <div class="text-left">
+                                    <div class="date-display">
+                                        <span class="date-day">13</span>
+                                        <span class="date-month">Mar'25</span>
+                                    </div>
+                                    <div class="date-weekday">Thursday</div>
+                                </div>
+                            </button>
+                            <div id="calendar-single"></div>
+                        </div>
+                    </div>
+                    <!--Travelers and class-->
+                    <button class="input-group travelers-and-class" onclick="toggleTravelersClass()">
+                        <div class="travelers">Travelers & Class</div>
+                        <div class="travelers-display">
+                            <span class="number-of-travelers">1</span>
+                            <span style="font-size: 1.4em;">Traveler</span>
+                            <span class="display-class">Economy/Premium Economy</span>
                         </div>
                     </button>
-                    <div id="calendar-single" style="display: none;"></div>
-                </div>
-            </div>
-            <!--Travelers and class-->
-            <button class="input-group travelers-and-class" onclick="toggleTravelersClass()">
-                <div class="travelers">Travelers & Class</div>
-                <div class="travelers-display">
-                    <span class="number-of-travelers">1</span>
-                    <span style="font-size: 1.4em;">Traveler</span>
-                    <span class="display-class">Economy/Premium Economy</span>
-                </div>
-            </button>
-            <div id="travel-class" class="travel-class" style="display: none;">
-                    <h5>ADULTS (12y +)</h5>
-                    <p>On the day of travel</p>
-                    <div class="radio-input" style="--items: 10;">
-                        <label><input value="1" name="adults" type="radio" checked><span>1</span></label>
-                        <label><input value="2" name="adults" type="radio"><span>2</span></label>
-                        <label><input value="3" name="adults" type="radio"><span>3</span></label>
-                        <label><input value="4" name="adults" type="radio"><span>4</span></label>
-                        <label><input value="5" name="adults" type="radio"><span>5</span></label>
-                        <label><input value="6" name="adults" type="radio"><span>6</span></label>
-                        <label><input value="7" name="adults" type="radio"><span>7</span></label>
-                        <label><input value="8" name="adults" type="radio"><span>8</span></label>
-                        <label><input value="9" name="adults" type="radio"><span>9</span></label>
-                        <label><input value=">9" name="adults" type="radio"><span>>9</span></label>
-                        <span class="selection"></span>
-                    </div>
+                    <div id="travel-class" class="travel-class" style="display: none;">
+                        <h5>ADULTS (12y +)</h5>
+                        <p>On the day of travel</p>
+                        <div class="radio-input" style="--items: 10;">
+                            <label><input value="1" name="adults" type="radio" checked><span>1</span></label>
+                            <label><input value="2" name="adults" type="radio"><span>2</span></label>
+                            <label><input value="3" name="adults" type="radio"><span>3</span></label>
+                            <label><input value="4" name="adults" type="radio"><span>4</span></label>
+                            <label><input value="5" name="adults" type="radio"><span>5</span></label>
+                            <label><input value="6" name="adults" type="radio"><span>6</span></label>
+                            <label><input value="7" name="adults" type="radio"><span>7</span></label>
+                            <label><input value="8" name="adults" type="radio"><span>8</span></label>
+                            <label><input value="9" name="adults" type="radio"><span>9</span></label>
+                            <label><input value=">9" name="adults" type="radio"><span>>9</span></label>
+                            <span class="selection"></span>
+                        </div>
 
-            <div class="children-infants-container">    
-                <div class="children-section">
-                    <h5>CHILDREN (2y-12y)</h5>
-                    <p>On the day of travel</p>
-                    <div class="radio-input" style="--items: 8;">
-                        <label><input value="0" name="children" type="radio" checked><span>0</span></label>
-                        <label><input value="1" name="children" type="radio"><span>1</span></label>
-                        <label><input value="2" name="children" type="radio"><span>2</span></label>
-                        <label><input value="3" name="children" type="radio"><span>3</span></label>
-                        <label><input value="4" name="children" type="radio"><span>4</span></label>
-                        <label><input value="5" name="children" type="radio"><span>5</span></label>
-                        <label><input value="6" name="children" type="radio"><span>6</span></label>
-                        <label><input value=">6" name="children" type="radio"><span>>6</span></label>
-                        <span class="selection"></span>
-                    </div>
-                </div>    
+                        <div class="children-infants-container">
+                            <div class="children-section">
+                                <h5>CHILDREN (2y-12y)</h5>
+                                <p>On the day of travel</p>
+                                <div class="radio-input" style="--items: 8;">
+                                    <label><input value="0" name="children" type="radio" checked><span>0</span></label>
+                                    <label><input value="1" name="children" type="radio"><span>1</span></label>
+                                    <label><input value="2" name="children" type="radio"><span>2</span></label>
+                                    <label><input value="3" name="children" type="radio"><span>3</span></label>
+                                    <label><input value="4" name="children" type="radio"><span>4</span></label>
+                                    <label><input value="5" name="children" type="radio"><span>5</span></label>
+                                    <label><input value="6" name="children" type="radio"><span>6</span></label>
+                                    <label><input value=">6" name="children" type="radio"><span>>6</span></label>
+                                    <span class="selection"></span>
+                                </div>
+                            </div>
 
-                <div class="infants-section">
-                    <h5>INFANTS (below 2y)</h5>
-                    <p>On the day of travel</p>
-                    <div class="radio-input" style="--items: 8;">
-                        <label><input value="0" name="infants" type="radio" checked><span>0</span></label>
-                        <label><input value="1" name="infants" type="radio"><span>1</span></label>
-                        <label><input value="2" name="infants" type="radio"><span>2</span></label>
-                        <label><input value="3" name="infants" type="radio"><span>3</span></label>
-                        <label><input value="4" name="infants" type="radio"><span>4</span></label>
-                        <label><input value="5" name="infants" type="radio"><span>5</span></label>
-                        <label><input value="6" name="infants" type="radio"><span>6</span></label>
-                        <label><input value=">6" name="infants" type="radio"><span>>6</span></label>
-                        <span class="selection"></span>
+                            <div class="infants-section">
+                                <h5>INFANTS (below 2y)</h5>
+                                <p>On the day of travel</p>
+                                <div class="radio-input" style="--items: 8;">
+                                    <label><input value="0" name="infants" type="radio" checked><span>0</span></label>
+                                    <label><input value="1" name="infants" type="radio"><span>1</span></label>
+                                    <label><input value="2" name="infants" type="radio"><span>2</span></label>
+                                    <label><input value="3" name="infants" type="radio"><span>3</span></label>
+                                    <label><input value="4" name="infants" type="radio"><span>4</span></label>
+                                    <label><input value="5" name="infants" type="radio"><span>5</span></label>
+                                    <label><input value="6" name="infants" type="radio"><span>6</span></label>
+                                    <label><input value=">6" name="infants" type="radio"><span>>6</span></label>
+                                    <span class="selection"></span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="choose-class">
+                            <h5>CHOOSE TRAVEL CLASS</h5>
+                            <div class="radio-input" style="--items: 4;">
+                                <label><input value="1" name="tclass" type="radio" checked><span>Economy/Premium
+                                        Economy</span></label>
+                                <label><input value="2" name="tclass" type="radio"><span>Premium Economy</span></label>
+                                <label><input value="3" name="tclass" type="radio"><span>Business</span></label>
+                                <label><input value="4" name="tclass" type="radio"><span>First Class</span></label>
+                                <span class="selection"></span>
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </div>
-            
-                <div class="choose-class">
-                    <h5>CHOOSE TRAVEL CLASS</h5>
-                    <div class="radio-input" style="--items: 4;">
-                        <label><input value="1" name="tclass" type="radio" checked><span>Economy/Premium Economy</span></label>
-                        <label><input value="2" name="tclass" type="radio"><span>Premium Economy</span></label>
-                        <label><input value="3" name="tclass" type="radio"><span>Business</span></label>
-                        <label><input value="4" name="tclass" type="radio"><span>First Class</span></label>
-                        <span class="selection"></span>
+
+                <div class="special-fare">
+                    <div class="fare-header">
+                        <h3>Special Fare</h3>
+                        <h3
+                            style="user-select: none; font-size: 0.7rem; text-align: center; background-color: var(--radio-color);padding: 0.2rem; color: var(--color-fg)">
+                            EXTRA SAVINGS</h3>
+                    </div>
+                    <div style="left: 3%;position: relative; align-content: center;">
+                        <label class="radio">
+                            <input type="radio" name="fairType" checked>
+                            <span class="checkmark1"></span>
+                            <span class="radio-text">Regular<span class="subtext">Regular fares</span></span>
+                        </label>
+
+                        <label class="radio">
+                            <input type="radio" name="fairType">
+                            <span class="checkmark1"></span>
+                            <span class="radio-text">Student<span class="subtext">Extra discounts/baggage</span></span>
+                            <span class="tooltip">Applicable only for students above 15 years of age. Valid student ID
+                                cards and
+                                student
+                                visas (where applicable) are required to avail this.</span>
+                        </label>
+
+                        <label class="radio">
+                            <input type="radio" name="fairType">
+                            <span class="checkmark1"></span>
+                            <span class="radio-text">Senior Citizen<span class="subtext">Up to ₹200 off</span></span>
+                            <span class="tooltip">Applicable only for senior citizens above the age of 60 years. A valid
+                                proof of
+                                Date
+                                of Birth is required at the airport to avail this.</span>
+                        </label>
+
+                        <label class="radio">
+                            <input type="radio" name="fairType">
+                            <span class="checkmark1"></span>
+                            <span class="radio-text">Armed Forces<span class="subtext">Up to ₹300 off</span></span>
+                            <span class="tooltip">Applicable only for serving/retired Indian Armed Forces personnel &
+                                their
+                                dependents.
+                                A valid Armed Forces ID or dependent card is required at the airport to avail
+                                this.</span>
+                        </label>
+
+                        <label class="radio">
+                            <input type="radio" name="fairType">
+                            <span class="checkmark1"></span>
+                            <span class="radio-text">Doctor and Nurses<span class="subtext">Up to ₹500 off</span></span>
+                            <span class="tooltip">Applicable only for medical personnel. A valid ID is required at the
+                                airport to
+                                avail
+                                this.</span>
+                        </label>
                     </div>
                 </div>
-            </div>
-        </div>
+                <a class="search-btn" href="train-results.html">SEARCH</a>
     </section>
-    
-    <div class="special-fare">
-        <h3>Special Fare</h3>
-        <h3 style="user-select: none;margin-top: 40px; font-size: 0.7rem; background-color: var(--radio-color);padding: 0.2rem; color: var(--color-fg)">EXTRA SAVINGS</h3>
-        <label class="radio">
-            <input type="radio" name="fairType" checked>
-            <span class="checkmark1"></span>
-            <span class="radio-text">Regular<span class="subtext">Regular fares</span></span>
-        </label>
-        
-        <label class="radio">
-            <input type="radio" name="fairType">
-            <span class="checkmark1"></span>
-            <span class="radio-text">Student<span class="subtext">Extra discounts/baggage</span></span>
-            <span class="tooltip">Applicable only for students above 12 years of age. Valid student ID cards and student visas (where applicable) are required to avail this.</span>
-        </label>
-    
-        <label class="radio">
-            <input type="radio" name="fairType">
-            <span class="checkmark1"></span>
-            <span class="radio-text">Senior Citizen<span class="subtext">Up to ₹500 off</span></span>
-            <span class="tooltip">Applicable only for senior citizens above the age of 60 years. A valid proof of Date of Birth is required at the airport to avail this.</span>
-        </label>
-    
-        <label class="radio">
-            <input type="radio" name="fairType">
-            <span class="checkmark1"></span>
-            <span class="radio-text">Armed Forces<span class="subtext">Up to ₹600 off</span></span>
-            <span class="tooltip">Applicable only for serving/retired Indian Armed Forces personnel & their dependents. A valid Armed Forces ID or dependent card is required at the airport to avail this.</span>
-        </label>
 
-        <label class="radio">
-            <input type="radio" name="fairType">
-            <span class="checkmark1"></span>
-            <span class="radio-text">Doctor and Nurses<span class="subtext">Up to ₹700 off</span></span>
-            <span class="tooltip">Applicable only for medical personnel. A valid ID is required at the airport to avail this.</span>
-        </label>
-    </div>
 
-    <a class="search-btn" href="../category/train-results.html">SEARCH</a>
+
 
     <!--Alert-->
-    <div id="customAlert" class="alert"><span id="alertMessage">alert</span></div>    
+    <div id="customAlert" class="alert"><span id="alertMessage">alert</span></div>
 
 </body>
-<script src="/public/category/js/flights.js"></script>
-<script src="/public/js/navbar.js"></script>
-<script type="module" src="/public/js/login-signup.js"></script>
+<script src="../category/js/service.js"></script>
+<script src="../js/navbar.js"></script>
+<script type="module" src="../js/login-signup.js"></script>
+
 </html>

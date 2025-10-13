@@ -91,28 +91,30 @@
         </div>
     </div>
     
-    <!-- Sory By -->
-    <div class="sort-container">
-        <div class="sort-option active" onclick="sortFlights('reset')">
-            <span class="sort-title">Custom</span>
-            <span class="sort-subtitle">Initial search</span>
+    <div class="hotel-card-center">
+        <!-- Sory By -->
+        <div class="sort-container">
+            <div class="sort-option active" onclick="sortFlights('reset')">
+                <span class="sort-title">Custom</span>
+                <span class="sort-subtitle">Initial search</span>
+            </div>
+            <div class="sort-option" onclick="sortFlights('price')">
+                <span class="sort-title">Price</span>
+                <span class="sort-subtitle">Low to High</span>
+            </div>
+            <div class="sort-option" onclick="sortFlights('duration')">
+                <span class="sort-title">Fastest</span>
+                <span class="sort-subtitle">Shortest First</span>
+            </div>
+            <div class="sort-option" onclick="sortFlights('departure')">
+                <span class="sort-title">Departure</span>
+                <span class="sort-subtitle">Earliest First</span>
+            </div>
         </div>
-        <div class="sort-option" onclick="sortFlights('price')">
-            <span class="sort-title">Price</span>
-            <span class="sort-subtitle">Low to High</span>
-        </div>
-        <div class="sort-option" onclick="sortFlights('duration')">
-            <span class="sort-title">Fastest</span>
-            <span class="sort-subtitle">Shortest First</span>
-        </div>
-        <div class="sort-option" onclick="sortFlights('departure')">
-            <span class="sort-title">Departure</span>
-            <span class="sort-subtitle">Earliest First</span>
-        </div>
-    </div>
 
-    <!-- Hotel Cards -->
-    <div class="hotel-cards"></div>
+        <!-- Hotel Cards -->
+        <div class="hotel-cards"></div>
+    </div>
 
     <!-- Details Section -->
     <div class="details-panel" id="details-panel">
@@ -153,7 +155,6 @@
 <script>
     document.addEventListener('DOMContentLoaded', async function () {
         try {
-            // Get URL parameters for filtering
             const urlParams = new URLSearchParams(window.location.search);
             const filters = {
                 location: urlParams.get('location'),
@@ -162,15 +163,12 @@
                 maxPrice: urlParams.get('maxPrice')
             };
 
-            // Fetch hotels from database
             const data = await DatabaseService.getHotels(filters);
+            allHotelsData = [...data];
             renderHotelCards(data);
-            
-            // Update filter counts
             updateHotelFilterCounts(data);
         } catch (error) {
             console.error('Error fetching hotels:', error);
-            showAlert('Error loading hotels. Please try again.', 'error');
         }
     });
 
@@ -235,31 +233,23 @@
         window.location.href = 'hotel-booking.html';
     }
 
+    let allHotelsData = [];
+
     async function applyHotelFilters() {
         const selectedAmenities = Array.from(document.querySelectorAll('.airline-filter:checked')).map(cb => cb.value);
 
-        // Get URL parameters for base filters
-        const urlParams = new URLSearchParams(window.location.search);
-        const baseFilters = {
-            location: urlParams.get('location'),
-            rating: urlParams.get('rating'),
-            minPrice: urlParams.get('minPrice'),
-            maxPrice: urlParams.get('maxPrice')
-        };
+        let filteredData = [...allHotelsData];
 
-        // Add checkbox filters
-        const filters = {
-            ...baseFilters,
-            amenities: selectedAmenities.length > 0 ? selectedAmenities : null
-        };
-
-        try {
-            const filteredData = await DatabaseService.getHotels(filters);
-            renderHotelCards(filteredData);
-        } catch (error) {
-            console.error('Error applying filters:', error);
-            showAlert('Error applying filters. Please try again.', 'error');
+        if (selectedAmenities.length > 0) {
+            filteredData = filteredData.filter(hotel => {
+                const hotelFeatures = (hotel.features || '').toLowerCase();
+                return selectedAmenities.every(amenity => 
+                    hotelFeatures.includes(amenity.toLowerCase())
+                );
+            });
         }
+
+        renderHotelCards(filteredData);
     }
 
     function updateHotelFilterCounts(data) {

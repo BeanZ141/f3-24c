@@ -4,10 +4,6 @@ body {
     color: var(--color-fg);
     margin: 0;
     padding: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
     position: relative;
 }
 
@@ -41,13 +37,16 @@ select {
     border-radius: 50%;
     border: none;
     cursor: pointer;
-    font-size: 1.9rem;
+    font-size: 1.3rem;
     rotate: 90deg;
+    transition: 250ms;
     z-index: 999;
 }
 
 #switch-btn:hover {
-    background-color: #141414;
+    background-color: var(--switch-btn-color);
+    rotate: 270deg;
+    transition: 250ms;
 }
 
 input[type="checkbox"] {
@@ -113,21 +112,19 @@ input[type="checkbox"] {
 
 /* Special fare radio button */
 .special-fare {
-    position: relative;
-    top: 3.3rem;
-    width: 100%;
-    left: -10rem;
+    position: absolute;
+    display: flex;
+    justify-content: center;
     z-index: 1;
     isolation: isolate;
     animation: animate-gradient 0.7s ease-in forwards, fade-element 0.7s forwards;
+    top: 7.5rem;
 }
 
 .special-fare h3 {
-    position: absolute;
-    left: -10%;
-    top: -50%;
-    padding-bottom: 1rem;
+    position: relative;
     font-size: 1em;
+    margin: 10px;
     font-weight: 400;
     user-select: none;
     animation: animate-gradient 0.7s ease-in forwards;
@@ -249,15 +246,35 @@ input[type="checkbox"] {
 }
 
 .flight-booking {
-    width: 400px;
-    position: relative;
-    top: -20vh;
-    left: 7vh;
-    flex-wrap: wrap;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 15vh;
     border-radius: 10px;
     z-index: 10;
     isolation: isolate;
     animation: animate-gradient 0.7s ease-in forwards, fade-element 0.7s forwards;
+    width: 100%;
+    margin: 250px auto 0px auto;
+}
+
+.way {
+    display: block;
+    position: fixed;
+    top: -35%;
+    left: 0%;
+}
+
+.flight-booking>.way {
+    justify-content: center;
+    z-index: 10;
+    isolation: isolate;
+    animation: animate-gradient 0.7s ease-in forwards, fade-element 0.7s forwards;
+}
+
+.way .radio-text {
+    padding: 4px 10px;
 }
 
 .city-switch {
@@ -650,7 +667,7 @@ input[type="checkbox"] {
 
 .travel-class {
     position: absolute;
-    top: 57%;
+    top: 90%;
     left: 51.4%;
     width: 34rem;
     height: 20rem;
@@ -673,7 +690,7 @@ p {
 }
 
 .number-of-travelers {
-    margin-left: -5rem;
+    margin-left: -4rem;
     font-size: 2em;
     font-weight: 600;
 }
@@ -805,7 +822,7 @@ p {
     color: var(--color-fg);
     text-decoration: none;
     position: absolute;
-    top: 65%;
+    top: 195%;
     left: 45%;
     padding: 10px 20px;
     border: 1px solid transparent;
@@ -897,11 +914,24 @@ p {
     color: #222;
 }
 
-#calendar-single, #calendar-range {
+#calendar-single,
+#calendar-range {
     display: none;
     position: absolute;
-    top: 60%;
-    left: 66%;
+    top: 90%;
+    left: -1%;
+    z-index: 99999;
+    background-color: var(--calendar-bg);
+    border: 1px solid var(--radio-border);
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+#calendar-range {
+    display: none;
+    position: absolute;
+    top: 90%;
+    left: 66.6%;
     z-index: 99999;
     background-color: var(--calendar-bg);
     border: 1px solid var(--radio-border);

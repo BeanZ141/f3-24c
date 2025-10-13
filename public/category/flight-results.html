@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <script src="../js/theme.js"></script>
     <meta charset="UTF-8">
@@ -7,7 +8,8 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Varela&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap"
+        rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <title>Flight Search Results</title>
     <link rel="stylesheet" href="../css/styles.css">
@@ -30,7 +32,7 @@
                 </div>
             </div>
         </div>
-        
+
         <!--Service section-->
         <div class="service-nav">
             <a class="active" href="../category/flights.html" data-icon="flight.svg">
@@ -47,7 +49,7 @@
             </a>
         </div>
         <button id="login-btn" onclick="showPopup()">LOGIN / SIGNUP</button>
-    
+
         <button id="theme-switch">
             <svg height="24px" viewBox="0 -960 960 960" width="24px" fill="#e8eaed">
                 <path
@@ -112,29 +114,35 @@
             </label>
         </div>
     </div>
-    
-    <!-- Sory By -->
-    <div class="sort-container">
-        <div class="sort-option active" onclick="sortFlights('reset')">
-            <span class="sort-title">Custom</span>
-            <span class="sort-subtitle">Initial search</span>
-        </div>
-        <div class="sort-option" onclick="sortFlights('price')">
-            <span class="sort-title">Price</span>
-            <span class="sort-subtitle">Low to High</span>
-        </div>
-        <div class="sort-option" onclick="sortFlights('duration')">
-            <span class="sort-title">Fastest</span>
-            <span class="sort-subtitle">Shortest First</span>
-        </div>
-        <div class="sort-option" onclick="sortFlights('departure')">
-            <span class="sort-title">Departure</span>
-            <span class="sort-subtitle">Earliest First</span>
-        </div>
-    </div>
 
-    <!-- Flight Cards -->
-    <div class="flight-cards"></div>
+    <div class="flight-card-center">
+        <!-- Sory By -->
+        <div class="sort-container">
+            <div class="sort-option" onclick="showAllFlights()">
+                <span class="sort-title">All</span>
+                <span class="sort-subtitle">Show All Flights</span>
+            </div>
+            <div class="sort-option active" onclick="sortFlights('reset')">
+                <span class="sort-title">Custom</span>
+                <span class="sort-subtitle">Initial search</span>
+            </div>
+            <div class="sort-option" onclick="sortFlights('price')">
+                <span class="sort-title">Price</span>
+                <span class="sort-subtitle">Low to High</span>
+            </div>
+            <div class="sort-option" onclick="sortFlights('duration')">
+                <span class="sort-title">Fastest</span>
+                <span class="sort-subtitle">Shortest First</span>
+            </div>
+            <div class="sort-option" onclick="sortFlights('departure')">
+                <span class="sort-title">Departure</span>
+                <span class="sort-subtitle">Earliest First</span>
+            </div>
+        </div>
+
+        <!-- Flight Cards -->
+        <div class="flight-cards"></div>
+    </div>
 
     <!-- Details Section -->
     <div class="details-panel" id="details-panel">
@@ -150,9 +158,45 @@
     <script>
         let originalFlightData = [];
 
+        async function loadAllFlights() {
+            try {
+                await DatabaseService.waitForSupabase();
+                const { data, error } = await supabase.from('flights').select('*');
+
+                if (error) {
+                    console.error('Error loading all flights:', error);
+                    return;
+                }
+
+                console.log('Loading all flights from database:', data);
+                console.log('Total flights:', data.length);
+                renderFlightCards(data);
+                updateFilterCounts(data);
+            } catch (error) {
+                console.error('Error loading all flights:', error);
+            }
+        }
+
+        async function showAllFlights() {
+            document.querySelectorAll('.sort-option').forEach(option => {
+                option.classList.remove('active');
+            });
+            event.currentTarget.classList.add('active');
+
+            const url = new URL(window.location.href);
+
+            url.searchParams.delete('from');
+            url.searchParams.delete('to');
+            
+            history.replaceState(null, '', url);
+    
+            const allFlights = await DatabaseService.getFlights({});
+            renderFlightCards(allFlights);
+            updateFilterCounts(allFlights);
+        }
+
         document.addEventListener('DOMContentLoaded', async function () {
             try {
-                // Get URL parameters for filtering
                 const urlParams = new URLSearchParams(window.location.search);
                 const filters = {
                     from: urlParams.get('from'),
@@ -161,99 +205,20 @@
                     stops: urlParams.get('stops') ? [urlParams.get('stops')] : null
                 };
 
-                console.log('URL filters:', filters);
-
-                // Test database connection first
-                await testDatabaseConnection();
-
-                // Fetch flights from database
                 const data = await DatabaseService.getFlights(filters);
-                console.log('Fetched flight data:', data);
                 originalFlightData = [...data];
-                
+
                 if (data.length === 0) {
-                    showAlert('No flights found for the selected route. Showing sample data.', 'info');
-                    // Show sample data if no flights found
-                    const sampleData = getSampleFlightData();
-                    renderFlightCards(sampleData);
-                    updateFilterCounts(sampleData);
+                    showAlert('No flights found for the selected route.', 'info');
                 } else {
                     renderFlightCards(data);
                     updateFilterCounts(data);
                 }
             } catch (error) {
                 console.error('Error fetching flights:', error);
-                showAlert('Error loading flights. Showing sample data.', 'error');
-                // Show sample data on error
-                const sampleData = getSampleFlightData();
-                renderFlightCards(sampleData);
-                updateFilterCounts(sampleData);
+                showAlert('Error loading flights.', 'error');
             }
         });
-
-        async function testDatabaseConnection() {
-            try {
-                console.log('Testing database connection...');
-                await DatabaseService.waitForSupabase();
-                
-                // Test if flights table exists and get ALL data
-                const { data: allFlights, error: allFlightsError } = await supabase
-                    .from('flights')
-                    .select('*');
-                
-                console.log('ALL flights in database:', { allFlights, allFlightsError });
-                console.log('Total flights found:', allFlights ? allFlights.length : 0);
-                
-                // Check column names
-                if (allFlights && allFlights.length > 0) {
-                    console.log('First flight columns:', Object.keys(allFlights[0]));
-                    console.log('Sample flight data:', allFlights[0]);
-                }
-            } catch (error) {
-                console.error('Database test failed:', error);
-            }
-        }
-
-        function getSampleFlightData() {
-            return [
-                {
-                    company: 'IndiGO',
-                    flight_number: '6E-123',
-                    boarding: '06:00',
-                    boarding_airport: 'BOM',
-                    duration: '2h 15m',
-                    stop: 'Non-Stop',
-                    landing: '08:15',
-                    landing_airport: 'GOI',
-                    cost: '₹4,500',
-                    offer: 'Save ₹500'
-                },
-                {
-                    company: 'SpiceJet',
-                    flight_number: 'SG-456',
-                    boarding: '10:30',
-                    boarding_airport: 'BOM',
-                    duration: '2h 10m',
-                    stop: 'Non-Stop',
-                    landing: '12:40',
-                    landing_airport: 'GOI',
-                    cost: '₹3,800',
-                    offer: 'Save ₹200'
-                },
-                {
-                    company: 'Air India',
-                    flight_number: 'AI-789',
-                    boarding: '14:45',
-                    boarding_airport: 'BOM',
-                    duration: '2h 20m',
-                    stop: 'Non-Stop',
-                    landing: '17:05',
-                    landing_airport: 'GOI',
-                    cost: '₹5,200',
-                    offer: 'Save ₹300'
-                }
-            ];
-        }
 
         function renderFlightCards(data) {
             const flightCardsContainer = document.querySelector('.flight-cards');
@@ -308,7 +273,7 @@
             return (hours * 60) + minutes;
         }
 
-        function sortFlights(sortOption) {
+        async function sortFlights(sortOption) {
             document.querySelectorAll('.sort-option').forEach(option => {
                 option.classList.remove('active');
             });
@@ -317,38 +282,45 @@
 
             const flightCardsContainer = document.querySelector('.flight-cards');
 
+            if (sortOption === 'all') {
+                await DatabaseService.waitForSupabase();
+                const { data } = await supabase.from('flights').select('*');
+                renderFlightCards(data);
+                return;
+            }
+
             if (sortOption === 'reset') {
                 renderFlightCards(originalFlightData);
                 return;
             }
 
-        const flightCards = Array.from(flightCardsContainer.children);
+            const flightCards = Array.from(flightCardsContainer.children);
 
-        flightCards.sort((a, b) => {
-            const valueA = parseInt(a.dataset[sortOption]);
-            const valueB = parseInt(b.dataset[sortOption]);
-            return valueA - valueB;
-        });
+            flightCards.sort((a, b) => {
+                const valueA = parseInt(a.dataset[sortOption]);
+                const valueB = parseInt(b.dataset[sortOption]);
+                return valueA - valueB;
+            });
 
-        flightCards.forEach(card => {
-            card.classList.remove('fade-card');
-        });
-
-        setTimeout(() => {
-            flightCardsContainer.innerHTML = '';
             flightCards.forEach(card => {
-                flightCardsContainer.appendChild(card);
-                requestAnimationFrame(() => {
-                    card.classList.add('fade-card');
+                card.classList.remove('fade-card');
+            });
+
+            setTimeout(() => {
+                flightCardsContainer.innerHTML = '';
+                flightCards.forEach(card => {
+                    flightCardsContainer.appendChild(card);
+                    requestAnimationFrame(() => {
+                        card.classList.add('fade-card');
+                    });
                 });
             });
-        });
-    }
+        }
     </script>
     <script>
         function storeFlightDetails(button) {
             const card = button.closest('.flight-card');
-            
+
             const flightDetails = {
                 company: card.querySelector('.flight-company').textContent,
                 flightNumber: card.querySelector('.flight-number').textContent,
@@ -361,11 +333,11 @@
                 cost: card.querySelector('.flight-cost').textContent,
                 offer: card.querySelector('.flight-offer').textContent
             };
-    
+
             localStorage.setItem('selectedFlight', JSON.stringify(flightDetails));
             window.location.href = 'flight-booking.html';
         }
-    </script>    
+    </script>
     <script>
         function showDetails(card) {
             const detailsPanel = document.getElementById('details-panel');
@@ -447,16 +419,15 @@
                 company: detailsPanel.querySelector('.details-value').textContent,
                 flightNumber: detailsPanel.querySelectorAll('.details-value')[1].textContent,
                 boardingTime: detailsPanel.querySelectorAll('.details-value')[2].textContent,
-                boardingAirport: 'N/A', // Will be filled from the active card
+                boardingAirport: 'N/A',
                 duration: detailsPanel.querySelectorAll('.details-value')[3].textContent,
                 stops: detailsPanel.querySelectorAll('.details-value')[5].textContent,
                 landingTime: detailsPanel.querySelectorAll('.details-value')[4].textContent,
-                landingAirport: 'N/A', // Will be filled from the active card
+                landingAirport: 'N/A',
                 cost: detailsPanel.querySelectorAll('.details-value')[6].textContent,
                 offer: 'N/A'
             };
 
-            // Try to get airport info from the currently displayed flight cards
             const flightCards = document.querySelectorAll('.flight-card');
             for (let card of flightCards) {
                 const cardCompany = card.querySelector('.flight-company').textContent;
@@ -500,14 +471,12 @@
             const selectedStops = Array.from(document.querySelectorAll('.stop-filter:checked')).map(cb => cb.value);
             const selectedAirlines = Array.from(document.querySelectorAll('.airline-filter:checked')).map(cb => cb.value);
 
-            // Get URL parameters for base filters
             const urlParams = new URLSearchParams(window.location.search);
             const baseFilters = {
                 from: urlParams.get('from'),
                 to: urlParams.get('to')
             };
 
-            // Add checkbox filters
             const filters = {
                 ...baseFilters,
                 stops: selectedStops.length > 0 ? selectedStops : null,
@@ -516,8 +485,7 @@
 
             try {
                 let filteredData = await DatabaseService.getFlights(filters);
-                
-                // Apply client-side sorting
+
                 filteredData.sort((a, b) => {
                     switch (currentSortType) {
                         case 'price':
@@ -531,7 +499,7 @@
                             return 0;
                     }
                 });
-                
+
                 renderFlightCards(filteredData);
             } catch (error) {
                 console.error('Error applying filters:', error);
@@ -540,16 +508,14 @@
         }
 
         function updateFilterCounts(data) {
-            // Update stop filter counts
             const stopCounts = {};
             const airlineCounts = {};
-            
+
             data.forEach(flight => {
                 stopCounts[flight.stop] = (stopCounts[flight.stop] || 0) + 1;
                 airlineCounts[flight.company] = (airlineCounts[flight.company] || 0) + 1;
             });
 
-            // Update stop filter labels
             document.querySelectorAll('.stop-filter').forEach(checkbox => {
                 const count = stopCounts[checkbox.value] || 0;
                 const label = checkbox.parentElement;
@@ -559,7 +525,6 @@
                 }
             });
 
-            // Update airline filter labels
             document.querySelectorAll('.airline-filter').forEach(checkbox => {
                 const count = airlineCounts[checkbox.value] || 0;
                 const label = checkbox.parentElement;
@@ -570,7 +535,6 @@
             });
         }
 
-        // Custom alert function
         function showAlert(message, type = 'info') {
             const alertBox = document.createElement('div');
             alertBox.className = `alert show ${type}`;
@@ -596,4 +560,5 @@
         }
     </script>
 </body>
+
 </html>

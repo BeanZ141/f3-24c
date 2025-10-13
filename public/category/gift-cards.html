@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <script src="../js/theme.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Varela&display=swap" rel="stylesheet">
+    <title>Gift Cards - TicketEase</title>
+    <link rel="icon" href="../images/favicon.png" type="image/png">
+    <link rel="stylesheet" href="../category/css/gift-cards.css">
+    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="stylesheet" href="../css/themes.css">
+    <link rel="stylesheet" href="../css/navbar.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+
+<body>
+    <nav style="z-index: 1; background-color: transparent;backdrop-filter: blur(4px);">
+        <a href="../index.html">TICKETEASE</a>
+        <div id="user-info" style="display: none;">
+            <span id="username-display"></span>
+            <div class="dropdown">
+                <button class="dropdown-btn" onclick="toggleDropdown()">▼</button>
+                <div class="dropdown-content" id="dropdown-menu">
+                    <a href="../dashboard.html">Dashboard</a>
+                    <a href="../scanner/scanner-info.html">Scan Tickets</a>
+                    <a href="#" onclick="logout()">Logout</a>
+                </div>
+            </div>
+        </div>
+
+        <!--Service section-->
+        <div class="service-nav">
+            <a href="../category/flights.html" data-icon="flight.svg">
+                <i class="fas fa-plane"></i> FLIGHTS
+            </a>
+            <a href="../category/hotels.html" data-icon="hotel.svg">
+                <i class="fas fa-hotel"></i> HOTELS
+            </a>
+            <a href="../category/trains.html" data-icon="train.svg">
+                <i class="fas fa-train"></i> TRAINS
+            </a>
+            <a href="../category/events.html" data-icon="event.svg">
+                <i class="fas fa-calendar-alt"></i> EVENTS
+            </a>
+        </div>
+        <button id="login-btn" onclick="showPopup()">LOGIN / SIGNUP</button>
+        
+        <button id="theme-switch">
+        <svg height="24px" viewBox="0 -960 960 960" width="24px" fill="#e8eaed">
+            <path
+                d="M480-120q-150 0-255-105T120-480q0-150 105-255t255-105q14 0 27.5 1t26.5 3q-41 29-65.5 75.5T444-660q0 90 63 153t153 63q55 0 101-24.5t75-65.5q2 13 3 26.5t1 27.5q0 150-105 255T480-120Z" />
+        </svg>
+        <svg height="24px" viewBox="0 -960 960 960" width="24px" fill="#e8eaed">
+            <path
+                d="M480-280q-83 0-141.5-58.5T280-480q0-83 58.5-141.5T480-680q83 0 141.5 58.5T680-480q0 83-58.5 141.5T480-280ZM200-440H40v-80h160v80Zm720 0H760v-80h160v80ZM440-760v-160h80v160h-80Zm0 720v-160h80v160h-80ZM256-650l-101-97 57-59 96 100-52 56Zm492 496-97-101 53-55 101 97-57 59Zm-98-550 97-101 59 57-100 96-56-52ZM154-212l101-97 55 53-97 101-59-57Z" />
+        </svg>
+    </button>
+    </nav>
+
+    <!-- Breadcrumb -->
+    <div class="breadcrumb">
+        <a href="../index.html">Home</a>
+        <span class="separator">></span>
+        <span class="current">Gift Cards</span>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="refine-search">
+                <div class="refine-header">
+                    <h3>Refine Search</h3>
+                    <button class="clear-btn">CLEAR</button>
+                </div>
+                
+                <div class="filter-section">
+                    <h4>Category</h4>
+                    <div class="filter-options">
+                        <label class="filter-option">
+                            <input type="radio" name="category" value="all" checked>
+                            <span class="checkmark"></span>
+                            <span class="option-text">ALL</span>
+                        </label>
+                        <label class="filter-option">
+                            <input type="radio" name="category" value="occasions">
+                            <span class="checkmark"></span>
+                            <div class="option-content">
+                                <span class="option-text">OCCASIONS</span>
+                                <small>Select cards for special occasions for your loved ones</small>
+                            </div>
+                        </label>
+                        <label class="filter-option">
+                            <input type="radio" name="category" value="festivals">
+                            <span class="checkmark"></span>
+                            <div class="option-content">
+                                <span class="option-text">FESTIVALS</span>
+                                <small>Select cards for every special festival that you celebrate</small>
+                            </div>
+                        </label>
+                        <label class="filter-option">
+                            <input type="radio" name="category" value="loved-ones">
+                            <span class="checkmark"></span>
+                            <div class="option-content">
+                                <span class="option-text">LOVED ONES</span>
+                                <small>Travel specific cards for your loved ones</small>
+                            </div>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="corporate-banner">
+                    <div class="banner-content">
+                        <h4>Looking for Corporate Gifting?</h4>
+                        <p>Get special discounts on bulk orders</p>
+                        <button class="start-here-btn">START HERE</button>
+                    </div>
+                    <div class="banner-image">
+                        <i class="fas fa-gift"></i>
+                    </div>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main Content Area -->
+        <main class="content-area">
+            <h1 class="page-title">Gift Cards</h1>
+
+            <!-- Hero Banner -->
+            <div class="hero-banner">
+                <div class="hero-content">
+                    <h2>Wedding Gift Just Got Better:</h2>
+                    <h3>Personalize MakeMyTrip Gift Cards with Your Pictures</h3>
+                    <button class="book-now-btn">BOOK NOW</button>
+                </div>
+                <div class="hero-image">
+                    <img src="../images/gift-card-hero.jpg" />
+                </div>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="action-buttons">
+                <button class="action-btn">
+                    <i class="fas fa-plus-circle"></i>
+                    <span>Add Gift Card</span>
+                </button>
+                <button class="action-btn">
+                    <i class="fas fa-credit-card"></i>
+                    <span>My Gift Card</span>
+                </button>
+                <button class="action-btn">
+                    <i class="fas fa-wallet"></i>
+                    <span>Check Balance</span>
+                </button>
+                <button class="action-btn">
+                    <i class="fas fa-question-circle"></i>
+                    <span>How to Use</span>
+                </button>
+            </div>
+
+            <!-- Gift Card Grid -->
+            <div class="gift-card-grid">
+                <div class="gift-card">
+                    <div class="card-image">
+                        <img src="../images/gift-card-1.jpg" />
+                        <div class="card-overlay">
+                            <span class="card-type">ROMANTIC</span>
+                        </div>
+                    </div>
+                    <div class="card-content">
+                        <h4>Romantic Getaway</h4>
+                        <p>Perfect for couples looking for a romantic escape</p>
+                        <div class="card-values">
+                            <span class="value">₹1000</span>
+                            <span class="value">₹2500</span>
+                            <span class="value">₹5000</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="gift-card">
+                    <div class="card-image">
+                        <img src="../images/gift-card-2.jpg" />
+                        <div class="card-overlay">
+                            <span class="card-type">TRAVEL</span>
+                        </div>
+                    </div>
+                    <div class="card-content">
+                        <h4>Travel Voucher</h4>
+                        <p>Give the gift of travel and adventure</p>
+                        <div class="card-values">
+                            <span class="value">₹1500</span>
+                            <span class="value">₹3000</span>
+                            <span class="value">₹7500</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="gift-card">
+                    <div class="card-image">
+                        <img src="../images/gift-card-3.jpg" />
+                        <div class="card-overlay">
+                            <span class="card-type">PREMIUM</span>
+                        </div>
+                    </div>
+                    <div class="card-content">
+                        <h4>Premium Experience</h4>
+                        <p>Luxury travel experiences for special occasions</p>
+                        <div class="card-values">
+                            <span class="value">₹5000</span>
+                            <span class="value">₹10000</span>
+                            <span class="value">₹25000</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!--Alert-->
+    <div id="customAlert" class="alert">
+        <span id="alertMessage">alert</span>
+    </div>
+</body>
+<script src="../category/js/gift-cards.js"></script>
+<script src="../js/navbar.js"></script>
+<script type="module" src="../js/login-signup.js"></script>
+
+</html>

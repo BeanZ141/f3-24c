@@ -252,23 +252,45 @@ function closeAlert() {
 }
 
 // Search flights function
-async function searchFlights() {
+async function searchFlights(event) {
+  if (event) event.preventDefault();
+  
   const fromSelected = document.querySelector("#from .select-selected");
   const toSelected = document.querySelector("#to .select-selected");
+  
+  // Get airport codes from the data attributes
+  const fromOptions = document.querySelector("#from .select-options");
+  const toOptions = document.querySelector("#to .select-options");
+  
+  // Find the matching option to get the airport code
+  let fromCode = 'BOM'; // default
+  let toCode = 'GOI'; // default
+  
+  fromOptions.querySelectorAll('div').forEach(option => {
+    if (option.dataset.city === fromSelected.dataset.value) {
+      fromCode = option.dataset.code;
+    }
+  });
+  
+  toOptions.querySelectorAll('div').forEach(option => {
+    if (option.dataset.city === toSelected.dataset.value) {
+      toCode = option.dataset.code;
+    }
+  });
 
   if (!fromSelected.dataset.value || !toSelected.dataset.value) {
     showAlert("Please select both departure and arrival cities", "error");
     return;
   }
 
-  // Build URL with search parameters
+  // Build URL with search parameters using airport codes
   const params = new URLSearchParams({
-    from: fromSelected.dataset.value,
-    to: toSelected.dataset.value,
+    from: fromCode,
+    to: toCode,
   });
 
   // Navigate to results page with parameters
-  window.location.href = `/public/category/flight-results.html?${params.toString()}`;
+  window.location.href = `flight-results.html?${params.toString()}`;
 }
 
 // Toggle Round Trip
@@ -281,8 +303,8 @@ function toggleRoundTrip() {
   if (isRoundTrip) {
     returnSection.innerHTML = `
             <div class="date-display">
-                <span class="date-day">13</span>
-                <span class="date-month">Mar'25</span>
+                <span class="date-day">2</span>
+                <span class="date-month">Dec'25</span>
             </div>
             <div class="date-weekday">Thursday</div>
         `;

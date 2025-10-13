@@ -1,0 +1,10 @@
+Things that dont work on the hosted website:
+
+HOTELS: No hotel results are shown, even though there are hotels in the database.
+
+
+
+
+Things that should be changed:
+
+FLIGHTS: From & To list

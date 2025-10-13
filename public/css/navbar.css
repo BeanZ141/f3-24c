@@ -140,7 +140,7 @@ nav a:hover {
 .service-nav {
     position: relative;
     display: flex; 
-    left: 22%;
+    left: 32%;
     margin-top: 0;
     font-family: 'Space Mono', monospace;
     animation: fade-up 0.7s forwards;

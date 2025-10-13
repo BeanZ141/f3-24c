@@ -12,15 +12,15 @@
         rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <title>Event Search Results</title>
-    <link rel="stylesheet" href="/public/css/styles.css">
-    <link rel="stylesheet" href="/public/css/themes.css">
-    <link rel="stylesheet" href="/public/css/navbar.css">
-    <link rel="stylesheet" href="/public/category/css/events.css">
+    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="stylesheet" href="../css/themes.css">
+    <link rel="stylesheet" href="../css/navbar.css">
+    <link rel="stylesheet" href="../category/css/events.css">
 </head>
 
 <body>
     <nav style="z-index: 1; background-color: transparent;backdrop-filter: blur(4px);">
-        <a href="/public/index.html">TICKETEASE</a>
+        <a href="../index.html">TICKETEASE</a>
         <div id="user-info" style="display: none;">
             <span id="username-display"></span>
             <div class="dropdown">
@@ -35,16 +35,16 @@
 
         <!--Service section-->
         <div class="service-nav">
-            <a href="/public/category/flights.html" data-icon="flight.svg">
+            <a href="../category/flights.html" data-icon="flight.svg">
                 <i class="fas fa-plane"></i> FLIGHTS
             </a>
-            <a href="/public/category/hotels.html" data-icon="hotel.svg">
+            <a href="../category/hotels.html" data-icon="hotel.svg">
                 <i class="fas fa-hotel"></i> HOTELS
             </a>
-            <a href="/public/category/trains.html" data-icon="train.svg">
+            <a href="../category/trains.html" data-icon="train.svg">
                 <i class="fas fa-train"></i> TRAINS
             </a>
-            <a class="active" href="/public/category/events.html" data-icon="event.svg">
+            <a class="active" href="../category/events.html" data-icon="event.svg">
                 <i class="fas fa-calendar-alt"></i> EVENTS
             </a>
         </div>
@@ -141,14 +141,14 @@
         <div class="event-details-content"></div> <!-- This is the container we need -->
     </div>
 
-    <script src="/public/js/navbar.js"></script>
+    <script src="../js/navbar.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.0/papaparse.min.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function () {
             let originalEventData = [];
             let currentFilter = 'reset';
 
-            fetch('/public/category/events.csv')
+            fetch('../category/events.csv')
                 .then(response => response.text())
                 .then(csvText => {
                     const results = Papa.parse(csvText, {
@@ -245,7 +245,7 @@
                 data-category="${event.category}"
                 data-date="${event.dateCategory}"
                 data-price="${event.priceValue}">
-                <div class="event-image" style="background-image: url('/public/category/assets/events/${event.image || 'default.jpg'}')"></div>
+                <div class="event-image" style="background-image: url('../category/assets/events/${event.image || 'default.jpg'}')"></div>
                 <div class="event-info">
                     <h4 class="event-name">${event.name}</h4>
                     <p class="event-price">${event.price}</p>
@@ -323,7 +323,7 @@
                 if (!event) return;
 
                 localStorage.setItem('selectedEvent', JSON.stringify(event));
-                window.location.href = '/public/category/event-booking.html';
+                window.location.href = '../category/event-booking.html';
             }
 
             function closeDetails() { document.getElementById('details-panel').classList.remove('active'); }

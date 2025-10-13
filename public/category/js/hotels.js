@@ -26,9 +26,13 @@ document.querySelectorAll('.custom-select').forEach(select => {
     });
 });
 
-document.getElementById("switch-btn").addEventListener("click", function () {
-    this.classList.toggle("rotated");
-});
+// Switch button only exists on flights page, not hotels
+const switchBtn = document.getElementById("switch-btn");
+if (switchBtn) {
+    switchBtn.addEventListener("click", function () {
+        this.classList.toggle("rotated");
+    });
+}
 
 function toggleDropdown() {
     const dropdown = document.getElementById("dropdown-menu");
@@ -44,22 +48,34 @@ document.addEventListener("click", function(event) {
     }
 });
 
-const calendarSingle = document.getElementById('calendar-single');
+const calendarCheckIn = document.getElementById('calendar-checkin');
+const calendarCheckOut = document.getElementById('calendar-checkout');
 const travelersClass = document.getElementById('travel-class');
-const dateTriggerSingle = document.querySelector('.date-trigger[onclick="toggleSingleCalendar()"]');;
+const dateTriggerCheckIn = document.querySelector('.date-trigger[onclick="toggleCheckInCalendar()"]');
+const dateTriggerCheckOut = document.querySelector('.date-trigger[onclick="toggleCheckOutCalendar()"]');
 
-function toggleSingleCalendar() {
-    calendarSingle.style.display = (calendarSingle.style.display === 'none' || calendarSingle.style.display === '') ? 'block' : 'none';
+function toggleCheckInCalendar() {
+    calendarCheckIn.style.display = (calendarCheckIn.style.display === 'none' || calendarCheckIn.style.display === '') ? 'block' : 'none';
+    calendarCheckOut.style.display = 'none';
+}
+
+function toggleCheckOutCalendar() {
+    calendarCheckOut.style.display = (calendarCheckOut.style.display === 'none' || calendarCheckOut.style.display === '') ? 'block' : 'none';
+    calendarCheckIn.style.display = 'none';
 }
 
 function toggleTravelersClass() {
     travelersClass.style.display = (travelersClass.style.display === 'none' || travelersClass.style.display === '') ? 'block' : 'none';
-    calendarSingle.style.display = 'none';
+    calendarCheckIn.style.display = 'none';
+    calendarCheckOut.style.display = 'none';
 }
 
 document.addEventListener('click', (event) => {
-    if (calendarSingle && !calendarSingle.contains(event.target) && !dateTriggerSingle.contains(event.target)) {
-        calendarSingle.style.display = 'none';
+    if (calendarCheckIn && !calendarCheckIn.contains(event.target) && !dateTriggerCheckIn.contains(event.target)) {
+        calendarCheckIn.style.display = 'none';
+    }
+    if (calendarCheckOut && !calendarCheckOut.contains(event.target) && !dateTriggerCheckOut.contains(event.target)) {
+        calendarCheckOut.style.display = 'none';
     }
     if (travelersClass && 
         !travelersClass.contains(event.target) && 
@@ -70,12 +86,17 @@ document.addEventListener('click', (event) => {
 });
 
 const today = Kalendae.moment();
+const tomorrow = Kalendae.moment().add(1, 'days');
 
-document.querySelector('.date-day').textContent = today.format('DD');
-document.querySelector('.date-month').textContent = today.format("MMM'YY");
-document.querySelector('.date-weekday').textContent = today.format('dddd');
+document.querySelector('.checkin-day').textContent = today.format('DD');
+document.querySelector('.checkin-month').textContent = today.format("MMM'YY");
+document.querySelector('.checkin-weekday').textContent = today.format('dddd');
 
-new Kalendae('calendar-single', {
+document.querySelector('.checkout-day').textContent = tomorrow.format('DD');
+document.querySelector('.checkout-month').textContent = tomorrow.format("MMM'YY");
+document.querySelector('.checkout-weekday').textContent = tomorrow.format('dddd');
+
+new Kalendae('calendar-checkin', {
     mode: 'single',
     selected: today.format('YYYY-MM-DD'),
     blackout: function(date) {
@@ -83,11 +104,28 @@ new Kalendae('calendar-single', {
     },
     subscribe: {
         'date-clicked': function(date) {
-            document.querySelector('.date-day').textContent = date.format('DD');
-            document.querySelector('.date-month').textContent = date.format("MMM'YY");
-            document.querySelector('.date-weekday').textContent = date.format('dddd');
-            console.log('Selected date:', date);
-            calendarSingle.style.display = 'none';
+            document.querySelector('.checkin-day').textContent = date.format('DD');
+            document.querySelector('.checkin-month').textContent = date.format("MMM'YY");
+            document.querySelector('.checkin-weekday').textContent = date.format('dddd');
+            console.log('Check-in date:', date);
+            calendarCheckIn.style.display = 'none';
+        }
+    }
+});
+
+new Kalendae('calendar-checkout', {
+    mode: 'single',
+    selected: tomorrow.format('YYYY-MM-DD'),
+    blackout: function(date) {
+        return date.isBefore(today, 'day');
+    },
+    subscribe: {
+        'date-clicked': function(date) {
+            document.querySelector('.checkout-day').textContent = date.format('DD');
+            document.querySelector('.checkout-month').textContent = date.format("MMM'YY");
+            document.querySelector('.checkout-weekday').textContent = date.format('dddd');
+            console.log('Check-out date:', date);
+            calendarCheckOut.style.display = 'none';
         }
     }
 });

@@ -70,48 +70,78 @@
     <h5 class="category-name">FLIGHTS</h5>
 
     <section class="flight-booking">
-        <label class="container">
-            <input type="radio" name="tripType" id="one-way" value="one-way" checked onchange="toggleRoundTrip()">
-            <span class="checkmark"></span><span class="radio-text">One Way</span>
-        </label>
-        <label class="container">
-            <input type="radio" name="tripType" id="round-trip" value="round-trip" onchange="toggleRoundTrip()">
-            <span class="checkmark"></span><span class="radio-text">Round Trip</span>
-        </label>
-
         <!--Select city-->
         <div class="city-switch">
+            <div class="way">
+                <label class="container">
+                    <input type="radio" name="tripType" id="one-way" value="one-way" checked
+                        onchange="toggleRoundTrip()">
+                    <span class="checkmark"></span><span class="radio-text">One Way</span>
+                </label>
+                <label class="container">
+                    <input type="radio" name="tripType" id="round-trip" value="round-trip" onchange="toggleRoundTrip()">
+                    <span class="checkmark"></span><span class="radio-text">Round Trip</span>
+                </label>
+            </div>
             <!--From-->
             <div class="input-group">
                 <div id="from" class="custom-select">
                     <div class="from">From</div>
                     <!--Initial option-->
-                    <div class="select-selected" data-value="Mumbai">
-                        <div class="city">Mumbai</div>
-                        <div class="airport">Chhatrapati Shivaji International Airport</div>
+                    <div class="select-selected" data-value="Pune">
+                        <div class="city">Pune</div>
+                        <div class="airport">Pune Airport</div>
                     </div>
                     <div class="select-options">
-                        <div data-city="Mumbai" data-airport="Chhatrapati Shivaji International Airport"
-                            data-code="BOM">
-                            <span class="city">Mumbai, India</span>
+                        <div data-city="Pune" data-airport="Pune Airport" data-code="PNQ">
+                            <span class="city">Pune</span>
+                            <span class="airport">Pune Airport</span>
+                            <span class="code">PNQ</span>
+                        </div>
+                        <div data-city="Delhi" data-airport="Indira Gandhi International Airport" data-code="DEL">
+                            <span class="city">Delhi</span>
+                            <span class="airport">Indira Gandhi International Airport</span>
+                            <span class="code">DEL</span>
+                        </div>
+                        <div data-city="Mumbai" data-airport="Chhatrapati Shivaji International Airport" data-code="BOM">
+                            <span class="city">Mumbai</span>
                             <span class="airport">Chhatrapati Shivaji International Airport</span>
                             <span class="code">BOM</span>
                         </div>
-                        <div data-city="Chennai" data-airport="Chennai International Airport" data-code="MAA">
-                            <span class="city">Chennai, India</span>
-                            <span class="airport">Chennai International Airport</span>
-                            <span class="code">MAA</span>
+                        <div data-city="Bangalore" data-airport="Kempegowda International Airport" data-code="BLR">
+                            <span class="city">Bangalore</span>
+                            <span class="airport">Kempegowda International Airport</span>
+                            <span class="code">BLR</span>
                         </div>
-                        <div data-city="Hyderabad" data-airport="Chennai International Airport" data-code="MAA">
-                            <span class="city">Hyderabad, India</span>
+                        <div data-city="Hyderabad" data-airport="Rajiv Gandhi International Airport" data-code="HYD">
+                            <span class="city">Hyderabad</span>
                             <span class="airport">Rajiv Gandhi International Airport</span>
                             <span class="code">HYD</span>
                         </div>
-                        <div data-city="Goa - Dabolim Airport" data-airport="Goa Dabolim International Airport"
-                            data-code="MAA">
-                            <span class="city">Goa - Dabolim Airport, India</span>
-                            <span class="airport">Rajiv Gandhi International Airport</span>
+                        <div data-city="Chennai" data-airport="Chennai International Airport" data-code="MAA">
+                            <span class="city">Chennai</span>
+                            <span class="airport">Chennai International Airport</span>
+                            <span class="code">MAA</span>
+                        </div>
+                        <div data-city="Kolkata" data-airport="Netaji Subhas Chandra Bose International Airport" data-code="CCU">
+                            <span class="city">Kolkata</span>
+                            <span class="airport">Netaji Subhas Chandra Bose International Airport</span>
+                            <span class="code">CCU</span>
+                        </div>
+                        <div data-city="Goa" data-airport="Goa International Airport" data-code="GOI">
+                            <span class="city">Goa</span>
+                            <span class="airport">Goa International Airport</span>
                             <span class="code">GOI</span>
+                        </div>
+                        <div data-city="Jaipur" data-airport="Jaipur International Airport" data-code="JAI">
+                            <span class="city">Jaipur</span>
+                            <span class="airport">Jaipur International Airport</span>
+                            <span class="code">JAI</span>
+                        </div>
+                        <div data-city="Ahmedabad" data-airport="Sardar Vallabhbhai Patel International Airport" data-code="AMD">
+                            <span class="city">Ahmedabad</span>
+                            <span class="airport">Sardar Vallabhbhai Patel International Airport</span>
+                            <span class="code">AMD</span>
                         </div>
                     </div>
                 </div>
@@ -122,32 +152,60 @@
                     <div id="to" class="custom-select">
                         <div class="to">To</div>
                         <!--Initial option-->
-                        <div class="select-selected" data-value="Goa">
-                            <div class="city">Goa Dabolim Airport, India</div>
-                            <div class="airport">Goa Dabolim International Airport</div>
+                        <div class="select-selected" data-value="Delhi">
+                            <div class="city">Delhi</div>
+                            <div class="airport">Indira Gandhi International Airport</div>
                         </div>
                         <div class="select-options">
-                            <div data-city="Mumbai" data-airport="Chhatrapati Shivaji International Airport"
-                                data-code="BOM">
-                                <span class="city">Mumbai, India</span>
+                            <div data-city="Delhi" data-airport="Indira Gandhi International Airport" data-code="DEL">
+                                <span class="city">Delhi</span>
+                                <span class="airport">Indira Gandhi International Airport</span>
+                                <span class="code">DEL</span>
+                            </div>
+                            <div data-city="Mumbai" data-airport="Chhatrapati Shivaji International Airport" data-code="BOM">
+                                <span class="city">Mumbai</span>
                                 <span class="airport">Chhatrapati Shivaji International Airport</span>
                                 <span class="code">BOM</span>
                             </div>
-                            <div data-city="Chennai" data-airport="Chennai International Airport" data-code="MAA">
-                                <span class="city">Chennai, India</span>
-                                <span class="airport">Chennai International Airport</span>
-                                <span class="code">MAA</span>
+                            <div data-city="Bangalore" data-airport="Kempegowda International Airport" data-code="BLR">
+                                <span class="city">Bangalore</span>
+                                <span class="airport">Kempegowda International Airport</span>
+                                <span class="code">BLR</span>
                             </div>
-                            <div data-city="Hyderabad" data-airport="Chennai International Airport" data-code="MAA">
-                                <span class="city">Hyderabad, India</span>
+                            <div data-city="Hyderabad" data-airport="Rajiv Gandhi International Airport" data-code="HYD">
+                                <span class="city">Hyderabad</span>
                                 <span class="airport">Rajiv Gandhi International Airport</span>
                                 <span class="code">HYD</span>
                             </div>
-                            <div data-city="Goa - Dabolim Airport" data-airport="Goa Dabolim International Airport"
-                                data-code="MAA">
-                                <span class="city">Goa - Dabolim Airport, India</span>
-                                <span class="airport">Rajiv Gandhi International Airport</span>
+                            <div data-city="Chennai" data-airport="Chennai International Airport" data-code="MAA">
+                                <span class="city">Chennai</span>
+                                <span class="airport">Chennai International Airport</span>
+                                <span class="code">MAA</span>
+                            </div>
+                            <div data-city="Kolkata" data-airport="Netaji Subhas Chandra Bose International Airport" data-code="CCU">
+                                <span class="city">Kolkata</span>
+                                <span class="airport">Netaji Subhas Chandra Bose International Airport</span>
+                                <span class="code">CCU</span>
+                            </div>
+                            <div data-city="Goa" data-airport="Goa International Airport" data-code="GOI">
+                                <span class="city">Goa</span>
+                                <span class="airport">Goa International Airport</span>
                                 <span class="code">GOI</span>
+                            </div>
+                            <div data-city="Jaipur" data-airport="Jaipur International Airport" data-code="JAI">
+                                <span class="city">Jaipur</span>
+                                <span class="airport">Jaipur International Airport</span>
+                                <span class="code">JAI</span>
+                            </div>
+                            <div data-city="Ahmedabad" data-airport="Sardar Vallabhbhai Patel International Airport" data-code="AMD">
+                                <span class="city">Ahmedabad</span>
+                                <span class="airport">Sardar Vallabhbhai Patel International Airport</span>
+                                <span class="code">AMD</span>
+                            </div>
+                            <div data-city="Pune" data-airport="Pune Airport" data-code="PNQ">
+                                <span class="city">Pune</span>
+                                <span class="airport">Pune Airport</span>
+                                <span class="code">PNQ</span>
                             </div>
                         </div>
                     </div>
@@ -254,59 +312,74 @@
                         </div>
                     </div>
                 </div>
+
+                <div class="special-fare">
+                    <div class="fare-header">
+                        <h3>Special Fare</h3>
+                        <h3
+                            style="user-select: none; font-size: 0.7rem; text-align: center; background-color: var(--radio-color);padding: 0.2rem; color: var(--color-fg)">
+                            EXTRA SAVINGS</h3>
+                    </div>
+                    <div style="left: 3%;position: relative; align-content: center;">
+                        <label class="radio">
+                            <input type="radio" name="fairType" checked>
+                            <span class="checkmark1"></span>
+                            <span class="radio-text">Regular<span class="subtext">Regular fares</span></span>
+                        </label>
+
+                        <label class="radio">
+                            <input type="radio" name="fairType">
+                            <span class="checkmark1"></span>
+                            <span class="radio-text">Student<span class="subtext">Extra discounts/baggage</span></span>
+                            <span class="tooltip">Applicable only for students above 12 years of age. Valid student ID
+                                cards and
+                                student
+                                visas (where applicable) are required to avail this.</span>
+                        </label>
+
+                        <label class="radio">
+                            <input type="radio" name="fairType">
+                            <span class="checkmark1"></span>
+                            <span class="radio-text">Senior Citizen<span class="subtext">Up to ₹500 off</span></span>
+                            <span class="tooltip">Applicable only for senior citizens above the age of 60 years. A valid
+                                proof of
+                                Date
+                                of Birth is required at the airport to avail this.</span>
+                        </label>
+
+                        <label class="radio">
+                            <input type="radio" name="fairType">
+                            <span class="checkmark1"></span>
+                            <span class="radio-text">Armed Forces<span class="subtext">Up to ₹600 off</span></span>
+                            <span class="tooltip">Applicable only for serving/retired Indian Armed Forces personnel &
+                                their
+                                dependents.
+                                A valid Armed Forces ID or dependent card is required at the airport to avail
+                                this.</span>
+                        </label>
+
+                        <label class="radio">
+                            <input type="radio" name="fairType">
+                            <span class="checkmark1"></span>
+                            <span class="radio-text">Doctor and Nurses<span class="subtext">Up to ₹700 off</span></span>
+                            <span class="tooltip">Applicable only for medical personnel. A valid ID is required at the
+                                airport to
+                                avail
+                                this.</span>
+                        </label>
+                    </div>
+                </div>
+                <button class="search-btn" onclick="searchFlights(event)">SEARCH</button>
     </section>
 
-    <div class="special-fare">
-        <h3>Special Fare</h3>
-        <h3 style="user-select: none;margin-top: 40px; font-size: 0.7rem; background-color: var(--radio-color);padding: 0.2rem; color: var(--color-fg)">EXTRA SAVINGS</h3>
-        <div style="left: 3%;position: relative;">
-            <label class="radio">
-                <input type="radio" name="fairType" checked>
-                <span class="checkmark1"></span>
-                <span class="radio-text">Regular<span class="subtext">Regular fares</span></span>
-            </label>
 
-            <label class="radio">
-                <input type="radio" name="fairType">
-                <span class="checkmark1"></span>
-                <span class="radio-text">Student<span class="subtext">Extra discounts/baggage</span></span>
-                <span class="tooltip">Applicable only for students above 12 years of age. Valid student ID cards and student
-                    visas (where applicable) are required to avail this.</span>
-            </label>
 
-            <label class="radio">
-                <input type="radio" name="fairType">
-                <span class="checkmark1"></span>
-                <span class="radio-text">Senior Citizen<span class="subtext">Up to ₹500 off</span></span>
-                <span class="tooltip">Applicable only for senior citizens above the age of 60 years. A valid proof of Date
-                    of Birth is required at the airport to avail this.</span>
-            </label>
-
-            <label class="radio">
-                <input type="radio" name="fairType">
-                <span class="checkmark1"></span>
-                <span class="radio-text">Armed Forces<span class="subtext">Up to ₹600 off</span></span>
-                <span class="tooltip">Applicable only for serving/retired Indian Armed Forces personnel & their dependents.
-                    A valid Armed Forces ID or dependent card is required at the airport to avail this.</span>
-            </label>
-
-            <label class="radio">
-                <input type="radio" name="fairType">
-                <span class="checkmark1"></span>
-                <span class="radio-text">Doctor and Nurses<span class="subtext">Up to ₹700 off</span></span>
-                <span class="tooltip">Applicable only for medical personnel. A valid ID is required at the airport to avail
-                    this.</span>
-            </label>
-        </div>
-    </div>
-
-    <a class="search-btn" href="flight-results.html">SEARCH</a>
 
     <!--Alert-->
     <div id="customAlert" class="alert"><span id="alertMessage">alert</span></div>
 
 </body>
-<script src="../category/js/flights.js"></script>
+<script src="../category/js/service.js"></script>
 <script src="../js/navbar.js"></script>
 <script type="module" src="../js/login-signup.js"></script>
 

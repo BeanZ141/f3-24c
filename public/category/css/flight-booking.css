@@ -70,9 +70,13 @@
         border-bottom: 1px solid transparent;
     }
 
-    .fare-summary .fare-item span { color: var(--color-fg); }
+    .fare-summary .fare-item span {
+        color: var(--color-fg);
+    }
 
-    .fare-summary .fare-item:hover { font-weight: 800; }
+    .fare-summary .fare-item:hover {
+        font-weight: 800;
+    }
 
     .fare-summary .fare-total {
         display: flex;
@@ -236,20 +240,17 @@
     .line {
         height: 1px;
         width: 1250px;
-        background-image: repeating-linear-gradient(
-            to right,
-            var(--radio-border),
-            var(--radio-border) 50px,
-            transparent 25px,
-            transparent 80px
-        );
+        background-image: repeating-linear-gradient(to right,
+                var(--radio-border),
+                var(--radio-border) 50px,
+                transparent 25px,
+                transparent 80px);
         margin-left: 15px;
-        position: absolute;
-        bottom: 120px;
+        position: relative;
         animation: fade-card 1.2s forwards;
     }
-    
-    
+
+
     @media (max-width: 768px) {
         .top-section {
             flex-direction: column;

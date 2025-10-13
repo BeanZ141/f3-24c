@@ -9,10 +9,10 @@
     <link href="https://fonts.googleapis.com/css2?family=Varela&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
     <title>Event Booking</title>
-    <link rel="stylesheet" href="/public/css/styles.css">
-    <link rel="stylesheet" href="/public/css/themes.css">
-    <link rel="stylesheet" href="/public/css/navbar.css">
-    <link rel="stylesheet" href="/public/category/css/events.css">
+    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="stylesheet" href="../css/themes.css">
+    <link rel="stylesheet" href="../css/navbar.css">
+    <link rel="stylesheet" href="../category/css/events.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
         body { padding: 0; user-select: none; }
@@ -50,7 +50,7 @@
     </head>
 <body>
     <nav style="z-index: 1; background-color: transparent;backdrop-filter: blur(4px);">
-        <a href="/public/index.html">TICKETEASE</a>
+        <a href="../index.html">TICKETEASE</a>
         <div id="user-info" style="display: none;">
             <span id="username-display"></span>
             <div class="dropdown">
@@ -63,16 +63,16 @@
             </div>
         </div>
         <div class="service-nav">
-            <a href="/public/category/flights.html" data-icon="flight.svg">
+            <a href="../category/flights.html" data-icon="flight.svg">
                 <i class="fas fa-plane"></i> FLIGHTS
             </a>
-            <a href="/public/category/hotels.html" data-icon="hotel.svg">
+            <a href="../category/hotels.html" data-icon="hotel.svg">
                 <i class="fas fa-hotel"></i> HOTELS
             </a>
-            <a href="/public/category/trains.html" data-icon="train.svg">
+            <a href="../category/trains.html" data-icon="train.svg">
                 <i class="fas fa-train"></i> TRAINS
             </a>
-            <a class="active" href="/public/category/events.html" data-icon="event.svg">
+            <a class="active" href="../category/events.html" data-icon="event.svg">
                 <i class="fas fa-calendar-alt"></i> EVENTS
             </a>
         </div>
@@ -88,7 +88,7 @@
     </nav>
 
     <main class="page-wrap">
-        <a class="back-link" href="/public/category/events.html">&larr; Back to Events</a>
+        <a class="back-link" href="../category/events.html">&larr; Back to Events</a>
         <div class="booking-layout">
             <div class="image-card">
                 <div class="event-image" id="event-image"></div>
@@ -124,11 +124,11 @@
 
     <!-- Razorpay SDK -->
     <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
-    <script src="/public/js/navbar.js"></script>
+    <script src="../js/navbar.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function () {
             const eventDataRaw = localStorage.getItem('selectedEvent');
-            if (!eventDataRaw) { window.location.href = '/public/category/events.html'; return; }
+            if (!eventDataRaw) { window.location.href = '../category/events.html'; return; }
 
             const eventData = JSON.parse(eventDataRaw);
             const perTicketPrice = (eventData.price === 'Free') ? 0 : (parseInt(String(eventData.price).replace(/[^0-9]/g, '')) || 0);
@@ -145,7 +145,7 @@
 			const minusBtn = document.getElementById('qty-minus');
 			const plusBtn = document.getElementById('qty-plus');
 
-            document.getElementById('event-image').style.backgroundImage = `url('/public/category/assets/events/${eventData.image || 'default.jpg'}')`;
+            document.getElementById('event-image').style.backgroundImage = `url('../category/assets/events/${eventData.image || 'default.jpg'}')`;
             nameEl.textContent = eventData.name;
             const formattedDate = new Date(eventData.date).toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' });
             metaEl.innerHTML = `
@@ -212,7 +212,7 @@
             });
 
             cancelBtn.addEventListener('click', function () {
-                window.location.href = '/public/category/events.html';
+                window.location.href = '../category/events.html';
             });
 
             // Razorpay Payment Integration
@@ -232,7 +232,7 @@
                     currency: 'INR',
                     name: 'Ticketease',
                     description: `Event Booking: ${eventData.name}`,
-                    image: '/public/images/favicon.png', // Your logo
+                    image: '../images/favicon.png', // Your logo
                     order_id: '', // Optional: Generate order_id from backend
                     handler: function (response) {
                         // Payment successful
@@ -292,7 +292,7 @@
 
                 // Redirect to success page after 2 seconds
                 setTimeout(() => {
-                    window.location.href = '/public/payment-status.html?status=success&type=event&free=true';
+                    window.location.href = '../payment-status.html?status=success&type=event&free=true';
                 }, 2000);
             }
 
@@ -317,7 +317,7 @@
 
                 // Redirect to success page after 2 seconds
                 setTimeout(() => {
-                    window.location.href = '/public/payment-status.html?status=success&type=event';
+                    window.location.href = '../payment-status.html?status=success&type=event';
                 }, 2000);
             }
 
@@ -344,7 +344,7 @@
 
                 // Optionally redirect to failure page
                 setTimeout(() => {
-                    window.location.href = '/public/payment-status.html?status=failed&type=event';
+                    window.location.href = '../payment-status.html?status=failed&type=event';
                 }, 3000);
             }
 

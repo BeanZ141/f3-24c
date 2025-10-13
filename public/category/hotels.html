@@ -66,13 +66,15 @@
     <h5 class="category-name">HOTELS</h5>
 
     <section class="flight-booking">
-        <!--Trip type-->
-        <label class="container">
-            <input type="radio" name="tripType" id="one-way" value="one-way" checked onchange="toggleRoundTrip()">
-            <span class="checkmark"></span><span class="radio-text">Upto 4 Rooms</span>
-        </label>
         <!--Select city-->
         <div class="city-switch">
+            <!--Trip type-->
+            <div class="way">
+                <label class="container">
+                    <input type="radio" name="tripType" id="one-way" value="one-way" checked onchange="toggleRoundTrip()">
+                    <span class="checkmark"></span><span class="radio-text">Upto 4 Rooms</span>
+                </label>
+            </div>
             <!--To-->
             <div class="input-group">
                 <div id="from" class="custom-select">
@@ -111,32 +113,32 @@
                 <div class="input-group">
                     <div class="date-picker">
                         <div class="departure">Check-In <span class="arrow-down"></span></div>
-                        <button class="date-trigger" onclick="toggleSingleCalendar()">
+                        <button class="date-trigger" onclick="toggleCheckInCalendar()">
                             <div class="text-left">
                                 <div class="date-display">
-                                    <span class="date-day">13</span>
-                                    <span class="date-month">Mar'25</span>
+                                    <span class="checkin-day">13</span>
+                                    <span class="checkin-month">Mar'25</span>
                                 </div>
-                                <div class="date-weekday">Thursday</div>
+                                <div class="checkin-weekday">Thursday</div>
                             </div>
                         </button>
-                        <div id="calendar-single" style="display: none;"></div>
+                        <div id="calendar-checkin"></div>
                     </div>
                 </div>
                 <!--Check-Out-->
                 <div class="input-group">
                     <div class="date-picker">
                         <div class="departure">Check-Out <span class="arrow-down"></span></div>
-                        <button class="date-trigger" onclick="toggleSingleCalendar()">
+                        <button class="date-trigger" onclick="toggleCheckOutCalendar()">
                             <div class="text-left">
                                 <div class="date-display">
-                                    <span class="date-day">6</span>
-                                    <span class="date-month">May'25</span>
+                                    <span class="checkout-day">14</span>
+                                    <span class="checkout-month">Mar'25</span>
                                 </div>
-                                <div class="date-weekday">Thursday</div>
+                                <div class="checkout-weekday">Friday</div>
                             </div>
                         </button>
-                        <div id="calendar-single" style="display: none;"></div>
+                        <div id="calendar-checkout"></div>
                     </div>
                 </div>
                 <!--Rooms & Guests-->
@@ -237,16 +239,8 @@
                         </div>
                     </div>
                 </div>
+                <a class="search-btn" href="../category/hotel-results.html">SEARCH</a>
     </section>
-
-    <a class="search-btn" href="../category/hotel-results.html">SEARCH</a>
-
-    <!--Fill up content-->
-    <div class="fill-up-content-container" style="display: none;">
-        <a href="https://www.emirates.com" target="_blank">
-            <div class="emirates-banner"><img src="../category/images/emirates.png"></div>
-        </a>
-    </div>
 
     <!--Alert-->
     <div id="customAlert" class="alert">

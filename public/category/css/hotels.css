@@ -4,11 +4,7 @@ body {
     color: var(--color-fg);
     margin: 0;
     padding: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-    user-select: none;
+    position: relative;
 }
 
 .input-group {
@@ -33,7 +29,7 @@ select {
 
 #switch-btn {
     position: absolute;
-    left: 24%;
+    left: 24.8%;
     background-color: var(--switch-btn-color);
     color: var(--color-fg);
     height: 40px;
@@ -41,13 +37,16 @@ select {
     border-radius: 50%;
     border: none;
     cursor: pointer;
-    font-size: 1.9rem;
+    font-size: 1.3rem;
     rotate: 90deg;
-    z-index: 1;
+    transition: 250ms;
+    z-index: 999;
 }
 
 #switch-btn:hover {
-    background-color: #141414;
+    background-color: var(--switch-btn-color);
+    rotate: 270deg;
+    transition: 250ms;
 }
 
 input[type="checkbox"] {
@@ -57,8 +56,9 @@ input[type="checkbox"] {
 .container {
     position: relative;
     cursor: pointer;
-    font-size: 16px;
+    font-size: 14px;
     font-family: 'Space Mono', monospace;
+    letter-spacing: -0.3px;
     -webkit-user-select: none;
     -moz-user-select: none;
     -ms-user-select: none;
@@ -112,19 +112,19 @@ input[type="checkbox"] {
 
 /* Special fare radio button */
 .special-fare {
-    position: fixed;
-    top: 23rem;
-    left: 11.5rem;
+    position: absolute;
+    display: flex;
+    justify-content: center;
     z-index: 1;
+    isolation: isolate;
     animation: animate-gradient 0.7s ease-in forwards, fade-element 0.7s forwards;
+    top: 7.5rem;
 }
 
 .special-fare h3 {
-    position: absolute;
-    left: -13%;
-    top: -50%;
-    padding-bottom: 1rem;
+    position: relative;
     font-size: 1em;
+    margin: 10px;
     font-weight: 400;
     user-select: none;
     animation: animate-gradient 0.7s ease-in forwards;
@@ -149,8 +149,9 @@ input[type="checkbox"] {
     display: inline;
     border-radius: 8px;
     cursor: pointer;
-    font-size: 16px;
+    font-size: 14px;
     font-family: 'Space Mono', monospace;
+    letter-spacing: -0.3px;
     -webkit-user-select: none;
     -moz-user-select: none;
     -ms-user-select: none;
@@ -169,7 +170,7 @@ input[type="checkbox"] {
 
 .subtext {
     display: block;
-    font-size: 0.6em;
+    font-size: 0.8em;
     color: #888;
     margin-top: 2px;
     animation: animate-gradient 0.7s ease-in forwards;
@@ -240,19 +241,37 @@ input[type="checkbox"] {
     border-color: var(--radio-color) transparent transparent transparent;
 }
 
-.flight-booking>label>.radio-text {
-    padding: 0px 5px 0px 5px;
-}
+.flight-booking>label>.radio-text { padding: 0px 5px 0px 5px; }
 
 .flight-booking {
-    width: 400px;
-    position: fixed;
-    top: 29vh;
-    left: 10vh;
-    flex-wrap: wrap;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 15vh;
     border-radius: 10px;
+    z-index: 10;
+    isolation: isolate;
+    animation: animate-gradient 0.7s ease-in forwards, fade-element 0.7s forwards;
+    width: 100%;
+    margin: 250px auto 0px auto;
+}
+
+.way {
+    display: block;
+    position: fixed;
+    top: -35%;
+    left: 0%;
+}
+
+.flight-booking > .way {
+    justify-content: center;
+    z-index: 10;
+    isolation: isolate;
     animation: animate-gradient 0.7s ease-in forwards, fade-element 0.7s forwards;
 }
+
+.way .radio-text { padding: 4px 10px; }
 
 .city-switch {
     display: flex;
@@ -265,11 +284,7 @@ input[type="checkbox"] {
     animation: animate-gradient 0.7s ease-in forwards, fade-element 0.7s forwards;
 }
 
-#from {
-    border-right: 1px solid var(--radio-border);
-    transition: 0.3s;
-    border-radius: 10px 0px 0px 10px;
-}
+#from { border-right: 1px solid var(--radio-border); transition: 0.3s; }
 
 .from {
     font-size: 0.4em;
@@ -284,7 +299,8 @@ input[type="checkbox"] {
     font-size: 0.4em;
     font-weight: 200;
     float: inline-start;
-    margin: 10px 15px;
+    margin: 10px;
+    margin-left: 20px;
     animation: animate-gradient 0.7s ease-in forwards;
 }
 
@@ -300,7 +316,6 @@ input[type="checkbox"] {
 #to {
     border-radius: 0px;
     transition: 0.3s;
-    border-radius: 0px 10px 10px 0px;
 }
 
 #departure {
@@ -330,19 +345,20 @@ input[type="checkbox"] {
     border: 0px solid #0c0c0c;
 }
 
-/* Custom dropdown menu */
-
 .custom-select {
     position: relative;
     height: 6.875rem;
     border-right: 1px solid var(--radio-border);
-    width: 300px;
+    width: 320px;
     font-family: 'Space Mono', monospace;
-    font-size: 1.6rem;
+    font-size: 1.5rem;
     font-weight: bold;
     cursor: pointer;
     color: var(--color-fg);
-
+    border-radius: 8px 0px 0px 8px;
+    letter-spacing: -0.5px;
+    background-color: var(--color-bg);
+    z-index: 100;
 }
 
 .custom-select:hover {
@@ -359,18 +375,25 @@ input[type="checkbox"] {
 .select-options {
     display: none;
     position: absolute;
-    width: 100%;
-    top: 70%;
-    font-size: 0.5em;
-    font-weight: 100;
+    top: 100%;
+    left: 0;
+    width: 320px;
+    font-size: 0.45em;
+    font-weight: 400;
     background-color: var(--radio-color);
-    border-radius: 8px;
+    border-radius: 0 0 8px 8px;
+    z-index: 99999;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    border: 1px solid var(--radio-border);
+    border-top: none;
+    font-family: 'Space Mono', monospace;
+    letter-spacing: -0.3px;
 }
 
 .select-options div {
     display: flex;
     justify-content: space-between;
-    padding: 10px 14px;
+    padding: 10px 10px 0px 10px;
     color: #808080;
     flex-direction: column;
 }
@@ -425,8 +448,6 @@ input[type="checkbox"] {
     display: block;
 }
 
-/* Date Picker */
-
 .date-picker {
     position: relative;
 }
@@ -467,13 +488,14 @@ input[type="checkbox"] {
 
 .return-description {
     position: absolute;
-    width: 80px;
-    font-size: 0.7rem;
-    font-family: 'Varela', sans-serif-;
-    font-weight: 800;
+    width: 85px;
+    font-size: 0.65rem;
+    font-family: 'Space Mono', monospace;
+    font-weight: 600;
     text-align: left;
     top: 30%;
     left: 10%;
+    letter-spacing: -0.3px;
     animation: animate-gradient 0.7s ease-in forwards;
 }
 
@@ -492,8 +514,9 @@ input[type="checkbox"] {
 
 .date-month {
     font-family: 'Space Mono', monospace;
-    font-size: 1rem;
+    font-size: 0.9rem;
     animation: animate-gradient 0.7s ease-in forwards;
+    letter-spacing: -0.3px;
 }
 
 .date-weekday {
@@ -502,6 +525,7 @@ input[type="checkbox"] {
     margin-left: 0.6rem;
     position: absolute;
     animation: animate-gradient 0.7s ease-in forwards;
+    letter-spacing: -0.3px;
 }
 
 .calendar input[type="date"] {
@@ -551,7 +575,8 @@ input[type="checkbox"] {
     width: 100%;
 }
 
-.calendar th, .calendar td {
+.calendar th,
+.calendar td {
     text-align: center;
     padding: 5px;
     cursor: pointer;
@@ -607,11 +632,12 @@ input[type="checkbox"] {
 .travelers {
     color: var(--color-fg);
     font-family: 'Space Mono', monospace;
-    font-size: 0.9em;
+    font-size: 0.8em;
     position: absolute;
     top: 0%;
     margin: 0.7rem;
     animation: animate-gradient 0.7s ease-in forwards;
+    letter-spacing: -0.3px;
 }
 
 .travelers-display {
@@ -619,30 +645,37 @@ input[type="checkbox"] {
     font-family: 'Space Mono', monospace;
     margin-top: 0.8rem;
     animation: animate-gradient 0.7s ease-in forwards;
+    letter-spacing: -0.3px;
 }
 
 .travelers-and-class {
+    position: relative;
     width: 245px;
     height: 6.875rem;
     background-color: var(--color-bg);
     border: 0px solid #000;
-    border-radius: 0px;
+    border-radius: 0px 8px 8px 0px;
     cursor: pointer;
 }
 
 .travel-class {
     position: absolute;
-    top: 30%;
-    left: 49.9%;
+    top: 90%;
+    left: 51.4%;
     width: 34rem;
     height: 20rem;
     background-color: var(--calendar-bg);
-    border-radius: 10px;
     padding: 1.3rem;
     user-select: none;
+    z-index: 99999;
+    border: 1px solid var(--radio-border);
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    margin-top: 10px;
 }
 
-.travel-class h5, p {
+.travel-class h5,
+p {
     font-size: 0.6em;
     margin-top: 1rem;
     margin-bottom: 1rem;
@@ -650,7 +683,7 @@ input[type="checkbox"] {
 }
 
 .number-of-travelers {
-    margin-left: -4.5rem;
+    margin-left: -4rem;
     font-size: 2em;
     font-weight: 600;
 }
@@ -658,7 +691,7 @@ input[type="checkbox"] {
 .display-class {
     display: block;
     width: 200px;
-    margin-left: 0.7rem;
+    margin-left: 1rem;
     white-space: nowrap;
     text-align: left;
 }
@@ -668,7 +701,7 @@ input[type="checkbox"] {
     position: absolute;
 }
 
-.infants-section { 
+.infants-section {
     width: 200px;
     left: 50%;
     position: absolute;
@@ -678,6 +711,10 @@ input[type="checkbox"] {
     top: 65%;
     width: 400px;
     position: absolute;
+}
+
+#class-error {
+    display: block;
 }
 
 .radio-input input {
@@ -764,7 +801,7 @@ input[type="checkbox"] {
     transition: .15s ease;
 }
 
-.radio-input label:has(input:checked) ~ .selection {
+.radio-input label:has(input:checked)~.selection {
     background-color: var(--color-fg);
     display: inline-block;
 }
@@ -778,9 +815,8 @@ input[type="checkbox"] {
     color: var(--color-fg);
     text-decoration: none;
     position: absolute;
-    top: 52.5%;
+    top: 195%;
     left: 45%;
-    z-index: 0;
     padding: 10px 20px;
     border: 1px solid transparent;
     transition: background-color 0.3s ease, color 0.3s ease;
@@ -795,38 +831,48 @@ input[type="checkbox"] {
     cursor: pointer;
 }
 
-.radio-input label:nth-child(1):has(input:checked) ~ .selection {
-  transform: translateX(calc(var(--container_width) * 0 / var(--items)));
+.radio-input label:nth-child(1):has(input:checked)~.selection {
+    transform: translateX(calc(var(--container_width) * 0 / var(--items)));
 }
-.radio-input label:nth-child(2):has(input:checked) ~ .selection {
-  transform: translateX(calc(var(--container_width) * 1 / var(--items)));
+
+.radio-input label:nth-child(2):has(input:checked)~.selection {
+    transform: translateX(calc(var(--container_width) * 1 / var(--items)));
 }
-.radio-input label:nth-child(3):has(input:checked) ~ .selection {
-  transform: translateX(calc(var(--container_width) * 2 / var(--items)));
+
+.radio-input label:nth-child(3):has(input:checked)~.selection {
+    transform: translateX(calc(var(--container_width) * 2 / var(--items)));
 }
-.radio-input label:nth-child(4):has(input:checked) ~ .selection {
-  transform: translateX(calc(var(--container_width) * 3 / var(--items)));
+
+.radio-input label:nth-child(4):has(input:checked)~.selection {
+    transform: translateX(calc(var(--container_width) * 3 / var(--items)));
 }
-.radio-input label:nth-child(5):has(input:checked) ~ .selection {
-  transform: translateX(calc(var(--container_width) * 4 / var(--items)));
+
+.radio-input label:nth-child(5):has(input:checked)~.selection {
+    transform: translateX(calc(var(--container_width) * 4 / var(--items)));
 }
-.radio-input label:nth-child(6):has(input:checked) ~ .selection {
-  transform: translateX(calc(var(--container_width) * 5 / var(--items)));
+
+.radio-input label:nth-child(6):has(input:checked)~.selection {
+    transform: translateX(calc(var(--container_width) * 5 / var(--items)));
 }
-.radio-input label:nth-child(7):has(input:checked) ~ .selection {
-  transform: translateX(calc(var(--container_width) * 6 / var(--items)));
+
+.radio-input label:nth-child(7):has(input:checked)~.selection {
+    transform: translateX(calc(var(--container_width) * 6 / var(--items)));
 }
-.radio-input label:nth-child(8):has(input:checked) ~ .selection {
-  transform: translateX(calc(var(--container_width) * 7 / var(--items)));
+
+.radio-input label:nth-child(8):has(input:checked)~.selection {
+    transform: translateX(calc(var(--container_width) * 7 / var(--items)));
 }
-.radio-input label:nth-child(9):has(input:checked) ~ .selection {
-  transform: translateX(calc(var(--container_width) * 8 / var(--items)));
+
+.radio-input label:nth-child(9):has(input:checked)~.selection {
+    transform: translateX(calc(var(--container_width) * 8 / var(--items)));
 }
-.radio-input label:nth-child(10):has(input:checked) ~ .selection {
-  transform: translateX(calc(var(--container_width) * 9 / var(--items)));
+
+.radio-input label:nth-child(10):has(input:checked)~.selection {
+    transform: translateX(calc(var(--container_width) * 9 / var(--items)));
 }
-.radio-input label:nth-child(11):has(input:checked) ~ .selection {
-  transform: translateX(calc(var(--container_width) * 10/ var(--items)));
+
+.radio-input label:nth-child(11):has(input:checked)~.selection {
+    transform: translateX(calc(var(--container_width) * 10/ var(--items)));
 }
 
 .alert {
@@ -851,37 +897,55 @@ input[type="checkbox"] {
     animation: fade-text 1s forwards;
 }
 
-.alert.success { background-color: var(--color-fg); color: var(--color-bg); }
-.alert.error { background-color: #ff0000; color: #222; }
-
-.fill-up-content-container {
-    width: 100%;
-    max-width: 1170px;
-    margin-right: 10px;
-    height: 160px;
-    display: flex;
-    box-shadow: rgba(0, 0, 0, 0.1) 0px 3px 30px 0px;
-    background: url(https://go-assets.ibcdn.com/u/MMT/images/1736424341541-oneAirlineBg.png) right bottom / contain no-repeat var(--radio-color);
-    border-radius: 10px;
-    overflow: hidden;
-    position: relative;
-    margin-top: 620px;
-    cursor: pointer;
+.alert.success {
+    background-color: var(--color-fg);
+    color: var(--color-bg);
 }
 
-.emirates-banner {
-    width: 350px;
-    height: 350px;
-    border-radius: 0px 50% 50% 0px;
-    overflow: hidden;
-    position: relative;
-    background: #757575;
-    transform: translateY(-24%);
+.alert.error {
+    background-color: #ff0000;
+    color: #222;
 }
 
-.emirates-banner img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    display: block;
+#calendar-checkin, #calendar-checkout {
+    display: none;
+    position: absolute;
+    top: 90%;
+    left: -1%;
+    z-index: 99999;
+    background-color: var(--calendar-bg);
+    border: 1px solid var(--radio-border);
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+/* Ensure date-picker has relative positioning */
+.date-picker {
+    position: relative;
+}
+
+/* Check-in and Check-out specific styles */
+.checkin-day, .checkout-day {
+    font-size: 2em;
+    margin-right: 0.3rem;
+    font-weight: 600;
+    margin-left: 0.5rem;
+    margin-bottom: -5px;
+    animation: animate-gradient 0.7s ease-in forwards;
+}
+
+.checkin-month, .checkout-month {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.9rem;
+    animation: animate-gradient 0.7s ease-in forwards;
+    letter-spacing: -0.3px;
+}
+
+.checkin-weekday, .checkout-weekday {
+    font-family: 'Space Mono', monospace;
+    margin-top: 0.3rem;
+    margin-left: 0.6rem;
+    position: absolute;
+    animation: animate-gradient 0.7s ease-in forwards;
+    letter-spacing: -0.3px;
 }
