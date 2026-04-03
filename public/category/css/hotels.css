@@ -34,7 +34,7 @@ select {
     color: var(--color-fg);
     height: 40px;
     width: 40px;
-    border-radius: 50%;
+    
     border: none;
     cursor: pointer;
     font-size: 1.3rem;
@@ -84,7 +84,7 @@ input[type="checkbox"] {
     width: 0.81rem;
     background-color: var(--radio-color);
     border: 1px solid var(--radio-border);
-    border-radius: 50%;
+    
 }
 
 .container input:checked~.checkmark {
@@ -96,14 +96,14 @@ input[type="checkbox"] {
 }
 
 .container input:checked~.checkmark+span {
-    background-color: var(--button-bg);
     font-weight: bold;
 }
 
 .container input:checked~span {
     font-weight: bold;
-    background-color: var(--button-bg);
-    color: var(--button-fg);
+    color: var(--button-bg);
+    text-decoration: underline;
+    text-underline-offset: 4px;
 }
 
 .container:hover {
@@ -142,12 +142,12 @@ input[type="checkbox"] {
     width: 12px;
     background-color: var(--radio-color);
     border: 1px solid var(--radio-border);
-    border-radius: 50%;
+    
 }
 
 .radio {
     display: inline;
-    border-radius: 8px;
+    
     cursor: pointer;
     font-size: 14px;
     font-family: 'Space Mono', monospace;
@@ -216,7 +216,7 @@ input[type="checkbox"] {
     border: 1px solid var(--radio-border);
     text-align: center;
     font-size: 0.7em;
-    border-radius: 4px;
+    
     padding: 10px 15px;
     position: absolute;
     top: 140%;
@@ -248,10 +248,9 @@ input[type="checkbox"] {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    min-height: 15vh;
-    border-radius: 10px;
-    z-index: 10;
-    isolation: isolate;
+    min-height: 10vh;
+    z-index: 1000;
+    position: relative;
     animation: animate-gradient 0.7s ease-in forwards, fade-element 0.7s forwards;
     width: 100%;
     margin: 250px auto 0px auto;
@@ -279,7 +278,7 @@ input[type="checkbox"] {
     position: fixed;
     align-items: center;
     border: 1px solid var(--radio-border);
-    border-radius: 10px;
+    
     margin-top: 10px;
     animation: animate-gradient 0.7s ease-in forwards, fade-element 0.7s forwards;
 }
@@ -314,7 +313,6 @@ input[type="checkbox"] {
 }
 
 #to {
-    border-radius: 0px;
     transition: 0.3s;
 }
 
@@ -349,39 +347,67 @@ input[type="checkbox"] {
     position: relative;
     height: 6.875rem;
     border-right: 1px solid var(--radio-border);
-    width: 320px;
+    width: 210px;
     font-family: 'Space Mono', monospace;
     font-size: 1.5rem;
     font-weight: bold;
     cursor: pointer;
     color: var(--color-fg);
-    border-radius: 8px 0px 0px 8px;
     letter-spacing: -0.5px;
     background-color: var(--color-bg);
     z-index: 100;
 }
 
-.custom-select:hover {
-    background-color: var(--radio-color);
-    transition: 0.3ms;
+.custom-select > .to a {
+    font-size: 1.5rem;
+    text-decoration: none;
+    color: var(--color-bg);
+    background-color: var(--color-fg);
+    margin-top: 25px;
+    position: absolute;
+    margin-left: 38px;
 }
 
-.select-selected {
-    padding: 35px;
-    padding-left: 20px;
-    animation: animate-gradient 0.7s ease-in forwards;
+.custom-select:hover {background-color: var(--radio-color);transition: 0.3ms;}
+
+.search-select {
+    position: relative;
+    height: 6.875rem;
+    border-right: 1px solid var(--radio-border);
+    width: 210px;
+    font-family: 'Space Mono', monospace;
+    font-size: 1.5rem;
+    font-weight: bold;
+    cursor: pointer;
+    color: var(--color-fg);
+    letter-spacing: -0.5px;
+    background-color: var(--color-bg);
+    z-index: 100;
 }
+
+.search-select > .to a {
+    font-size: 1.5rem;
+    text-decoration: none;
+    color: var(--color-bg);
+    background-color: var(--color-fg);
+    margin-top: 25px;
+    position: absolute;
+    margin-left: 38px;
+}
+
+.search-select:hover > .to a  {background-color: var(--tnc-color) !important;transition: 0.3ms;}
+.search-select:hover {background-color: var(--tnc-color) !important;transition: 0.3ms;}
+.select-selected {padding: 35px;padding-left: 20px;animation: animate-gradient 0.7s ease-in forwards;}
 
 .select-options {
     display: none;
     position: absolute;
     top: 100%;
     left: 0;
-    width: 320px;
+    width: 210px;
     font-size: 0.45em;
     font-weight: 400;
     background-color: var(--radio-color);
-    border-radius: 0 0 8px 8px;
     z-index: 99999;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
     border: 1px solid var(--radio-border);
@@ -393,14 +419,12 @@ input[type="checkbox"] {
 .select-options div {
     display: flex;
     justify-content: space-between;
-    padding: 10px 10px 0px 10px;
+    padding: 10px 10px 10px 10px;
     color: #808080;
     flex-direction: column;
 }
 
-.select-options div .city {
-    font-weight: bold;
-}
+.select-options div .city {font-weight: bold;}
 
 .select-options div .airport {
     font-size: 0.8em;
@@ -435,13 +459,13 @@ input[type="checkbox"] {
 }
 
 .select-options div:hover {
-    background-color: var(--radio-hover);
+    background-color: var(--radio-border);
     color: var(--color-fg);
-    border-radius: 8px;
+    
 }
 
 .select-selected .open {
-    border-radius: 8px 8px 0 0;
+    
 }
 
 .select-options.open {
@@ -589,13 +613,13 @@ input[type="checkbox"] {
 
 .calendar td:hover {
     background-color: #f0f0f0;
-    border-radius: 50%;
+    
 }
 
 .calendar .selected {
     background-color: #007bff;
     color: white;
-    border-radius: 50%;
+    
 }
 
 .cancel-btn {
@@ -654,7 +678,7 @@ input[type="checkbox"] {
     height: 6.875rem;
     background-color: var(--color-bg);
     border: 0px solid #000;
-    border-radius: 0px 8px 8px 0px;
+    
     cursor: pointer;
 }
 
@@ -663,13 +687,12 @@ input[type="checkbox"] {
     top: 90%;
     left: 51.4%;
     width: 34rem;
-    height: 20rem;
+    height: 9rem;
     background-color: var(--calendar-bg);
     padding: 1.3rem;
     user-select: none;
     z-index: 99999;
     border: 1px solid var(--radio-border);
-    border-radius: 8px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
     margin-top: 10px;
 }
@@ -677,7 +700,7 @@ input[type="checkbox"] {
 .travel-class h5,
 p {
     font-size: 0.6em;
-    margin-top: 1rem;
+    margin-top: 0.5rem;
     margin-bottom: 1rem;
     padding: 0;
 }
@@ -811,13 +834,15 @@ p {
 }
 
 .search-btn {
-    background-color: var(--radio-color);
-    color: var(--color-fg);
+    background-color: var(--color-fg);
+    color: var(--color-bg);
     text-decoration: none;
     position: absolute;
-    top: 195%;
-    left: 45%;
-    padding: 10px 20px;
+    top: 122%;
+    left: 91.8%;
+    letter-spacing: 1px;
+    font-family: 'Space Mono', monospace;
+    padding: 8px 15px;
     border: 1px solid transparent;
     transition: background-color 0.3s ease, color 0.3s ease;
     animation: fade-text 0.7s forwards;
@@ -915,7 +940,7 @@ p {
     z-index: 99999;
     background-color: var(--calendar-bg);
     border: 1px solid var(--radio-border);
-    border-radius: 8px;
+    
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
 }
 

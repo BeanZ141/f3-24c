@@ -19,7 +19,7 @@
 .hotel-card {
     background: var(--color-bg);
     border: 1px solid var(--radio-border);
-    border-radius: 10px;
+    
     height: 166px;
     overflow: hidden;
     box-shadow: 0 2px 5px rgba(0,0,0,0.1);
@@ -83,7 +83,7 @@
     width: 100%;
     height: 100%;
     object-fit: cover;
-    border-radius: 8px;
+    
 }
 
 .hotel-info {
@@ -117,7 +117,7 @@
     color: var(--color-fg);
     border: 1px solid var(--radio-border);
     padding: 0.7rem;
-    border-radius: 5px;
+    
     cursor: pointer;
     font-family: 'Varela';
     transition: 0.2s;
@@ -162,7 +162,7 @@
 
 .rating .rate-value b {
     padding: 2px 6px;
-    border-radius: 5px;
+    
     background-color: var(--radio-color);
     font-size: 1.1em;
 }
@@ -181,7 +181,7 @@
     background-color: var(--radio-color);
     padding: 3px 5px;
     margin: 3px;
-    border-radius: 4px;
+    
     font-size: 0.75em;
     display: inline-block;
     color: var(--tnc-color);
@@ -192,7 +192,7 @@
     justify-content: center;
     align-items: center;
     background-color: var(--color-bg);
-    border-radius: 10px;
+    
     border: 1px solid var(--radio-border);
     overflow: hidden;
     width: 100%;

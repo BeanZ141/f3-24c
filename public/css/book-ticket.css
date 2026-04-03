@@ -20,7 +20,7 @@ body {
 .container {
     background-color: var(--color-bg);
     padding: 3rem;
-    border-radius: 12px;
+    
     width: 100%;
     max-width: 400px;
 }
@@ -224,7 +224,7 @@ input[type="radio"]:checked + label {
     position: absolute;
     top: 0;
     left: 0;
-    border-radius: 4px;
+    
     height: 15px;
     width: 15px;
     background-color: var(--color-bg);

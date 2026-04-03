@@ -23,7 +23,7 @@ body {
     height: 480px;
     background: var(--color-bg);
     border: 1px solid var(--radio-border);
-    border-radius: 10px;
+    
     overflow: hidden;
     position: relative;
     animation: fade-card 1s forwards;
@@ -80,7 +80,7 @@ body {
     color: var(--color-fg);
     border: 1px solid var(--radio-border);
     padding: 0.7rem;
-    border-radius: 8px;
+    
     cursor: pointer;
     font-family: 'Varela', sans-serif;
     transition: 0.2s;
@@ -92,7 +92,7 @@ body {
     background-color: var(--color-fg);
     color: var(--color-bg);
     transform: scale(1.05);
-    border-radius: 7px;
+    
     font-weight: 800;
 }
 
@@ -120,7 +120,7 @@ body {
     border: 1px solid var(--radio-border);
     font-family: 'Space Mono', monospace;
     padding: 0.5rem 1rem;
-    border-radius: 5px;
+    
     cursor: pointer;
     transition: 0.2s;
     margin-bottom: 1rem;
@@ -164,7 +164,7 @@ body {
     justify-content: center;
     align-items: center;
     background-color: var(--color-bg);
-    border-radius: 10px;
+    
     border: 1px solid var(--radio-border);
     overflow: hidden;
     width: 84.5%;
@@ -207,7 +207,7 @@ body {
     position: fixed;
     left: 1.1%;
     background-color: var(--color-bh);
-    border-radius: 10px;
+    
     padding: 1rem;
     width: 245px;
     color: var(--color-fg);
@@ -242,7 +242,7 @@ body {
     width: 18px;
     height: 18px;
     border: 1px solid var(--radio-border);
-    border-radius: 5px;
+    
     background-color: transparent;
     margin-left: 10px;
     display: inline-block;
@@ -261,7 +261,7 @@ body {
     transform: translate(-50%, -50%) scale(0);
     width: 10px;
     height: 10px;
-    border-radius: 3px;
+    
     transition: all 0.1s ease-in-out;
 }
 
@@ -284,7 +284,7 @@ body {
     align-items: center;
     margin-bottom: 0.3rem;
     background-color: transparent;
-    border-radius: 8px;
+    
     transition: background-color 0.2s;
 }
 

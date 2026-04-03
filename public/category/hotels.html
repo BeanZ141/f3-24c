@@ -8,10 +8,11 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Varela&display=swap" rel="stylesheet">
-    <title>Hotel Booking</title>
+    <title>Hotels</title>
     <link rel="icon" href="../images/favicon.png" type="image/png">
     <link rel="stylesheet" href="../category/css/hotels.css">
     <link rel="stylesheet" href="../css/styles.css">
+    <link rel="stylesheet" href="../category/css/offers.css">
     <link rel="stylesheet" href="../css/themes.css">
     <link rel="stylesheet" href="../css/navbar.css">
     <link rel="stylesheet" href="../css/kalandae.css">
@@ -50,17 +51,17 @@
             </a>
         </div>
         <button id="login-btn" onclick="showPopup()">LOGIN / SIGNUP</button>
-        
+
         <button id="theme-switch">
-        <svg height="24px" viewBox="0 -960 960 960" width="24px" fill="#e8eaed">
-            <path
-                d="M480-120q-150 0-255-105T120-480q0-150 105-255t255-105q14 0 27.5 1t26.5 3q-41 29-65.5 75.5T444-660q0 90 63 153t153 63q55 0 101-24.5t75-65.5q2 13 3 26.5t1 27.5q0 150-105 255T480-120Z" />
-        </svg>
-        <svg height="24px" viewBox="0 -960 960 960" width="24px" fill="#e8eaed">
-            <path
-                d="M480-280q-83 0-141.5-58.5T280-480q0-83 58.5-141.5T480-680q83 0 141.5 58.5T680-480q0 83-58.5 141.5T480-280ZM200-440H40v-80h160v80Zm720 0H760v-80h160v80ZM440-760v-160h80v160h-80Zm0 720v-160h80v160h-80ZM256-650l-101-97 57-59 96 100-52 56Zm492 496-97-101 53-55 101 97-57 59Zm-98-550 97-101 59 57-100 96-56-52ZM154-212l101-97 55 53-97 101-59-57Z" />
-        </svg>
-    </button>
+            <svg height="24px" viewBox="0 -960 960 960" width="24px" fill="#e8eaed">
+                <path
+                    d="M480-120q-150 0-255-105T120-480q0-150 105-255t255-105q14 0 27.5 1t26.5 3q-41 29-65.5 75.5T444-660q0 90 63 153t153 63q55 0 101-24.5t75-65.5q2 13 3 26.5t1 27.5q0 150-105 255T480-120Z" />
+            </svg>
+            <svg height="24px" viewBox="0 -960 960 960" width="24px" fill="#e8eaed">
+                <path
+                    d="M480-280q-83 0-141.5-58.5T280-480q0-83 58.5-141.5T480-680q83 0 141.5 58.5T680-480q0 83-58.5 141.5T480-280ZM200-440H40v-80h160v80Zm720 0H760v-80h160v80ZM440-760v-160h80v160h-80Zm0 720v-160h80v160h-80ZM256-650l-101-97 57-59 96 100-52 56Zm492 496-97-101 53-55 101 97-57 59Zm-98-550 97-101 59 57-100 96-56-52ZM154-212l101-97 55 53-97 101-59-57Z" />
+            </svg>
+        </button>
     </nav>
 
     <h5 class="category-name">HOTELS</h5>
@@ -71,7 +72,18 @@
             <!--Trip type-->
             <div class="way">
                 <label class="container">
-                    <input type="radio" name="tripType" id="one-way" value="one-way" checked onchange="toggleRoundTrip()">
+                    <input type="radio" name="tripType" id="one-way" value="one-way" checked
+                        onchange="toggleRoundTrip()">
+                    <span class="checkmark"></span><span class="radio-text">Upto 2 Rooms</span>
+                </label>
+                <label class="container">
+                    <input type="radio" name="tripType" id="one-way" value="one-way"
+                        onchange="toggleRoundTrip()">
+                    <span class="checkmark"></span><span class="radio-text">Upto 3 Rooms</span>
+                </label>
+                <label class="container">
+                    <input type="radio" name="tripType" id="one-way" value="one-way"
+                        onchange="toggleRoundTrip()">
                     <span class="checkmark"></span><span class="radio-text">Upto 4 Rooms</span>
                 </label>
             </div>
@@ -177,69 +189,157 @@
 
                     <div id="travel-class" class="travel-class" style="display: none;">
                         <h5>ADULTS (12y +)</h5>
-                        <p>On the day of travel</p>
                         <div class="radio-input" style="--items: 10;">
                             <label><input value="1" name="adults" type="radio" checked><span>1</span></label>
                             <label><input value="2" name="adults" type="radio"><span>2</span></label>
                             <label><input value="3" name="adults" type="radio"><span>3</span></label>
                             <label><input value="4" name="adults" type="radio"><span>4</span></label>
                             <label><input value="5" name="adults" type="radio"><span>5</span></label>
-                            <label><input value="6" name="adults" type="radio"><span>6</span></label>
-                            <label><input value="7" name="adults" type="radio"><span>7</span></label>
-                            <label><input value="8" name="adults" type="radio"><span>8</span></label>
-                            <label><input value="9" name="adults" type="radio"><span>9</span></label>
-                            <label><input value=">9" name="adults" type="radio"><span>>9</span></label>
                             <span class="selection"></span>
                         </div>
 
                         <div class="children-infants-container">
                             <div class="children-section">
                                 <h5>CHILDREN (2y-12y)</h5>
-                                <p>On the day of travel</p>
                                 <div class="radio-input" style="--items: 8;">
                                     <label><input value="0" name="children" type="radio" checked><span>0</span></label>
                                     <label><input value="1" name="children" type="radio"><span>1</span></label>
                                     <label><input value="2" name="children" type="radio"><span>2</span></label>
                                     <label><input value="3" name="children" type="radio"><span>3</span></label>
-                                    <label><input value="4" name="children" type="radio"><span>4</span></label>
-                                    <label><input value="5" name="children" type="radio"><span>5</span></label>
-                                    <label><input value="6" name="children" type="radio"><span>6</span></label>
-                                    <label><input value=">6" name="children" type="radio"><span>>6</span></label>
                                     <span class="selection"></span>
                                 </div>
                             </div>
 
                             <div class="infants-section">
                                 <h5>INFANTS (below 2y)</h5>
-                                <p>On the day of travel</p>
                                 <div class="radio-input" style="--items: 8;">
                                     <label><input value="0" name="infants" type="radio" checked><span>0</span></label>
                                     <label><input value="1" name="infants" type="radio"><span>1</span></label>
                                     <label><input value="2" name="infants" type="radio"><span>2</span></label>
-                                    <label><input value="3" name="infants" type="radio"><span>3</span></label>
-                                    <label><input value="4" name="infants" type="radio"><span>4</span></label>
-                                    <label><input value="5" name="infants" type="radio"><span>5</span></label>
-                                    <label><input value="6" name="infants" type="radio"><span>6</span></label>
-                                    <label><input value=">6" name="infants" type="radio"><span>>6</span></label>
                                     <span class="selection"></span>
                                 </div>
                             </div>
                         </div>
 
-                        <div class="choose-class">
-                            <h5>CHOOSE TRAVEL CLASS</h5>
-                            <div class="radio-input" style="--items: 4;">
-                                <label><input value="1" name="tclass" type="radio" checked><span>Economy/Premium
-                                        Economy</span></label>
-                                <label><input value="2" name="tclass" type="radio"><span>Premium Economy</span></label>
-                                <label><input value="3" name="tclass" type="radio"><span>Business</span></label>
-                                <label><input value="4" name="tclass" type="radio"><span>First Class</span></label>
-                                <span class="selection"></span>
-                            </div>
-                        </div>
+                        
                     </div>
                 </div>
-                <a class="search-btn" href="../category/hotel-results.html">SEARCH</a>
+                
+                <div class="input-group">
+                    <div class="search-select"  onclick="window.location.href='../category/hotel-results.html';"
+                        style="border-right: none; border-left: 1px solid var(--radio-border);background-color: var(--color-fg);">
+                        <div class="to"><a>SEARCH →</a></div>
+                    </div>
+    </section>
+
+    <!-- Ads Section -->
+    <section class="ads-section">
+        <!-- Row 1: Offers banner (wide) + side card -->
+        <div class="ads-row">
+            <div class="ad-card ad-card--wide">
+                <img class="ad-img-placeholder" src="../category/images/ads/flights.png" alt="description">
+                <div class="ad-body">
+                    <span class="ad-tag">LIMITED OFFER</span>
+                    <p class="ad-title">Fly Mumbai → Dubai from ₹8,999</p>
+                    <p class="ad-sub">Book before 31 Mar · IndiGo · Non-stop</p>
+                    <a class="ad-cta" href="#">BOOK NOW</a>
+                </div>
+            </div>
+            <div class="ad-card">
+                <img class="ad-img-placeholder" src="../category/images/ads/insurance.png" alt="description">
+                <div class="ad-body">
+                    <span class="ad-tag">PARTNER</span>
+                    <p class="ad-title">Travel Insurance from ₹299</p>
+                    <p class="ad-sub">Cover delays, cancellations & more</p>
+                    <a class="ad-cta" href="#">EXPLORE</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Row 2: Three compact cards -->
+        <div class="ads-row">
+            <div class="ad-card">
+                <img class="ad-img-placeholder" src="../category/images/ads/hotel_deal.png" alt="description">
+                <div class="ad-body">
+                    <span class="ad-tag">HOTEL DEAL</span>
+                    <p class="ad-title">Stay + Fly combos — save up to 25%</p>
+                    <p class="ad-sub">Taj, Marriott & more included</p>
+                    <a class="ad-cta" href="#">VIEW DEALS</a>
+                </div>
+            </div>
+            <div class="ad-card">
+                <img class="ad-img-placeholder" src="../category/images/ads/card.jpg" alt="description">
+                <div class="ad-body">
+                    <span class="ad-tag">CREDIT CARD</span>
+                    <p class="ad-title">Earn 5x miles on every booking</p>
+                    <p class="ad-sub">HDFC FlightRewards Card · No annual fee</p>
+                    <a class="ad-cta" href="#">APPLY</a>
+                </div>
+            </div>
+            <div class="ad-card">
+                <img class="ad-img-placeholder" src="../category/images/ads/lounge.png" alt="description">
+                <div class="ad-body">
+                    <span class="ad-tag">LOUNGE ACCESS</span>
+                    <p class="ad-title">Priority Pass — 1300+ lounges</p>
+                    <p class="ad-sub">Starting ₹1,499/visit · Free trial</p>
+                    <a class="ad-cta" href="#">TRY FREE</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Row 3: Destination promos (horizontal scroll strip) -->
+        <div class="ads-strip-label">POPULAR DESTINATIONS</div>
+        <div class="ads-strip">
+            <div class="ad-dest-card">
+                <img class="ad-img-placeholder ad-img-placeholder--dest" src="../category/images/ads/ahemdabad.png"
+                    alt="description">
+                <div class="ad-dest-info">
+                    <span class="ad-dest-city">Ahemdabad</span>
+                    <span class="ad-dest-price">from ₹2,499</span>
+                </div>
+            </div>
+            <div class="ad-dest-card">
+                <img class="ad-img-placeholder ad-img-placeholder--dest" src="../category/images/ads/pune.jpg"
+                    alt="description">
+                <div class="ad-dest-info">
+                    <span class="ad-dest-city">Pune</span>
+                    <span class="ad-dest-price">from ₹1,499</span>
+                </div>
+            </div>
+            <div class="ad-dest-card">
+                <img class="ad-img-placeholder ad-img-placeholder--dest" src="../category/images/ads/chennai.png"
+                    alt="description">
+                <div class="ad-dest-info">
+                    <span class="ad-dest-city">Chennai</span>
+                    <span class="ad-dest-price">from ₹2,999</span>
+                </div>
+            </div>
+            <div class="ad-dest-card">
+                <img class="ad-img-placeholder ad-img-placeholder--dest" src="../category/images/ads/hyderabad.png"
+                    alt="description">
+                <div class="ad-dest-info">
+                    <span class="ad-dest-city">Hyderabad</span>
+                    <span class="ad-dest-price">from ₹1,799</span>
+                </div>
+            </div>
+            <div class="ad-dest-card">
+                <img class="ad-img-placeholder ad-img-placeholder--dest" src="../category/images/ads/jaipur.png"
+                    alt="description">
+                <div class="ad-dest-info">
+                    <span class="ad-dest-city">Jaipur</span>
+                    <span class="ad-dest-price">from ₹2,099</span>
+                </div>
+            </div>
+            <div class="ad-dest-card">
+                <img class="ad-img-placeholder ad-img-placeholder--dest" src="../category/images/ads/dubai.png"
+                    alt="description">
+                <div class="ad-dest-info">
+                    <span class="ad-dest-city">Dubai</span>
+                    <span class="ad-dest-price">from ₹8,999</span>
+                </div>
+            </div>
+        </div>
+
     </section>
 
     <!--Alert-->

@@ -26,7 +26,7 @@ body {
 .flight-card {
     background: var(--color-bg);
     border: 1px solid var(--radio-border);
-    border-radius: 10px;
+    
     overflow: hidden;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     margin: 0.5rem;
@@ -140,7 +140,7 @@ p:nth-child(2) {
     color: var(--color-fg);
     border: 1px solid var(--radio-border);
     padding: 0.7rem;
-    border-radius: 5px;
+    
     cursor: pointer;
     font-family: 'Space Mono', monospace;
     transition: 0.2s;
@@ -179,7 +179,7 @@ p:nth-child(2) {
     border: 1px solid var(--radio-border);
     font-family: 'Space Mono', monospace;
     padding: 0.5rem 1rem;
-    border-radius: 5px;
+    
     cursor: pointer;
     transition: 0.2s;
 }
@@ -228,7 +228,7 @@ p:nth-child(2) {
     justify-content: center;
     align-items: center;
     background-color: var(--color-bg);
-    border-radius: 10px;
+    
     border: 1px solid var(--radio-border);
     overflow: hidden;
     width: 100%;
@@ -333,7 +333,7 @@ p:nth-child(2) {
     position: fixed;
     left: 1.1%;
     background-color: var(--color-bh);
-    border-radius: 10px;
+    
     padding: 1rem;
     width: 245px;
     color: var(--color-fg);
@@ -388,7 +388,7 @@ p:nth-child(2) {
     width: 18px;
     height: 18px;
     border: 1px solid var(--radio-border);
-    border-radius: 5px;
+    
     background-color: transparent;
     margin-left: 10px;
     display: inline-block;
@@ -407,7 +407,7 @@ p:nth-child(2) {
     transform: translate(-50%, -50%) scale(0);
     width: 10px;
     height: 10px;
-    border-radius: 3px;
+    
     transition: all 0.1s ease-in-out;
 }
 
@@ -430,7 +430,7 @@ p:nth-child(2) {
     align-items: center;
     margin-bottom: 0.3rem;
     background-color: transparent;
-    border-radius: 8px;
+    
     transition: background-color 0.2s;
 }
 

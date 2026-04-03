@@ -56,7 +56,7 @@ body {
 .refine-search {
     background-color: var(--radio-color);
     border: 1px solid var(--radio-border);
-    border-radius: 10px;
+    
     padding: 20px;
     position: sticky;
     top: 140px;
@@ -85,7 +85,7 @@ body {
     font-size: 0.8rem;
     font-weight: 600;
     padding: 5px 10px;
-    border-radius: 4px;
+    
     transition: background-color 0.2s;
 }
 
@@ -112,7 +112,7 @@ body {
     align-items: flex-start;
     cursor: pointer;
     padding: 10px;
-    border-radius: 8px;
+    
     transition: background-color 0.2s;
     position: relative;
 }
@@ -136,7 +136,7 @@ body {
     width: 16px;
     background-color: var(--color-bg);
     border: 2px solid var(--radio-border);
-    border-radius: 50%;
+    
     margin-right: 12px;
     flex-shrink: 0;
 }
@@ -153,7 +153,7 @@ body {
     left: 2px;
     width: 8px;
     height: 8px;
-    border-radius: 50%;
+    
     background: white;
 }
 
@@ -179,7 +179,7 @@ body {
 .corporate-banner {
     margin-top: 30px;
     background: linear-gradient(135deg, #4a9eff 0%, #0066cc 100%);
-    border-radius: 10px;
+    
     padding: 20px;
     display: flex;
     align-items: center;
@@ -204,7 +204,7 @@ body {
     color: #4a9eff;
     border: none;
     padding: 8px 16px;
-    border-radius: 6px;
+    
     font-size: 0.8rem;
     font-weight: 600;
     cursor: pointer;
@@ -237,7 +237,7 @@ body {
 /* Hero Banner */
 .hero-banner {
     background: linear-gradient(135deg, #8B1538 0%, #C41E3A 50%, #8B1538 100%);
-    border-radius: 15px;
+    
     padding: 40px;
     display: flex;
     align-items: center;
@@ -282,7 +282,7 @@ body {
     color: white;
     border: none;
     padding: 12px 30px;
-    border-radius: 25px;
+    
     font-size: 1rem;
     font-weight: 600;
     cursor: pointer;
@@ -304,7 +304,7 @@ body {
     width: 300px;
     height: 200px;
     object-fit: cover;
-    border-radius: 10px;
+    
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
 }
 
@@ -319,7 +319,7 @@ body {
 .action-btn {
     background-color: var(--radio-color);
     border: 1px solid var(--radio-border);
-    border-radius: 10px;
+    
     padding: 15px 20px;
     display: flex;
     align-items: center;
@@ -356,7 +356,7 @@ body {
 .gift-card {
     background-color: var(--radio-color);
     border: 1px solid var(--radio-border);
-    border-radius: 15px;
+    
     overflow: hidden;
     transition: all 0.3s;
     cursor: pointer;
@@ -392,7 +392,7 @@ body {
     background-color: rgba(0, 0, 0, 0.7);
     color: white;
     padding: 5px 12px;
-    border-radius: 15px;
+    
     font-size: 0.8rem;
     font-weight: 600;
 }
@@ -426,7 +426,7 @@ body {
     background-color: var(--color-bg);
     border: 1px solid var(--radio-border);
     padding: 6px 12px;
-    border-radius: 20px;
+    
     font-size: 0.85rem;
     font-weight: 600;
     color: var(--color-fg);
@@ -454,7 +454,7 @@ body {
     z-index: 1000;
     letter-spacing: 0.05rem;
     font-size: 1.03em;
-    border-radius: 8px;
+    
 }
 
 .alert.show {

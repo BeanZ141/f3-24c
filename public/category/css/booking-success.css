@@ -20,7 +20,7 @@ body {
     width: 70px;
     height: 70px;
     background-color: #28a745;
-    border-radius: 50%;
+    
     display: flex;
     justify-content: center;
     align-items: center;
@@ -101,7 +101,7 @@ body {
     color: var(--color-fg);
     padding: 10px 30px;
     border: 1px solid var(--radio-border);
-    border-radius: 25px;
+    
     transition: 0.2s;
     text-decoration: none;
 }
@@ -109,6 +109,6 @@ body {
 .home:hover, .download:hover {
     background-color: var(--radio-border);
     border: 1px solid var(--radio-color);
-    border-radius: 30px;
+    
     cursor: pointer;
 }

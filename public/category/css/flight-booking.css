@@ -42,7 +42,7 @@
         flex: 1;
         background-color: var(--color-bg);
         border: 1px solid var(--radio-border);
-        border-radius: 10px;
+        
         padding: 20px;
         min-width: 300px;
     }
@@ -82,7 +82,7 @@
         display: flex;
         justify-content: space-between;
         background-color: var(--radio-color);
-        border-radius: 7px;
+        
         border: 1px solid var(--radio-border);
         padding: 3px 10px;
         margin-top: 15px;
@@ -93,7 +93,7 @@
     .fare-summary .partial-refund {
         background-color: var(--radio-color);
         border: 1px solid var(--radio-border);
-        border-radius: 7px;
+        
         padding: 3px 10px;
         font-size: 1rem;
         color: #43a047 !important;
@@ -120,7 +120,7 @@
         background: var(--color-bg);
         border: 1px solid var(--radio-border);
         padding: 10px;
-        border-radius: 8px;
+        
         text-align: center;
         flex: 1;
         transition: 0.2s;
@@ -151,7 +151,7 @@
 
     .refund-section {
         background-color: var(--color-bg);
-        border-radius: 10px;
+        
         padding: 20px;
         border: 1px solid var(--radio-border);
         animation: fade-card 1.2s forwards;
@@ -199,7 +199,7 @@
         align-items: center;
         background-color: var(--color-bg);
         border: 1px solid var(--radio-border);
-        border-radius: 10px;
+        
         padding: 20px;
         margin-top: 2px;
         margin-bottom: 0px;
@@ -222,7 +222,7 @@
         background: var(--color-fg);
         color: var(--color-bg);
         border: 1px solid transparent;
-        border-radius: 8px;
+        
         padding: 10px 20px;
         font-size: 1rem;
         cursor: pointer;

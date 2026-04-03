@@ -10,10 +10,11 @@
     <link href="https://fonts.googleapis.com/css2?family=Varela&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap"
         rel="stylesheet">
-    <title>train Booking</title>
+    <title>Trains</title>
     <link rel="icon" href="../images/favicon.png" type="image/png">
     <link rel="stylesheet" href="../category/css/trains.css">
     <link rel="stylesheet" href="../css/styles.css">
+    <link rel="stylesheet" href="../category/css/offers.css">
     <link rel="stylesheet" href="../css/themes.css">
     <link rel="stylesheet" href="../css/navbar.css">
     <link rel="stylesheet" href="../css/kalandae.css">
@@ -40,7 +41,7 @@
 
         <!--Service section-->
         <div class="service-nav">
-            <a href="../category/trains.html" data-icon="train.svg">
+            <a href="../category/flights.html" data-icon="train.svg">
                 <i class="fas fa-plane"></i> FLIGHTS
             </a>
             <a href="../category/hotels.html" data-icon="hotel.svg">
@@ -249,13 +250,11 @@
                     <div style="left: 3%;position: relative; align-content: center;">
                         <label class="radio">
                             <input type="radio" name="fairType" checked>
-                            <span class="checkmark1"></span>
                             <span class="radio-text">Regular<span class="subtext">Regular fares</span></span>
                         </label>
 
                         <label class="radio">
                             <input type="radio" name="fairType">
-                            <span class="checkmark1"></span>
                             <span class="radio-text">Student<span class="subtext">Extra discounts/baggage</span></span>
                             <span class="tooltip">Applicable only for students above 15 years of age. Valid student ID
                                 cards and
@@ -265,7 +264,6 @@
 
                         <label class="radio">
                             <input type="radio" name="fairType">
-                            <span class="checkmark1"></span>
                             <span class="radio-text">Senior Citizen<span class="subtext">Up to ₹200 off</span></span>
                             <span class="tooltip">Applicable only for senior citizens above the age of 60 years. A valid
                                 proof of
@@ -275,7 +273,6 @@
 
                         <label class="radio">
                             <input type="radio" name="fairType">
-                            <span class="checkmark1"></span>
                             <span class="radio-text">Armed Forces<span class="subtext">Up to ₹300 off</span></span>
                             <span class="tooltip">Applicable only for serving/retired Indian Armed Forces personnel &
                                 their
@@ -286,7 +283,6 @@
 
                         <label class="radio">
                             <input type="radio" name="fairType">
-                            <span class="checkmark1"></span>
                             <span class="radio-text">Doctor and Nurses<span class="subtext">Up to ₹500 off</span></span>
                             <span class="tooltip">Applicable only for medical personnel. A valid ID is required at the
                                 airport to
@@ -298,8 +294,115 @@
                 <a class="search-btn" href="train-results.html">SEARCH</a>
     </section>
 
+    <!-- Ads Section -->
+    <section class="ads-section">
+        <!-- Row 1: Offers banner (wide) + side card -->
+        <div class="ads-row">
+            <div class="ad-card ad-card--wide">
+                <img class="ad-img-placeholder" src="../category/images/ads/flights.png" alt="description">
+                <div class="ad-body">
+                    <span class="ad-tag">LIMITED OFFER</span>
+                    <p class="ad-title">Fly Mumbai → Dubai from ₹8,999</p>
+                    <p class="ad-sub">Book before 31 Mar · IndiGo · Non-stop</p>
+                    <a class="ad-cta" href="#">BOOK NOW</a>
+                </div>
+            </div>
+            <div class="ad-card">
+                <img class="ad-img-placeholder" src="../category/images/ads/insurance.png" alt="description">
+                <div class="ad-body">
+                    <span class="ad-tag">PARTNER</span>
+                    <p class="ad-title">Travel Insurance from ₹299</p>
+                    <p class="ad-sub">Cover delays, cancellations & more</p>
+                    <a class="ad-cta" href="#">EXPLORE</a>
+                </div>
+            </div>
+        </div>
 
+        <!-- Row 2: Three compact cards -->
+        <div class="ads-row">
+            <div class="ad-card">
+                <img class="ad-img-placeholder" src="../category/images/ads/hotel_deal.png" alt="description">
+                <div class="ad-body">
+                    <span class="ad-tag">HOTEL DEAL</span>
+                    <p class="ad-title">Stay + Fly combos — save up to 25%</p>
+                    <p class="ad-sub">Taj, Marriott & more included</p>
+                    <a class="ad-cta" href="#">VIEW DEALS</a>
+                </div>
+            </div>
+            <div class="ad-card">
+                <img class="ad-img-placeholder" src="../category/images/ads/card.jpg" alt="description">
+                <div class="ad-body">
+                    <span class="ad-tag">CREDIT CARD</span>
+                    <p class="ad-title">Earn 5x miles on every booking</p>
+                    <p class="ad-sub">HDFC FlightRewards Card · No annual fee</p>
+                    <a class="ad-cta" href="#">APPLY</a>
+                </div>
+            </div>
+            <div class="ad-card">
+                <img class="ad-img-placeholder" src="../category/images/ads/lounge.png" alt="description">
+                <div class="ad-body">
+                    <span class="ad-tag">LOUNGE ACCESS</span>
+                    <p class="ad-title">Priority Pass — 1300+ lounges</p>
+                    <p class="ad-sub">Starting ₹1,499/visit · Free trial</p>
+                    <a class="ad-cta" href="#">TRY FREE</a>
+                </div>
+            </div>
+        </div>
 
+        <!-- Row 3: Destination promos (horizontal scroll strip) -->
+        <div class="ads-strip-label">POPULAR DESTINATIONS</div>
+        <div class="ads-strip">
+            <div class="ad-dest-card">
+                <img class="ad-img-placeholder ad-img-placeholder--dest" src="../category/images/ads/goa.png"
+                    alt="description">
+                <div class="ad-dest-info">
+                    <span class="ad-dest-city">Goa</span>
+                    <span class="ad-dest-price">from ₹2,499</span>
+                </div>
+            </div>
+            <div class="ad-dest-card">
+                <img class="ad-img-placeholder ad-img-placeholder--dest" src="../category/images/ads/bangalore.png"
+                    alt="description">
+                <div class="ad-dest-info">
+                    <span class="ad-dest-city">Bangalore</span>
+                    <span class="ad-dest-price">from ₹1,899</span>
+                </div>
+            </div>
+            <div class="ad-dest-card">
+                <img class="ad-img-placeholder ad-img-placeholder--dest" src="../category/images/ads/delhi.png"
+                    alt="description">
+                <div class="ad-dest-info">
+                    <span class="ad-dest-city">Delhi</span>
+                    <span class="ad-dest-price">from ₹2,199</span>
+                </div>
+            </div>
+            <div class="ad-dest-card">
+                <img class="ad-img-placeholder ad-img-placeholder--dest" src="../category/images/ads/hyderabad.png"
+                    alt="description">
+                <div class="ad-dest-info">
+                    <span class="ad-dest-city">Hyderabad</span>
+                    <span class="ad-dest-price">from ₹1,799</span>
+                </div>
+            </div>
+            <div class="ad-dest-card">
+                <img class="ad-img-placeholder ad-img-placeholder--dest" src="../category/images/ads/jaipur.png"
+                    alt="description">
+                <div class="ad-dest-info">
+                    <span class="ad-dest-city">Jaipur</span>
+                    <span class="ad-dest-price">from ₹2,099</span>
+                </div>
+            </div>
+            <div class="ad-dest-card">
+                <img class="ad-img-placeholder ad-img-placeholder--dest" src="../category/images/ads/dubai.png"
+                    alt="description">
+                <div class="ad-dest-info">
+                    <span class="ad-dest-city">Dubai</span>
+                    <span class="ad-dest-price">from ₹8,999</span>
+                </div>
+            </div>
+        </div>
+
+    </section>
 
     <!--Alert-->
     <div id="customAlert" class="alert"><span id="alertMessage">alert</span></div>
