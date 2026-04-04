@@ -1,110 +1,15 @@
-h2 {
-    font-weight: 100;
-    font-family: 'Varela', sans-serif;
-}
-
-body, h1, input, button, .container {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    transition: 0.3s, background-color 0.3s, color 0.3s;
-}
-
-body {
-    user-select: none;
-    font-family: 'Varela', sans-serif;
-    background-color: var(--color-bg);
-    color: var(--color-fg);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.head {
-    position: absolute;
-    top: 15%;
-    left: 12%;
-}
-
-form {
-    position: relative;
-    left: -44vh;
-    top: 30vh;
-    width: 75%;
-    max-width: 400px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-}
-
-input, select {
-    display: inline;
-    width: 100%;
-    padding: 0.5rem 0.1rem;
-    border: none;
-    background-color: var(--color-bg);
-    font-size: 1rem;
-    margin-top: 40px;
-    color: var(--color-fg);
-    border-bottom: 1px solid #757575;
-    font-family: 'Varela', sans-serif;
-}
-
-input:hover {
-    color: var(--color-fg);
-    border-bottom: 1px solid var(--border);
-}
-
-input:hover::placeholder {
-    color: var(--color-fg);
-}
-
-input:focus, select:focus {
-    outline: none;
-    color: var(--color-fg);
-    border-bottom: 1px solid var(--border);
-}
-
-input[type="radio"] {
-    display: none;
-}
-
-input[type="radio"] + label {
-    padding: 0.55rem 1.1rem;
-    background-color: var(--color-bg);
-    cursor: pointer;
-    border-bottom: 1px solid transparent;
-    font-size: 1rem;
-    font-weight: 500;
-    color: var(--color-fg);
-    transition: 0.3s;
-}
-
-input[type="radio"] + label:hover {
-    border-bottom: 1px solid var(--border);
-}
-
-input[type="radio"]:checked + label {
-    background-color: var(--border); 
-    color: var(--color-bg);
-}
-
-.btn-login {
-    position: fixed;
-    background-color: var(--button-bg);
-    color: var(--button-fg);
-    border:  1px solid var(--border);
-    margin-top: 250px;
-    margin-left: 299px;
-    height: 40px;
-    width: 100px;
-    font-family: 'Varela', sans-serif;
-}
-
-.btn-login:hover {
-    background-color: var(--button-bg-hover);
-    color: var(--button-fg-hover);
-    border:  1px solid var(--button-border-hover);
-    cursor: pointer;
-}
+h2{font-weight:100;font-family:'Varela',sans-serif}
+body,h1,input,button,.container{margin:0;padding:0;box-sizing:border-box;transition:0.3s,background-color 0.3s,color .3s}
+body{user-select:none;font-family:'Varela',sans-serif;background-color:var(--color-bg);color:var(--color-fg);display:flex;justify-content:center;align-items:center}
+.head{position:absolute;top:15%;left:12%}
+form{position:relative;left:-44vh;top:30vh;width:75%;max-width:400px;display:flex;flex-direction:column;align-items:center;justify-content:center}
+input,select{display:inline;width:100%;padding:.5rem .1rem;border:none;background-color:var(--color-bg);font-size:1rem;margin-top:40px;color:var(--color-fg);border-bottom:1px solid #757575;font-family:'Varela',sans-serif}
+input:hover{color:var(--color-fg);border-bottom:1px solid var(--border)}
+input:hover::placeholder{color:var(--color-fg)}
+input:focus,select:focus{outline:none;color:var(--color-fg);border-bottom:1px solid var(--border)}
+input[type="radio"]{display:none}
+input[type="radio"] + label{padding:.55rem 1.1rem;background-color:var(--color-bg);cursor:pointer;border-bottom:1px solid transparent;font-size:1rem;font-weight:500;color:var(--color-fg);transition:.3s}
+input[type="radio"] + label:hover{border-bottom:1px solid var(--border)}
+input[type="radio"]:checked + label{background-color:var(--border);color:var(--color-bg)}
+.btn-login{position:fixed;background-color:var(--button-bg);color:var(--button-fg);border:1px solid var(--border);margin-top:250px;margin-left:299px;height:40px;width:100px;font-family:'Varela',sans-serif}
+.btn-login:hover{background-color:var(--button-bg-hover);color:var(--button-fg-hover);border:1px solid var(--button-border-hover);cursor:pointer}

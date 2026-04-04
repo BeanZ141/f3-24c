@@ -1,13 +1,13 @@
-const supabaseUrl = 'https://vxqpierpnqsmyckkusfp.supabase.co'; // unified project URL
-const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZ4cXBpZXJwbnFzbXlja2t1c2ZwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTUxMDA3NjEsImV4cCI6MjA3MDY3Njc2MX0.lBm2eXleMQZrPdjZiLk1gatF7m7blHrx-GMeLDo8TQg';
-
-let supabase;
+const supabaseUrl = 'https://bbmtcjjhcnjpfglltqyl.supabase.co'; // unified project URL
+const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJibXRjampoY25qcGZnbGx0cXlsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzUyMDE1ODQsImV4cCI6MjA5MDc3NzU4NH0.XCSUS89zOQuEI3-fvo9BGja3-AYMHU1VaXV6xrMqvaU';
 
 function initializeSupabase() {
-    console.log('Initializing Supabase...');
+    console.log('Initializing Supabase from login-signup...');
     if (window.supabase) {
         try {
-            supabase = window.supabase.createClient(supabaseUrl, supabaseKey);
+            if (!window.supabaseClient) {
+                window.supabaseClient = window.supabase.createClient(supabaseUrl, supabaseKey);
+            }
             checkUserSession();
         } catch (error) {
             console.error('Error creating Supabase client:', error);
@@ -48,10 +48,7 @@ function showSignupForm() {
 async function signUp() {
     console.log('Sign up function called');
     
-    if (!supabase) {
-        showAlert('Supabase not initialized. Please refresh the page.', 'error');
-        return;
-    }
+    if (!window.supabaseClient) { showAlert('Supabase not initialized. Please refresh the page.', 'error'); return; }
 
     const usernameInput = document.getElementById('signup-username');
     const emailInput = document.getElementById('signup-email');
@@ -71,7 +68,7 @@ async function signUp() {
     try {
         if (submitBtn) { submitBtn.disabled = true; submitBtn.textContent = 'Signing up...'; }
         console.log('Attempting to sign up with Supabase...');
-        const { data, error } = await supabase.auth.signUp({
+        const { data, error } = await window.supabaseClient.auth.signUp({
             email,
             password,
             options: {
@@ -93,19 +90,14 @@ async function signUp() {
     } catch (error) {
         showAlert('Sign up failed: ' + error.message, 'error');
         console.error('Sign up error:', error);
-    } finally {
-        if (submitBtn) { submitBtn.disabled = false; submitBtn.textContent = 'SIGN UP'; }
-    }
+    } finally { if (submitBtn) { submitBtn.disabled = false; submitBtn.textContent = 'SIGN UP'; } }
 }
 
 // Login Function
 async function login() {
     console.log('Login function called');
     
-    if (!supabase) {
-        showAlert('Supabase not initialized. Please refresh the page.', 'error');
-        return;
-    }
+    if (!window.supabaseClient) { showAlert('Supabase not initialized. Please refresh the page.', 'error'); return; }
 
     const emailInput = document.getElementById('login-email');
     const passwordInput = document.getElementById('login-password');
@@ -122,7 +114,7 @@ async function login() {
     try {
         if (submitBtn) { submitBtn.disabled = true; submitBtn.textContent = 'Logging in...'; }
         console.log('Attempting to login with Supabase...');
-        const { data, error } = await supabase.auth.signInWithPassword({ 
+        const { data, error } = await window.supabaseClient.auth.signInWithPassword({ 
             email, 
             password 
         });
@@ -145,26 +137,21 @@ async function login() {
     } catch (error) {
         showAlert('Login failed: ' + error.message, 'error');
         console.error('Login error:', error);
-    } finally {
-        if (submitBtn) { submitBtn.disabled = false; submitBtn.textContent = 'LOGIN'; }
-    }
+    } finally { if (submitBtn) { submitBtn.disabled = false; submitBtn.textContent = 'LOGIN'; } }
 }
 
 // Log Out function
 async function logout() {
     console.log("Logout button clicked");
     
-    if (!supabase) {
-        showAlert('Supabase not initialized. Please refresh the page.', 'error');
-        return;
-    }
+    if (!window.supabaseClient) { showAlert('Supabase not initialized. Please refresh the page.', 'error'); return; }
 
     try {
         // Clear localStorage and session immediately
         localStorage.removeItem('user');
 
         // Sign out from Supabase
-        const { error } = await supabase.auth.signOut();
+        const { error } = await window.supabaseClient.auth.signOut();
         if (error) {
             showAlert('Logout failed: ' + error.message, 'error');
         } else {
@@ -188,14 +175,14 @@ async function logout() {
 
 // Checks user session
 async function checkUserSession() {
-    if (!supabase) {
+    if (!window.supabaseClient) {
         console.log('Supabase not initialized, skipping session check');
         return;
     }
 
     try {
         console.log('Checking user session...');
-        const { data, error } = await supabase.auth.getSession();
+        const { data, error } = await window.supabaseClient.auth.getSession();
 
         if (error || !data.session) {
             document.getElementById('login-btn').style.display = 'block';

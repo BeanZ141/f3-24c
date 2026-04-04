@@ -1,7 +1,7 @@
 body {
     background-color: #000000;
     color: white !important;
-    font-family: 'Space Mono', monospace;
+    font-family: var(--body-font), sans-serif;
     animation: fade-in 1.4s;
 }
 
@@ -89,7 +89,7 @@ body {
     background-color: white;
     padding: 5px 10px 5px 10px;
     color: black;
-    font-family: 'Space Mono', monospace;
+    font-family: var(--body-font), sans-serif;
     animation: fade-in 0.8s;
 }
 
@@ -103,7 +103,7 @@ body {
     align-items: center;
     background-color: white;
     color: black;
-    font-family: 'Space Mono', monospace;
+    font-family: var(--body-font), sans-serif;
     animation: fade-in 1.4s;
 }
 
@@ -144,7 +144,7 @@ button {
     width: 250px;
     padding: 4px;
     margin: 5px;
-    font-family: 'Space Mono', monospace;
+    font-family: var(--body-font), sans-serif;
 }
 
 select {

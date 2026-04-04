@@ -1,27 +1,46 @@
-const SUPABASE_URL = 'https://vxqpierpnqsmyckkusfp.supabase.co';
-const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZ4cXBpZXJwbnFzbXlja2t1c2ZwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTUxMDA3NjEsImV4cCI6MjA3MDY3Njc2MX0.lBm2eXleMQZrPdjZiLk1gatF7m7blHrx-GMeLDo8TQg';
+const SUPABASE_URL = 'https://bbmtcjjhcnjpfglltqyl.supabase.co';
+const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJibXRjampoY25qcGZnbGx0cXlsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzUyMDE1ODQsImV4cCI6MjA5MDc3NzU4NH0.XCSUS89zOQuEI3-fvo9BGja3-AYMHU1VaXV6xrMqvaU';
 
 // Initialize Supabase client
-let supabase;
-
-// Wait for Supabase to be available
-function initializeSupabase() {
+function initializeSupabaseClient() {
     if (window.supabase) {
-        supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-        console.log('Supabase client initialized successfully');
-    } else {
-        console.log('Supabase not available yet, retrying...');
-        setTimeout(initializeSupabase, 100);
+        if (!window.supabaseClient) {
+            try {
+                window.supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+                console.log('Supabase client initialized successfully');
+            } catch (error) {
+                console.error('Failed to create Supabase client:', error);
+            }
+        }
     }
 }
 
-initializeSupabase();
+// Initial load check
+if (window.supabase) {
+    initializeSupabaseClient();
+} else {
+    // Wait for CDN script
+    window.addEventListener('load', initializeSupabaseClient);
+}
+
 
 const DatabaseService = {
     // Wait for Supabase to be ready
     async waitForSupabase() {
-        while (!supabase) {
+        if (window.supabaseClient) return;
+        
+        let attempts = 0;
+        while (!window.supabaseClient && attempts < 100) {
+            if (window.supabase && !window.supabaseClient) {
+                initializeSupabaseClient();
+            }
+            if (window.supabaseClient) break;
             await new Promise(resolve => setTimeout(resolve, 50));
+            attempts++;
+        }
+        if (!window.supabaseClient) {
+            console.error('Supabase failed to initialize. Retrying once...');
+            initializeSupabaseClient();
         }
     },
 
@@ -29,16 +48,18 @@ const DatabaseService = {
         try {
             console.log('getFlights called with filters:', filters);
             await this.waitForSupabase();
-            console.log('Supabase is ready, creating query...');
-            let query = supabase
+            
+            if (!window.supabaseClient) throw new Error("Supabase client not ready");
+
+            let query = window.supabaseClient
                 .from('flights')
                 .select('*');
 
             if (filters.from) {
-                query = query.eq('boarding_airport', filters.from);
+                query = query.ilike('boarding_airport', `%${filters.from}%`);
             }
             if (filters.to) {
-                query = query.eq('landing_airport', filters.to);
+                query = query.ilike('landing_airport', `%${filters.to}%`);
             }
             if (filters.airline && filters.airline.length > 0) {
                 query = query.in('company', filters.airline);
@@ -46,33 +67,38 @@ const DatabaseService = {
             if (filters.stops && filters.stops.length > 0) {
                 query = query.in('stop', filters.stops);
             }
+            
+            // Note: Price filtering is disabled temporarily because the 'cost' column 
+            // contains strings like "₹14995", which breaks numeric comparison (gte/lte).
+            /*
             if (filters.minPrice) {
                 query = query.gte('cost', filters.minPrice);
             }
             if (filters.maxPrice) {
                 query = query.lte('cost', filters.maxPrice);
             }
+            */
 
-            console.log('Executing query...');
+            console.log('Executing filtered flights query...');
             const { data, error } = await query;
-            console.log('Query result:', { data, error });
             
             if (error) {
                 console.error('Error fetching flights:', error);
                 throw error;
             }
             
-            console.log('Returning flight data:', data);
-            return data;
+            console.log(`Returning ${data ? data.length : 0} flights`);
+            return data || [];
         } catch (error) {
-            console.error('Database error:', error);
+            console.error('Database error in getFlights:', error);
             return [];
         }
     },
 
     async getFlightById(id) {
         try {
-            const { data, error } = await supabase
+            await this.waitForSupabase();
+            const { data, error } = await window.supabaseClient
                 .from('flights')
                 .select('*')
                 .eq('id', id)
@@ -89,27 +115,30 @@ const DatabaseService = {
     // Hotel related queries
     async getHotels(filters = {}) {
         try {
-            let query = supabase
+            console.log('getHotels called with filters:', filters);
+            await this.waitForSupabase();
+            if (!window.supabaseClient) throw new Error("Supabase client not ready");
+
+            let query = window.supabaseClient
                 .from('hotels')
                 .select('*');
 
-            // Apply filters
             if (filters.location) {
-                query = query.eq('location', filters.location);
+                query = query.ilike('location', `%${filters.location}%`);
             }
             if (filters.rating) {
-                query = query.eq('rating', filters.rating);
+                query = query.gte('rating', parseFloat(filters.rating));
             }
+            
+            // Price filtering disabled due to currency symbol strings
+            /*
             if (filters.minPrice) {
                 query = query.gte('price', filters.minPrice);
             }
             if (filters.maxPrice) {
                 query = query.lte('price', filters.maxPrice);
             }
-            if (filters.amenities && filters.amenities.length > 0) {
-                // Assuming amenities is stored as an array or JSON
-                query = query.overlaps('amenities', filters.amenities);
-            }
+            */
 
             const { data, error } = await query;
             
@@ -118,16 +147,18 @@ const DatabaseService = {
                 throw error;
             }
             
-            return data;
+            console.log(`Returning ${data ? data.length : 0} hotels`);
+            return data || [];
         } catch (error) {
-            console.error('Database error:', error);
+            console.error('Database error in getHotels:', error);
             return [];
         }
     },
 
     async getHotelById(id) {
         try {
-            const { data, error } = await supabase
+            await this.waitForSupabase();
+            const { data, error } = await window.supabaseClient
                 .from('hotels')
                 .select('*')
                 .eq('id', id)
@@ -144,16 +175,25 @@ const DatabaseService = {
     // Train related queries
     async getTrains(filters = {}) {
         try {
-            let query = supabase
+            await this.waitForSupabase();
+            
+            // Debugging
+            const { count } = await window.supabaseClient
+                .from('trains')
+                .select('*', { count: 'exact', head: true });
+            
+            console.log(`Total rows in 'trains' table: ${count}`);
+
+            let query = window.supabaseClient
                 .from('trains')
                 .select('*');
 
             // Apply filters
             if (filters.from) {
-                query = query.eq('from_station', filters.from);
+                query = query.ilike('from_station', `%${filters.from}%`);
             }
             if (filters.to) {
-                query = query.eq('to_station', filters.to);
+                query = query.ilike('to_station', `%${filters.to}%`);
             }
             if (filters.trainType && filters.trainType.length > 0) {
                 query = query.in('train_type', filters.trainType);
@@ -172,16 +212,18 @@ const DatabaseService = {
                 throw error;
             }
             
+            console.log(`Returning ${data.length} trains`);
             return data;
         } catch (error) {
-            console.error('Database error:', error);
+            console.error('Database error in getTrains:', error);
             return [];
         }
     },
 
     async getTrainById(id) {
         try {
-            const { data, error } = await supabase
+            await this.waitForSupabase();
+            const { data, error } = await window.supabaseClient
                 .from('trains')
                 .select('*')
                 .eq('id', id)
@@ -198,7 +240,8 @@ const DatabaseService = {
     // Event related queries
     async getEvents(filters = {}) {
         try {
-            let query = supabase
+            await this.waitForSupabase();
+            let query = window.supabaseClient
                 .from('events')
                 .select('*');
 
@@ -224,7 +267,8 @@ const DatabaseService = {
 
     async getEventById(id) {
         try {
-            const { data, error } = await supabase
+            await this.waitForSupabase();
+            const { data, error } = await window.supabaseClient
                 .from('events')
                 .select('*')
                 .eq('id', id)
@@ -241,10 +285,12 @@ const DatabaseService = {
     // Utility functions
     parsePrice(priceString) {
         // Remove currency symbols and convert to number
-        return parseInt(priceString.replace(/[^0-9]/g, ''));
+        if (!priceString) return 0;
+        return parseInt(priceString.toString().replace(/[^0-9]/g, '')) || 0;
     },
 
     getDurationInMinutes(duration) {
+        if (!duration) return 0;
         const [hours, minutes] = duration.split('h').map(part => 
             parseInt(part.replace('m', '').trim()) || 0
         );
@@ -252,14 +298,16 @@ const DatabaseService = {
     },
 
     getTimeInMinutes(time) {
-        const [hours, minutes] = time.split(':').map(part => parseInt(part));
+        if (!time) return 0;
+        const [hours, minutes] = time.split(':').map(part => parseInt(part) || 0);
         return (hours * 60) + minutes;
     },
 
     // Search functionality
     async searchFlights(searchTerm) {
         try {
-            const { data, error } = await supabase
+            await this.waitForSupabase();
+            const { data, error } = await window.supabaseClient
                 .from('flights')
                 .select('*')
                 .or(`company.ilike.%${searchTerm}%,flight_number.ilike.%${searchTerm}%,boarding_airport.ilike.%${searchTerm}%,landing_airport.ilike.%${searchTerm}%`);
@@ -274,7 +322,8 @@ const DatabaseService = {
 
     async searchHotels(searchTerm) {
         try {
-            const { data, error } = await supabase
+            await this.waitForSupabase();
+            const { data, error } = await window.supabaseClient
                 .from('hotels')
                 .select('*')
                 .or(`name.ilike.%${searchTerm}%,location.ilike.%${searchTerm}%`);
@@ -289,7 +338,8 @@ const DatabaseService = {
 
     async searchTrains(searchTerm) {
         try {
-            const { data, error } = await supabase
+            await this.waitForSupabase();
+            const { data, error } = await window.supabaseClient
                 .from('trains')
                 .select('*')
                 .or(`train_name.ilike.%${searchTerm}%,train_number.ilike.%${searchTerm}%,from_station.ilike.%${searchTerm}%,to_station.ilike.%${searchTerm}%`);
@@ -304,7 +354,8 @@ const DatabaseService = {
 
     async searchEvents(searchTerm) {
         try {
-            const { data, error } = await supabase
+            await this.waitForSupabase();
+            const { data, error } = await window.supabaseClient
                 .from('events')
                 .select('*')
                 .or(`name.ilike.%${searchTerm}%,location.ilike.%${searchTerm}%,category.ilike.%${searchTerm}%`);
@@ -328,7 +379,7 @@ window.testDatabase = async function() {
         await DatabaseService.waitForSupabase();
         
         // Test if flights table exists and get ALL data
-        const { data: allFlights, error: allFlightsError } = await supabase
+        const { data: allFlights, error: allFlightsError } = await window.supabaseClient
             .from('flights')
             .select('*');
         
@@ -341,8 +392,8 @@ window.testDatabase = async function() {
             console.log('Sample flight data:', allFlights[0]);
         }
         
-        // Test specific filter that's failing
-        const { data: mumbaiGoa, error: mumbaiGoaError } = await supabase
+        // Test specific filter
+        const { data: mumbaiGoa, error: mumbaiGoaError } = await window.supabaseClient
             .from('flights')
             .select('*')
             .eq('boarding_airport', 'BOM')

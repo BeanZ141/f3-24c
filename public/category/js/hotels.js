@@ -164,47 +164,45 @@ updateTravelClass();
 updateTravelersCount();
 
 
-document.addEventListener("DOMContentLoaded", checkUserSession);
-
-    async function checkUserSession() {
-        const user = JSON.parse(localStorage.getItem('user'));
-
-        if (user) {
-            document.getElementById('login-btn').style.display = 'none';
-            document.getElementById('user-info').style.display = 'inline-block';
-            document.getElementById('username-display').textContent = user.user_metadata.username;
-        } else {
-            document.getElementById('login-btn').style.display = 'block';
-            document.getElementById('user-info').style.display = 'none';
-        }
+function searchHotels() {
+    const fromSelect = document.querySelector("#from .select-selected");
+    const toSelect = document.querySelector("#to .select-selected");
+    
+    const location = fromSelect ? fromSelect.dataset.value : '';
+    const priceRange = toSelect ? toSelect.dataset.value : '';
+    
+    let url = `../category/hotel-results.html?location=${encodeURIComponent(location)}`;
+    
+    // Parse price range for filtering
+    if (priceRange.includes('-')) {
+        const parts = priceRange.replace('₹', '').split('-');
+        url += `&minPrice=${parts[0]}&maxPrice=${parts[1]}`;
+    } else if (priceRange.includes('+')) {
+        url += `&minPrice=${priceRange.replace(/[^0-9]/g, '')}`;
     }
-
-    async function logout() {
-        localStorage.removeItem('user');
-        const { error } = await supabase.auth.signOut();
-        if (error) {
-            alert('Logout failed: ' + error.message);
-        } else {
-            document.getElementById('login-btn').style.display = 'block';
-            document.getElementById('user-info').style.display = 'none';
-            document.getElementById('username-display').textContent = '';
-            alert('Logged out successfully.');
-        }
-    }
+    
+    window.location.href = url;
+}
 
 // Custom alert messages (showAlert)
 function showAlert(message, type = 'info') {
     const alertBox = document.getElementById('customAlert');
     const alertMessage = document.getElementById('alertMessage');
-    alertMessage.innerText = message;
-    alertBox.className = `alert show ${type}`;
-    setTimeout(closeAlert, 5000);
+    if (alertBox && alertMessage) {
+        alertMessage.innerText = message;
+        alertBox.className = `alert show ${type}`;
+        setTimeout(closeAlert, 5000);
+    }
 }
 
 // Close Alert
 function closeAlert() {
-    document.getElementById('customAlert').classList.remove('show');
+    const alertBox = document.getElementById('customAlert');
+    if (alertBox) {
+        alertBox.classList.remove('show');
+    }
 }
+
 
 // Toggle Round Trip
 function toggleRoundTrip() {

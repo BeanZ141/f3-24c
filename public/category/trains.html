@@ -8,7 +8,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Varela&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap"
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap"
         rel="stylesheet">
     <title>Trains</title>
     <link rel="icon" href="../images/favicon.png" type="image/png">
@@ -85,7 +85,7 @@
                 <div id="from" class="custom-select" style="width: 380px;">
                     <div class="from">From</div>
                     <!--Initial option-->
-                    <div class="select-selected" data-value="Mumbai">
+                    <div class="select-selected" data-value="BOM">
                         <div class="city">Mumbai</div>
                         <div class="airport">Chhatrapati Shivaji International Airport</div>
                     </div>
@@ -121,10 +121,11 @@
                     <div id="to" class="custom-select" style="width: 380px;">
                         <div class="to">To</div>
                         <!--Initial option-->
-                        <div class="select-selected" data-value="Goa">
-                            <div class="city">Goa Dabolim Airport, India</div>
-                            <div class="airport">Goa Dabolim International Airport</div>
+                        <div class="select-selected" data-value="DEL">
+                            <div class="city">Delhi</div>
+                            <div class="airport">New Delhi Railway Station</div>
                         </div>
+
                         <div class="select-options">
                             <div data-city="Mumbai" data-airport="Chhatrapati Shivaji International Airport"
                                 data-code="BOM">
@@ -291,7 +292,7 @@
                         </label>
                     </div>
                 </div>
-                <a class="search-btn" href="train-results.html">SEARCH</a>
+                <button class="search-btn" onclick="searchTrains()">SEARCH</button>
     </section>
 
     <!-- Ads Section -->
@@ -407,9 +408,11 @@
     <!--Alert-->
     <div id="customAlert" class="alert"><span id="alertMessage">alert</span></div>
 
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="../js/database.js"></script>
+    <script src="../category/js/service.js"></script>
+    <script src="../js/navbar.js"></script>
+    <script type="module" src="../js/login-signup.js"></script>
 </body>
-<script src="../category/js/service.js"></script>
-<script src="../js/navbar.js"></script>
-<script type="module" src="../js/login-signup.js"></script>
 
-</html>
+</html>

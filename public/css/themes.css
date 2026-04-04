@@ -1,6 +1,7 @@
 body {
     background-color: var(--color-bg);
     color: var(--color-fg);
+    font-family: var(--body-font);
     transition: background-color 0.3s ease, color 0.3s ease;
 }
 
@@ -29,6 +30,9 @@ body {
     --calendar-bg: #fafafa;
     --card-hover: rgba(0, 0, 0, 0.1);
     --card-hover2: rgba(0, 0, 0, 0);
+    --body-font: 'Space Grotesk', sans-serif;
+    --heading-font: 'Space Grotesk', sans-serif;
+    --mono-font: 'Space Grotesk', monospace;
 }
 
 .dark-mode {
@@ -46,6 +50,9 @@ body {
     --button-border-hover: #eeeeee;
     --nav-bg: #eeeeee;
     --nav-fg: #000000;
+    --body-font: 'Space Grotesk', sans-serif;
+    --heading-font: 'Space Grotesk', sans-serif;
+    --mono-font: 'Space Grotesk', monospace; /* Keep 'monospace' fallback but change name */
     --tnc-color: #c2c2c2;
     --radio-color: #0f0f0f;
     --switch-btn-color: #080808;

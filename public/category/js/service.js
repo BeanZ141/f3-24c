@@ -34,11 +34,12 @@ document.querySelectorAll(".custom-select").forEach((select) => {
   options.querySelectorAll("div").forEach((option) => {
     option.addEventListener("click", (e) => {
       e.stopPropagation();
-      selected.dataset.value = option.dataset.city;
+      selected.dataset.value = option.dataset.code || option.dataset.city;
       selected.innerHTML = `
                 <div class="city">${option.dataset.city}</div>
                 <div class="airport">${option.dataset.airport}</div>
             `;
+
       options.classList.remove("open");
       selected.classList.remove("open");
     });
@@ -226,16 +227,25 @@ async function checkUserSession() {
 
 async function logout() {
   localStorage.removeItem("user");
-  const { error } = await supabase.auth.signOut();
-  if (error) {
-    alert("Logout failed: " + error.message);
+  const supabase = window.supabaseClient;
+  if (!supabase) {
+    console.warn("Supabase client not initialized for logout. Trying immediate init...");
+    if (window.supabase) {
+        const tempClient = window.supabase.createClient('https://bbmtcjjhcnjpfglltqyl.supabase.co', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJibXRjampoY25qcGZnbGx0cXlsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzUyMDE1ODQsImV4cCI6MjA5MDc3NzU4NH0.XCSUS89zOQuEI3-fvo9BGja3-AYMHU1VaXV6xrMqvaU');
+        await tempClient.auth.signOut();
+    }
   } else {
-    document.getElementById("login-btn").style.display = "block";
-    document.getElementById("user-info").style.display = "none";
-    document.getElementById("username-display").textContent = "";
-    alert("Logged out successfully.");
+    const { error } = await supabase.auth.signOut();
+    if (error) {
+      alert("Logout failed: " + error.message);
+    }
   }
+  document.getElementById("login-btn").style.display = "block";
+  document.getElementById("user-info").style.display = "none";
+  document.getElementById("username-display").textContent = "";
+  alert("Logged out successfully.");
 }
+
 
 // Custom alert messages (showAlert)
 function showAlert(message, type = "info") {
@@ -252,46 +262,31 @@ function closeAlert() {
 }
 
 // Search flights function
-async function searchFlights(event) {
-  if (event) event.preventDefault();
+function searchFlights() {
+  const fromSelect = document.querySelector("#from .select-selected");
+  const toSelect = document.querySelector("#to .select-selected");
   
-  const fromSelected = document.querySelector("#from .select-selected");
-  const toSelected = document.querySelector("#to .select-selected");
-  
-  // Get airport codes from the data attributes
-  const fromOptions = document.querySelector("#from .select-options");
-  const toOptions = document.querySelector("#to .select-options");
-  
-  // Find the matching option to get the airport code
-  let fromCode = 'BOM'; // default
-  let toCode = 'GOI'; // default
-  
-  fromOptions.querySelectorAll('div').forEach(option => {
-    if (option.dataset.city === fromSelected.dataset.value) {
-      fromCode = option.dataset.code;
-    }
-  });
-  
-  toOptions.querySelectorAll('div').forEach(option => {
-    if (option.dataset.city === toSelected.dataset.value) {
-      toCode = option.dataset.code;
-    }
-  });
-
-  if (!fromSelected.dataset.value || !toSelected.dataset.value) {
-    showAlert("Please select both departure and arrival cities", "error");
+  if (!fromSelect || !toSelect || !fromSelect.dataset.value || !toSelect.dataset.value) {
+    showAlert("Please select both source and destination.", "error");
     return;
   }
-
-  // Build URL with search parameters using airport codes
-  const params = new URLSearchParams({
-    from: fromCode,
-    to: toCode,
-  });
-
-  // Navigate to results page with parameters
-  window.location.href = `flight-results.html?${params.toString()}`;
+  
+  window.location.href = `../category/flight-results.html?from=${fromSelect.dataset.value}&to=${toSelect.dataset.value}`;
 }
+
+// Search trains function
+function searchTrains() {
+  const fromSelect = document.querySelector("#from .select-selected");
+  const toSelect = document.querySelector("#to .select-selected");
+  
+  if (!fromSelect || !toSelect || !fromSelect.dataset.value || !toSelect.dataset.value) {
+    showAlert("Please select both source and destination.", "error");
+    return;
+  }
+  
+  window.location.href = `../category/train-results.html?from=${fromSelect.dataset.value}&to=${toSelect.dataset.value}`;
+}
+
 
 // Toggle Round Trip
 function toggleRoundTrip() {

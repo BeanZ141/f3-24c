@@ -1,161 +1,21 @@
-body {
-    background-color: var(--color-bg);
-    color: var(--color-fg);
-    user-select: none;
-}
-
-h2 {
-    position: fixed;
-    align-items: center;
-    text-align: center;
-    top: 5%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    font-family: 'Varela', sans-serif;
-    font-weight: 100;
-    letter-spacing: 2px;
-    font-size: 1.5rem;
-    padding: 5px 10px 5px 10px; 
-}
-
-h5 {
-    position: fixed;
-    align-items: center;
-    text-align: center;
-    top: 34%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    font-family: 'Varela', sans-serif;
-    font-size: 1rem;
-    font-weight: 100;
-}
-
-h6 {
-    position: fixed;
-    align-items: center;
-    text-align: center;
-    top: 45%;
-    left: 50%;
-    width: 15em;
-    transform: translate(-50%, -50%);
-    font-family: 'Varela', sans-serif;
-    font-size: 1rem;
-    font-weight: 100;
-}
-
-.book-more {
-    position: fixed;
-    top: 90%;
-    left: 50%;
-    font-size: 13px !important;
-    transform: translate(-50%, -50%);
-    background-color: var(--button-fg);
-    color: var(--button-bg);
-    font-family: 'Varela', sans-serif;
-    font-size: 1em;
-    border: 1px solid transparent;
-    padding: 0.7rem 1.2rem;
-    transition: 200ms ease-out;
-    letter-spacing: 2px;
-}
-
-.book-more:hover {
-    background-color: var(--button-fg-hover);
-    color: var(--button-bg-hover);
-    border: 1px solid var(--button-border-hover);
-    cursor: pointer;
-}
-
-.download-ticket {
-    position: fixed;
-    top: 80%;
-    left: 50%;
-    font-size: 14px !important;
-    transform: translate(-50%, -50%);
-    background-color: var(--button-bg);
-    color: var(--button-fg);
-    font-family: 'Varela', sans-serif;
-    font-size: 1em;
-    border: 1px solid var(--border);
-    padding: 0.7rem 1.2rem;
-    transition: 200ms ease-out;
-    letter-spacing: 1px;
-}
-
-.download-ticket:hover {
-    background-color: var(--button-bg-hover);
-    color: var(--button-fg-hover);
-    border: 1px solid var(--button-border-hover);
-    cursor: pointer;
-}
-
-.qr-code {
-    position: fixed;
-    top: 28%;
-    left: 20%;
-}
-
-.ticket-info {
-    position: fixed;
-    top: 42%;
-    left: 50%;
-    width: 18em;
-    transform: translate(-50%, -50%);
-    font-family: 'Varela', sans-serif;
-    font-weight: 100;
-}
-
-.ticket-info p {
-    margin: 30px;
-}
-
+body{background-color:var(--color-bg);color:var(--color-fg);user-select:none}
+h2{position:fixed;align-items:center;text-align:center;top:5%;left:50%;transform:translate(-50%,-50%);font-family:'Varela',sans-serif;font-weight:100;letter-spacing:2px;font-size:1.5rem;padding:5px 10px}
+h5{position:fixed;align-items:center;text-align:center;top:34%;left:50%;transform:translate(-50%,-50%);font-family:'Varela',sans-serif;font-size:1rem;font-weight:100}
+h6{position:fixed;align-items:center;text-align:center;top:45%;left:50%;width:15em;transform:translate(-50%,-50%);font-family:'Varela',sans-serif;font-size:1rem;font-weight:100}
+.book-more{position:fixed;top:90%;left:50%;font-size:13px!important;transform:translate(-50%,-50%);background-color:var(--button-fg);color:var(--button-bg);font-family:'Varela',sans-serif;font-size:1em;border:1px solid transparent;padding:.7rem 1.2rem;transition:200ms ease-out;letter-spacing:2px}
+.book-more:hover{background-color:var(--button-fg-hover);color:var(--button-bg-hover);border:1px solid var(--button-border-hover);cursor:pointer}
+.download-ticket{position:fixed;top:80%;left:50%;font-size:14px!important;transform:translate(-50%,-50%);background-color:var(--button-bg);color:var(--button-fg);font-family:'Varela',sans-serif;font-size:1em;border:1px solid var(--border);padding:.7rem 1.2rem;transition:200ms ease-out;letter-spacing:1px}
+.download-ticket:hover{background-color:var(--button-bg-hover);color:var(--button-fg-hover);border:1px solid var(--button-border-hover);cursor:pointer}
+.qr-code{position:fixed;top:28%;left:20%}
+.ticket-info{position:fixed;top:42%;left:50%;width:18em;transform:translate(-50%,-50%);font-family:'Varela',sans-serif;font-weight:100}
+.ticket-info p{margin:30px}
 @media (max-width: 768px) {
-    .ticket-info {
-        position: fixed;
-        top: 57%;
-        left: 63%;
-        width: 80%;
-        transform: translte(-50%, -50%);
-    }
-
-    .ticket-info p {
-        margin: 20px 20px 30px;
-    }
-
-    .qr-code {
-        position: fixed;
-        top: 28%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-    }
+.ticket-info{position:fixed;top:57%;left:63%;width:80%;transform:translte(-50%,-50%)}
+.ticket-info p{margin:20px 20px 30px}
+.qr-code{position:fixed;top:28%;left:50%;transform:translate(-50%,-50%)}
 }
-
-.ticket-id,
-.ticket-date,
-.registered-name {
-    font-family: 'Varela', sans-serif;
-    font-size: 1rem;
-    margin: 30px 0;
-}
-
-.alert {
-    position: fixed;
-    top: 2%;
-    right: 3%;
-    padding: 15px 30px;
-    background-color: var(--color-fg);
-    color: var(--color-bg);
-    opacity: 0;
-    width: 200px;
-    visibility: hidden;
-    transition: opacity 0.3s, visibility 0.3s;
-    z-index: 1000;
-}
-
-.alert.show {
-    opacity: 1;
-    visibility: visible;
-}
-
-.alert.success { background-color: var(--color-fg); color: var(--color-bg); }
-.alert.error { background-color: #ff0000; color: #222; }
+.ticket-id,.ticket-date,.registered-name{font-family:'Varela',sans-serif;font-size:1rem;margin:30px 0}
+.alert{position:fixed;top:2%;right:3%;padding:15px 30px;background-color:var(--color-fg);color:var(--color-bg);opacity:0;width:200px;visibility:hidden;transition:opacity 0.3s,visibility .3s;z-index:1000}
+.alert.show{opacity:1;visibility:visible}
+.alert.success{background-color:var(--color-fg);color:var(--color-bg)}
+.alert.error{background-color:red;color:#222}

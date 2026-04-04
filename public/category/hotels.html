@@ -226,10 +226,11 @@
                 </div>
                 
                 <div class="input-group">
-                    <div class="search-select"  onclick="window.location.href='../category/hotel-results.html';"
-                        style="border-right: none; border-left: 1px solid var(--radio-border);background-color: var(--color-fg);">
+                    <div class="search-select" onclick="searchHotels()"
+                        style="border-right: none; border-left: 1px solid var(--radio-border);background-color: var(--color-fg);cursor:pointer;">
                         <div class="to"><a>SEARCH →</a></div>
                     </div>
+
     </section>
 
     <!-- Ads Section -->
@@ -346,9 +347,12 @@
     <div id="customAlert" class="alert">
         <span id="alertMessage">alert</span>
     </div>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="../js/database.js"></script>
+    <script src="../category/js/service.js"></script>
+    <script src="../category/js/hotels.js"></script>
+    <script src="../js/navbar.js"></script>
+    <script type="module" src="../js/login-signup.js"></script>
 </body>
-<script src="../category/js/hotels.js"></script>
-<script src="../js/navbar.js"></script>
-<script type="module" src="../js/login-signup.js"></script>
 
 </html>

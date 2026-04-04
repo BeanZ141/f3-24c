@@ -8,7 +8,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Varela&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap"
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap"
         rel="stylesheet">
     <title>Flights</title>
     <link rel="icon" href="../images/favicon.png" type="image/png">
@@ -89,7 +89,7 @@
                 <div id="from" class="custom-select">
                     <div class="from">From</div>
                     <!--Initial option-->
-                    <div class="select-selected" data-value="Pune">
+                    <div class="select-selected" data-value="PNQ">
                         <div class="city">Pune</div>
                         <div class="airport">Pune Airport</div>
                     </div>
@@ -156,7 +156,7 @@
                     <div id="to" class="custom-select">
                         <div class="to">To</div>
                         <!--Initial option-->
-                        <div class="select-selected" data-value="Delhi">
+                        <div class="select-selected" data-value="DEL">
                             <div class="city">Delhi</div>
                             <div class="airport">Indira Gandhi International Airport</div>
                         </div>
@@ -372,7 +372,7 @@
                         </label>
                     </div>
                 </div>
-                <button class="search-btn" onclick="searchFlights(event)">SEARCH</button>
+                <button class="search-btn" onclick="searchFlights()">SEARCH</button>
     </section>
 
 
@@ -489,9 +489,11 @@
     <!--Alert-->
     <div id="customAlert" class="alert"><span id="alertMessage">alert</span></div>
 
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="../js/database.js"></script>
+    <script src="../category/js/service.js"></script>
+    <script src="../js/navbar.js"></script>
+    <script type="module" src="../js/login-signup.js"></script>
 </body>
-<script src="../category/js/service.js"></script>
-<script src="../js/navbar.js"></script>
-<script type="module" src="../js/login-signup.js"></script>
 
-</html>
+</html>

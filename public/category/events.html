@@ -9,7 +9,7 @@
     <link rel="icon" href="images/favicon.png" type="image/png">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Varela&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap"
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap"
         rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <title>Event Search Results</title>
@@ -143,28 +143,27 @@
         <div class="event-details-content"></div> <!-- This is the container we need -->
     </div>
 
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="../js/database.js"></script>
     <script src="../js/navbar.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.0/papaparse.min.js"></script>
+    <script type="module" src="../js/login-signup.js"></script>
     <script>
-        document.addEventListener('DOMContentLoaded', function () {
+        document.addEventListener('DOMContentLoaded', async function () {
             let originalEventData = [];
             let currentFilter = 'reset';
 
-            fetch('../category/events.csv')
-                .then(response => response.text())
-                .then(csvText => {
-                    const results = Papa.parse(csvText, {
-                        header: true,
-                        skipEmptyLines: true
-                    });
-                    originalEventData = processCSVData(results.data);
-                    updateFilterCounts();
-                    renderEventCards(originalEventData);
-                })
-                .catch(error => {
-                    console.error('Error loading events:', error);
-                    loadMockData();
-                });
+            try {
+                // Fetch events from Supabase
+                const data = await DatabaseService.getEvents();
+                originalEventData = processCSVData(data);
+                updateFilterCounts();
+                renderEventCards(originalEventData);
+            } catch (error) {
+                console.error('Error loading events:', error);
+                // Fallback to empty or mock data
+                originalEventData = [];
+                renderEventCards([]);
+            }
 
             function processCSVData(data) {
                 return data.map(event => ({
