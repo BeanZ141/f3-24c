@@ -8,19 +8,20 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Varela&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap"
-        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue:wght@100;400&display=swap" rel="stylesheet">
     <title>Flights</title>
     <link rel="icon" href="../images/favicon.png" type="image/png">
     <link rel="stylesheet" href="../category/css/flights.css">
     <link rel="stylesheet" href="../css/styles.css">
-    <link rel="stylesheet" href="../category/css/offers.css">
     <link rel="stylesheet" href="../css/themes.css">
     <link rel="stylesheet" href="../css/navbar.css">
+    <link rel="stylesheet" href="../css/login-popup.css">
     <link rel="stylesheet" href="../css/kalandae.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/gh/Twipped/Kalendae/build/kalendae.standalone.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="../js/auth.js"></script>
     <script src="../js/database.js"></script>
 </head>
 
@@ -33,7 +34,6 @@
                 <button class="dropdown-btn" onclick="toggleDropdown()">▼</button>
                 <div class="dropdown-content" id="dropdown-menu">
                     <a href="../dashboard.html">Dashboard</a>
-                    <a href="../scanner/scanner-info.html">Scan Tickets</a>
                     <a href="#" onclick="logout()">Logout</a>
                 </div>
             </div>
@@ -54,29 +54,28 @@
                 <i class="fas fa-calendar-alt"></i> EVENTS
             </a>
         </div>
-        <button id="login-btn" onclick="showPopup()">LOGIN / SIGNUP</button>
 
         <button id="theme-switch">
-            <svg height="24px" viewBox="0 -960 960 960" width="24px" fill="#e8eaed">
-                <path
-                    d="M480-120q-150 0-255-105T120-480q0-150 105-255t255-105q14 0 27.5 1t26.5 3q-41 29-65.5 75.5T444-660q0 90 63 153t153 63q55 0 101-24.5t75-65.5q2 13 3 26.5t1 27.5q0 150-105 255T480-120Z" />
-            </svg>
-            <svg height="24px" viewBox="0 -960 960 960" width="24px" fill="#e8eaed">
-                <path
-                    d="M480-280q-83 0-141.5-58.5T280-480q0-83 58.5-141.5T480-680q83 0 141.5 58.5T680-480q0 83-58.5 141.5T480-280ZM200-440H40v-80h160v80Zm720 0H760v-80h160v80ZM440-760v-160h80v160h-80Zm0 720v-160h80v160h-80ZM256-650l-101-97 57-59 96 100-52 56Zm492 496-97-101 53-55 101 97-57 59Zm-98-550 97-101 59 57-100 96-56-52ZM154-212l101-97 55 53-97 101-59-57Z" />
-            </svg>
+            <svg height="24px" viewBox="0 -960 960 960" width="24px" fill="#e8eaed"> <path d="M480-120q-150 0-255-105T120-480q0-150 105-255t255-105q14 0 27.5 1t26.5 3q-41 29-65.5 75.5T444-660q0 90 63 153t153 63q55 0 101-24.5t75-65.5q2 13 3 26.5t1 27.5q0 150-105 255T480-120Z" /> </svg>
+            <svg height="24px" viewBox="0 -960 960 960" width="24px" fill="#e8eaed"> <path d="M480-280q-83 0-141.5-58.5T280-480q0-83 58.5-141.5T480-680q83 0 141.5 58.5T680-480q0 83-58.5 141.5T480-280ZM200-440H40v-80h160v80Zm720 0H760v-80h160v80ZM440-760v-160h80v160h-80Zm0 720v-160h80v160h-80ZM256-650l-101-97 57-59 96 100-52 56Zm492 496-97-101 53-55 101 97-57 59Zm-98-550 97-101 59 57-100 96-56-52ZM154-212l101-97 55 53-97 101-59-57Z" /></svg>
         </button>
+
+        <button id="login-btn" onclick="showPopup()">LOGIN / SIGNUP</button>
     </nav>
 
-    <h5 class="category-name">FLIGHTS</h5>
+    <div class="category-image" style="position:fixed;top:7vh;left:1vw;width:1830px;height:855px;
+                    background-image:linear-gradient(to bottom,#0000 50%,#000c 100%),url(../images/flight_1.jpg);
+    background-size:cover;background-position:center;border-radius:20px;display:flex;align-items:flex-end;
+    padding:25px;font-size:2.5rem;font-weight:700;letter-spacing:2px;color:#fff;z-index:-1;
+    box-shadow:0 20px 40px #0000004d;animation:slide-in 1s ease-out forwards">FLIGHTS</div>
 
     <section class="flight-booking">
         <!--Select city-->
+        <div class="glass"></div>
         <div class="city-switch">
             <div class="way">
                 <label class="container">
-                    <input type="radio" name="tripType" id="one-way" value="one-way" checked
-                        onchange="toggleRoundTrip()">
+                    <input type="radio" name="tripType" id="one-way" value="one-way" checked onchange="toggleRoundTrip()">
                     <span class="checkmark"></span><span class="radio-text">ONE WAY</span>
                 </label>
                 <label class="container">
@@ -252,7 +251,7 @@
                         <div class="travelers">Travelers & Class</div>
                         <div class="travelers-display">
                             <span class="number-of-travelers">1</span>
-                            <span style="font-size: 1.4em;">Traveler</span>
+                            <span style="font-size: 1.4em;margin-left: 5px">Traveler</span>
                             <span class="display-class">Economy/Premium Economy</span>
                         </div>
                     </button>
@@ -316,6 +315,32 @@
                                 <label><input value="3" name="tclass" type="radio"><span>Business</span></label>
                                 <label><input value="4" name="tclass" type="radio"><span>First Class</span></label>
                                 <span class="selection"></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!--Timeslots-->
+                    <button class="input-group travelers-and-class" id="timeslot-btn" onclick="toggleTimeslots()" style="border-radius: 0px 18px 18px 0px;">
+                        <div class="travelers">Timeslots</div>
+                        <div class="travelers-display">
+                            <span class="display-class" style="margin-bottom: 10px;margin-left: 10px; font-size: 1.4em; font-weight: 600;" id="timeslot-display">Anytime</span>
+                        </div>
+                    </button>
+                    <div id="timeslots-picker" class="travel-class" style="display: none; height: auto; padding-bottom: 2rem;">
+                        <div class="choose-class" style="position: relative; top: 0; width: 100%;">
+                            <h5 style="margin-top: 0;">CHOOSE TIMESLOT</h5>
+                            <div class="radio-input" style="--items: 5; flex-wrap: wrap; gap: 10px;">
+                                <label><input value="Anytime" name="timeslot" type="radio" checked><span>Anytime</span></label>
+                                <label><input value="06:30" name="timeslot" type="radio"><span>06:30</span></label>
+                                <label><input value="08:00" name="timeslot" type="radio"><span>08:00</span></label>
+                                <label><input value="09:30" name="timeslot" type="radio"><span>09:30</span></label>
+                                <label><input value="11:45" name="timeslot" type="radio"><span>11:45</span></label>
+                                <label><input value="13:00" name="timeslot" type="radio"><span>13:00</span></label>
+                                <label><input value="14:30" name="timeslot" type="radio"><span>14:30</span></label>
+                                <label><input value="16:00" name="timeslot" type="radio"><span>16:00</span></label>
+                                <label><input value="19:30" name="timeslot" type="radio"><span>19:30</span></label>
+                                <label><input value="21:30" name="timeslot" type="radio"><span>21:30</span></label>
+                                <span class="selection" style="display: none;"></span>
                             </div>
                         </div>
                     </div>
@@ -489,11 +514,8 @@
     <!--Alert-->
     <div id="customAlert" class="alert"><span id="alertMessage">alert</span></div>
 
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-    <script src="../js/database.js"></script>
     <script src="../category/js/service.js"></script>
     <script src="../js/navbar.js"></script>
-    <script type="module" src="../js/login-signup.js"></script>
 </body>
 
-</html>
+</html>

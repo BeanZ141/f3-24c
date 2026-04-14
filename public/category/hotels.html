@@ -12,12 +12,15 @@
     <link rel="icon" href="../images/favicon.png" type="image/png">
     <link rel="stylesheet" href="../category/css/hotels.css">
     <link rel="stylesheet" href="../css/styles.css">
-    <link rel="stylesheet" href="../category/css/offers.css">
     <link rel="stylesheet" href="../css/themes.css">
     <link rel="stylesheet" href="../css/navbar.css">
+    <link rel="stylesheet" href="../css/login-popup.css">
     <link rel="stylesheet" href="../css/kalandae.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/gh/Twipped/Kalendae/build/kalendae.standalone.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="../js/auth.js"></script>
+    <script src="../js/database.js"></script>
 </head>
 
 <body>
@@ -29,7 +32,6 @@
                 <button class="dropdown-btn" onclick="toggleDropdown()">▼</button>
                 <div class="dropdown-content" id="dropdown-menu">
                     <a href="../dashboard.html">Dashboard</a>
-                    <a href="../scanner/scanner-info.html">Scan Tickets</a>
                     <a href="#" onclick="logout()">Logout</a>
                 </div>
             </div>
@@ -64,10 +66,15 @@
         </button>
     </nav>
 
-    <h5 class="category-name">HOTELS</h5>
+    <div class="category-image" style="position:fixed;top:7vh;left:1vw;width:1830px;height:855px;
+                    background-image:linear-gradient(to bottom,#0000 50%,#000c 100%),url(../images/hotel.jpg);
+    background-size:cover;background-position:center;border-radius:20px;display:flex;align-items:flex-end;
+    padding:25px;font-size:2.5rem;font-weight:700;letter-spacing:2px;color:#fff;z-index:0;
+    box-shadow:0 20px 40px #0000004d;animation:slide-in 1s ease-out forwards">HOTELS</div>
 
     <section class="flight-booking">
         <!--Select city-->
+        <div class="glass" style="height: 182px"></div>
         <div class="city-switch">
             <!--Trip type-->
             <div class="way">
@@ -89,38 +96,6 @@
             </div>
             <!--To-->
             <div class="input-group">
-                <div id="from" class="custom-select">
-                    <div class="from">City, Property name or Location</div>
-                    <!--Initial option-->
-                    <div class="select-selected" data-value="Goa">
-                        <div class="city">Goa Dabolim Airport, India</div>
-                        <div class="airport">Goa Dabolim International Airport</div>
-                    </div>
-                    <div class="select-options">
-                        <div data-city="Mumbai" data-airport="Chhatrapati Shivaji International Airport"
-                            data-code="BOM">
-                            <span class="city">Mumbai, India</span>
-                            <span class="airport">Chhatrapati Shivaji International Airport</span>
-                            <span class="code">BOM</span>
-                        </div>
-                        <div data-city="Chennai" data-airport="Chennai International Airport" data-code="MAA">
-                            <span class="city">Chennai, India</span>
-                            <span class="airport">Chennai International Airport</span>
-                            <span class="code">MAA</span>
-                        </div>
-                        <div data-city="Hyderabad" data-airport="Chennai International Airport" data-code="MAA">
-                            <span class="city">Hyderabad, India</span>
-                            <span class="airport">Rajiv Gandhi International Airport</span>
-                            <span class="code">HYD</span>
-                        </div>
-                        <div data-city="Goa - Dabolim Airport" data-airport="Goa Dabolim International Airport"
-                            data-code="MAA">
-                            <span class="city">Goa - Dabolim Airport, India</span>
-                            <span class="airport">Rajiv Gandhi International Airport</span>
-                            <span class="code">GOI</span>
-                        </div>
-                    </div>
-                </div>
                 <!--Check-In-->
                 <div class="input-group">
                     <div class="date-picker">
@@ -141,7 +116,7 @@
                 <div class="input-group">
                     <div class="date-picker">
                         <div class="departure">Check-Out <span class="arrow-down"></span></div>
-                        <button class="date-trigger" onclick="toggleCheckOutCalendar()">
+                        <button class="date-trigger" style="border-radius: 0px;" onclick="toggleCheckOutCalendar()">
                             <div class="text-left">
                                 <div class="date-display">
                                     <span class="checkout-day">14</span>
@@ -165,7 +140,7 @@
                 <!--Price Per Night-->
                 <div class="input-group">
                     <div id="to" class="custom-select"
-                        style="border-right: none; border-left: 1px solid var(--radio-border);">
+                        style="border-right: none;border-left: 1px solid var(--radio-border);width: 185px;">
                         <div class="to">Price Per Night</div>
                         <!--Initial option-->
                         <div class="select-selected">
@@ -173,16 +148,16 @@
                         </div>
                         <div class="select-options">
                             <div data-city="₹0-1500">
-                                <span class="city">₹0-1500</span>
+                                <span class="city">₹0-1500 &nbsp;&nbsp;<span style="margin-left: 60px;">★★</span></span>
                             </div>
                             <div data-city="₹1500-2500">
-                                <span class="city">₹1500-2500</span>
+                                <span class="city">₹1500-2500 &nbsp;&nbsp;<span style="margin-left:27px;">★★★</span></span>
                             </div>
                             <div data-city="₹2500-5000">
-                                <span class="city">₹2500-5000</span>
+                                <span class="city">₹2500-5000 &nbsp;&nbsp;<span style="margin-left: 14px;">★★★★</span></span>
                             </div>
                             <div data-city="₹5000+">
-                                <span class="city">₹5000+</span>
+                                <span class="city">₹5000+ &nbsp;&nbsp;<span style="margin-left: 25px;">★★★★★</span></span>
                             </div>
                         </div>
                     </div>
@@ -220,17 +195,14 @@
                                 </div>
                             </div>
                         </div>
-
-                        
                     </div>
                 </div>
                 
                 <div class="input-group">
                     <div class="search-select" onclick="searchHotels()"
                         style="border-right: none; border-left: 1px solid var(--radio-border);background-color: var(--color-fg);cursor:pointer;">
-                        <div class="to"><a>SEARCH →</a></div>
-                    </div>
-
+                    <div class="to"><a>SEARCH →</a></div>
+                </div>
     </section>
 
     <!-- Ads Section -->
@@ -347,12 +319,10 @@
     <div id="customAlert" class="alert">
         <span id="alertMessage">alert</span>
     </div>
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-    <script src="../js/database.js"></script>
+    
     <script src="../category/js/service.js"></script>
     <script src="../category/js/hotels.js"></script>
     <script src="../js/navbar.js"></script>
-    <script type="module" src="../js/login-signup.js"></script>
 </body>
 
 </html>

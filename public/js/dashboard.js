@@ -1,503 +1,305 @@
-import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm';
+/**
+ * Dashboard Logic for TicketEase
+ * Merged and refined from dashboard.html and previous dashboard.js
+ */
 
-const supabaseUrl = 'https://bbmtcjjhcnjpfglltqyl.supabase.co';
-const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJibXRjampoY25qcGZnbGx0cXlsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzUyMDE1ODQsImV4cCI6MjA5MDc3NzU4NH0.XCSUS89zOQuEI3-fvo9BGja3-AYMHU1VaXV6xrMqvaU';
-const supabase = createClient(supabaseUrl, supabaseKey);
-
-let currentUser = null;
-
-// Initialize dashboard
-async function initializeDashboard() {
-    try {
-        const { data: { session }, error } = await supabase.auth.getSession();
-
-        if (error) {
-            console.error('Error fetching session:', error.message);
-            window.location.href = 'index.html';
-            return;
-        }
-
-        if (session && session.user) {
-            currentUser = session.user;
-            displayUserDetails();
-            loadDashboardData();
-        } else {
-            window.location.href = 'index.html';
-        }
-    } catch (err) {
-        console.error('Error checking session:', err);
-        window.location.href = 'index.html';
-    }
-}
-
-// Display user details
-function displayUserDetails() {
-    if (!currentUser) return;
-
-    const username = currentUser.user_metadata?.username || 'User';
-    const email = currentUser.email || '';
-
-    // Update overview section
-    document.getElementById('user-name').textContent = username;
-    
-    // Update profile form
-    document.getElementById('profile-username').value = username;
-    document.getElementById('profile-email').value = email;
-    document.getElementById('profile-phone').value = currentUser.user_metadata?.phone || '';
-    document.getElementById('profile-dob').value = currentUser.user_metadata?.dob || '';
-    document.getElementById('profile-address').value = currentUser.user_metadata?.address || '';
-}
-
-// Load dashboard data
-async function loadDashboardData() {
-    loadStats();
-    loadRecentActivity();
-    loadBookings();
-    loadTickets();
-    loadPaymentHistory();
-}
-
-// Load statistics
-function loadStats() {
-    // Get data from localStorage or generate sample data
-    const bookings = JSON.parse(localStorage.getItem('userBookings') || '[]');
-    const payments = JSON.parse(localStorage.getItem('userPayments') || '[]');
-    
-    const totalBookings = bookings.length;
-    const upcomingTrips = bookings.filter(b => new Date(b.date) > new Date()).length;
-    const totalSpent = payments.reduce((sum, p) => sum + (p.amount || 0), 0);
-    const loyaltyPoints = Math.floor(totalSpent / 100) * 10; // 10 points per ₹100 spent
-
-    document.getElementById('total-bookings').textContent = totalBookings;
-    document.getElementById('upcoming-trips').textContent = upcomingTrips;
-    document.getElementById('total-spent').textContent = `₹${totalSpent.toLocaleString()}`;
-    document.getElementById('loyalty-points').textContent = loyaltyPoints;
-}
-
-// Load recent activity
-function loadRecentActivity() {
-    const activities = [
-        {
-            icon: 'fas fa-plane',
-            title: 'Flight Booked',
-            description: 'Mumbai to Goa - IndiGO 6E-123',
-            time: '2 hours ago'
-        },
-        {
-            icon: 'fas fa-credit-card',
-            title: 'Payment Successful',
-            description: 'Flight booking payment of ₹4,500',
-            time: '2 hours ago'
-        },
-        {
-            icon: 'fas fa-user-edit',
-            title: 'Profile Updated',
-            description: 'Contact information updated',
-            time: '1 day ago'
-        }
-    ];
-
-    const activityList = document.getElementById('recent-activity-list');
-    activityList.innerHTML = activities.map(activity => `
-        <div class="activity-item">
-            <div class="activity-icon">
-                <i class="${activity.icon}"></i>
-            </div>
-            <div class="activity-info">
-                <h4>${activity.title}</h4>
-                <p>${activity.description}</p>
-            </div>
-            <div class="activity-time">${activity.time}</div>
-        </div>
-    `).join('');
-}
-
-// Load bookings
-function loadBookings() {
-    const sampleBookings = [
-        {
-            id: 'TKT001',
-            type: 'flight',
-            title: 'Mumbai to Goa',
-            details: {
-                airline: 'IndiGO',
-                flight: '6E-123',
-                date: '2025-02-15',
-                time: '06:00 - 08:15',
-                passengers: '1 Adult'
-            },
-            status: 'confirmed',
-            amount: '₹4,500'
-        },
-        {
-            id: 'TKT002',
-            type: 'hotel',
-            title: 'Taj Hotel, Mumbai',
-            details: {
-                checkin: '2025-02-20',
-                checkout: '2025-02-22',
-                room: 'Deluxe Room',
-                guests: '2 Adults'
-            },
-            status: 'pending',
-            amount: '₹8,000'
-        }
-    ];
-
-    const bookingsList = document.getElementById('bookings-list');
-    bookingsList.innerHTML = sampleBookings.map(booking => `
-        <div class="booking-card" data-status="${booking.status}">
-            <div class="booking-header">
-                <div class="booking-type">
-                    <i class="fas fa-${booking.type === 'flight' ? 'plane' : booking.type === 'hotel' ? 'hotel' : 'train'}"></i>
-                    ${booking.title}
-                </div>
-                <div class="booking-status ${booking.status}">${booking.status.charAt(0).toUpperCase() + booking.status.slice(1)}</div>
-            </div>
-            <div class="booking-details">
-                ${Object.entries(booking.details).map(([key, value]) => `
-                    <div class="booking-detail">
-                        <h4>${key.charAt(0).toUpperCase() + key.slice(1)}</h4>
-                        <p>${value}</p>
-                    </div>
-                `).join('')}
-                <div class="booking-detail">
-                    <h4>Amount</h4>
-                    <p>${booking.amount}</p>
-                </div>
-            </div>
-            <div class="booking-actions">
-                <button class="booking-btn primary">View Details</button>
-                <button class="booking-btn">Download Ticket</button>
-                ${booking.status === 'confirmed' ? '<button class="booking-btn">Cancel</button>' : ''}
-            </div>
-        </div>
-    `).join('');
-}
-
-// Load tickets
-function loadTickets() {
-    const sampleTickets = [
-        {
-            id: 'TKT001',
-            type: 'Flight',
-            title: 'Mumbai to Goa',
-            subtitle: 'IndiGO 6E-123',
-            date: 'Feb 15, 2025',
-            qrCode: 'TKT001QR'
-        },
-        {
-            id: 'TKT002',
-            type: 'Hotel',
-            title: 'Taj Hotel Mumbai',
-            subtitle: 'Deluxe Room',
-            date: 'Feb 20-22, 2025',
-            qrCode: 'TKT002QR'
-        }
-    ];
-
-    const ticketsGrid = document.getElementById('tickets-grid');
-    ticketsGrid.innerHTML = sampleTickets.map(ticket => `
-        <div class="ticket-card">
-            <div class="ticket-header">
-                <h3>${ticket.type}</h3>
-                <p>${ticket.date}</p>
-            </div>
-            <div class="ticket-body">
-                <h4>${ticket.title}</h4>
-                <p>${ticket.subtitle}</p>
-                <div class="ticket-qr">
-                    <div class="qr-placeholder">
-                        <i class="fas fa-qrcode"></i>
-                    </div>
-                    <p>Ticket ID: ${ticket.id}</p>
-                </div>
-                <button class="booking-btn primary" style="width: 100%;">Download Ticket</button>
-            </div>
-        </div>
-    `).join('');
-}
-
-// Load payment history
-function loadPaymentHistory() {
-    const samplePayments = [
-        {
-            id: 'PAY001',
-            description: 'Flight Booking - Mumbai to Goa',
-            date: 'Feb 10, 2025',
-            amount: 4500,
-            status: 'Success'
-        },
-        {
-            id: 'PAY002',
-            description: 'Hotel Booking - Taj Hotel Mumbai',
-            date: 'Feb 08, 2025',
-            amount: 8000,
-            status: 'Success'
-        }
-    ];
-
-    const paymentsList = document.getElementById('payments-list');
-    paymentsList.innerHTML = samplePayments.map(payment => `
-        <div class="payment-item">
-            <div class="payment-info">
-                <h4>${payment.description}</h4>
-                <p>${payment.date} • ${payment.status}</p>
-            </div>
-            <div class="payment-amount">₹${payment.amount.toLocaleString()}</div>
-        </div>
-    `).join('');
-}
-
-// Initialize dashboard when page loads
-document.addEventListener('DOMContentLoaded', initializeDashboard);
-
-// Checks user session
-async function checkUserSession() {
-    const { data, error } = await supabase.auth.getSession();
-
-    if (error || !data.session) {
-        document.getElementById('login-btn').style.display = 'block';
-        document.getElementById('user-info').style.display = 'none';
-        console.error("Error fetching session:", error);
-        return;
-    }
-
-    const session = data.session;
-    
-    if (session && session.user) {
-        updateUI(session.user);
-        console.log("User is logged in:", session.user);
-    } else {
-        document.getElementById('login-btn').style.display = 'block';
-        document.getElementById('user-info').style.display = 'none';
-    }
-}
-
-// Log Out function
-async function logout() {
-    localStorage.removeItem('user');
-
-    const { error } = await supabase.auth.signOut();
-    if (error) {
-        showAlert('Logout failed: ' + error.message, 'error');
-    } else {
-        showAlert('Logged out successfully.', 'success');
-        setTimeout(() => {
-            checkUserSession();
-        }, 3000);
-    }
-    window.location = "index.html";
-}
-
-// Custom alert messages
-function showAlert(message, type = 'info') {
-    const alertBox = document.getElementById('customAlert');
-    const alertMessage = document.getElementById('alertMessage');
-    alertMessage.innerText = message;
-    alertBox.className = `alert show ${type}`;
-    setTimeout(closeAlert, 5000);
-}
-
-function closeAlert() {
-    document.getElementById('customAlert').classList.remove('show');
-}
-
-window.logout = logout;
-
-// Delete account (client-only limitation)
-async function deleteAccount() {
-    const confirmDelete = confirm('Delete your account? This requires a server to fully remove your auth record. Proceed to sign out and clear local data?');
-    if (!confirmDelete) return;
-
-    try {
-        await supabase.auth.signOut();
-    } catch (_) {}
-    localStorage.removeItem('user');
-    showAlert('Signed out. Full account deletion requires a server-side key. See dashboard note.', 'info');
-    setTimeout(() => { window.location.href = 'index.html'; }, 1000);
-}
-
-window.deleteAccount = deleteAccount;
-//
- Section navigation
-function showSection(sectionId) {
-    // Hide all sections
-    document.querySelectorAll('.section-content').forEach(section => {
-        section.style.display = 'none';
-    });
-    
-    // Show selected section
-    document.getElementById(sectionId).style.display = 'block';
-    
-    // Update active menu item
-    document.querySelectorAll('.sidebar-menu a').forEach(link => {
-        link.classList.remove('active');
-    });
-    document.querySelector(`[onclick="showSection('${sectionId}')"]`).classList.add('active');
-    
-    // Hide sidebar on mobile
-    if (window.innerWidth <= 768) {
-        document.querySelector('.sidebar').classList.remove('visible');
-    }
-}
-
-// Toggle sidebar
-function toggleSidebar() {
-    const sidebar = document.querySelector('.sidebar');
-    sidebar.classList.toggle('visible');
-}
-
-// Filter bookings
-function filterBookings(filter) {
-    const bookingCards = document.querySelectorAll('.booking-card');
-    const filterBtns = document.querySelectorAll('.filter-btn');
-    
-    // Update active filter button
-    filterBtns.forEach(btn => btn.classList.remove('active'));
-    event.target.classList.add('active');
-    
-    // Filter booking cards
-    bookingCards.forEach(card => {
-        const status = card.dataset.status;
-        if (filter === 'all' || status === filter) {
-            card.style.display = 'block';
-        } else {
-            card.style.display = 'none';
-        }
-    });
-}
-
-// Update profile
-async function updateProfile(event) {
-    event.preventDefault();
-    
-    const formData = new FormData(event.target);
-    const profileData = {
-        username: formData.get('username'),
-        phone: formData.get('phone'),
-        dob: formData.get('dob'),
-        address: formData.get('address')
-    };
-    
-    try {
-        const { error } = await supabase.auth.updateUser({
-            data: profileData
-        });
-        
-        if (error) throw error;
-        
-        showAlert('Profile updated successfully!', 'success');
-        currentUser.user_metadata = { ...currentUser.user_metadata, ...profileData };
-        displayUserDetails();
-    } catch (error) {
-        console.error('Error updating profile:', error);
-        showAlert('Failed to update profile. Please try again.', 'error');
-    }
-}
-
-// Change password
-function changePassword() {
-    const newPassword = prompt('Enter your new password:');
-    if (!newPassword) return;
-    
-    if (newPassword.length < 6) {
-        showAlert('Password must be at least 6 characters long.', 'error');
-        return;
-    }
-    
-    supabase.auth.updateUser({ password: newPassword })
-        .then(({ error }) => {
-            if (error) throw error;
-            showAlert('Password updated successfully!', 'success');
-        })
-        .catch(error => {
-            console.error('Error updating password:', error);
-            showAlert('Failed to update password. Please try again.', 'error');
-        });
-}
-
-// Logout function
-async function logout() {
-    try {
-        const { error } = await supabase.auth.signOut();
-        if (error) throw error;
-        
-        localStorage.removeItem('user');
-        showAlert('Logged out successfully.', 'success');
-        
-        setTimeout(() => {
-            window.location.href = 'index.html';
-        }, 1500);
-    } catch (error) {
-        console.error('Error logging out:', error);
-        showAlert('Logout failed: ' + error.message, 'error');
-    }
-}
-
-// Delete account
-async function deleteAccount() {
-    const confirmDelete = confirm(
-        'Are you sure you want to delete your account? This action cannot be undone.\n\n' +
-        'Note: Due to security limitations, this will only sign you out. ' +
-        'Full account deletion requires server-side implementation.'
-    );
-    
-    if (!confirmDelete) return;
-    
-    try {
-        await supabase.auth.signOut();
-        localStorage.clear();
-        showAlert('Account signed out. Contact support for full account deletion.', 'info');
-        
-        setTimeout(() => {
-            window.location.href = 'index.html';
-        }, 3000);
-    } catch (error) {
-        console.error('Error during account deletion:', error);
-        showAlert('Failed to sign out. Please try again.', 'error');
-    }
-}
-
-// Custom alert function
-function showAlert(message, type = 'info') {
-    const alertBox = document.getElementById('customAlert');
-    const alertMessage = document.getElementById('alertMessage');
-    
-    alertMessage.textContent = message;
-    alertBox.className = `alert show ${type}`;
-    
-    setTimeout(() => {
-        alertBox.classList.remove('show');
-    }, 5000);
-}
-
-// Make functions globally available
-window.showSection = showSection;
-window.toggleSidebar = toggleSidebar;
-window.filterBookings = filterBookings;
-window.updateProfile = updateProfile;
-window.changePassword = changePassword;
-window.logout = logout;
-window.deleteAccount = deleteAccount;
-
-// Handle responsive sidebar
-window.addEventListener('resize', () => {
-    if (window.innerWidth > 768) {
-        document.querySelector('.sidebar').classList.remove('visible');
-    }
-});
-
-// Initialize theme toggle
 document.addEventListener('DOMContentLoaded', () => {
+    // Initialize Dashboard
+    if (window.AuthService) {
+        window.AuthService.onAuthStateChange((user) => {
+            if (!user) {
+                console.log('Dashboard: No user session found, redirecting to login...');
+                // Give it a tiny bit of time to ensure it's not a transient state
+                setTimeout(() => {
+                    if (!window.AuthService.currentUser) {
+                        window.location.href = 'index.html';
+                    }
+                }, 1000);
+                return;
+            }
+            
+            console.log('Dashboard: User authenticated:', user);
+            updateUserDisplay(user);
+            loadDashboardData();
+        });
+    } else {
+        console.error('Dashboard: AuthService not found!');
+    }
+
+    // Initialize Theme Toggle
     const themeToggle = document.getElementById('theme-switch');
     if (themeToggle) {
         themeToggle.addEventListener('click', () => {
-            const currentTheme = localStorage.getItem('theme') || 'light';
-            const newTheme = currentTheme === 'light' ? 'dark' : 'light';
-            
-            localStorage.setItem('theme', newTheme);
-            document.documentElement.classList.toggle('dark-mode', newTheme === 'dark');
+            const isDark = document.documentElement.classList.toggle('dark-mode');
+            localStorage.setItem('theme', isDark ? 'dark' : 'light');
+            console.log('Dashboard: Theme toggled to', isDark ? 'dark' : 'light');
+        });
+    }
+
+    // Initialize Sidebar Toggle (if any)
+    const sidebarToggle = document.getElementById('sidebar-toggle');
+    if (sidebarToggle) {
+        sidebarToggle.addEventListener('click', () => {
+            document.querySelector('.sidebar')?.classList.toggle('active');
         });
     }
 });
+
+/**
+ * Update user-related UI elements
+ */
+function updateUserDisplay(user) {
+    const name = user.user_metadata?.username || user.email?.split('@')[0] || 'User';
+    
+    // Update various name displays
+    const elements = {
+        'username-display': name,
+        'welcome-name': name,
+        'profile-username': name,
+        'profile-email': user.email || ''
+    };
+
+    for (const [id, value] of Object.entries(elements)) {
+        const el = document.getElementById(id);
+        if (el) {
+            if (el.tagName === 'INPUT') el.value = value;
+            else el.textContent = value;
+        }
+    }
+
+    // Update profile-specific fields if they exist in metadata
+    const phoneEl = document.getElementById('profile-phone');
+    if (phoneEl) phoneEl.value = user.user_metadata?.phone || '';
+}
+
+/**
+ * Load all data for the dashboard
+ */
+function loadDashboardData() {
+    const bookings = JSON.parse(localStorage.getItem('userBookings') || '[]');
+    const payments = JSON.parse(localStorage.getItem('userPayments') || '[]');
+
+    updateStats(bookings, payments);
+    displayRecentActivity(bookings);
+    displayBookings(bookings);
+    displayPayments(payments);
+}
+
+/**
+ * Update stats cards
+ */
+function updateStats(bookings, payments) {
+    const totalBookingsEl = document.getElementById('total-bookings');
+    const totalSpentEl = document.getElementById('total-spent');
+    const recentBookingsEl = document.getElementById('recent-bookings');
+
+    if (totalBookingsEl) totalBookingsEl.textContent = bookings.length;
+    
+    if (totalSpentEl) {
+        const totalAmount = payments.reduce((sum, p) => {
+            const amt = typeof p.amount === 'string' ? parseFloat(p.amount.replace(/[^0-9.]/g, '')) : p.amount;
+            return sum + (amt || 0);
+        }, 0);
+        totalSpentEl.textContent = `₹${totalAmount.toLocaleString('en-IN')}`;
+    }
+
+    if (recentBookingsEl) {
+        const now = new Date();
+        const thisMonth = bookings.filter(b => {
+            const d = new Date(b.date);
+            return d.getMonth() === now.getMonth() && d.getFullYear() === now.getFullYear();
+        }).length;
+        recentBookingsEl.textContent = thisMonth;
+    }
+}
+
+/**
+ * Display recent activity items
+ */
+function displayRecentActivity(bookings) {
+    const container = document.getElementById('recent-activity');
+    if (!container) return;
+
+    if (bookings.length === 0) {
+        container.innerHTML = '<div class="empty-state"><p>No recent activity found.</p></div>';
+        return;
+    }
+
+    const recent = bookings.slice(0, 5); // Show latest 5
+    container.innerHTML = recent.map(b => `
+        <div class="activity-item">
+            <div class="activity-icon">
+                <i class="${getIconForType(b.type)}"></i>
+            </div>
+            <div class="activity-info">
+                <h4>${b.title}</h4>
+                <p>${new Date(b.date).toLocaleDateString('en-IN', { day: '2-digit', month: 'short' })} • ${b.status}</p>
+            </div>
+            <div class="activity-amount">${b.amount}</div>
+        </div>
+    `).join('');
+}
+
+/**
+ * Display all bookings in the list
+ */
+function displayBookings(bookings, filter = 'all') {
+    const container = document.getElementById('bookings-container');
+    if (!container) return;
+
+    const filtered = filter === 'all' ? bookings : bookings.filter(b => b.type === filter);
+
+    if (filtered.length === 0) {
+        container.innerHTML = '<div class="empty-state"><p>No bookings found for this category.</p></div>';
+        return;
+    }
+
+    container.innerHTML = filtered.map(b => `
+        <div class="booking-card" data-status="${b.status}">
+            <div class="booking-header">
+                <div class="booking-type">
+                    <i class="${getIconForType(b.type)}"></i>
+                    ${b.type}
+                </div>
+                <div class="booking-status ${b.status}">${b.status.toUpperCase()}</div>
+            </div>
+            <div class="booking-body">
+                <div class="booking-main-details" style="margin-bottom: 1.5rem;">
+                    <h3 style="font-family: 'Space Grotesk', sans-serif; font-size: 1.5rem; font-weight: 700; margin: 0; letter-spacing: -0.02em;">${b.title}</h3>
+                </div>
+                <div class="booking-details-grid">
+                    ${Object.entries(b.details || {}).map(([key, val]) => `
+                        <div class="detail-item">
+                            <label>${key}</label>
+                            <span>${val}</span>
+                        </div>
+                    `).join('')}
+                    <div class="detail-item" style="grid-column: span 2; margin-top: 0.5rem; padding-top: 1rem; border-top: 1px dashed var(--radio-border);">
+                        <label>Total Amount Paid</label>
+                        <span style="font-size: 1.5rem; color: var(--color-fg); font-weight: 700;">${b.amount}</span>
+                    </div>
+                </div>
+            </div>
+            <div class="booking-footer">
+                <button class="btn-card" onclick="alert('Ticket ID: ${b.id}')">View Ticket</button>
+                <button class="btn-card btn-card-primary" onclick="window.location.href='mailto:support@ticketease.com'">Support</button>
+            </div>
+        </div>
+    `).join('');
+}
+
+/**
+ * Display all payments in the list
+ */
+function displayPayments(payments) {
+    const container = document.getElementById('payments-container');
+    if (!container) return;
+
+    if (payments.length === 0) {
+        container.innerHTML = '<div class="empty-state"><p>No transaction history found.</p></div>';
+        return;
+    }
+
+    container.innerHTML = payments.map(p => {
+        let amountDisplay = '—';
+        if (p.amount != null) {
+            const amt = typeof p.amount === 'string' ? parseFloat(p.amount.replace(/[^0-9.]/g, '')) : p.amount;
+            amountDisplay = `₹${(amt || 0).toLocaleString('en-IN')}`;
+        }
+        
+        return `
+            <div class="payment-card">
+                <div class="payment-info">
+                    <h4>${p.description}</h4>
+                    <p>ID: ${p.id} • ${p.date}</p>
+                </div>
+                <div class="payment-status-wrapper">
+                    <span class="status-tag ${p.status.toLowerCase()}">${p.status}</span>
+                    <div class="payment-amount">${amountDisplay}</div>
+                </div>
+            </div>
+        `;
+    }).join('');
+}
+
+/**
+ * Helper: Get FontAwesome icon for booking type
+ */
+function getIconForType(type) {
+    switch (type) {
+        case 'flight': return 'fa-solid fa-plane';
+        case 'hotel': return 'fa-solid fa-hotel';
+        case 'train': return 'fa-solid fa-train';
+        case 'event': return 'fa-solid fa-calendar-days';
+        default: return 'fa-solid fa-ticket';
+    }
+}
+
+// Exposed globally for HTML-based interactions
+window.showSection = function(sectionId) {
+    document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+    document.getElementById(sectionId)?.classList.add('active');
+    
+    document.querySelectorAll('.nav-item').forEach(btn => {
+        const onClick = btn.getAttribute('onclick');
+        if (onClick && onClick.includes(`'${sectionId}'`)) {
+            btn.classList.add('active');
+        } else {
+            btn.classList.remove('active');
+        }
+    });
+
+    // Refresh data when sections switch
+    loadDashboardData();
+};
+
+window.filterBookings = function(type) {
+    const bookings = JSON.parse(localStorage.getItem('userBookings') || '[]');
+    displayBookings(bookings, type);
+    
+    document.querySelectorAll('.filter-tab').forEach(btn => {
+        const onClick = btn.getAttribute('onclick');
+        if (onClick && onClick.includes(`'${type}'`)) {
+            btn.classList.add('active');
+        } else {
+            btn.classList.remove('active');
+        }
+    });
+};
+
+window.updateProfile = async function(event) {
+    event.preventDefault();
+    if (!window.AuthService) return;
+
+    const formData = new FormData(event.target);
+    const username = formData.get('username');
+    const phone = formData.get('phone');
+
+    try {
+        const { data, error } = await window.AuthService.client.auth.updateUser({
+            data: { username, phone }
+        });
+
+        if (error) throw error;
+        
+        alert('Profile updated successfully!');
+        updateUserDisplay(data.user);
+    } catch (err) {
+        console.error('Dashboard: Profile update error:', err);
+        alert('Failed to update profile: ' + err.message);
+    }
+};
+
+window.logout = async function() {
+    if (window.AuthService) {
+        try {
+            await window.AuthService.logout();
+            window.location.href = 'index.html';
+        } catch (error) {
+            console.error('Dashboard: Logout error:', error);
+            window.location.href = 'index.html';
+        }
+    } else {
+        window.location.href = 'index.html';
+    }
+};

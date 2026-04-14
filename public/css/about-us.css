@@ -1,5 +1,6 @@
-body{background-color:var(--color-bg);color:var(--color-fg);margin:0;padding:0}
+body{background-color:var(--color-bg);color:var(--color-fg);margin:0;padding:0;scrollbar-width: none;}
 ::selection{background-color:var(--color-fg);color:var(--color-bg)}
+::-webkit-scrollbar {display: none;}
 .about-us-container{width:95%;margin:30px auto;text-align:center}
 h1{font-family:"DM Sans",serif;font-size:26px;font-weight:100;text-align:left}
 .insights-section h2{font-size:38px;font-family:"Cormorant Garamond",serif;font-weight:100;text-align:left;width:29%;margin-bottom:40px}

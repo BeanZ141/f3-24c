@@ -9,13 +9,14 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&family=Inter:wght@300;400;500;600&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet">
     <link rel="icon" href="images/favicon.png" type="image/png">
-    <title>Flight Search Results</title>
+    <title>Hotel Search Results</title>
     <link rel="icon" href="../images/favicon.png" type="image/png">
     <link rel="stylesheet" href="../css/styles.css">
     <link rel="stylesheet" href="../css/themes.css">
     <link rel="stylesheet" href="../css/navbar.css">
-    <link rel="stylesheet" href="../category/css/flight-results.css">
+    <link rel="stylesheet" href="../css/login-popup.css">
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="../js/auth.js"></script>
     <script src="../js/database.js"></script>
     <link rel="stylesheet" href="../category/css/hotel-results.css">
 
@@ -31,7 +32,6 @@
                 <button class="dropdown-btn" onclick="toggleDropdown()">▼</button>
                 <div class="dropdown-content" id="dropdown-menu">
                     <a href="dashboard.html">Dashboard</a>
-                    <a href="../scanner/scanner-info.html">Scan Tickets</a>
                     <a href="#" onclick="logout()">Logout</a>
                 </div>
             </div>
@@ -51,8 +51,20 @@
                 <i class="fas fa-calendar-alt"></i> EVENTS
             </a>
         </div>
+
+        <button id="theme-switch">
+            <svg height="24px" viewBox="0 -960 960 960" width="24px" fill="#e8eaed"> <path d="M480-120q-150 0-255-105T120-480q0-150 105-255t255-105q14 0 27.5 1t26.5 3q-41 29-65.5 75.5T444-660q0 90 63 153t153 63q55 0 101-24.5t75-65.5q2 13 3 26.5t1 27.5q0 150-105 255T480-120Z" /> </svg>
+            <svg height="24px" viewBox="0 -960 960 960" width="24px" fill="#e8eaed"> <path d="M480-280q-83 0-141.5-58.5T280-480q0-83 58.5-141.5T480-680q83 0 141.5 58.5T680-480q0 83-58.5 141.5T480-280ZM200-440H40v-80h160v80Zm720 0H760v-80h160v80ZM440-760v-160h80v160h-80Zm0 720v-160h80v160h-80ZM256-650l-101-97 57-59 96 100-52 56Zm492 496-97-101 53-55 101 97-57 59Zm-98-550 97-101 59 57-100 96-56-52ZM154-212l101-97 55 53-97 101-59-57Z" /></svg>
+        </button>
+        
         <button id="login-btn" onclick="showPopup()">LOGIN / SIGNUP</button>
     </nav>
+
+    <div class="category-image" style="position:fixed;top:7vh;left:1vw;width:1830px;height:855px;
+                    background-image:linear-gradient(to bottom,#0000 50%,#000c 100%),url(../images/hotels_1.jpg);
+    background-size:cover;background-position:center;border-radius:20px;display:flex;align-items:flex-end;
+    padding:25px;font-size:2.5rem;font-weight:700;letter-spacing:2px;color:#fff;z-index:0;
+    box-shadow:0 20px 40px #0000004d;animation:slide-in 1s ease-out forwards">HOTELS</div>
 
     <!-- Filter section -->
     <div class="filter-section">
@@ -60,59 +72,58 @@
         <hr class="filter-divider">
 
         <div class="filter-group">
-            <!-- Most Popular -->
-            <p class="filter-category">Most Popular</p>
+            <p class="filter-category">Amenities</p>
             <label class="filter-checkbox-label">
-                <input class="filter-checkbox airline-filter" type="checkbox" value="Free Wifi">
-                <span>Free Wi-fi</span>
-                <span>(13)</span>
+                <input class="filter-checkbox amenity-filter" type="checkbox" value="Free Wi-Fi">
+                <span>Free Wi-Fi</span>
+                <span class="count" id="count-wifi">(0)</span>
             </label>
             <label class="filter-checkbox-label">
-                <input class="filter-checkbox airline-filter" type="checkbox" value="Swimming pool">
-                <span>Swimming pool</span>
-                <span>(07)</span>
+                <input class="filter-checkbox amenity-filter" type="checkbox" value="Swimming pool">
+                <span>Swimming Pool</span>
+                <span class="count" id="count-pool">(0)</span>
             </label>
             <label class="filter-checkbox-label">
-                <input class="filter-checkbox airline-filter" type="checkbox" value="Room Service">
-                <span>Room Service</span>
-                <span>(05)</span>
+                <input class="filter-checkbox amenity-filter" type="checkbox" value="Spa">
+                <span>Spa & Wellness</span>
+                <span class="count" id="count-spa">(0)</span>
             </label>
             <label class="filter-checkbox-label">
-                <input class="filter-checkbox airline-filter" type="checkbox" value="Breakfast Included">
-                <span>Breakfast</span>
-                <span>(09)</span>
+                <input class="filter-checkbox amenity-filter" type="checkbox" value="Gym">
+                <span>Fitness Center</span>
+                <span class="count" id="count-gym">(0)</span>
             </label>
             <label class="filter-checkbox-label">
-                <input class="filter-checkbox airline-filter" type="checkbox" value="Pay at Hotel">
-                <span>Pay at Hotel</span>
-                <span>(07)</span>
+                <input class="filter-checkbox amenity-filter" type="checkbox" value="Fine Dining">
+                <span>Fine Dining</span>
+                <span class="count" id="count-dining">(0)</span>
             </label>
             <label class="filter-checkbox-label">
-                <input class="filter-checkbox airline-filter" type="checkbox" value="IndiGO">
-                <span>Free Cancels</span>
-                <span>(07)</span>
+                <input class="filter-checkbox amenity-filter" type="checkbox" value="Parking">
+                <span>Parking</span>
+                <span class="count" id="count-parking">(0)</span>
             </label>
         </div>
     </div>
 
     <div class="hotel-card-center">
-        <!-- Sory By -->
+        <!-- Sort By -->
         <div class="sort-container">
-            <div class="sort-option active" onclick="sortFlights('reset')">
+            <div class="sort-option active" data-sort="reset" onclick="handleSort(this, 'reset')">
                 <span class="sort-title">Custom</span>
                 <span class="sort-subtitle">Initial search</span>
             </div>
-            <div class="sort-option" onclick="sortFlights('price')">
+            <div class="sort-option" data-sort="price-low" onclick="handleSort(this, 'price-low')">
                 <span class="sort-title">Price</span>
                 <span class="sort-subtitle">Low to High</span>
             </div>
-            <div class="sort-option" onclick="sortFlights('duration')">
-                <span class="sort-title">Fastest</span>
-                <span class="sort-subtitle">Shortest First</span>
+            <div class="sort-option" data-sort="all" onclick="handleSort(this, 'all')">
+                <span class="sort-title">All</span>
+                <span class="sort-subtitle">Available</span>
             </div>
-            <div class="sort-option" onclick="sortFlights('departure')">
-                <span class="sort-title">Departure</span>
-                <span class="sort-subtitle">Earliest First</span>
+            <div class="sort-option" data-sort="rating" onclick="handleSort(this, 'rating')">
+                <span class="sort-title">Rating</span>
+                <span class="sort-subtitle">Top Rated</span>
             </div>
         </div>
 
@@ -123,69 +134,65 @@
     <!-- Details Section -->
     <div class="details-panel" id="details-panel">
         <button class="close-btn" onclick="closeDetails()">CLOSE</button>
-        <h2>Flight Details</h2>
-        <p>More information about the flight will go here...</p>
+        <h2>Hotel Details</h2>
+        <div id="hotel-details-content">
+            <p>More information about the hotel will go here...</p>
+        </div>
     </div>
 
-    <button id="theme-switch">
-        <svg height="24px" viewBox="0 -960 960 960" width="24px" fill="#e8eaed">
-            <path
-                d="M480-120q-150 0-255-105T120-480q0-150 105-255t255-105q14 0 27.5 1t26.5 3q-41 29-65.5 75.5T444-660q0 90 63 153t153 63q55 0 101-24.5t75-65.5q2 13 3 26.5t1 27.5q0 150-105 255T480-120Z" />
-        </svg>
-        <svg height="24px" viewBox="0 -960 960 960" width="24px" fill="#e8eaed">
-            <path
-                d="M480-280q-83 0-141.5-58.5T280-480q0-83 58.5-141.5T480-680q83 0 141.5 58.5T680-480q0 83-58.5 141.5T480-280ZM200-440H40v-80h160v80Zm720 0H760v-80h160v80ZM440-760v-160h80v160h-80Zm0 720v-160h80v160h-80ZM256-650l-101-97 57-59 96 100-52 56Zm492 496-97-101 53-55 101 97-57 59Zm-98-550 97-101 59 57-100 96-56-52ZM154-212l101-97 55 53-97 101-59-57Z" />
-        </svg>
-    </button>
-
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-    <script src="../js/database.js"></script>
-    <script src="../js/navbar.js"></script>
-    <script type="module" src="../js/login-signup.js"></script>
 
     <script>
-        document.querySelectorAll('.rate-value').forEach(el => {
-            const rating = parseFloat(el.getAttribute('data-rating'));
-            if (rating <= 3.9) {
-                el.style.color = 'red';
-            } else if (rating <= 6.5) {
-                el.style.color = 'orange';
-            } else {
-                el.style.color = 'green';
-            }
-        });
-    </script>
+        let initialSearchData = []; // Data matching URL params
+        let masterListData = [];    // ALL hotels from DB
+        let activeDataSource = [];  // Current source for filters/display
+        let currentSort = 'reset';
 
-    <script>
         document.addEventListener('DOMContentLoaded', async function () {
             try {
                 const urlParams = new URLSearchParams(window.location.search);
-                const filters = {
+                const searchFilters = {
                     location: urlParams.get('location'),
                     rating: urlParams.get('rating'),
                     minPrice: urlParams.get('minPrice'),
                     maxPrice: urlParams.get('maxPrice')
                 };
 
-                const data = await DatabaseService.getHotels(filters);
-                allHotelsData = [...data];
-                renderHotelCards(data);
-                updateHotelFilterCounts(data);
+                // Fetch both: Initial search result AND complete list
+                [initialSearchData, masterListData] = await Promise.all([
+                    DatabaseService.getHotels(searchFilters),
+                    DatabaseService.getHotels({})
+                ]);
+
+                // Default is Initial Search
+                activeDataSource = [...initialSearchData];
+                
+                applyAllFiltersAndSort();
+                updateHotelFilterCounts(activeDataSource);
+                
+                document.querySelectorAll('.amenity-filter').forEach(cb => {
+                    cb.addEventListener('change', applyAllFiltersAndSort);
+                });
+
             } catch (error) {
-                console.error('Error fetching hotels:', error);
+                console.error('Error initializing hotels:', error);
             }
         });
 
         function getRatingColor(rating) {
             rating = parseFloat(rating);
-            if (rating >= 6.6) return 'green';
-            if (rating >= 4.0) return 'orange';
-            return 'red';
+            if (rating >= 9.0) return '#00aa6c';
+            if (rating >= 7.0) return '#72a0c1';
+            return '#ff5a5f';
         }
 
         function renderHotelCards(data) {
             const container = document.querySelector('.hotel-cards');
             container.innerHTML = '';
+
+            if (data.length === 0) {
+                container.innerHTML = '<div style="text-align:center; padding: 50px; color: var(--tnc-color);">No hotels found matching these criteria.</div>';
+                return;
+            }
 
             data.forEach(hotel => {
                 const features = (hotel.features || '').split(';').map(f => `<span>${f.trim()}</span>`).join('');
@@ -195,7 +202,7 @@
                 <div class="hotel-card" onclick="showDetails(this)" data-price="${hotel.price}" data-rating="${hotel.rating}">
                     <div class="hotel-info">
                         <div class="hotel-image">
-                            <img src="${hotel.image}" alt="Hotel Image">
+                            <img src="${hotel.image}" alt="${hotel.name}">
                         </div>
                         <div class="info-group">
                             <div class="company">
@@ -204,7 +211,7 @@
                             </div>
                             <div class="rating">
                                 <span class="label rate-value" style="color:${ratingColor}"><b>${hotel.rating}</b></span> 
-                                <span class="label">Exceptional • ${hotel.reviews} reviews</span>
+                                <span class="label">${getRatingText(hotel.rating)} • ${hotel.reviews} reviews</span>
                             </div>
                             <div class="features">
                                 ${features}
@@ -212,10 +219,10 @@
                         </div>
                         <div class="rating-book-btn-group">
                             <div class="price">
-                                <h3 class="hotel-cost">₹${hotel.price}</h3>
-                                <p class="hotel-offer">${hotel.offer}</p>
+                                <h3 class="hotel-cost">₹${hotel.price.toLocaleString('en-IN')}</h3>
+                                <p class="hotel-offer">${hotel.offer || '+ ₹1,200 taxes & fees'}</p>
                             </div>
-                            <button class="book-btn" onclick="storeHotelDetails(this)">BOOK</button>
+                            <button class="book-btn" onclick="event.stopPropagation(); storeHotelDetails(this)">BOOK</button>
                         </div>
                     </div>
                 </div>
@@ -224,62 +231,137 @@
             });
         }
 
-        function storeHotelDetails(button) {
-            const card = button.closest('.hotel-card');
+        function getRatingText(rating) {
+            const r = parseFloat(rating);
+            if (r >= 9.0) return 'Exceptional';
+            if (r >= 8.5) return 'Superb';
+            if (r >= 8.0) return 'Fabulous';
+            if (r >= 7.0) return 'Very Good';
+            return 'Good';
+        }
+
+        function handleSort(element, sortType) {
+            document.querySelectorAll('.sort-option').forEach(opt => opt.classList.remove('active'));
+            element.classList.add('active');
+            
+            // Switch data source if "all" or "reset" is chosen
+            if (sortType === 'all') {
+                activeDataSource = [...masterListData];
+            } else if (sortType === 'reset') {
+                activeDataSource = [...initialSearchData];
+            }
+            
+            currentSort = sortType;
+            applyAllFiltersAndSort();
+            updateHotelFilterCounts(activeDataSource);
+        }
+
+        function applyAllFiltersAndSort() {
+            const selectedAmenities = Array.from(document.querySelectorAll('.amenity-filter:checked')).map(cb => cb.value.toLowerCase());
+
+            let result = [...activeDataSource];
+
+            // 1. Filter
+            if (selectedAmenities.length > 0) {
+                result = result.filter(hotel => {
+                    const hotelFeatures = (hotel.features || '').toLowerCase();
+                    return selectedAmenities.every(amenity => hotelFeatures.includes(amenity));
+                });
+            }
+
+            // 2. Sort
+            if (currentSort === 'price-low') {
+                result.sort((a, b) => a.price - b.price);
+            } else if (currentSort === 'rating') {
+                result.sort((a, b) => b.rating - a.rating);
+            }
+
+            renderHotelCards(result);
+        }
+
+        function updateHotelFilterCounts(data) {
+            const counts = {
+                'wifi': 0,
+                'pool': 0,
+                'spa': 0,
+                'gym': 0,
+                'dining': 0,
+                'parking': 0
+            };
+
+            data.forEach(hotel => {
+                const features = (hotel.features || '').toLowerCase();
+                if (features.includes('wi-fi') || features.includes('wifi')) counts.wifi++;
+                if (features.includes('pool')) counts.pool++;
+                if (features.includes('spa')) counts.spa++;
+                if (features.includes('gym') || features.includes('fitness')) counts.gym++;
+                if (features.includes('fine dining') || features.includes('restaurant')) counts.dining++;
+                if (features.includes('parking')) counts.parking++;
+            });
+
+            document.getElementById('count-wifi').innerText = `(${counts.wifi})`;
+            document.getElementById('count-pool').innerText = `(${counts.pool})`;
+            document.getElementById('count-spa').innerText = `(${counts.spa})`;
+            document.getElementById('count-gym').innerText = `(${counts.gym})`;
+            document.getElementById('count-dining').innerText = `(${counts.dining})`;
+            document.getElementById('count-parking').innerText = `(${counts.parking})`;
+        }
+
+        function bookHotel(hotel) {
+            localStorage.setItem('selectedHotel', JSON.stringify(hotel));
+            window.location.href = 'hotel-booking.html';
+        }
+
+        function storeHotelDetails(btn) {
+            const card = btn.closest('.hotel-card');
+            const searchDetails = JSON.parse(localStorage.getItem('hotelSearchDetails') || '{}');
+            
             const hotelDetails = {
                 name: card.querySelector('.hotel-name').textContent,
                 location: card.querySelector('.hotel-location').textContent,
-                rating: card.querySelector('.rate-value b').textContent,
-                cost: card.querySelector('.hotel-cost').textContent,
-                offer: card.querySelector('.hotel-offer').textContent
+                price: parseInt(card.querySelector('.hotel-cost').textContent.replace(/[^0-9]/g, '')),
+                offer: card.querySelector('.hotel-offer')?.textContent || '',
+                image: card.querySelector('.hotel-image img').src,
+                rating: card.getAttribute('data-rating'),
+                // Merge search parameters
+                checkIn: searchDetails.checkIn || '15 Mar\'25',
+                checkOut: searchDetails.checkOut || '17 Mar\'25',
+                guests: searchDetails.guests || 2,
+                rooms: searchDetails.rooms || 1,
+                nights: searchDetails.nights || 2
             };
             localStorage.setItem('selectedHotel', JSON.stringify(hotelDetails));
             window.location.href = 'hotel-booking.html';
         }
 
-        let allHotelsData = [];
-
-        async function applyHotelFilters() {
-            const selectedAmenities = Array.from(document.querySelectorAll('.airline-filter:checked')).map(cb => cb.value);
-
-            let filteredData = [...allHotelsData];
-
-            if (selectedAmenities.length > 0) {
-                filteredData = filteredData.filter(hotel => {
-                    const hotelFeatures = (hotel.features || '').toLowerCase();
-                    return selectedAmenities.every(amenity =>
-                        hotelFeatures.includes(amenity.toLowerCase())
-                    );
-                });
-            }
-
-            renderHotelCards(filteredData);
+        function showDetails(card) {
+            const detailsPanel = document.getElementById('details-panel');
+            const content = document.getElementById('hotel-details-content');
+            
+            const hotelName = card.querySelector('.hotel-name').textContent;
+            const hotelLocation = card.querySelector('.hotel-location').textContent;
+            const hotelPrice = card.querySelector('.hotel-cost').textContent;
+            const imgUrl = card.querySelector('.hotel-image img').src;
+            
+            content.innerHTML = `
+                <img src="${imgUrl}" style="width: 100%; height: 200px; object-fit: cover; margin-bottom: 20px;">
+                <h3 style="margin-bottom: 10px;">${hotelName}</h3>
+                <p style="color: #666; margin-bottom: 15px;">${hotelLocation}</p>
+                <p style="font-weight: 500; font-size: 1.2rem; margin-bottom: 20px;">${hotelPrice}</p>
+            `;
+            
+            detailsPanel.classList.add('active');
         }
 
-        function updateHotelFilterCounts(data) {
-            // Update amenity filter counts
-            const amenityCounts = {};
-
-            data.forEach(hotel => {
-                const features = (hotel.features || '').split(';');
-                features.forEach(feature => {
-                    const cleanFeature = feature.trim();
-                    if (cleanFeature) {
-                        amenityCounts[cleanFeature] = (amenityCounts[cleanFeature] || 0) + 1;
-                    }
-                });
-            });
+        function closeDetails() {
+            document.getElementById('details-panel').classList.remove('active');
         }
 
         document.addEventListener('DOMContentLoaded', function () {
-            document.querySelectorAll('.filter-checkbox').forEach(checkbox => {
-                checkbox.addEventListener('change', applyHotelFilters);
-            });
+            // Additional listeners if needed
         });
     </script>
     <script src="../js/navbar.js"></script>
-    <script type="module" src="../js/login-signup.js"></script>
 </body>
-
 
 </html>

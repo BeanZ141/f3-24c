@@ -12,12 +12,13 @@
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&family=Inter:wght@300;400;500;600&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <title>Train Search Results</title>
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-    <script src="../js/database.js"></script>
     <link rel="stylesheet" href="../css/styles.css">
-
     <link rel="stylesheet" href="../css/themes.css">
     <link rel="stylesheet" href="../css/navbar.css">
+    <link rel="stylesheet" href="../css/login-popup.css">
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="../js/auth.js"></script>
+    <script src="../js/database.js"></script>
     <link rel="stylesheet" href="../category/css/flight-results.css">
 </head>
 
@@ -30,7 +31,6 @@
                 <button class="dropdown-btn" onclick="toggleDropdown()">▼</button>
                 <div class="dropdown-content" id="dropdown-menu">
                     <a href="../dashboard.html">Dashboard</a>
-                    <a href="../scanner/scanner-info.html">Scan Tickets</a>
                     <a href="#" onclick="logout()">Logout</a>
                 </div>
             </div>
@@ -64,6 +64,12 @@
             </svg>
         </button>
     </nav>
+
+    <div class="category-image" style="position:fixed;top:7vh;left:1vw;width:1830px;height:855px;
+                    background-image:linear-gradient(to bottom,#0000 50%,#000c 100%),url(../images/train_1.jpg);
+    background-size:cover;background-position:center;border-radius:20px;display:flex;align-items:flex-end;
+    padding:25px;font-size:2.5rem;font-weight:700;letter-spacing:2px;color:#fff;z-index:0;
+    box-shadow:0 20px 40px #0000004d;animation:slide-in 1s ease-out forwards">HOTELS</div>
 
     <!-- Filter section -->
     <div class="filter-section">
@@ -111,19 +117,23 @@
     <div class="flight-card-center">
         <!-- Sort By -->
         <div class="sort-container">
-            <div class="sort-option active" onclick="sortTrains('reset')">
+            <div class="sort-option active" data-sort="reset" onclick="handleSort(this, 'reset')">
                 <span class="sort-title">Custom</span>
                 <span class="sort-subtitle">Initial search</span>
             </div>
-            <div class="sort-option" onclick="sortTrains('price')">
+            <div class="sort-option" data-sort="price" onclick="handleSort(this, 'price')">
                 <span class="sort-title">Price</span>
                 <span class="sort-subtitle">Low to High</span>
             </div>
-            <div class="sort-option" onclick="sortTrains('duration')">
+            <div class="sort-option" data-sort="all" onclick="handleSort(this, 'all')">
+                <span class="sort-title">All</span>
+                <span class="sort-subtitle">Available</span>
+            </div>
+            <div class="sort-option" data-sort="duration" onclick="handleSort(this, 'duration')">
                 <span class="sort-title">Fastest</span>
                 <span class="sort-subtitle">Shortest First</span>
             </div>
-            <div class="sort-option" onclick="sortTrains('departure')">
+            <div class="sort-option" data-sort="departure" onclick="handleSort(this, 'departure')">
                 <span class="sort-title">Departure</span>
                 <span class="sort-subtitle">Earliest First</span>
             </div>
@@ -140,12 +150,11 @@
         <p>More information about the train will go here...</p>
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-    <script src="../js/database.js"></script>
-    <script src="../js/navbar.js"></script>
-    <script type="module" src="../js/login-signup.js"></script>
     <script>
-        let originalTrainData = [];
+        let initialSearchData = []; 
+        let masterListData = [];    
+        let activeDataSource = [];  
+        let currentSortType = 'reset';
 
         document.addEventListener('DOMContentLoaded', async function () {
             try {
@@ -158,13 +167,22 @@
                     stops: urlParams.get('stops') ? [urlParams.get('stops')] : null
                 };
 
-                // Fetch trains from database
-                const data = await DatabaseService.getTrains(filters);
-                originalTrainData = [...data];
-                renderTrainCards(data);
+                // Fetch both initial search result and absolute complete list
+                [initialSearchData, masterListData] = await Promise.all([
+                    DatabaseService.getTrains(filters),
+                    DatabaseService.getTrains({})
+                ]);
 
-                // Update filter counts
-                updateFilterCounts(data);
+                // Default is Initial Search
+                activeDataSource = [...initialSearchData];
+                
+                applyFiltersAndSort();
+                updateFilterCounts(activeDataSource);
+                
+                document.querySelectorAll('.filter-checkbox').forEach(checkbox => {
+                    checkbox.addEventListener('change', applyFiltersAndSort);
+                });
+
             } catch (error) {
                 console.error('Error fetching trains:', error);
                 showAlert('Error loading trains. Please try again.', 'error');
@@ -175,12 +193,17 @@
             const trainCardsContainer = document.querySelector('.flight-cards');
             trainCardsContainer.innerHTML = '';
 
+            if (data.length === 0) {
+                trainCardsContainer.innerHTML = '<div style="text-align:center; padding: 50px; color: var(--tnc-color);">No trains found matching these criteria.</div>';
+                return;
+            }
+
             data.forEach(train => {
                 const cardHTML = `
                 <div class="flight-card" onclick="showDetails(this)" 
-                    data-price="${parseInt(train.cost.replace(/[^0-9]/g, ''))}"
-                    data-duration="${getDurationInMinutes(train.duration)}"
-                    data-departure="${getTimeInMinutes(train.departure)}">
+                    data-price="${DatabaseService.parsePrice(train.cost)}"
+                    data-duration="${DatabaseService.getDurationInMinutes(train.duration)}"
+                    data-departure="${DatabaseService.getTimeInMinutes(train.departure)}">
                     <div class="flight-info">
                         <div class="company">
                             <h4 class="flight-company">${train.company}</h4>
@@ -203,7 +226,7 @@
                             <h3 class="flight-cost">${train.cost}</h3>
                             <p class="flight-offer">${train.offer}</p>
                         </div>
-                        <button class="book-btn" onclick="storeTrainDetails(this)">BOOK</button>
+                        <button class="book-btn" onclick="event.stopPropagation(); storeTrainDetails(this)">BOOK</button>
                     </div>
                 </div>
             `;
@@ -211,207 +234,65 @@
             });
         }
 
-        function getDurationInMinutes(duration) {
-            const [hours, minutes] = duration.split('h').map(part => parseInt(part.replace('m', '').trim()) || 0);
-            return (hours * 60) + minutes;
-        }
-
-        function getTimeInMinutes(time) {
-            const [hours, minutes] = time.split(':').map(part => parseInt(part));
-            return (hours * 60) + minutes;
-        }
-
-        function sortTrains(sortOption) {
+        function handleSort(element, sortOption) {
             document.querySelectorAll('.sort-option').forEach(option => {
                 option.classList.remove('active');
             });
+            element.classList.add('active');
 
-            event.currentTarget.classList.add('active');
-
-            const trainCardsContainer = document.querySelector('.flight-cards');
-
-            if (sortOption === 'reset') {
-                renderTrainCards(originalTrainData);
-                return;
+            // Switch data source if "all" or "reset" is chosen
+            if (sortOption === 'all') {
+                activeDataSource = [...masterListData];
+            } else if (sortOption === 'reset') {
+                activeDataSource = [...initialSearchData];
             }
 
-            const trainCards = Array.from(trainCardsContainer.children);
-
-            trainCards.sort((a, b) => {
-                const valueA = parseInt(a.dataset[sortOption]);
-                const valueB = parseInt(b.dataset[sortOption]);
-                return valueA - valueB;
-            });
-
-            trainCards.forEach(card => {
-                card.classList.remove('fade-card');
-            });
-
-            setTimeout(() => {
-                trainCardsContainer.innerHTML = '';
-                trainCards.forEach(card => {
-                    trainCardsContainer.appendChild(card);
-                    requestAnimationFrame(() => {
-                        card.classList.add('fade-card');
-                    });
-                });
-            });
+            currentSortType = sortOption;
+            applyFiltersAndSort();
+            updateFilterCounts(activeDataSource);
         }
 
-        function storeTrainDetails(button) {
-            const card = button.closest('.flight-card');
-
-            const trainDetails = {
-                company: card.querySelector('.flight-company').textContent,
-                trainNumber: card.querySelector('.flight-number').textContent,
-                departureTime: card.querySelector('.boarding-time').textContent,
-                departureStation: card.querySelector('.boarding-airport').textContent,
-                duration: card.querySelector('.flight-duration').textContent,
-                stops: card.querySelector('.flight-stops').textContent,
-                arrivalTime: card.querySelector('.landing-time').textContent,
-                arrivalStation: card.querySelector('.landing-airport').textContent,
-                cost: card.querySelector('.flight-cost').textContent
-            };
-
-            localStorage.setItem('selectedTrain', JSON.stringify(trainDetails));
-            window.location.href = './train-booking.html';
-        }
-
-        function showDetails(card) {
-            const detailsPanel = document.getElementById('details-panel');
-
-            if (detailsPanel.classList.contains('active')) {
-                closeDetails();
-            }
-
-            document.removeEventListener('click', closeOnOutsideClick);
-
-            const company = card.querySelector('.flight-company')?.textContent || 'N/A';
-            const trainNumber = card.querySelector('.flight-number')?.textContent || 'N/A';
-            const departureTime = card.querySelector('.boarding-time')?.textContent || 'N/A';
-            const trainDuration = card.querySelector('.flight-duration')?.textContent || 'N/A';
-            const arrivalTime = card.querySelector('.landing-time')?.textContent || 'N/A';
-            const trainStops = card.querySelector('.flight-stops')?.textContent || 'N/A';
-            const trainCost = card.querySelector('.flight-cost')?.textContent || 'N/A';
-            const departureStation = card.querySelector('.boarding-airport')?.textContent || 'N/A';
-            const arrivalStation = card.querySelector('.landing-airport')?.textContent || 'N/A';
-
-            detailsPanel.innerHTML = `
-                <button class="close-btn" onclick="closeDetails(event)">CLOSE</button>
-                <h2>Train Details</h2>
-                <div class="flight-details">
-                    <div class="details-row">
-                        <span class="details-label">Railway Company :</span>
-                        <span class="details-value">${company}</span>
-                    </div>
-                    <div class="details-row">
-                        <span class="details-label">Train Number :</span>
-                        <span class="details-value">${trainNumber}</span>
-                    </div>
-                    <div class="details-row">
-                        <span class="details-label">Departure Time :</span>
-                        <span class="details-value">${departureTime}</span>
-                    </div>
-                    <div class="details-row">
-                        <span class="details-label">Departure Station :</span>
-                        <span class="details-value">${departureStation}</span>
-                    </div>
-                    <div class="details-row">
-                        <span class="details-label">Journey Duration :</span>
-                        <span class="details-value">${trainDuration}</span>
-                    </div>
-                    <div class="details-row">
-                        <span class="details-label">Arrival Time :</span>
-                        <span class="details-value">${arrivalTime}</span>
-                    </div>
-                    <div class="details-row">
-                        <span class="details-label">Arrival Station :</span>
-                        <span class="details-value">${arrivalStation}</span>
-                    </div>
-                    <div class="details-row">
-                        <span class="details-label">Stops :</span>
-                        <span class="details-value">${trainStops}</span>
-                    </div>
-                    <div class="details-row">
-                        <span class="details-label">Cost :</span>
-                        <span class="details-value">${trainCost}</span>
-                    </div>
-                </div>
-            `;
-
-            detailsPanel.classList.add('active');
-
-            setTimeout(() => {
-                document.addEventListener('click', closeOnOutsideClick);
-            }, 100);
-        }
-
-        function closeDetails(event) {
-            if (event) event.stopPropagation();
-            const detailsPanel = document.getElementById('details-panel');
-            detailsPanel.classList.remove('active');
-            document.removeEventListener('click', closeOnOutsideClick);
-        }
-
-        function closeOnOutsideClick(event) {
-            const detailsPanel = document.getElementById('details-panel');
-            if (detailsPanel.classList.contains('active') && !detailsPanel.contains(event.target)) {
-                closeDetails(event);
-            }
-        }
-
-        // Filter functionality
-        document.querySelectorAll('.filter-checkbox').forEach(checkbox => {
-            checkbox.addEventListener('change', applyFilters);
-        });
-
-        let currentSortType = 'reset';
-
-        async function applyFilters() {
+        async function applyFiltersAndSort() {
             const selectedStops = Array.from(document.querySelectorAll('.stop-filter:checked')).map(cb => cb.value);
             const selectedCompanies = Array.from(document.querySelectorAll('.company-filter:checked')).map(cb => cb.value);
 
-            // Get URL parameters for base filters
-            const urlParams = new URLSearchParams(window.location.search);
-            const baseFilters = {
-                from: urlParams.get('from'),
-                to: urlParams.get('to')
-            };
+            let result = [...activeDataSource];
 
-            // Add checkbox filters
-            const filters = {
-                ...baseFilters,
-                stops: selectedStops.length > 0 ? selectedStops : null,
-                company: selectedCompanies.length > 0 ? selectedCompanies : null
-            };
-
-            try {
-                let filteredData = await DatabaseService.getTrains(filters);
-
-                // Apply client-side sorting
-                filteredData.sort((a, b) => {
-                    switch (currentSortType) {
-                        case 'price':
-                            return DatabaseService.parsePrice(a.cost) - DatabaseService.parsePrice(b.cost);
-                        case 'duration':
-                            return DatabaseService.getDurationInMinutes(a.duration) - DatabaseService.getDurationInMinutes(b.duration);
-                        case 'departure':
-                            return DatabaseService.getTimeInMinutes(a.departure) - DatabaseService.getTimeInMinutes(b.departure);
-                        case 'reset':
-                        default:
-                            return 0;
-                    }
-                });
-
-                renderTrainCards(filteredData);
-            } catch (error) {
-                console.error('Error applying filters:', error);
-                showAlert('Error applying filters. Please try again.', 'error');
+            // 1. Filter
+            if (selectedStops.length > 0) {
+                result = result.filter(train => selectedStops.includes(train.stops));
             }
+            if (selectedCompanies.length > 0) {
+                result = result.filter(train => selectedCompanies.includes(train.company));
+            }
+
+            // 2. Sort
+            result.sort((a, b) => {
+                const costA = DatabaseService.parsePrice(a.cost);
+                const costB = DatabaseService.parsePrice(b.cost);
+                const durA = DatabaseService.getDurationInMinutes(a.duration);
+                const durB = DatabaseService.getDurationInMinutes(b.duration);
+                const depA = DatabaseService.getTimeInMinutes(a.departure);
+                const depB = DatabaseService.getTimeInMinutes(b.departure);
+
+                switch (currentSortType) {
+                    case 'price':
+                        return costA - costB;
+                    case 'duration':
+                        return durA - durB;
+                    case 'departure':
+                        return depA - depB;
+                    case 'all':
+                    case 'reset':
+                    default:
+                        return 0; // Maintain original database ordering (which acts as Custom)
+                }
+            });
+
+            renderTrainCards(result);
         }
 
         function updateFilterCounts(data) {
-            // Update stop filter counts
             const stopCounts = {};
             const companyCounts = {};
 
@@ -420,28 +301,90 @@
                 companyCounts[train.company] = (companyCounts[train.company] || 0) + 1;
             });
 
-            // Update stop filter labels
             document.querySelectorAll('.stop-filter').forEach(checkbox => {
                 const count = stopCounts[checkbox.value] || 0;
                 const label = checkbox.parentElement;
                 const countSpan = label.querySelector('span:last-child');
-                if (countSpan) {
-                    countSpan.textContent = `[${count}]`;
-                }
+                if (countSpan) countSpan.textContent = `[${count}]`;
             });
 
-            // Update company filter labels
             document.querySelectorAll('.company-filter').forEach(checkbox => {
                 const count = companyCounts[checkbox.value] || 0;
                 const label = checkbox.parentElement;
                 const countSpan = label.querySelector('span:last-child');
-                if (countSpan) {
-                    countSpan.textContent = `[${count}]`;
-                }
+                if (countSpan) countSpan.textContent = `[${count}]`;
             });
         }
 
-        // Custom alert function
+        function storeTrainDetails(button) {
+            const card = button.closest('.flight-card');
+            const trainDetails = {
+                company: card.querySelector('.flight-company').textContent,
+                train_number: card.querySelector('.flight-number').textContent,
+                departure: card.querySelector('.boarding-time').textContent,
+                boarding_station: card.querySelector('.boarding-airport').textContent,
+                duration: card.querySelector('.flight-duration').textContent,
+                stops: card.querySelector('.flight-stops').textContent,
+                arrival: card.querySelector('.landing-time').textContent,
+                arrival_station: card.querySelector('.landing-airport').textContent,
+                cost: card.querySelector('.flight-cost').textContent,
+                offer: card.querySelector('.flight-offer').textContent
+            };
+            localStorage.setItem('selectedTrain', JSON.stringify(trainDetails));
+            window.location.href = './train-booking.html';
+        }
+
+        function showDetails(card) {
+            const detailsPanel = document.getElementById('details-panel');
+            if (detailsPanel.classList.contains('active')) {
+                closeDetails();
+            }
+
+            document.removeEventListener('click', closeOnOutsideClick);
+
+            const trainDetails = {
+                company: card.querySelector('.flight-company')?.textContent || 'N/A',
+                trainNumber: card.querySelector('.flight-number')?.textContent || 'N/A',
+                departureTime: card.querySelector('.boarding-time')?.textContent || 'N/A',
+                duration: card.querySelector('.flight-duration')?.textContent || 'N/A',
+                arrival: card.querySelector('.landing-time')?.textContent || 'N/A',
+                stops: card.querySelector('.flight-stops')?.textContent || 'N/A',
+                cost: card.querySelector('.flight-cost')?.textContent || 'N/A',
+                from: card.querySelector('.boarding-airport')?.textContent || 'N/A',
+                to: card.querySelector('.landing-airport')?.textContent || 'N/A'
+            };
+
+            detailsPanel.innerHTML = `
+                <button class="close-btn" onclick="closeDetails(event)">CLOSE</button>
+                <h2>Train Details</h2>
+                <div class="flight-details">
+                    <div class="details-row"><span class="details-label">Railway Company :</span><span class="details-value">${trainDetails.company}</span></div>
+                    <div class="details-row"><span class="details-label">Train Number :</span><span class="details-value">${trainDetails.trainNumber}</span></div>
+                    <div class="details-row"><span class="details-label">Departure :</span><span class="details-value">${trainDetails.departureTime} (${trainDetails.from})</span></div>
+                    <div class="details-row"><span class="details-label">Journey Duration :</span><span class="details-value">${trainDetails.duration}</span></div>
+                    <div class="details-row"><span class="details-label">Arrival :</span><span class="details-value">${trainDetails.arrival} (${trainDetails.to})</span></div>
+                    <div class="details-row"><span class="details-label">Stops :</span><span class="details-value">${trainDetails.stops}</span></div>
+                    <div class="details-row"><span class="details-label">Cost :</span><span class="details-value">${trainDetails.cost}</span></div>
+                </div>
+            `;
+
+            detailsPanel.classList.add('active');
+            setTimeout(() => document.addEventListener('click', closeOnOutsideClick), 100);
+        }
+
+        function closeDetails(event) {
+            if (event) event.stopPropagation();
+            document.getElementById('details-panel').classList.remove('active');
+            document.removeEventListener('click', closeOnOutsideClick);
+        }
+
+        function closeOnOutsideClick(event) {
+            const panel = document.getElementById('details-panel');
+            if (panel.classList.contains('active') && !panel.contains(event.target)) {
+                closeDetails(event);
+            }
+        }
+
         function showAlert(message, type = 'info') {
             const alertBox = document.getElementById('customAlert');
             const alertMessage = document.getElementById('alertMessage');
@@ -459,7 +402,6 @@
     <div id="customAlert" class="alert"><span id="alertMessage">alert</span></div>
 
     <script src="../js/navbar.js"></script>
-    <script type="module" src="../js/login-signup.js"></script>
 </body>
 
 

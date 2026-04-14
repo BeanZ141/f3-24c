@@ -1,0 +1,1154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <script src="../js/theme.js"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,700;1,300&family=Bebas+Neue&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/login-popup.css">
+  <link rel="stylesheet" href="../css/kalandae.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link rel="icon" href="../images/favicon.png" type="image/png">
+  <title>Flights — TicketEase</title>
+  <style>
+    /* ─── TOKENS ─────────────────────────────── */
+    :root {
+      --bg:         #09090b;
+      --bg2:        #111114;
+      --bg3:        #18181c;
+      --fg:         #e8e4dc;
+      --fg-mid:     rgba(232,228,220,.5);
+      --fg-low:     rgba(232,228,220,.22);
+      --fg-dim:     rgba(232,228,220,.08);
+      --accent:     #bfa06a;
+      --accent-rgb: 191,160,106;
+      --accent2:    #6eb4c8;
+      --line:       rgba(232,228,220,.1);
+      --line2:      rgba(232,228,220,.06);
+      --nav-h:      64px;
+      --panel-r:    0px;
+    }
+    body:not(.dark-mode) {
+      --bg:         #edeae2;
+      --bg2:        #e4e1d8;
+      --bg3:        #d8d4ca;
+      --fg:         #111010;
+      --fg-mid:     rgba(17,16,16,.52);
+      --fg-low:     rgba(17,16,16,.28);
+      --fg-dim:     rgba(17,16,16,.07);
+      --accent:     #8c6933;
+      --accent-rgb: 140,105,51;
+      --accent2:    #2a7a8f;
+      --line:       rgba(17,16,16,.1);
+      --line2:      rgba(17,16,16,.05);
+    }
+
+    /* ─── RESET ──────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    ::selection { background: rgba(var(--accent-rgb),.22); color: var(--fg); }
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--bg);
+      color: var(--fg);
+      font-family: 'DM Mono', monospace;
+      -webkit-font-smoothing: antialiased;
+      min-height: 100vh;
+      cursor: none;
+    }
+
+    /* ─── GRAIN ─────────────────────────────── */
+    body::before {
+      content: '';
+      position: fixed; inset: 0; pointer-events: none; z-index: 9000;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='250' height='250'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.78' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='250' height='250' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+      opacity: .45;
+    }
+
+    /* ─── CURSOR ────────────────────────────── */
+    #cur-dot {
+      position: fixed; width: 5px; height: 5px;
+      background: var(--accent); border-radius: 50%;
+      pointer-events: none; z-index: 9999;
+      transform: translate(-50%,-50%);
+    }
+    #cur-ring {
+      position: fixed; width: 28px; height: 28px;
+      border: 1px solid rgba(var(--accent-rgb),.4);
+      border-radius: 50%; pointer-events: none; z-index: 9998;
+      transform: translate(-50%,-50%);
+      transition: width .32s cubic-bezier(.77,0,.18,1), height .32s cubic-bezier(.77,0,.18,1), border-color .3s;
+    }
+    body:has(a:hover) #cur-ring,
+    body:has(button:hover) #cur-ring,
+    body:has(input:hover) #cur-ring,
+    body:has(label:hover) #cur-ring { width: 48px; height: 48px; border-color: rgba(var(--accent-rgb),.8); }
+
+    /* ─── NAV ───────────────────────────────── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0;
+      height: var(--nav-h);
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 clamp(18px,3.5vw,52px);
+      background: rgba(9,9,11,.72);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--line);
+      z-index: 800;
+    }
+    body:not(.dark-mode) nav { background: rgba(237,234,226,.82); }
+
+    .nav-brand {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.05rem; font-weight: 400; letter-spacing: .3em;
+      padding-right: .3em; color: var(--fg); text-decoration: none;
+      display: inline-flex; align-items: center; gap: 9px;
+    }
+    .nav-dot {
+      width: 5px; height: 5px; border-radius: 50%;
+      background: var(--accent); flex-shrink: 0;
+      animation: dot-pulse 3.5s infinite;
+    }
+    @keyframes dot-pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.3;transform:scale(.5)} }
+
+    /* service nav */
+    .service-nav {
+      display: flex; align-items: center; gap: 0;
+      position: absolute; left: 50%; transform: translateX(-50%);
+    }
+    .service-nav a {
+      font-family: 'DM Mono', monospace;
+      font-size: .6rem; letter-spacing: .2em; text-transform: uppercase;
+      color: var(--fg-mid); text-decoration: none;
+      padding: 0 18px; height: var(--nav-h);
+      display: flex; align-items: center; gap: 7px;
+      border-right: 1px solid var(--line2);
+      transition: color .25s, background .25s;
+      position: relative;
+    }
+    .service-nav a:first-child { border-left: 1px solid var(--line2); }
+    .service-nav a::after {
+      content: ''; position: absolute; bottom: 0; left: 0; right: 0;
+      height: 1px; background: var(--accent);
+      transform: scaleX(0); transition: transform .35s cubic-bezier(.77,0,.18,1);
+    }
+    .service-nav a:hover { color: var(--fg); background: var(--fg-dim); }
+    .service-nav a:hover::after { transform: scaleX(1); }
+    .service-nav a.active { color: var(--accent); }
+    .service-nav a.active::after { transform: scaleX(1); }
+    .service-nav i { font-size: .7rem; }
+
+    .nav-right { display: flex; align-items: center; gap: 14px; }
+
+    #user-info { display: none; align-items: center; gap: 10px; }
+    #username-display {
+      font-size: .66rem; letter-spacing: .09em;
+      color: var(--fg-mid); cursor: pointer; transition: color .2s;
+    }
+    #username-display:hover { color: var(--accent); }
+    .dropdown { position: relative; }
+    .dropdown-btn { background: none; border: none; color: var(--fg-mid); cursor: pointer; font-size: .62rem; padding: 4px 6px; transition: color .2s; }
+    .dropdown-btn:hover { color: var(--fg); }
+    .dropdown-content {
+      position: absolute; right: 0; top: calc(100% + 10px);
+      background: var(--bg2); border: 1px solid var(--line);
+      min-width: 160px; padding: 4px 0;
+      opacity: 0; visibility: hidden; transform: translateY(-5px);
+      transition: opacity .22s, transform .22s, visibility .22s;
+    }
+    .dropdown-content.open { opacity: 1; visibility: visible; transform: translateY(0); }
+    .dropdown-content a {
+      display: block; padding: 9px 16px;
+      font-size: .65rem; letter-spacing: .08em;
+      color: var(--fg-mid); text-decoration: none;
+      transition: color .2s, padding-left .22s;
+    }
+    .dropdown-content a:hover { color: var(--fg); padding-left: 22px; }
+
+    #theme-switch {
+      width: 34px; height: 34px; background: none;
+      border: 1px solid var(--line); border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer; color: var(--fg-mid);
+      transition: border-color .3s, color .3s, transform .5s cubic-bezier(.77,0,.18,1);
+    }
+    #theme-switch:hover { border-color: var(--accent); color: var(--accent); transform: rotate(28deg); }
+    #theme-switch svg { width: 14px; height: 14px; fill: currentColor; display: none; }
+    .dark-mode #theme-switch .moon-svg { display: block; }
+    body:not(.dark-mode) #theme-switch .sun-svg { display: block; }
+
+    #login-btn {
+      font-size: .6rem; letter-spacing: .16em; text-transform: uppercase;
+      color: var(--fg-mid); background: none;
+      border: 1px solid var(--line); padding: 8px 18px; cursor: pointer;
+      position: relative; overflow: hidden;
+      transition: color .35s, border-color .35s;
+    }
+    #login-btn::before {
+      content: ''; position: absolute;
+      top: 0; left: -102%; bottom: 0; right: 102%;
+      background: var(--accent);
+      transition: left .4s cubic-bezier(.77,0,.18,1), right .4s cubic-bezier(.77,0,.18,1);
+      z-index: 0;
+    }
+    #login-btn:hover::before { left: 0; right: 0; }
+    #login-btn:hover { color: var(--bg); border-color: var(--accent); }
+    #login-btn span { position: relative; z-index: 1; }
+
+    /* ─── HERO IMAGE ─────────────────────────── */
+    .hero-banner {
+      position: fixed; top: var(--nav-h); left: 0; right: 0;
+      height: 56vh;
+      background: linear-gradient(to bottom, transparent 40%, rgba(9,9,11,.92) 100%),
+                  url(../images/flight_1.jpg) center/cover no-repeat;
+      z-index: 0;
+      overflow: hidden;
+    }
+    body:not(.dark-mode) .hero-banner {
+      background: linear-gradient(to bottom, transparent 40%, rgba(237,234,226,.95) 100%),
+                  url(../images/flight_1.jpg) center/cover no-repeat;
+    }
+    .hero-title {
+      position: absolute; bottom: 28px; left: clamp(20px,4vw,52px);
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(3rem,7vw,6rem);
+      letter-spacing: .18em; color: #fff;
+      line-height: 1;
+      opacity: 0; transform: translateY(18px);
+      animation: rise .9s .1s cubic-bezier(.77,0,.18,1) forwards;
+    }
+    .hero-sub {
+      position: absolute; bottom: 22px; right: clamp(20px,4vw,52px);
+      font-size: .58rem; letter-spacing: .28em; text-transform: uppercase;
+      color: rgba(255,255,255,.45);
+      opacity: 0; animation: rise .7s .4s cubic-bezier(.77,0,.18,1) forwards;
+    }
+    @keyframes rise { to { opacity: 1; transform: translateY(0); } }
+
+    /* ─── PAGE BODY ──────────────────────────── */
+    .page-body {
+      position: relative; z-index: 10;
+      margin-top: calc(var(--nav-h) + 56vh - 60px);
+      padding: 0 clamp(16px,4vw,52px) 80px;
+    }
+
+    /* ─── BOOKING PANEL ──────────────────────── */
+    .booking-panel {
+      background: var(--bg2);
+      border: 1px solid var(--line);
+      padding: 0;
+      opacity: 0; transform: translateY(24px);
+      animation: rise .9s .25s cubic-bezier(.77,0,.18,1) forwards;
+      position: relative;
+    }
+
+    /* trip type tabs */
+    .trip-tabs {
+      display: flex; border-bottom: 1px solid var(--line);
+    }
+    .trip-tabs label {
+      display: flex; align-items: center; gap: 8px;
+      padding: 14px 24px;
+      font-size: .62rem; letter-spacing: .18em; text-transform: uppercase;
+      color: var(--fg-mid); cursor: pointer;
+      border-right: 1px solid var(--line2);
+      transition: color .2s, background .2s;
+      position: relative;
+    }
+    .trip-tabs label::after {
+      content: ''; position: absolute; bottom: -1px; left: 0; right: 0;
+      height: 1px; background: var(--accent);
+      transform: scaleX(0); transition: transform .3s cubic-bezier(.77,0,.18,1);
+    }
+    .trip-tabs input[type="radio"] { display: none; }
+    .trip-tabs input[type="radio"]:checked + label {
+      color: var(--accent);
+    }
+    .trip-tabs input[type="radio"]:checked + label::after { transform: scaleX(1); }
+    .trip-tabs label:hover { color: var(--fg); background: var(--fg-dim); }
+
+    /* radio dot */
+    .trip-dot {
+      width: 8px; height: 8px; border-radius: 50%;
+      border: 1px solid currentColor;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+    .trip-dot::before {
+      content: ''; width: 4px; height: 4px; border-radius: 50%;
+      background: currentColor; transform: scale(0); transition: transform .2s;
+    }
+    .trip-tabs input[type="radio"]:checked + label .trip-dot::before { transform: scale(1); }
+
+    /* fields row */
+    .fields-row {
+      display: flex; align-items: stretch;
+      border-bottom: 1px solid var(--line);
+      position: relative;
+    }
+
+    .field {
+      flex: 1; position: relative;
+      border-right: 1px solid var(--line);
+      cursor: pointer;
+      transition: background .2s;
+      min-width: 0;
+    }
+    .field:last-child { border-right: none; }
+    .field:hover { background: var(--fg-dim); }
+
+    .field-label {
+      position: absolute; top: 14px; left: 18px;
+      font-size: .5rem; letter-spacing: .22em; text-transform: uppercase;
+      color: var(--fg-low); pointer-events: none;
+    }
+    .field-main {
+      padding: 38px 18px 14px;
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(1.6rem,2.5vw,2.2rem);
+      letter-spacing: .06em; color: var(--fg);
+      white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+    }
+    .field-sub {
+      padding: 0 18px 14px;
+      font-size: .56rem; letter-spacing: .06em;
+      color: var(--fg-mid);
+      white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+      margin-top: -4px;
+    }
+    .field-code {
+      position: absolute; top: 14px; right: 14px;
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1rem; letter-spacing: .12em;
+      color: var(--accent); opacity: .7;
+    }
+
+    /* switch btn */
+    #switch-btn {
+      position: absolute; left: 50%; top: 50%;
+      transform: translate(-50%,-50%);
+      width: 34px; height: 34px;
+      background: var(--bg2); border: 1px solid var(--line);
+      color: var(--fg-mid); border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer; z-index: 10;
+      font-size: 1rem;
+      transition: border-color .25s, color .25s, transform .45s cubic-bezier(.77,0,.18,1);
+    }
+    #switch-btn:hover { border-color: var(--accent); color: var(--accent); transform: translate(-50%,-50%) rotate(180deg); }
+
+    /* dropdowns */
+    .select-options {
+      display: none; position: absolute;
+      top: 100%; left: 0; min-width: 280px;
+      background: var(--bg3); border: 1px solid var(--line);
+      border-top: none; z-index: 5000;
+      box-shadow: 0 16px 40px rgba(0,0,0,.45);
+      max-height: 280px; overflow-y: auto;
+    }
+    .select-options::-webkit-scrollbar { width: 3px; }
+    .select-options::-webkit-scrollbar-thumb { background: var(--line); }
+    .select-options.open { display: block; }
+    .select-options div {
+      display: flex; flex-direction: column;
+      padding: 12px 16px; border-bottom: 1px solid var(--line2);
+      cursor: pointer; transition: background .18s, padding-left .18s;
+    }
+    .select-options div:last-child { border-bottom: none; }
+    .select-options div:hover { background: var(--fg-dim); padding-left: 22px; }
+    .select-options div .city {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.1rem; letter-spacing: .12em; color: var(--fg);
+    }
+    .select-options div .airport { font-size: .55rem; letter-spacing: .06em; color: var(--fg-mid); margin-top: 2px; }
+    .select-options div .code { font-family: 'Bebas Neue', sans-serif; font-size: .85rem; letter-spacing: .1em; color: var(--accent); align-self: flex-end; margin-top: -18px; }
+
+    /* calendars */
+    #calendar-single, #calendar-range {
+      display: none; position: absolute;
+      top: 100%; left: 0; z-index: 5000;
+      background: var(--bg3); border: 1px solid var(--line);
+      box-shadow: 0 16px 40px rgba(0,0,0,.45);
+    }
+    #calendar-range { left: auto; right: 0; }
+    #calendar-single.active, #calendar-range.active { display: block; }
+
+    /* return dim state */
+    #return-section { opacity: .5; transition: opacity .3s; }
+    #return-section.active { opacity: 1; }
+    #return-section .cancel-btn {
+      position: absolute; top: 12px; right: 10px;
+      width: 14px; height: 14px; cursor: pointer;
+      filter: invert(.6); display: none;
+      transition: filter .2s, transform .2s;
+    }
+    .dark-mode #return-section .cancel-btn { filter: invert(.4); }
+    #return-section .cancel-btn:hover { filter: invert(1); transform: scale(1.15); }
+
+    /* ─── EXTRAS ROW ─────────────────────────── */
+    .extras-row {
+      display: flex; align-items: stretch;
+      position: relative;
+    }
+
+    /* travelers & class */
+    .travelers-field {
+      flex: 1; border-right: 1px solid var(--line);
+      cursor: pointer; transition: background .2s; position: relative;
+    }
+    .travelers-field:hover { background: var(--fg-dim); }
+    .tf-label { position: absolute; top: 14px; left: 18px; font-size: .5rem; letter-spacing: .22em; text-transform: uppercase; color: var(--fg-low); }
+    .tf-val {
+      padding: 38px 18px 14px;
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(1.4rem,2vw,1.9rem);
+      letter-spacing: .06em; color: var(--fg);
+    }
+    .tf-sub { padding: 0 18px 14px; font-size: .56rem; letter-spacing: .06em; color: var(--fg-mid); margin-top: -4px; }
+
+    /* timeslot field */
+    .timeslot-field {
+      flex: 1; border-right: 1px solid var(--line);
+      cursor: pointer; transition: background .2s; position: relative;
+    }
+    .timeslot-field:hover { background: var(--fg-dim); }
+
+    /* special fare */
+    .fare-field {
+      flex: 2; padding: 16px 20px;
+      border-right: 1px solid var(--line);
+      position: relative;
+    }
+    .fare-label { font-size: .5rem; letter-spacing: .22em; text-transform: uppercase; color: var(--fg-low); margin-bottom: 12px; display: flex; align-items: center; gap: 8px; }
+    .fare-tag {
+      font-size: .48rem; letter-spacing: .14em; padding: 2px 8px;
+      background: rgba(var(--accent-rgb),.15); color: var(--accent); border: 1px solid rgba(var(--accent-rgb),.3);
+    }
+    .fare-options { display: flex; flex-wrap: wrap; gap: 6px; }
+    .fare-opt {
+      display: flex; align-items: center; gap: 7px;
+      padding: 7px 12px; border: 1px solid var(--line);
+      cursor: pointer; transition: border-color .2s, background .2s;
+      font-size: .58rem; letter-spacing: .08em; color: var(--fg-mid);
+      position: relative;
+    }
+    .fare-opt:hover { border-color: rgba(var(--accent-rgb),.4); color: var(--fg); }
+    .fare-opt input[type="radio"] { display: none; }
+    .fare-opt:has(input:checked) { border-color: var(--accent); background: rgba(var(--accent-rgb),.08); color: var(--fg); }
+    .fare-dot {
+      width: 7px; height: 7px; border-radius: 50%;
+      border: 1px solid currentColor; flex-shrink: 0;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .fare-dot::before {
+      content: ''; width: 3px; height: 3px; border-radius: 50%;
+      background: var(--accent); transform: scale(0); transition: transform .18s;
+    }
+    .fare-opt:has(input:checked) .fare-dot::before { transform: scale(1); }
+    .fare-sub { font-size: .5rem; color: var(--fg-low); display: block; margin-top: 1px; }
+
+    /* tooltip */
+    .fare-opt .tip {
+      display: none; position: absolute;
+      bottom: calc(100% + 8px); left: 50%;
+      transform: translateX(-50%);
+      background: var(--bg3); border: 1px solid var(--line);
+      font-size: .55rem; padding: 8px 12px; width: 230px;
+      color: var(--fg-mid); text-align: center; z-index: 100;
+      pointer-events: none; letter-spacing: .04em;
+    }
+    .fare-opt:hover .tip { display: block; }
+
+    /* search button */
+    .search-btn {
+      width: 120px; background: var(--accent);
+      border: none; cursor: pointer; color: var(--bg);
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.1rem; letter-spacing: .22em;
+      transition: background .3s, transform .2s;
+      display: flex; align-items: center; justify-content: center;
+      flex-direction: column; gap: 4px;
+    }
+    .search-btn:hover { background: var(--fg); transform: scaleX(1.04); }
+    .search-btn:active { transform: scaleX(.98); }
+
+    /* ─── TRAVELERS POPUP ────────────────────── */
+    .travel-class {
+      display: none; position: absolute;
+      top: 100%; left: 0; width: 520px;
+      background: var(--bg3); border: 1px solid var(--line);
+      box-shadow: 0 16px 40px rgba(0,0,0,.5);
+      padding: 24px; z-index: 5000;
+    }
+    .travel-class.open { display: block; }
+    .travel-class h5 {
+      font-size: .55rem; letter-spacing: .22em; text-transform: uppercase;
+      color: var(--fg-low); margin-bottom: 4px; margin-top: 16px;
+      font-weight: 400;
+    }
+    .travel-class h5:first-child { margin-top: 0; }
+    .travel-class p { font-size: .55rem; color: var(--fg-low); margin-bottom: 10px; }
+
+    .radio-input {
+      --item_width: 34px; --item_height: 34px;
+      --items: 10;
+      --container_width: calc(var(--item_width) * var(--items));
+      position: relative; display: flex; align-items: center;
+      background: var(--bg2); border: 1px solid var(--line);
+      width: var(--container_width); overflow: hidden; user-select: none;
+    }
+    .radio-input label {
+      width: var(--item_width); height: var(--item_height);
+      cursor: pointer; display: flex; justify-content: center; align-items: center;
+      z-index: 1; font-size: .7rem; color: var(--fg-mid);
+      transition: color .15s;
+    }
+    .radio-input label:hover { color: var(--fg); }
+    .radio-input label:has(input:checked) { color: var(--bg); }
+    .radio-input input { display: none; }
+    .selection {
+      display: none; position: absolute;
+      width: calc(var(--container_width) / var(--items));
+      height: var(--item_height);
+      background: var(--accent);
+      z-index: 0; left: 0; top: 0;
+      transition: .15s cubic-bezier(.77,0,.18,1);
+    }
+    .radio-input label:has(input:checked) ~ .selection { display: block; }
+
+    /* class chooser */
+    .choose-class { margin-top: 16px; }
+    .choose-class .radio-input {
+      --item_width: auto; --container_width: auto;
+      gap: 6px; flex-wrap: wrap; width: 100%;
+      background: none; border: none; overflow: visible;
+    }
+    .choose-class .radio-input label {
+      padding: 7px 14px; width: auto; border: 1px solid var(--line);
+      font-size: .6rem; letter-spacing: .08em; color: var(--fg-mid);
+      transition: border-color .2s, background .2s, color .2s;
+      height: auto;
+    }
+    .choose-class .radio-input label:hover { border-color: rgba(var(--accent-rgb),.4); color: var(--fg); }
+    .choose-class .radio-input label:has(input:checked) { background: rgba(var(--accent-rgb),.12); border-color: var(--accent); color: var(--fg); }
+
+    .children-infants-container { display: flex; gap: 24px; margin-top: 8px; }
+    .children-section, .infants-section { flex: 1; }
+
+    /* timeslots popup */
+    #timeslots-picker {
+      display: none; position: absolute;
+      top: 100%; left: 0; width: 360px;
+      background: var(--bg3); border: 1px solid var(--line);
+      box-shadow: 0 16px 40px rgba(0,0,0,.5);
+      padding: 24px; z-index: 5000;
+    }
+    #timeslots-picker.open { display: block; }
+    .timeslot-grid { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 12px; }
+    .ts-opt {
+      padding: 8px 14px; border: 1px solid var(--line);
+      cursor: pointer; transition: border-color .2s, background .2s;
+      font-size: .62rem; letter-spacing: .1em; color: var(--fg-mid);
+      display: flex; align-items: center; gap: 6px;
+    }
+    .ts-opt input[type="radio"] { display: none; }
+    .ts-opt:hover { border-color: rgba(var(--accent-rgb),.4); color: var(--fg); }
+    .ts-opt:has(input:checked) { background: rgba(var(--accent-rgb),.1); border-color: var(--accent); color: var(--fg); }
+    #timeslot-display { font-family: 'Bebas Neue', sans-serif; font-size: 1.4rem; letter-spacing: .1em; }
+
+    /* ─── RADIO POSITION HELPERS ─────────────── */
+    .radio-input label:nth-child(1):has(input:checked)~.selection{transform:translateX(calc(var(--container_width)*0/var(--items)))}
+    .radio-input label:nth-child(2):has(input:checked)~.selection{transform:translateX(calc(var(--container_width)*1/var(--items)))}
+    .radio-input label:nth-child(3):has(input:checked)~.selection{transform:translateX(calc(var(--container_width)*2/var(--items)))}
+    .radio-input label:nth-child(4):has(input:checked)~.selection{transform:translateX(calc(var(--container_width)*3/var(--items)))}
+    .radio-input label:nth-child(5):has(input:checked)~.selection{transform:translateX(calc(var(--container_width)*4/var(--items)))}
+    .radio-input label:nth-child(6):has(input:checked)~.selection{transform:translateX(calc(var(--container_width)*5/var(--items)))}
+    .radio-input label:nth-child(7):has(input:checked)~.selection{transform:translateX(calc(var(--container_width)*6/var(--items)))}
+    .radio-input label:nth-child(8):has(input:checked)~.selection{transform:translateX(calc(var(--container_width)*7/var(--items)))}
+    .radio-input label:nth-child(9):has(input:checked)~.selection{transform:translateX(calc(var(--container_width)*8/var(--items)))}
+    .radio-input label:nth-child(10):has(input:checked)~.selection{transform:translateX(calc(var(--container_width)*9/var(--items)))}
+    .radio-input label:nth-child(11):has(input:checked)~.selection{transform:translateX(calc(var(--container_width)*10/var(--items)))}
+
+    /* ─── ADS SECTION ────────────────────────── */
+    .ads-section {
+      margin-top: 40px;
+      opacity: 0; transform: translateY(16px);
+      animation: rise .9s .5s cubic-bezier(.77,0,.18,1) forwards;
+    }
+
+    .ads-row { display: grid; grid-template-columns: 2fr 1fr; gap: 12px; margin-bottom: 12px; }
+    .ads-row:last-of-type { grid-template-columns: repeat(3,1fr); }
+
+    .ad-card {
+      background: var(--bg2); border: 1px solid var(--line);
+      overflow: hidden; display: flex; flex-direction: column;
+      transition: border-color .3s, transform .3s cubic-bezier(.77,0,.18,1);
+      position: relative;
+    }
+    .ad-card:hover { border-color: rgba(var(--accent-rgb),.35); transform: translateY(-2px); }
+    .ad-card--wide { flex-direction: row; }
+
+    .ad-img-placeholder {
+      width: 100%; height: 140px;
+      object-fit: cover; display: block;
+      opacity: .8; transition: opacity .4s;
+      background: var(--bg3);
+    }
+    .ad-card--wide .ad-img-placeholder { width: 220px; height: auto; flex-shrink: 0; }
+    .ad-card:hover .ad-img-placeholder { opacity: 1; }
+
+    .ad-body { padding: 14px 16px; flex: 1; display: flex; flex-direction: column; gap: 4px; }
+    .ad-tag {
+      font-size: .48rem; letter-spacing: .2em; text-transform: uppercase;
+      color: var(--accent); display: inline-block; margin-bottom: 4px;
+    }
+    .ad-title { font-size: .78rem; letter-spacing: .04em; color: var(--fg); font-weight: 400; line-height: 1.4; }
+    .ad-sub { font-size: .6rem; color: var(--fg-mid); flex: 1; }
+    .ad-cta {
+      display: inline-block; margin-top: 10px;
+      font-size: .58rem; letter-spacing: .18em; text-transform: uppercase;
+      color: var(--accent); text-decoration: none;
+      border: 1px solid rgba(var(--accent-rgb),.35);
+      padding: 6px 14px; align-self: flex-start;
+      transition: background .25s, color .25s, border-color .25s;
+    }
+    .ad-cta:hover { background: var(--accent); color: var(--bg); border-color: var(--accent); }
+
+    /* destinations strip */
+    .ads-strip-label {
+      font-size: .5rem; letter-spacing: .28em; text-transform: uppercase;
+      color: var(--fg-low); margin: 24px 0 10px;
+      display: flex; align-items: center; gap: 12px;
+    }
+    .ads-strip-label::after { content: ''; flex: 1; height: 1px; background: var(--line); }
+    .ads-strip {
+      display: flex; gap: 10px;
+      overflow-x: auto; padding-bottom: 8px;
+      scrollbar-width: thin; scrollbar-color: var(--line) transparent;
+    }
+    .ads-strip::-webkit-scrollbar { height: 2px; }
+    .ads-strip::-webkit-scrollbar-thumb { background: var(--line); }
+
+    .ad-dest-card {
+      flex-shrink: 0; width: 160px;
+      background: var(--bg2); border: 1px solid var(--line);
+      overflow: hidden;
+      transition: border-color .3s, transform .3s;
+      cursor: pointer;
+    }
+    .ad-dest-card:hover { border-color: rgba(var(--accent-rgb),.4); transform: translateY(-3px); }
+    .ad-img-placeholder--dest { height: 100px; width: 100%; object-fit: cover; display: block; }
+    .ad-dest-info {
+      padding: 8px 10px;
+      display: flex; flex-direction: column; gap: 2px;
+    }
+    .ad-dest-city { font-family: 'Bebas Neue', sans-serif; font-size: .9rem; letter-spacing: .12em; color: var(--fg); }
+    .ad-dest-price { font-size: .55rem; letter-spacing: .08em; color: var(--accent); }
+
+    /* ─── ALERT ─────────────────────────────── */
+    #customAlert {
+      position: fixed; top: calc(var(--nav-h) + 14px); right: 20px;
+      padding: 12px 22px; background: var(--fg); color: var(--bg);
+      font-size: .7rem; letter-spacing: .07em;
+      opacity: 0; pointer-events: none; visibility: hidden;
+      transition: opacity .3s, visibility .3s; z-index: 2000;
+    }
+    #customAlert.show { opacity: 1; visibility: visible; }
+
+    /* ─── MOBILE ────────────────────────────── */
+    @media (max-width: 900px) {
+      .fields-row { flex-wrap: wrap; }
+      .extras-row { flex-wrap: wrap; }
+      .ads-row { grid-template-columns: 1fr; }
+      .service-nav { position: static; transform: none; }
+      .choose-class .radio-input label { font-size: .55rem; padding: 6px 10px; }
+    }
+    @media (max-width: 600px) {
+      body { cursor: auto; }
+      #cur-dot, #cur-ring { display: none; }
+      .service-nav { display: none; }
+      .ads-row:last-of-type { grid-template-columns: 1fr; }
+      .travel-class { width: calc(100vw - 32px); }
+    }
+  </style>
+</head>
+<body class="dark-mode">
+
+<div id="cur-dot"></div>
+<div id="cur-ring"></div>
+
+<!-- NAV -->
+<nav>
+  <a href="../index.html" class="nav-brand"><span class="nav-dot"></span>TICKETEASE</a>
+
+  <div class="service-nav">
+    <a class="active" href="../category/flights.html"><i class="fas fa-plane"></i>Flights</a>
+    <a href="../category/hotels.html"><i class="fas fa-hotel"></i>Hotels</a>
+    <a href="../category/trains.html"><i class="fas fa-train"></i>Trains</a>
+    <a href="../category/events.html"><i class="fas fa-calendar-alt"></i>Events</a>
+  </div>
+
+  <div class="nav-right">
+    <div id="user-info" style="display:none;">
+      <span id="username-display"></span>
+      <div class="dropdown">
+        <button class="dropdown-btn" onclick="toggleDropdown()">▼</button>
+        <div class="dropdown-content" id="dropdown-menu">
+          <a href="../dashboard.html">Dashboard</a>
+          <a href="#" onclick="logout()">Logout</a>
+        </div>
+      </div>
+    </div>
+    <button id="theme-switch" onclick="doToggleTheme()" aria-label="Toggle theme">
+      <svg class="moon-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960"><path d="M480-120q-150 0-255-105T120-480q0-150 105-255t255-105q14 0 27.5 1t26.5 3q-41 29-65.5 75.5T444-660q0 90 63 153t153 63q55 0 101-24.5t75-65.5q2 13 3 26.5t1 27.5q0 150-105 255T480-120Z"/></svg>
+      <svg class="sun-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960"><path d="M480-280q-83 0-141.5-58.5T280-480q0-83 58.5-141.5T480-680q83 0 141.5 58.5T680-480q0 83-58.5 141.5T480-280ZM200-440H40v-80h160v80Zm720 0H760v-80h160v80ZM440-760v-160h80v160h-80Zm0 720v-160h80v160h-80ZM256-650l-101-97 57-59 96 100-52 56Zm492 496-97-101 53-55 101 97-57 59Zm-98-550 97-101 59 57-100 96-56-52ZM154-212l101-97 55 53-97 101-59-57Z"/></svg>
+    </button>
+    <button id="login-btn" onclick="showPopup()"><span>LOGIN / SIGNUP</span></button>
+  </div>
+</nav>
+
+<!-- HERO -->
+<div class="hero-banner">
+  <div class="hero-title">Flights</div>
+  <div class="hero-sub">Book · Compare · Depart</div>
+</div>
+
+<!-- PAGE BODY -->
+<div class="page-body">
+
+  <!-- BOOKING PANEL -->
+  <section class="booking-panel" id="bookingPanel">
+
+    <!-- Trip type -->
+    <div class="trip-tabs">
+      <input type="radio" name="tripType" id="one-way" value="one-way" checked onchange="toggleRoundTrip()">
+      <label for="one-way"><span class="trip-dot"></span>One Way</label>
+      <input type="radio" name="tripType" id="round-trip" value="round-trip" onchange="toggleRoundTrip()">
+      <label for="round-trip"><span class="trip-dot"></span>Round Trip</label>
+    </div>
+
+    <!-- Fields row -->
+    <div class="fields-row" id="fieldsRow">
+
+      <!-- FROM -->
+      <div class="field" id="from" onclick="toggleSelect('from-opts')">
+        <div class="field-label">From</div>
+        <div class="field-main" id="from-city">Pune</div>
+        <div class="field-sub" id="from-airport">Pune Airport</div>
+        <div class="field-code" id="from-code">PNQ</div>
+        <div class="select-options" id="from-opts">
+          <div data-city="Pune" data-airport="Pune Airport" data-code="PNQ"><span class="city">Pune</span><span class="airport">Pune Airport</span><span class="code">PNQ</span></div>
+          <div data-city="Delhi" data-airport="Indira Gandhi International Airport" data-code="DEL"><span class="city">Delhi</span><span class="airport">Indira Gandhi International Airport</span><span class="code">DEL</span></div>
+          <div data-city="Mumbai" data-airport="Chhatrapati Shivaji International Airport" data-code="BOM"><span class="city">Mumbai</span><span class="airport">Chhatrapati Shivaji International Airport</span><span class="code">BOM</span></div>
+          <div data-city="Bangalore" data-airport="Kempegowda International Airport" data-code="BLR"><span class="city">Bangalore</span><span class="airport">Kempegowda International Airport</span><span class="code">BLR</span></div>
+          <div data-city="Hyderabad" data-airport="Rajiv Gandhi International Airport" data-code="HYD"><span class="city">Hyderabad</span><span class="airport">Rajiv Gandhi International Airport</span><span class="code">HYD</span></div>
+          <div data-city="Chennai" data-airport="Chennai International Airport" data-code="MAA"><span class="city">Chennai</span><span class="airport">Chennai International Airport</span><span class="code">MAA</span></div>
+          <div data-city="Kolkata" data-airport="Netaji Subhas Chandra Bose International Airport" data-code="CCU"><span class="city">Kolkata</span><span class="airport">Netaji Subhas Chandra Bose International Airport</span><span class="code">CCU</span></div>
+          <div data-city="Goa" data-airport="Goa International Airport" data-code="GOI"><span class="city">Goa</span><span class="airport">Goa International Airport</span><span class="code">GOI</span></div>
+          <div data-city="Jaipur" data-airport="Jaipur International Airport" data-code="JAI"><span class="city">Jaipur</span><span class="airport">Jaipur International Airport</span><span class="code">JAI</span></div>
+          <div data-city="Ahmedabad" data-airport="Sardar Vallabhbhai Patel International Airport" data-code="AMD"><span class="city">Ahmedabad</span><span class="airport">Sardar Vallabhbhai Patel International Airport</span><span class="code">AMD</span></div>
+        </div>
+      </div>
+
+      <!-- SWITCH -->
+      <button id="switch-btn" onclick="switchCities(event)">⇄</button>
+
+      <!-- TO -->
+      <div class="field" id="to" onclick="toggleSelect('to-opts')">
+        <div class="field-label">To</div>
+        <div class="field-main" id="to-city">Delhi</div>
+        <div class="field-sub" id="to-airport">Indira Gandhi International Airport</div>
+        <div class="field-code" id="to-code">DEL</div>
+        <div class="select-options" id="to-opts">
+          <div data-city="Delhi" data-airport="Indira Gandhi International Airport" data-code="DEL"><span class="city">Delhi</span><span class="airport">Indira Gandhi International Airport</span><span class="code">DEL</span></div>
+          <div data-city="Mumbai" data-airport="Chhatrapati Shivaji International Airport" data-code="BOM"><span class="city">Mumbai</span><span class="airport">Chhatrapati Shivaji International Airport</span><span class="code">BOM</span></div>
+          <div data-city="Bangalore" data-airport="Kempegowda International Airport" data-code="BLR"><span class="city">Bangalore</span><span class="airport">Kempegowda International Airport</span><span class="code">BLR</span></div>
+          <div data-city="Hyderabad" data-airport="Rajiv Gandhi International Airport" data-code="HYD"><span class="city">Hyderabad</span><span class="airport">Rajiv Gandhi International Airport</span><span class="code">HYD</span></div>
+          <div data-city="Chennai" data-airport="Chennai International Airport" data-code="MAA"><span class="city">Chennai</span><span class="airport">Chennai International Airport</span><span class="code">MAA</span></div>
+          <div data-city="Kolkata" data-airport="Netaji Subhas Chandra Bose International Airport" data-code="CCU"><span class="city">Kolkata</span><span class="airport">Netaji Subhas Chandra Bose International Airport</span><span class="code">CCU</span></div>
+          <div data-city="Goa" data-airport="Goa International Airport" data-code="GOI"><span class="city">Goa</span><span class="airport">Goa International Airport</span><span class="code">GOI</span></div>
+          <div data-city="Jaipur" data-airport="Jaipur International Airport" data-code="JAI"><span class="city">Jaipur</span><span class="airport">Jaipur International Airport</span><span class="code">JAI</span></div>
+          <div data-city="Ahmedabad" data-airport="Sardar Vallabhbhai Patel International Airport" data-code="AMD"><span class="city">Ahmedabad</span><span class="airport">Sardar Vallabhbhai Patel International Airport</span><span class="code">AMD</span></div>
+          <div data-city="Pune" data-airport="Pune Airport" data-code="PNQ"><span class="city">Pune</span><span class="airport">Pune Airport</span><span class="code">PNQ</span></div>
+        </div>
+      </div>
+
+      <!-- DEPARTURE -->
+      <div class="field" id="dep-field">
+        <div class="field-label">Departure</div>
+        <button class="date-trigger" style="background:none;border:none;cursor:pointer;width:100%;text-align:left;" onclick="toggleSingleCalendar()">
+          <div class="field-main" id="dep-date-main">13 Mar</div>
+          <div class="field-sub" id="dep-date-sub">Thursday · 2025</div>
+        </button>
+        <div id="calendar-single"></div>
+      </div>
+
+      <!-- RETURN -->
+      <div class="field" id="return-section" onclick="switchToRoundTrip()">
+        <div class="field-label">Return</div>
+        <div class="field-main" style="font-size:1rem;color:var(--fg-low);padding-top:38px;padding-left:18px;">Add return date</div>
+        <div class="field-sub" style="padding-left:18px;padding-bottom:14px;">for bigger discounts</div>
+        <img src="../category/icons/cancel.svg" class="cancel-btn" width="14" height="14" onclick="cancelReturn(event)">
+        <div id="calendar-range"></div>
+      </div>
+
+    </div><!-- /fields-row -->
+
+    <!-- Extras row -->
+    <div class="extras-row">
+
+      <!-- TRAVELERS & CLASS -->
+      <div class="travelers-field" onclick="toggleTravelersClass()">
+        <div class="tf-label">Travelers &amp; Class</div>
+        <div class="tf-val"><span class="number-of-travelers">1</span> Traveler</div>
+        <div class="tf-sub display-class">Economy / Premium Economy</div>
+
+        <div class="travel-class" id="travel-class">
+          <h5>Adults (12y+)</h5>
+          <p>On the day of travel</p>
+          <div class="radio-input" style="--items:10;">
+            <label><input value="1" name="adults" type="radio" checked><span>1</span></label>
+            <label><input value="2" name="adults" type="radio"><span>2</span></label>
+            <label><input value="3" name="adults" type="radio"><span>3</span></label>
+            <label><input value="4" name="adults" type="radio"><span>4</span></label>
+            <label><input value="5" name="adults" type="radio"><span>5</span></label>
+            <label><input value="6" name="adults" type="radio"><span>6</span></label>
+            <label><input value="7" name="adults" type="radio"><span>7</span></label>
+            <label><input value="8" name="adults" type="radio"><span>8</span></label>
+            <label><input value="9" name="adults" type="radio"><span>9</span></label>
+            <label><input value=">9" name="adults" type="radio"><span>&gt;9</span></label>
+            <span class="selection"></span>
+          </div>
+          <div class="children-infants-container">
+            <div class="children-section">
+              <h5>Children (2y–12y)</h5>
+              <p>On the day of travel</p>
+              <div class="radio-input" style="--items:8;">
+                <label><input value="0" name="children" type="radio" checked><span>0</span></label>
+                <label><input value="1" name="children" type="radio"><span>1</span></label>
+                <label><input value="2" name="children" type="radio"><span>2</span></label>
+                <label><input value="3" name="children" type="radio"><span>3</span></label>
+                <label><input value="4" name="children" type="radio"><span>4</span></label>
+                <label><input value="5" name="children" type="radio"><span>5</span></label>
+                <label><input value="6" name="children" type="radio"><span>6</span></label>
+                <label><input value=">6" name="children" type="radio"><span>&gt;6</span></label>
+                <span class="selection"></span>
+              </div>
+            </div>
+            <div class="infants-section">
+              <h5>Infants (below 2y)</h5>
+              <p>On the day of travel</p>
+              <div class="radio-input" style="--items:8;">
+                <label><input value="0" name="infants" type="radio" checked><span>0</span></label>
+                <label><input value="1" name="infants" type="radio"><span>1</span></label>
+                <label><input value="2" name="infants" type="radio"><span>2</span></label>
+                <label><input value="3" name="infants" type="radio"><span>3</span></label>
+                <label><input value="4" name="infants" type="radio"><span>4</span></label>
+                <label><input value="5" name="infants" type="radio"><span>5</span></label>
+                <label><input value="6" name="infants" type="radio"><span>6</span></label>
+                <label><input value=">6" name="infants" type="radio"><span>&gt;6</span></label>
+                <span class="selection"></span>
+              </div>
+            </div>
+          </div>
+          <div class="choose-class">
+            <h5>Travel Class</h5>
+            <div class="radio-input" style="--items:4;">
+              <label><input value="1" name="tclass" type="radio" checked><span>Economy / Premium Economy</span></label>
+              <label><input value="2" name="tclass" type="radio"><span>Premium Economy</span></label>
+              <label><input value="3" name="tclass" type="radio"><span>Business</span></label>
+              <label><input value="4" name="tclass" type="radio"><span>First Class</span></label>
+              <span class="selection" style="display:none;"></span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- TIMESLOT -->
+      <div class="timeslot-field" onclick="toggleTimeslots()">
+        <div class="tf-label">Timeslot</div>
+        <div class="tf-val"><span id="timeslot-display">Anytime</span></div>
+        <div class="tf-sub">Preferred departure window</div>
+
+        <div id="timeslots-picker">
+          <div style="font-size:.5rem;letter-spacing:.22em;text-transform:uppercase;color:var(--fg-low);margin-bottom:4px;">Choose Timeslot</div>
+          <div class="timeslot-grid">
+            <label class="ts-opt"><input value="Anytime" name="timeslot" type="radio" checked>Anytime</label>
+            <label class="ts-opt"><input value="06:30" name="timeslot" type="radio">06:30</label>
+            <label class="ts-opt"><input value="08:00" name="timeslot" type="radio">08:00</label>
+            <label class="ts-opt"><input value="09:30" name="timeslot" type="radio">09:30</label>
+            <label class="ts-opt"><input value="11:45" name="timeslot" type="radio">11:45</label>
+            <label class="ts-opt"><input value="13:00" name="timeslot" type="radio">13:00</label>
+            <label class="ts-opt"><input value="14:30" name="timeslot" type="radio">14:30</label>
+            <label class="ts-opt"><input value="16:00" name="timeslot" type="radio">16:00</label>
+            <label class="ts-opt"><input value="19:30" name="timeslot" type="radio">19:30</label>
+            <label class="ts-opt"><input value="21:30" name="timeslot" type="radio">21:30</label>
+          </div>
+        </div>
+      </div>
+
+      <!-- SPECIAL FARE -->
+      <div class="fare-field">
+        <div class="fare-label">Special Fare <span class="fare-tag">Extra Savings</span></div>
+        <div class="fare-options">
+          <label class="fare-opt"><input type="radio" name="fairType" checked><span class="fare-dot"></span><span>Regular<span class="fare-sub">Regular fares</span></span></label>
+          <label class="fare-opt"><input type="radio" name="fairType"><span class="fare-dot"></span><span>Student<span class="fare-sub">Extra discounts / baggage</span></span><span class="tip">Applicable only for students above 12 years of age. Valid student ID required.</span></label>
+          <label class="fare-opt"><input type="radio" name="fairType"><span class="fare-dot"></span><span>Senior Citizen<span class="fare-sub">Up to ₹500 off</span></span><span class="tip">Applicable only for senior citizens above 60 years. Valid date of birth proof required.</span></label>
+          <label class="fare-opt"><input type="radio" name="fairType"><span class="fare-dot"></span><span>Armed Forces<span class="fare-sub">Up to ₹600 off</span></span><span class="tip">Applicable for serving/retired Indian Armed Forces personnel. Valid ID required.</span></label>
+          <label class="fare-opt"><input type="radio" name="fairType"><span class="fare-dot"></span><span>Doctor &amp; Nurses<span class="fare-sub">Up to ₹700 off</span></span><span class="tip">Applicable for medical personnel. Valid ID required at airport.</span></label>
+        </div>
+      </div>
+
+      <!-- SEARCH -->
+      <button class="search-btn" onclick="searchFlights()">
+        <span>Search</span>
+        <i class="fas fa-plane" style="font-size:.8rem;opacity:.7;"></i>
+      </button>
+
+    </div><!-- /extras-row -->
+  </section><!-- /booking-panel -->
+
+  <!-- ADS SECTION -->
+  <section class="ads-section">
+
+    <div class="ads-row">
+      <div class="ad-card ad-card--wide">
+        <img class="ad-img-placeholder" src="../category/images/ads/flights.png" alt="Flight offer">
+        <div class="ad-body">
+          <span class="ad-tag">Limited Offer</span>
+          <p class="ad-title">Fly Mumbai → Dubai from ₹8,999</p>
+          <p class="ad-sub">Book before 31 Mar · IndiGo · Non-stop</p>
+          <a class="ad-cta" href="#">Book Now</a>
+        </div>
+      </div>
+      <div class="ad-card">
+        <img class="ad-img-placeholder" src="../category/images/ads/insurance.png" alt="Insurance">
+        <div class="ad-body">
+          <span class="ad-tag">Partner</span>
+          <p class="ad-title">Travel Insurance from ₹299</p>
+          <p class="ad-sub">Cover delays, cancellations &amp; more</p>
+          <a class="ad-cta" href="#">Explore</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="ads-row" style="grid-template-columns:repeat(3,1fr);">
+      <div class="ad-card">
+        <img class="ad-img-placeholder" src="../category/images/ads/hotel_deal.png" alt="Hotel deal">
+        <div class="ad-body">
+          <span class="ad-tag">Hotel Deal</span>
+          <p class="ad-title">Stay + Fly combos — save up to 25%</p>
+          <p class="ad-sub">Taj, Marriott &amp; more included</p>
+          <a class="ad-cta" href="#">View Deals</a>
+        </div>
+      </div>
+      <div class="ad-card">
+        <img class="ad-img-placeholder" src="../category/images/ads/card.jpg" alt="Credit card">
+        <div class="ad-body">
+          <span class="ad-tag">Credit Card</span>
+          <p class="ad-title">Earn 5× miles on every booking</p>
+          <p class="ad-sub">HDFC FlightRewards Card · No annual fee</p>
+          <a class="ad-cta" href="#">Apply</a>
+        </div>
+      </div>
+      <div class="ad-card">
+        <img class="ad-img-placeholder" src="../category/images/ads/lounge.png" alt="Lounge">
+        <div class="ad-body">
+          <span class="ad-tag">Lounge Access</span>
+          <p class="ad-title">Priority Pass — 1300+ lounges</p>
+          <p class="ad-sub">Starting ₹1,499/visit · Free trial</p>
+          <a class="ad-cta" href="#">Try Free</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="ads-strip-label">Popular Destinations</div>
+    <div class="ads-strip">
+      <div class="ad-dest-card"><img class="ad-img-placeholder ad-img-placeholder--dest" src="../category/images/ads/goa.png" alt="Goa"><div class="ad-dest-info"><span class="ad-dest-city">Goa</span><span class="ad-dest-price">from ₹2,499</span></div></div>
+      <div class="ad-dest-card"><img class="ad-img-placeholder ad-img-placeholder--dest" src="../category/images/ads/bangalore.png" alt="Bangalore"><div class="ad-dest-info"><span class="ad-dest-city">Bangalore</span><span class="ad-dest-price">from ₹1,899</span></div></div>
+      <div class="ad-dest-card"><img class="ad-img-placeholder ad-img-placeholder--dest" src="../category/images/ads/delhi.png" alt="Delhi"><div class="ad-dest-info"><span class="ad-dest-city">Delhi</span><span class="ad-dest-price">from ₹2,199</span></div></div>
+      <div class="ad-dest-card"><img class="ad-img-placeholder ad-img-placeholder--dest" src="../category/images/ads/hyderabad.png" alt="Hyderabad"><div class="ad-dest-info"><span class="ad-dest-city">Hyderabad</span><span class="ad-dest-price">from ₹1,799</span></div></div>
+      <div class="ad-dest-card"><img class="ad-img-placeholder ad-img-placeholder--dest" src="../category/images/ads/jaipur.png" alt="Jaipur"><div class="ad-dest-info"><span class="ad-dest-city">Jaipur</span><span class="ad-dest-price">from ₹2,099</span></div></div>
+      <div class="ad-dest-card"><img class="ad-img-placeholder ad-img-placeholder--dest" src="../category/images/ads/dubai.png" alt="Dubai"><div class="ad-dest-info"><span class="ad-dest-city">Dubai</span><span class="ad-dest-price">from ₹8,999</span></div></div>
+    </div>
+
+  </section>
+
+</div><!-- /page-body -->
+
+<div id="customAlert"><span id="alertMessage">alert</span></div>
+
+<script src="https://cdn.jsdelivr.net/gh/Twipped/Kalendae/build/kalendae.standalone.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="../js/auth.js"></script>
+<script src="../js/database.js"></script>
+<script src="../category/js/service.js"></script>
+<script src="../js/navbar.js"></script>
+
+<script>
+/* ── CURSOR ── */
+const dot = document.getElementById('cur-dot');
+const ring = document.getElementById('cur-ring');
+let mx=-200,my=-200,rx=-200,ry=-200;
+document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;});
+(function tick(){
+  dot.style.left=mx+'px';dot.style.top=my+'px';
+  rx+=(mx-rx)*.13;ry+=(my-ry)*.13;
+  ring.style.left=rx+'px';ring.style.top=ry+'px';
+  requestAnimationFrame(tick);
+})();
+
+/* ── THEME ── */
+function doToggleTheme(){
+  document.body.classList.toggle('dark-mode');
+  localStorage.setItem('te-theme',document.body.classList.contains('dark-mode')?'dark':'light');
+}
+(function(){if(localStorage.getItem('te-theme')==='light')document.body.classList.remove('dark-mode');})();
+
+/* ── DROPDOWN ── */
+function toggleDropdown(){document.getElementById('dropdown-menu').classList.toggle('open');}
+document.addEventListener('click',e=>{if(!e.target.closest('.dropdown'))document.getElementById('dropdown-menu').classList.remove('open');});
+
+/* ── SELECT DROPDOWNS ── */
+function toggleSelect(id, e){
+  if(e){e.stopPropagation();e.preventDefault();}
+  document.querySelectorAll('.select-options').forEach(el=>{if(el.id!==id)el.classList.remove('open');});
+  document.getElementById(id).classList.toggle('open');
+}
+document.addEventListener('click',e=>{
+  if(!e.target.closest('.field'))document.querySelectorAll('.select-options').forEach(el=>el.classList.remove('open'));
+});
+
+// wire up city selection
+['from','to'].forEach(side=>{
+  const optsId = side+'-opts';
+  document.getElementById(optsId).addEventListener('click',e=>{
+    const div = e.target.closest('[data-city]');
+    if(!div)return;
+    e.stopPropagation();
+    document.getElementById(side+'-city').textContent = div.dataset.city;
+    document.getElementById(side+'-airport').textContent = div.dataset.airport;
+    document.getElementById(side+'-code').textContent = div.dataset.code;
+    document.getElementById(optsId).classList.remove('open');
+  });
+});
+
+/* ── SWITCH CITIES ── */
+function switchCities(e){
+  e.stopPropagation();
+  const cities = ['from','to'];
+  const [a,b] = cities;
+  const tmpCity = document.getElementById(a+'-city').textContent;
+  const tmpAirport = document.getElementById(a+'-airport').textContent;
+  const tmpCode = document.getElementById(a+'-code').textContent;
+  document.getElementById(a+'-city').textContent = document.getElementById(b+'-city').textContent;
+  document.getElementById(a+'-airport').textContent = document.getElementById(b+'-airport').textContent;
+  document.getElementById(a+'-code').textContent = document.getElementById(b+'-code').textContent;
+  document.getElementById(b+'-city').textContent = tmpCity;
+  document.getElementById(b+'-airport').textContent = tmpAirport;
+  document.getElementById(b+'-code').textContent = tmpCode;
+}
+
+/* ── CALENDARS ── */
+let singleKal, rangeKal;
+function toggleSingleCalendar(){
+  const el = document.getElementById('calendar-single');
+  if(el.classList.contains('active')){el.classList.remove('active');return;}
+  el.classList.add('active');
+  if(!singleKal){
+    singleKal = new Kalendae({attachTo:el,months:1,mode:'single',selected:new Date(),dateClassCallback:()=>''});
+    singleKal.subscribe('change',function(){
+      const d = singleKal.getSelected();
+      if(d){
+        const date = new Date(d);
+        const day = date.toLocaleDateString('en-GB',{day:'2-digit',month:'short'});
+        const wd  = date.toLocaleDateString('en-GB',{weekday:'long'});
+        const yr  = date.getFullYear();
+        document.getElementById('dep-date-main').textContent = day;
+        document.getElementById('dep-date-sub').textContent = wd+' · '+yr;
+      }
+      el.classList.remove('active');
+    });
+  }
+}
+function togglerangeCalendar(){
+  const el = document.getElementById('calendar-range');
+  if(el.classList.contains('active')){el.classList.remove('active');return;}
+  el.classList.add('active');
+  if(!rangeKal){
+    rangeKal = new Kalendae({attachTo:el,months:2,mode:'range',selected:null,dateClassCallback:()=>''});
+    rangeKal.subscribe('change',function(){});
+  }
+}
+function switchToRoundTrip(){
+  document.getElementById('round-trip').checked=true;
+  document.getElementById('return-section').classList.add('active');
+  togglerangeCalendar();
+}
+function cancelReturn(e){
+  e.stopPropagation();
+  document.getElementById('one-way').checked=true;
+  document.getElementById('return-section').classList.remove('active');
+  document.getElementById('calendar-range').classList.remove('active');
+}
+function toggleRoundTrip(){
+  const rt = document.getElementById('round-trip').checked;
+  document.getElementById('return-section').classList.toggle('active',rt);
+  if(rt) togglerangeCalendar();
+}
+document.addEventListener('click',e=>{
+  if(!e.target.closest('#dep-field'))document.getElementById('calendar-single').classList.remove('active');
+  if(!e.target.closest('#return-section'))document.getElementById('calendar-range').classList.remove('active');
+});
+
+/* ── TRAVELERS ── */
+function toggleTravelersClass(){
+  document.getElementById('travel-class').classList.toggle('open');
+  document.getElementById('timeslots-picker').classList.remove('open');
+}
+document.querySelectorAll('[name="adults"]').forEach(r=>{
+  r.addEventListener('change',()=>{
+    document.querySelector('.number-of-travelers').textContent=r.value;
+  });
+});
+document.querySelectorAll('[name="tclass"]').forEach((r,i)=>{
+  r.addEventListener('change',()=>{
+    const labels=['Economy / Premium Economy','Premium Economy','Business','First Class'];
+    document.querySelector('.display-class').textContent=labels[i]||labels[0];
+  });
+});
+
+/* ── TIMESLOTS ── */
+function toggleTimeslots(){
+  document.getElementById('timeslots-picker').classList.toggle('open');
+  document.getElementById('travel-class').classList.remove('open');
+}
+document.querySelectorAll('[name="timeslot"]').forEach(r=>{
+  r.addEventListener('change',()=>{document.getElementById('timeslot-display').textContent=r.value;});
+});
+
+/* close all dropdowns on outside click */
+document.addEventListener('click',e=>{
+  if(!e.target.closest('.travelers-field'))document.getElementById('travel-class').classList.remove('open');
+  if(!e.target.closest('.timeslot-field'))document.getElementById('timeslots-picker').classList.remove('open');
+});
+
+/* ── SEARCH ── */
+function searchFlights(){
+  const from = document.getElementById('from-code').textContent;
+  const to   = document.getElementById('to-code').textContent;
+  if(from===to){showAlert('Origin and destination cannot be the same.','error');return;}
+  showAlert('Searching flights from '+from+' to '+to+'…','success');
+}
+
+/* ── ALERT ── */
+function showAlert(msg,type='success'){
+  const el=document.getElementById('customAlert');
+  el.querySelector('span').textContent=msg;
+  el.style.background=type==='error'?'#c0392b':'';
+  el.classList.add('show');
+  setTimeout(()=>el.classList.remove('show'),3500);
+}
+</script>
+</body>
+</html>

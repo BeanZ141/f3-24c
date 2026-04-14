@@ -13,6 +13,8 @@
   <link
     href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300..700;1,300..700&family=Unna:ital,wght@0,400;0,700;1,400;1,700&display=swap"
     rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue:wght@300;400&display=swap" rel="stylesheet">
+  
   <link
     href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap"
     rel="stylesheet">
@@ -30,18 +32,19 @@
 <body>
   <!-- Splash Screen -->
   <div id="splash-screen">
+    <canvas id="splash-canvas"></canvas>
     <div class="splash-text">TICKETEASE</div>
   </div>
   <div id="main-content">
+    <div class="ambient-glow"></div>
     <nav>
-      <a href="../index.html">TICKETEASE</a>
+      <a href="index.html" style="font-family: 'Cormorant Garamond', serif; background-color: var(--color-fg); color: var(--color-bg)">TICKETEASE</a>
       <div id="user-info" style="display: none;">
         <span id="username-display"></span>
         <div class="dropdown">
           <button class="dropdown-btn" onclick="toggleDropdown()">▼</button>
           <div class="dropdown-content" id="dropdown-menu">
             <a href="dashboard.html">Dashboard</a>
-            <a href="scanner/scanner-info.html">Scan Tickets</a>
             <a href="#" onclick="logout()">Logout</a>
           </div>
         </div>
@@ -67,75 +70,13 @@
       <a href="./category/events.html" class="service events">Events</a>
     </div>
 
-    <!-- Login / Signup Popup -->
-    <div id="overlay"></div>
-    <div id="login-popup" class="login-modal">
-      <button type="button" class="close-button" onclick="closePopup()">&times;</button>
-
-      <!-- LOGIN FORM -->
-      <div class="form-toggle">
-        <label>
-          <input type="radio" name="formType" id="radioLogin" checked onclick="showLoginForm()">
-          <span class="toggle-btn">LOGIN<h5
-              style="position: absolute;color: var(--radio-color);margin-left: 3.2rem;margin-top: -3rem;font-size: 2.2em;font-family: 'Inter';">
-              .</h5></span>
-        </label>
-        <label>
-          <input type="radio" name="formType" id="radioSignup" onclick="showSignupForm()">
-          <span class="toggle-btn">SIGN UP<h5
-              style="position: absolute;color: var(--radio-color);margin-left: 4.1rem;margin-top: -3rem;font-size: 2.2em;font-family: 'Inter';">
-              .</h5></span>
-        </label>
-      </div>
-      <form id="loginForm" class="form">
-        <h4 style="animation: fade-in 0.4s;font-family: 'Varela';">LOGIN</h4>
-        <div class="form-group input-wrapper">
-          <input type="email" id="login-email" name="email" placeholder="Email Address" required
-            oninput="toggleClearButton(this)" onblur="toggleClearButton(this)">
-          <button type="button" class="clear-btn" onclick="clearInput(this)">&times;</button>
-        </div>
-        <div class="form-group input-wrapper">
-          <input type="password" id="login-password" name="password" placeholder="Password" required
-            oninput="toggleClearButton(this)" onblur="toggleClearButton(this)">
-          <button type="button" class="clear-btn" onclick="clearInput(this)">&times;</button>
-        </div>
-        <button type="submit" class="btn-primary">LOGIN</button>
-      </form>
-
-      <!-- SIGNUP FORM -->
-      <form id="signupForm" class="form" style="display: none;">
-        <h4 style="animation: fade-in 0.4s;font-family: 'Varela';">SIGN UP</h4>
-        <div class="form-group input-wrapper">
-          <input type="text" id="signup-username" name="username" placeholder="Username" required
-            oninput="toggleClearButton(this)" onblur="toggleClearButton(this)">
-          <button type="button" class="clear-btn" onclick="clearInput(this)">&times;</button>
-        </div>
-        <div class="form-group input-wrapper">
-          <input type="email" id="signup-email" name="email" placeholder="Email Address" required
-            oninput="toggleClearButton(this)" onblur="toggleClearButton(this)">
-          <button type="button" class="clear-btn" onclick="clearInput(this)">&times;</button>
-        </div>
-        <div class="form-group input-wrapper">
-          <input type="password" id="signup-password" name="password" placeholder="Password" required
-            oninput="toggleClearButton(this)" onblur="toggleClearButton(this)">
-          <button type="button" class="clear-btn" onclick="clearInput(this)">&times;</button>
-        </div>
-        <label class="container1 text-loading-animation">I agree to the <a class="text-loading-animation"
-            href="terms-and-conditions.html">terms and conditions.</a>
-          <input type="checkbox" required>
-          <span class="checkmark"></span>
-        </label>
-        <button type="submit" class="btn-primary">SIGN UP</button>
-      </form>
-    </div>
-
     <a href="terms-and-conditions.html" class="tnc-link">TERMS AND CONDITIONS</a>
     <a href="about-us.html" class="ab-us-link">ABOUT US</a>
 
     <div id="customAlert" class="alert"><span id="alertMessage">alert</span></div>
 
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
-    <script src="js/login-signup.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="js/auth.js"></script>
     <script src="js/navbar.js"></script>
     <script src="js/index.js"></script>
 </body>

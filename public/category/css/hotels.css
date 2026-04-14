@@ -10,7 +10,7 @@ input[type="checkbox"]{margin-right:.5rem}
 .checkmark{position:absolute;top:.56rem;left:.63rem;height:.81rem;width:.81rem;background-color:var(--radio-color);border:1px solid var(--radio-border)}
 .container input:checked~.checkmark{background-color:var(--button-bg)}
 .container input:checked~.checkmark+span{font-weight:700;font-weight:bold}
-.container input:checked~span{font-weight:700;color:var(--button-bg);text-decoration:underline;text-underline-offset:4px}
+.container input:checked~span{font-weight:700;background-color:var(--color-bg);color:var(--button-bg);text-decoration:underline;text-underline-offset:4px}
 .container:hover{border-bottom:1px solid var(--radio-color)}
 .special-fare{position:absolute;display:flex;justify-content:center;z-index:1;isolation:isolate;animation:animate-gradient .7s ease-in forwards,fade-element .7s forwards;top:7.5rem}
 .special-fare h3{position:relative;font-size:1em;margin:10px;font-weight:400;user-select:none;animation:animate-gradient .7s ease-in forwards}
@@ -28,11 +28,11 @@ input[type="checkbox"]{margin-right:.5rem}
 .tooltip{visibility:hidden;background-color:var(--radio-color);color:var(--color-fg);border:1px solid var(--radio-border);text-align:center;font-size:.7em;padding:10px 15px;position:absolute;top:140%;left:50%;width:285px;transform:translateX(-50%);white-space:normal;opacity:0;transition:opacity .2s;z-index:1;pointer-events:none}
 .tooltip::after{content:'';position:absolute;bottom:99%;left:45%;transform:rotate(180deg);border-width:10px;border-style:solid;border-color:var(--radio-color) transparent transparent}
 .flight-booking>label>.radio-text{padding:0 5px}
-.flight-booking{display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:10vh;z-index:1000;position:relative;animation:animate-gradient .7s ease-in forwards,fade-element .7s forwards;width:100%;margin:250px auto 0}
+.flight-booking{display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:10vh;z-index:1000;position:relative;animation:animate-gradient .7s ease-in forwards,fade-element .7s forwards;width:100%;margin:210px auto 0}
 .way{display:block;position:fixed;top:-35%;left:0}
 .flight-booking > .way{justify-content:center;z-index:10;isolation:isolate;animation:animate-gradient .7s ease-in forwards,fade-element .7s forwards}
 .way .radio-text{padding:4px 10px}
-.city-switch{display:flex;left:auto;position:fixed;align-items:center;border:1px solid var(--radio-border);margin-top:10px;animation:animate-gradient .7s ease-in forwards,fade-element .7s forwards}
+.city-switch{display:flex;left:auto;position:fixed;border-radius:18px;align-items:center;border:1px solid var(--radio-border);margin-top:10px;animation:animate-gradient .7s ease-in forwards,fade-element .7s forwards}
 #from{border-right:1px solid var(--radio-border);transition:.3s}
 .from{font-size:.4em;font-weight:200;float:inline-start;margin:10px;margin-left:21px;animation:animate-gradient .7s ease-in forwards}
 .to{font-size:.4em;font-weight:200;float:inline-start;margin:10px;margin-left:20px;animation:animate-gradient .7s ease-in forwards}
@@ -45,19 +45,22 @@ input[type="checkbox"]{margin-right:.5rem}
 .custom-select{position:relative;height:6.875rem;border-right:1px solid var(--radio-border);width:310px;font-family:'Space Grotesk',sans-serif;font-size:1.5rem;font-weight:700;cursor:pointer;color:var(--color-fg);letter-spacing:-.5px;background-color:var(--color-bg);z-index:100}
 .custom-select > .to a{font-size:1.5rem;text-decoration:none;color:var(--color-bg);background-color:var(--color-fg);margin-top:25px;position:absolute;margin-left:38px}
 .custom-select:hover{background-color:var(--radio-color);transition:.3ms}
-.search-select{position:relative;height:6.875rem;border-right:1px solid var(--radio-border);width:167px;font-family:'Space Grotesk',sans-serif;font-size:1.5rem;font-weight:700;cursor:pointer;color:var(--color-fg);letter-spacing:-.5px;background-color:var(--color-bg);z-index:100}
-.search-select > .to a {font-size:1.5rem;text-decoration:none;color:var(--color-bg);background-color:var(--color-fg);margin-top:28px;margin-left:12px;position:absolute;font-weight: 400}
-.search-select:hover > .to a{background-color:var(--tnc-color)!important;transition:.3ms; font-weight: 500;}
+.search-select{position:relative;height:6.875rem;border-right:1px solid var(--radio-border);width:167px;font-family:'Space Grotesk',sans-serif;font-size:1.5rem;font-weight:700;cursor:pointer;color:var(--color-fg);letter-spacing:-.5px;background-color:var(--color-bg);z-index:100;border-radius:0 18px 18px 0}
+.search-select > .to a{font-size:1.5rem;text-decoration:none;color:var(--color-bg);background-color:var(--color-fg);margin-top:28px;margin-left:12px;position:absolute;font-weight:400}
+.search-select:hover > .to a{background-color:var(--tnc-color)!important;transition:.3ms;font-weight:500}
 .search-select:hover{background-color:var(--tnc-color)!important;transition:.3ms}
 .select-selected{padding:35px;padding-left:20px;animation:animate-gradient .7s ease-in forwards}
-.select-options{display:none;position:absolute;top:100%;left:0;width:210px;font-size:.45em;font-weight:400;background-color:var(--radio-color);z-index:99999;box-shadow:0 4px 12px #0000004d;border:1px solid var(--radio-border);border-top:none;font-family:'Space Grotesk',sans-serif;letter-spacing:-.3px}
-.select-options div{display:flex;justify-content:space-between;padding:10px;color:gray;flex-direction:column}
+.select-options{display:none;position:absolute;top:100%;left:-1px;width:154px;font-size:.45em;font-weight:400;background-color:var(--radio-color);z-index:99999;box-shadow:0 4px 12px #0000004d;border:1px solid var(--radio-border);border-top:none;font-family:'Space Grotesk',sans-serif;letter-spacing:-.3px}
+.select-options div{display:flex;justify-content:space-between;padding:10px;color:var(--color-fg);flex-direction:column}
 .select-options div .city{font-weight:700}
-.select-options div .airport{font-size:.8em;color:#b0b0b0}
+.select-options div .airport{font-size:12px;margin-top:2px;color:var(--radio-bg-hover);transition:200ms}
+.select-options div:hover .airport{font-weight:800;letter-spacing:.1px;transition:200ms}
 .select-selected .city{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:100%}
 .select-selected .airport{font-size:.5em;font-weight:100;color:var(--color-fg);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:100%;animation:animate-gradient .7s ease-in forwards}
-.select-options div .code{align-self:flex-end;font-size:.9em;font-weight:700;top:-32px;position:relative;color:#b0b0b0}
+.select-options div .code{align-self:flex-end;font-size:.9em;font-weight:700;top:-32px;position:relative;color:#b0b0b0;transition:200ms}
+.select-options div:hover .code{margin-right:10px;transition:200ms}
 .select-options div:hover{background-color:var(--radio-border);color:var(--color-fg)}
+.select-options div:hover .code{color:var(--color-fg)}
 .select-options.open{display:block}
 .date-picker{position:relative}
 .date-trigger{width:10rem;height:6.875rem;background:var(--color-bg);color:var(--color-fg);padding:1.9rem .5rem;border:none;display:flex;justify-content:space-between;align-items:center;cursor:pointer;transition:background .2s;border-right:1px solid var(--radio-border)}
@@ -69,7 +72,7 @@ input[type="checkbox"]{margin-right:.5rem}
 .date-month{font-family:'Space Grotesk',sans-serif;font-size:.9rem;animation:animate-gradient .7s ease-in forwards;letter-spacing:-.3px}
 .date-weekday{font-family:'Space Grotesk',sans-serif;margin-top:.3rem;margin-left:.6rem;position:absolute;animation:animate-gradient .7s ease-in forwards;letter-spacing:-.3px}
 .calendar input[type="date"]{border:none;width:100%;padding:10px;box-sizing:border-box}
-.date-trigger{width:10rem;height:6.875rem;background:var(--color-bg);color:var(--color-fg);padding:1.9rem .5rem;border:none;display:flex;justify-content:space-between;align-items:center;cursor:pointer;transition:background .2s;border-right:1px solid var(--radio-border)}
+.date-trigger{width:18rem;height:6.875rem;background:var(--color-bg);color:var(--color-fg);padding:1.9rem .5rem;border:none;display:flex;justify-content:space-between;align-items:center;cursor:pointer;transition:background .2s;border-right:1px solid var(--radio-border);border-radius:18px 0 0 18px}
 .date-trigger:active{background:var(--radio-color)}
 .calendar{display:none;position:absolute;top:100%;left:0;background:var(--radio-color);border:1px solid #1c1c1c;z-index:10;box-shadow:0 4px 8px #0003;padding:10px}
 .calendar.active{display:block}
@@ -88,10 +91,10 @@ input[type="checkbox"]{margin-right:.5rem}
 }
 .travelers{color:var(--color-fg);font-family:'Space Grotesk',sans-serif;font-size:.8em;position:absolute;top:0;margin:.7rem;animation:animate-gradient .7s ease-in forwards;letter-spacing:-.3px}
 .travelers-display{color:var(--color-fg);font-family:'Space Grotesk',sans-serif;margin-top:.8rem;animation:animate-gradient .7s ease-in forwards;letter-spacing:-.3px}
-.travelers-and-class{position:relative;width:245px;height:6.875rem;background-color:var(--color-bg);border:0 solid #000;cursor:pointer}
+.travelers-and-class{position:relative;width:275px;height:6.875rem;background-color:var(--color-bg);border:0 solid #000;cursor:pointer}
 .travel-class{position:absolute;top:90%;left:51.4%;width:34rem;height:9rem;background-color:var(--calendar-bg);padding:1.3rem;user-select:none;z-index:99999;border:1px solid var(--radio-border);box-shadow:0 4px 12px #0000004d;margin-top:10px}
 .travel-class h5,p{font-size:.6em;margin-top:.5rem;margin-bottom:1rem;padding:0}
-.number-of-travelers{margin-left:-4rem;font-size:2em;font-weight:600}
+.number-of-travelers{margin-left:-7rem;font-size:2em;font-weight:600}
 .display-class{display:block;width:200px;margin-left:1rem;white-space:nowrap;text-align:left}
 .children-section{width:200px;position:absolute}
 .infants-section{width:200px;left:50%;position:absolute}
@@ -133,3 +136,4 @@ input[type="checkbox"]{margin-right:.5rem}
 .checkin-day,.checkout-day{font-size:2em;margin-right:.3rem;font-weight:600;margin-left:.5rem;margin-bottom:-5px;animation:animate-gradient .7s ease-in forwards}
 .checkin-month,.checkout-month{font-family:'Space Grotesk',sans-serif;font-size:.9rem;animation:animate-gradient .7s ease-in forwards;letter-spacing:-.3px}
 .checkin-weekday,.checkout-weekday{font-family:'Space Grotesk',sans-serif;margin-top:.3rem;margin-left:.6rem;position:absolute;animation:animate-gradient .7s ease-in forwards;letter-spacing:-.3px}
+.glass{background-color:red;height:400px;width:800px}

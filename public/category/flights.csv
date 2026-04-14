@@ -1,0 +1,271 @@
+id,company,flight_number,boarding,duration,landing,cost,offer,boarding_airport,landing_airport,stop,from_city,to_city
+1,Vistara,VI 1000,06:30,2h 0m,08:30,₹4726,Extra ₹210 off,DEL,BOM,Non-Stop,Delhi,Mumbai
+2,Vistara,VI 1001,11:45,2h 24m,14:09,₹9374,Extra ₹410 off,DEL,BOM,Non-Stop,Delhi,Mumbai
+3,AirAsia,AI 1002,19:30,2h 28m,21:58,₹4542,Extra ₹410 off,DEL,BOM,Non-Stop,Delhi,Mumbai
+4,Vistara,VI 1003,11:45,2h 18m,14:03,₹12914,Extra ₹410 off,DEL,BLR,Non-Stop,Delhi,Bengaluru
+5,Vistara,VI 1004,19:30,1h 19m,20:49,₹9897,Extra ₹410 off,DEL,BLR,1 Stop,Delhi,Bengaluru
+6,Vistara,VI 1005,21:30,1h 2m,22:32,₹13507,Extra ₹310 off,DEL,BLR,Non-Stop,Delhi,Bengaluru
+7,Vistara,VI 1006,06:30,2h 22m,08:52,₹11060,Extra ₹410 off,DEL,MAA,Non-Stop,Delhi,Chennai
+8,GoAir,GO 1007,08:00,1h 19m,09:19,₹10907,Extra ₹310 off,DEL,MAA,Non-Stop,Delhi,Chennai
+9,AirAsia,AI 1008,14:30,2h 23m,16:53,₹11964,Extra ₹210 off,DEL,MAA,1 Stop,Delhi,Chennai
+10,SpiceJet,SP 1009,19:30,1h 24m,20:54,₹4602,Extra ₹110 off,DEL,CCU,Non-Stop,Delhi,Kolkata
+11,Vistara,VI 1010,09:30,1h 40m,11:10,₹11424,Extra ₹310 off,DEL,CCU,Non-Stop,Delhi,Kolkata
+12,AirAsia,AI 1011,16:00,2h 21m,18:21,₹10737,Extra ₹410 off,DEL,CCU,Non-Stop,Delhi,Kolkata
+13,SpiceJet,SP 1012,16:00,1h 39m,17:39,₹4356,Extra ₹310 off,DEL,HYD,1 Stop,Delhi,Hyderabad
+14,GoAir,GO 1013,09:30,1h 35m,11:05,₹8849,Extra ₹410 off,DEL,HYD,Non-Stop,Delhi,Hyderabad
+15,Air India,AI 1014,11:45,2h 52m,14:37,₹7823,Extra ₹310 off,DEL,HYD,1 Stop,Delhi,Hyderabad
+16,SpiceJet,SP 1015,13:00,1h 39m,14:39,₹5727,Extra ₹210 off,DEL,GOI,1 Stop,Delhi,Goa
+17,Vistara,VI 1016,11:45,2h 53m,14:38,₹5888,Extra ₹410 off,DEL,GOI,Non-Stop,Delhi,Goa
+18,SpiceJet,SP 1017,16:00,1h 7m,17:07,₹6103,Extra ₹110 off,DEL,GOI,1 Stop,Delhi,Goa
+19,SpiceJet,SP 1018,09:30,1h 14m,10:44,₹12680,Extra ₹210 off,DEL,JAI,1 Stop,Delhi,Jaipur
+20,Air India,AI 1019,08:00,2h 36m,10:36,₹5322,Extra ₹310 off,DEL,JAI,1 Stop,Delhi,Jaipur
+21,AirAsia,AI 1020,19:30,2h 2m,21:32,₹7730,Extra ₹210 off,DEL,JAI,Non-Stop,Delhi,Jaipur
+22,SpiceJet,SP 1021,09:30,2h 16m,11:46,₹10818,Extra ₹410 off,DEL,AMD,Non-Stop,Delhi,Ahmedabad
+23,IndiGo,IN 1022,11:45,1h 39m,13:24,₹9249,Extra ₹310 off,DEL,AMD,1 Stop,Delhi,Ahmedabad
+24,Vistara,VI 1023,13:00,2h 23m,15:23,₹6079,Extra ₹310 off,DEL,AMD,Non-Stop,Delhi,Ahmedabad
+25,IndiGo,IN 1024,06:30,1h 8m,07:38,₹11860,Extra ₹210 off,DEL,PNQ,Non-Stop,Delhi,Pune
+26,Air India,AI 1025,21:30,2h 59m,00:29,₹8087,Extra ₹310 off,DEL,PNQ,Non-Stop,Delhi,Pune
+27,SpiceJet,SP 1026,08:00,1h 49m,09:49,₹9149,Extra ₹310 off,DEL,PNQ,1 Stop,Delhi,Pune
+28,IndiGo,IN 1027,06:30,1h 52m,08:22,₹5292,Extra ₹110 off,BOM,DEL,Non-Stop,Mumbai,Delhi
+29,AirAsia,AI 1028,09:30,1h 4m,10:34,₹13083,Extra ₹310 off,BOM,DEL,Non-Stop,Mumbai,Delhi
+30,GoAir,GO 1029,13:00,1h 19m,14:19,₹12031,Extra ₹110 off,BOM,DEL,Non-Stop,Mumbai,Delhi
+31,IndiGo,IN 1030,06:30,2h 9m,08:39,₹10566,Extra ₹410 off,BOM,BLR,Non-Stop,Mumbai,Bengaluru
+32,SpiceJet,SP 1031,11:45,2h 46m,14:31,₹9783,Extra ₹410 off,BOM,BLR,1 Stop,Mumbai,Bengaluru
+33,IndiGo,IN 1032,13:00,1h 33m,14:33,₹5113,Extra ₹310 off,BOM,BLR,Non-Stop,Mumbai,Bengaluru
+34,Air India,AI 1033,19:30,1h 15m,20:45,₹7361,Extra ₹310 off,BOM,MAA,1 Stop,Mumbai,Chennai
+35,AirAsia,AI 1034,11:45,1h 2m,12:47,₹12765,Extra ₹210 off,BOM,MAA,1 Stop,Mumbai,Chennai
+36,SpiceJet,SP 1035,08:00,2h 25m,10:25,₹8831,Extra ₹410 off,BOM,MAA,Non-Stop,Mumbai,Chennai
+37,Vistara,VI 1036,11:45,1h 2m,12:47,₹8966,Extra ₹110 off,BOM,CCU,Non-Stop,Mumbai,Kolkata
+38,AirAsia,AI 1037,06:30,1h 15m,07:45,₹5506,Extra ₹110 off,BOM,CCU,1 Stop,Mumbai,Kolkata
+39,GoAir,GO 1038,21:30,1h 52m,23:22,₹7411,Extra ₹310 off,BOM,CCU,Non-Stop,Mumbai,Kolkata
+40,Vistara,VI 1039,09:30,1h 38m,11:08,₹9282,Extra ₹410 off,BOM,HYD,1 Stop,Mumbai,Hyderabad
+41,SpiceJet,SP 1040,06:30,2h 54m,09:24,₹9400,Extra ₹410 off,BOM,HYD,Non-Stop,Mumbai,Hyderabad
+42,Vistara,VI 1041,13:00,2h 29m,15:29,₹10347,Extra ₹410 off,BOM,HYD,Non-Stop,Mumbai,Hyderabad
+43,IndiGo,IN 1042,13:00,1h 53m,14:53,₹11455,Extra ₹110 off,BOM,GOI,Non-Stop,Mumbai,Goa
+44,Air India,AI 1043,14:30,1h 14m,15:44,₹7022,Extra ₹310 off,BOM,GOI,Non-Stop,Mumbai,Goa
+45,AirAsia,AI 1044,16:00,1h 25m,17:25,₹12939,Extra ₹410 off,BOM,GOI,Non-Stop,Mumbai,Goa
+46,SpiceJet,SP 1045,13:00,1h 49m,14:49,₹4679,Extra ₹210 off,BOM,JAI,Non-Stop,Mumbai,Jaipur
+47,Vistara,VI 1046,06:30,2h 5m,08:35,₹6208,Extra ₹310 off,BOM,JAI,Non-Stop,Mumbai,Jaipur
+48,SpiceJet,SP 1047,16:00,1h 58m,17:58,₹5954,Extra ₹410 off,BOM,JAI,Non-Stop,Mumbai,Jaipur
+49,Vistara,VI 1048,14:30,1h 53m,16:23,₹13729,Extra ₹110 off,BOM,AMD,Non-Stop,Mumbai,Ahmedabad
+50,SpiceJet,SP 1049,19:30,2h 4m,21:34,₹4113,Extra ₹210 off,BOM,AMD,1 Stop,Mumbai,Ahmedabad
+51,IndiGo,IN 1050,09:30,2h 26m,11:56,₹6424,Extra ₹310 off,BOM,AMD,Non-Stop,Mumbai,Ahmedabad
+52,SpiceJet,SP 1051,11:45,2h 16m,14:01,₹8069,Extra ₹410 off,BOM,PNQ,Non-Stop,Mumbai,Pune
+53,IndiGo,IN 1052,08:00,2h 1m,10:01,₹11873,Extra ₹310 off,BOM,PNQ,Non-Stop,Mumbai,Pune
+54,AirAsia,AI 1053,13:00,2h 34m,15:34,₹5480,Extra ₹310 off,BOM,PNQ,Non-Stop,Mumbai,Pune
+55,AirAsia,AI 1054,06:30,1h 12m,07:42,₹13085,Extra ₹110 off,BLR,DEL,Non-Stop,Bengaluru,Delhi
+56,Air India,AI 1055,11:45,2h 23m,14:08,₹7371,Extra ₹310 off,BLR,DEL,Non-Stop,Bengaluru,Delhi
+57,IndiGo,IN 1056,19:30,1h 32m,21:02,₹11163,Extra ₹410 off,BLR,DEL,Non-Stop,Bengaluru,Delhi
+58,Air India,AI 1057,11:45,2h 25m,14:10,₹13415,Extra ₹210 off,BLR,BOM,Non-Stop,Bengaluru,Mumbai
+59,GoAir,GO 1058,19:30,1h 35m,21:05,₹8076,Extra ₹410 off,BLR,BOM,Non-Stop,Bengaluru,Mumbai
+60,GoAir,GO 1059,09:30,2h 24m,11:54,₹12907,Extra ₹210 off,BLR,BOM,Non-Stop,Bengaluru,Mumbai
+61,Air India,AI 1060,06:30,1h 8m,07:38,₹10859,Extra ₹110 off,BLR,MAA,Non-Stop,Bengaluru,Chennai
+62,AirAsia,AI 1061,16:00,2h 23m,18:23,₹6613,Extra ₹310 off,BLR,MAA,Non-Stop,Bengaluru,Chennai
+63,GoAir,GO 1062,09:30,2h 13m,11:43,₹13455,Extra ₹410 off,BLR,MAA,Non-Stop,Bengaluru,Chennai
+64,GoAir,GO 1063,11:45,2h 13m,13:58,₹11930,Extra ₹110 off,BLR,CCU,Non-Stop,Bengaluru,Kolkata
+65,GoAir,GO 1064,14:30,2h 35m,17:05,₹11547,Extra ₹410 off,BLR,CCU,Non-Stop,Bengaluru,Kolkata
+66,Air India,AI 1065,08:00,2h 1m,10:01,₹10670,Extra ₹410 off,BLR,CCU,1 Stop,Bengaluru,Kolkata
+67,GoAir,GO 1066,11:45,2h 55m,14:40,₹11668,Extra ₹110 off,BLR,HYD,1 Stop,Bengaluru,Hyderabad
+68,GoAir,GO 1067,09:30,1h 51m,11:21,₹10203,Extra ₹210 off,BLR,HYD,Non-Stop,Bengaluru,Hyderabad
+69,SpiceJet,SP 1068,08:00,2h 21m,10:21,₹7024,Extra ₹110 off,BLR,HYD,Non-Stop,Bengaluru,Hyderabad
+70,GoAir,GO 1069,14:30,2h 41m,17:11,₹6120,Extra ₹210 off,BLR,GOI,Non-Stop,Bengaluru,Goa
+71,Vistara,VI 1070,19:30,1h 44m,21:14,₹11629,Extra ₹410 off,BLR,GOI,Non-Stop,Bengaluru,Goa
+72,SpiceJet,SP 1071,09:30,1h 18m,10:48,₹4403,Extra ₹410 off,BLR,GOI,Non-Stop,Bengaluru,Goa
+73,AirAsia,AI 1072,13:00,1h 33m,14:33,₹4805,Extra ₹410 off,BLR,JAI,1 Stop,Bengaluru,Jaipur
+74,GoAir,GO 1073,11:45,2h 12m,13:57,₹4546,Extra ₹310 off,BLR,JAI,Non-Stop,Bengaluru,Jaipur
+75,SpiceJet,SP 1074,09:30,2h 14m,11:44,₹9549,Extra ₹410 off,BLR,JAI,Non-Stop,Bengaluru,Jaipur
+76,Vistara,VI 1075,19:30,1h 40m,21:10,₹11956,Extra ₹110 off,BLR,AMD,1 Stop,Bengaluru,Ahmedabad
+77,Air India,AI 1076,14:30,1h 30m,16:00,₹9126,Extra ₹210 off,BLR,AMD,1 Stop,Bengaluru,Ahmedabad
+78,IndiGo,IN 1077,16:00,1h 47m,17:47,₹13297,Extra ₹310 off,BLR,AMD,Non-Stop,Bengaluru,Ahmedabad
+79,Vistara,VI 1078,13:00,2h 58m,15:58,₹7587,Extra ₹110 off,BLR,PNQ,Non-Stop,Bengaluru,Pune
+80,AirAsia,AI 1079,19:30,1h 2m,20:32,₹11859,Extra ₹110 off,BLR,PNQ,1 Stop,Bengaluru,Pune
+81,Vistara,VI 1080,11:45,2h 28m,14:13,₹10005,Extra ₹310 off,BLR,PNQ,1 Stop,Bengaluru,Pune
+82,GoAir,GO 1081,09:30,2h 56m,12:26,₹11158,Extra ₹210 off,MAA,DEL,Non-Stop,Chennai,Delhi
+83,AirAsia,AI 1082,11:45,1h 19m,13:04,₹12350,Extra ₹210 off,MAA,DEL,1 Stop,Chennai,Delhi
+84,AirAsia,AI 1083,08:00,1h 12m,09:12,₹6594,Extra ₹410 off,MAA,DEL,Non-Stop,Chennai,Delhi
+85,GoAir,GO 1084,16:00,2h 23m,18:23,₹10806,Extra ₹110 off,MAA,BOM,Non-Stop,Chennai,Mumbai
+86,Air India,AI 1085,11:45,1h 36m,13:21,₹11169,Extra ₹110 off,MAA,BOM,Non-Stop,Chennai,Mumbai
+87,GoAir,GO 1086,08:00,1h 7m,09:07,₹9009,Extra ₹110 off,MAA,BOM,Non-Stop,Chennai,Mumbai
+88,AirAsia,AI 1087,11:45,2h 9m,13:54,₹12736,Extra ₹310 off,MAA,BLR,Non-Stop,Chennai,Bengaluru
+89,AirAsia,AI 1088,09:30,2h 0m,11:30,₹12255,Extra ₹410 off,MAA,BLR,Non-Stop,Chennai,Bengaluru
+90,SpiceJet,SP 1089,21:30,2h 18m,23:48,₹4893,Extra ₹410 off,MAA,BLR,Non-Stop,Chennai,Bengaluru
+91,Air India,AI 1090,14:30,1h 49m,16:19,₹10772,Extra ₹210 off,MAA,CCU,1 Stop,Chennai,Kolkata
+92,GoAir,GO 1091,13:00,1h 24m,14:24,₹4342,Extra ₹410 off,MAA,CCU,Non-Stop,Chennai,Kolkata
+93,AirAsia,AI 1092,11:45,2h 9m,13:54,₹9928,Extra ₹410 off,MAA,CCU,1 Stop,Chennai,Kolkata
+94,SpiceJet,SP 1093,16:00,2h 22m,18:22,₹4049,Extra ₹110 off,MAA,HYD,1 Stop,Chennai,Hyderabad
+95,Air India,AI 1094,11:45,2h 21m,14:06,₹5208,Extra ₹310 off,MAA,HYD,Non-Stop,Chennai,Hyderabad
+96,AirAsia,AI 1095,19:30,1h 59m,21:29,₹12083,Extra ₹310 off,MAA,HYD,1 Stop,Chennai,Hyderabad
+97,GoAir,GO 1096,14:30,1h 39m,16:09,₹13669,Extra ₹310 off,MAA,GOI,1 Stop,Chennai,Goa
+98,Vistara,VI 1097,19:30,1h 15m,20:45,₹11332,Extra ₹310 off,MAA,GOI,Non-Stop,Chennai,Goa
+99,SpiceJet,SP 1098,21:30,1h 58m,23:28,₹9648,Extra ₹410 off,MAA,GOI,Non-Stop,Chennai,Goa
+100,SpiceJet,SP 1099,16:00,1h 21m,17:21,₹10082,Extra ₹310 off,MAA,JAI,1 Stop,Chennai,Jaipur
+101,AirAsia,AI 1100,11:45,2h 45m,14:30,₹5953,Extra ₹310 off,MAA,JAI,Non-Stop,Chennai,Jaipur
+102,SpiceJet,SP 1101,19:30,1h 54m,21:24,₹7464,Extra ₹110 off,MAA,JAI,Non-Stop,Chennai,Jaipur
+103,AirAsia,AI 1102,06:30,2h 17m,08:47,₹11641,Extra ₹110 off,MAA,AMD,1 Stop,Chennai,Ahmedabad
+104,GoAir,GO 1103,19:30,1h 0m,20:30,₹9829,Extra ₹110 off,MAA,AMD,Non-Stop,Chennai,Ahmedabad
+105,Air India,AI 1104,08:00,1h 56m,09:56,₹9573,Extra ₹210 off,MAA,AMD,Non-Stop,Chennai,Ahmedabad
+106,GoAir,GO 1105,21:30,1h 43m,23:13,₹13984,Extra ₹210 off,MAA,PNQ,1 Stop,Chennai,Pune
+107,GoAir,GO 1106,11:45,1h 37m,13:22,₹8678,Extra ₹110 off,MAA,PNQ,Non-Stop,Chennai,Pune
+108,IndiGo,IN 1107,08:00,2h 3m,10:03,₹9175,Extra ₹310 off,MAA,PNQ,Non-Stop,Chennai,Pune
+109,GoAir,GO 1108,06:30,1h 57m,08:27,₹13026,Extra ₹410 off,CCU,DEL,1 Stop,Kolkata,Delhi
+110,IndiGo,IN 1109,11:45,1h 45m,13:30,₹7512,Extra ₹210 off,CCU,DEL,Non-Stop,Kolkata,Delhi
+111,Vistara,VI 1110,13:00,1h 56m,14:56,₹4459,Extra ₹110 off,CCU,DEL,Non-Stop,Kolkata,Delhi
+112,Air India,AI 1111,11:45,1h 12m,12:57,₹4063,Extra ₹410 off,CCU,BOM,Non-Stop,Kolkata,Mumbai
+113,IndiGo,IN 1112,06:30,1h 11m,07:41,₹8772,Extra ₹210 off,CCU,BOM,Non-Stop,Kolkata,Mumbai
+114,GoAir,GO 1113,19:30,2h 23m,21:53,₹10827,Extra ₹310 off,CCU,BOM,1 Stop,Kolkata,Mumbai
+115,Vistara,VI 1114,16:00,1h 9m,17:09,₹4976,Extra ₹110 off,CCU,BLR,Non-Stop,Kolkata,Bengaluru
+116,SpiceJet,SP 1115,14:30,2h 36m,17:06,₹8737,Extra ₹110 off,CCU,BLR,Non-Stop,Kolkata,Bengaluru
+117,AirAsia,AI 1116,11:45,2h 42m,14:27,₹8021,Extra ₹110 off,CCU,BLR,Non-Stop,Kolkata,Bengaluru
+118,Air India,AI 1117,19:30,1h 39m,21:09,₹11640,Extra ₹110 off,CCU,MAA,Non-Stop,Kolkata,Chennai
+119,Vistara,VI 1118,06:30,2h 32m,09:02,₹6527,Extra ₹210 off,CCU,MAA,Non-Stop,Kolkata,Chennai
+120,GoAir,GO 1119,08:00,1h 8m,09:08,₹9104,Extra ₹410 off,CCU,MAA,Non-Stop,Kolkata,Chennai
+121,Air India,AI 1120,13:00,2h 21m,15:21,₹10180,Extra ₹310 off,CCU,HYD,Non-Stop,Kolkata,Hyderabad
+122,AirAsia,AI 1121,16:00,2h 49m,18:49,₹9757,Extra ₹410 off,CCU,HYD,1 Stop,Kolkata,Hyderabad
+123,GoAir,GO 1122,19:30,2h 48m,22:18,₹11661,Extra ₹310 off,CCU,HYD,Non-Stop,Kolkata,Hyderabad
+124,IndiGo,IN 1123,13:00,1h 31m,14:31,₹10160,Extra ₹110 off,CCU,GOI,1 Stop,Kolkata,Goa
+125,Vistara,VI 1124,11:45,1h 55m,13:40,₹9337,Extra ₹110 off,CCU,GOI,1 Stop,Kolkata,Goa
+126,SpiceJet,SP 1125,09:30,1h 17m,10:47,₹7296,Extra ₹210 off,CCU,GOI,Non-Stop,Kolkata,Goa
+127,GoAir,GO 1126,09:30,1h 51m,11:21,₹12342,Extra ₹110 off,CCU,JAI,1 Stop,Kolkata,Jaipur
+128,IndiGo,IN 1127,19:30,2h 41m,22:11,₹13662,Extra ₹310 off,CCU,JAI,Non-Stop,Kolkata,Jaipur
+129,AirAsia,AI 1128,16:00,1h 42m,17:42,₹13016,Extra ₹110 off,CCU,JAI,Non-Stop,Kolkata,Jaipur
+130,Air India,AI 1129,19:30,2h 17m,21:47,₹9412,Extra ₹110 off,CCU,AMD,Non-Stop,Kolkata,Ahmedabad
+131,GoAir,GO 1130,08:00,2h 42m,10:42,₹10684,Extra ₹310 off,CCU,AMD,1 Stop,Kolkata,Ahmedabad
+132,GoAir,GO 1131,13:00,1h 19m,14:19,₹10989,Extra ₹410 off,CCU,AMD,Non-Stop,Kolkata,Ahmedabad
+133,Air India,AI 1132,19:30,2h 36m,22:06,₹6429,Extra ₹210 off,CCU,PNQ,Non-Stop,Kolkata,Pune
+134,IndiGo,IN 1133,16:00,2h 7m,18:07,₹11418,Extra ₹210 off,CCU,PNQ,Non-Stop,Kolkata,Pune
+135,GoAir,GO 1134,14:30,1h 38m,16:08,₹13740,Extra ₹210 off,CCU,PNQ,1 Stop,Kolkata,Pune
+136,IndiGo,IN 1135,11:45,1h 43m,13:28,₹7134,Extra ₹110 off,HYD,DEL,Non-Stop,Hyderabad,Delhi
+137,IndiGo,IN 1136,21:30,2h 52m,00:22,₹12078,Extra ₹110 off,HYD,DEL,Non-Stop,Hyderabad,Delhi
+138,Vistara,VI 1137,08:00,2h 53m,10:53,₹10037,Extra ₹410 off,HYD,DEL,1 Stop,Hyderabad,Delhi
+139,Air India,AI 1138,06:30,1h 2m,07:32,₹6990,Extra ₹110 off,HYD,BOM,1 Stop,Hyderabad,Mumbai
+140,GoAir,GO 1139,08:00,2h 39m,10:39,₹8445,Extra ₹310 off,HYD,BOM,Non-Stop,Hyderabad,Mumbai
+141,GoAir,GO 1140,09:30,1h 37m,11:07,₹9854,Extra ₹410 off,HYD,BOM,Non-Stop,Hyderabad,Mumbai
+142,AirAsia,AI 1141,11:45,2h 55m,14:40,₹7430,Extra ₹410 off,HYD,BLR,Non-Stop,Hyderabad,Bengaluru
+143,Air India,AI 1142,09:30,1h 18m,10:48,₹5324,Extra ₹110 off,HYD,BLR,Non-Stop,Hyderabad,Bengaluru
+144,IndiGo,IN 1143,13:00,2h 44m,15:44,₹11216,Extra ₹110 off,HYD,BLR,Non-Stop,Hyderabad,Bengaluru
+145,IndiGo,IN 1144,11:45,1h 20m,13:05,₹7772,Extra ₹110 off,HYD,MAA,Non-Stop,Hyderabad,Chennai
+146,AirAsia,AI 1145,08:00,1h 15m,09:15,₹13442,Extra ₹210 off,HYD,MAA,Non-Stop,Hyderabad,Chennai
+147,Air India,AI 1146,16:00,1h 41m,17:41,₹8118,Extra ₹210 off,HYD,MAA,Non-Stop,Hyderabad,Chennai
+148,IndiGo,IN 1147,08:00,2h 7m,10:07,₹8797,Extra ₹110 off,HYD,CCU,1 Stop,Hyderabad,Kolkata
+149,AirAsia,AI 1148,14:30,2h 16m,16:46,₹9361,Extra ₹110 off,HYD,CCU,Non-Stop,Hyderabad,Kolkata
+150,SpiceJet,SP 1149,09:30,2h 35m,12:05,₹13825,Extra ₹210 off,HYD,CCU,Non-Stop,Hyderabad,Kolkata
+151,Vistara,VI 1150,16:00,1h 16m,17:16,₹11563,Extra ₹410 off,HYD,GOI,Non-Stop,Hyderabad,Goa
+152,GoAir,GO 1151,19:30,2h 2m,21:32,₹13690,Extra ₹110 off,HYD,GOI,Non-Stop,Hyderabad,Goa
+153,AirAsia,AI 1152,11:45,2h 12m,13:57,₹6882,Extra ₹410 off,HYD,GOI,Non-Stop,Hyderabad,Goa
+154,Air India,AI 1153,13:00,2h 46m,15:46,₹7967,Extra ₹110 off,HYD,JAI,Non-Stop,Hyderabad,Jaipur
+155,IndiGo,IN 1154,11:45,1h 5m,12:50,₹11541,Extra ₹310 off,HYD,JAI,1 Stop,Hyderabad,Jaipur
+156,AirAsia,AI 1155,09:30,1h 34m,11:04,₹5976,Extra ₹210 off,HYD,JAI,Non-Stop,Hyderabad,Jaipur
+157,AirAsia,AI 1156,21:30,1h 1m,22:31,₹8902,Extra ₹210 off,HYD,AMD,Non-Stop,Hyderabad,Ahmedabad
+158,Vistara,VI 1157,19:30,1h 10m,20:40,₹10478,Extra ₹210 off,HYD,AMD,Non-Stop,Hyderabad,Ahmedabad
+159,AirAsia,AI 1158,08:00,2h 6m,10:06,₹4420,Extra ₹110 off,HYD,AMD,Non-Stop,Hyderabad,Ahmedabad
+160,AirAsia,AI 1159,14:30,2h 29m,16:59,₹7119,Extra ₹310 off,HYD,PNQ,Non-Stop,Hyderabad,Pune
+161,Vistara,VI 1160,13:00,2h 55m,15:55,₹12882,Extra ₹110 off,HYD,PNQ,Non-Stop,Hyderabad,Pune
+162,Air India,AI 1161,19:30,1h 4m,20:34,₹9997,Extra ₹110 off,HYD,PNQ,Non-Stop,Hyderabad,Pune
+163,AirAsia,AI 1162,19:30,2h 39m,22:09,₹7398,Extra ₹210 off,GOI,DEL,1 Stop,Goa,Delhi
+164,AirAsia,AI 1163,21:30,1h 49m,23:19,₹12362,Extra ₹310 off,GOI,DEL,Non-Stop,Goa,Delhi
+165,Vistara,VI 1164,06:30,2h 46m,09:16,₹12691,Extra ₹110 off,GOI,DEL,1 Stop,Goa,Delhi
+166,IndiGo,IN 1165,16:00,1h 7m,17:07,₹9791,Extra ₹210 off,GOI,BOM,Non-Stop,Goa,Mumbai
+167,Vistara,VI 1166,08:00,1h 9m,09:09,₹13675,Extra ₹110 off,GOI,BOM,1 Stop,Goa,Mumbai
+168,Air India,AI 1167,09:30,2h 12m,11:42,₹11241,Extra ₹410 off,GOI,BOM,Non-Stop,Goa,Mumbai
+169,SpiceJet,SP 1168,19:30,1h 39m,21:09,₹7492,Extra ₹410 off,GOI,BLR,Non-Stop,Goa,Bengaluru
+170,AirAsia,AI 1169,06:30,2h 44m,09:14,₹7731,Extra ₹110 off,GOI,BLR,Non-Stop,Goa,Bengaluru
+171,GoAir,GO 1170,08:00,2h 10m,10:10,₹4717,Extra ₹410 off,GOI,BLR,1 Stop,Goa,Bengaluru
+172,SpiceJet,SP 1171,06:30,2h 58m,09:28,₹12420,Extra ₹110 off,GOI,MAA,Non-Stop,Goa,Chennai
+173,Air India,AI 1172,11:45,2h 23m,14:08,₹11451,Extra ₹310 off,GOI,MAA,Non-Stop,Goa,Chennai
+174,GoAir,GO 1173,19:30,2h 54m,22:24,₹11473,Extra ₹310 off,GOI,MAA,Non-Stop,Goa,Chennai
+175,SpiceJet,SP 1174,19:30,1h 46m,21:16,₹11482,Extra ₹110 off,GOI,CCU,Non-Stop,Goa,Kolkata
+176,Air India,AI 1175,11:45,1h 48m,13:33,₹7194,Extra ₹110 off,GOI,CCU,Non-Stop,Goa,Kolkata
+177,IndiGo,IN 1176,21:30,2h 18m,23:48,₹12494,Extra ₹310 off,GOI,CCU,1 Stop,Goa,Kolkata
+178,SpiceJet,SP 1177,19:30,1h 51m,21:21,₹13845,Extra ₹110 off,GOI,HYD,Non-Stop,Goa,Hyderabad
+179,IndiGo,IN 1178,14:30,1h 25m,15:55,₹13650,Extra ₹110 off,GOI,HYD,Non-Stop,Goa,Hyderabad
+180,Vistara,VI 1179,06:30,1h 6m,07:36,₹12974,Extra ₹110 off,GOI,HYD,Non-Stop,Goa,Hyderabad
+181,AirAsia,AI 1180,11:45,1h 11m,12:56,₹6522,Extra ₹110 off,GOI,JAI,Non-Stop,Goa,Jaipur
+182,AirAsia,AI 1181,13:00,1h 45m,14:45,₹12510,Extra ₹110 off,GOI,JAI,Non-Stop,Goa,Jaipur
+183,Vistara,VI 1182,06:30,1h 9m,07:39,₹10887,Extra ₹110 off,GOI,JAI,1 Stop,Goa,Jaipur
+184,Air India,AI 1183,16:00,2h 4m,18:04,₹5927,Extra ₹310 off,GOI,AMD,1 Stop,Goa,Ahmedabad
+185,Vistara,VI 1184,11:45,2h 28m,14:13,₹7745,Extra ₹110 off,GOI,AMD,Non-Stop,Goa,Ahmedabad
+186,AirAsia,AI 1185,19:30,1h 42m,21:12,₹12976,Extra ₹110 off,GOI,AMD,Non-Stop,Goa,Ahmedabad
+187,Vistara,VI 1186,14:30,1h 0m,15:30,₹6268,Extra ₹210 off,GOI,PNQ,Non-Stop,Goa,Pune
+188,Air India,AI 1187,09:30,1h 58m,11:28,₹7539,Extra ₹310 off,GOI,PNQ,Non-Stop,Goa,Pune
+189,IndiGo,IN 1188,21:30,1h 44m,23:14,₹8792,Extra ₹110 off,GOI,PNQ,Non-Stop,Goa,Pune
+190,Vistara,VI 1189,06:30,1h 21m,07:51,₹11716,Extra ₹410 off,JAI,DEL,Non-Stop,Jaipur,Delhi
+191,SpiceJet,SP 1190,14:30,2h 44m,17:14,₹6585,Extra ₹110 off,JAI,DEL,Non-Stop,Jaipur,Delhi
+192,Air India,AI 1191,19:30,2h 11m,21:41,₹12108,Extra ₹310 off,JAI,DEL,Non-Stop,Jaipur,Delhi
+193,AirAsia,AI 1192,11:45,2h 53m,14:38,₹4110,Extra ₹310 off,JAI,BOM,1 Stop,Jaipur,Mumbai
+194,Air India,AI 1193,06:30,2h 59m,09:29,₹6980,Extra ₹310 off,JAI,BOM,Non-Stop,Jaipur,Mumbai
+195,GoAir,GO 1194,19:30,1h 6m,20:36,₹4056,Extra ₹210 off,JAI,BOM,Non-Stop,Jaipur,Mumbai
+196,SpiceJet,SP 1195,19:30,2h 45m,22:15,₹10978,Extra ₹410 off,JAI,BLR,1 Stop,Jaipur,Bengaluru
+197,SpiceJet,SP 1196,13:00,1h 5m,14:05,₹6198,Extra ₹210 off,JAI,BLR,1 Stop,Jaipur,Bengaluru
+198,IndiGo,IN 1197,11:45,2h 55m,14:40,₹4879,Extra ₹110 off,JAI,BLR,Non-Stop,Jaipur,Bengaluru
+199,AirAsia,AI 1198,11:45,1h 0m,12:45,₹10288,Extra ₹210 off,JAI,MAA,1 Stop,Jaipur,Chennai
+200,Air India,AI 1199,06:30,2h 35m,09:05,₹10018,Extra ₹310 off,JAI,MAA,1 Stop,Jaipur,Chennai
+201,IndiGo,IN 1200,19:30,1h 26m,20:56,₹10128,Extra ₹210 off,JAI,MAA,1 Stop,Jaipur,Chennai
+202,AirAsia,AI 1201,06:30,1h 26m,07:56,₹4019,Extra ₹410 off,JAI,CCU,Non-Stop,Jaipur,Kolkata
+203,GoAir,GO 1202,16:00,2h 41m,18:41,₹9758,Extra ₹110 off,JAI,CCU,Non-Stop,Jaipur,Kolkata
+204,AirAsia,AI 1203,14:30,2h 2m,16:32,₹9158,Extra ₹210 off,JAI,CCU,Non-Stop,Jaipur,Kolkata
+205,Air India,AI 1204,08:00,2h 50m,10:50,₹4966,Extra ₹310 off,JAI,HYD,Non-Stop,Jaipur,Hyderabad
+206,IndiGo,IN 1205,06:30,2h 1m,08:31,₹4259,Extra ₹410 off,JAI,HYD,Non-Stop,Jaipur,Hyderabad
+207,Vistara,VI 1206,14:30,2h 55m,17:25,₹4868,Extra ₹410 off,JAI,HYD,1 Stop,Jaipur,Hyderabad
+208,IndiGo,IN 1207,16:00,1h 2m,17:02,₹8445,Extra ₹110 off,JAI,GOI,Non-Stop,Jaipur,Goa
+209,GoAir,GO 1208,08:00,2h 17m,10:17,₹12501,Extra ₹410 off,JAI,GOI,Non-Stop,Jaipur,Goa
+210,SpiceJet,SP 1209,11:45,1h 19m,13:04,₹5518,Extra ₹410 off,JAI,GOI,Non-Stop,Jaipur,Goa
+211,Vistara,VI 1210,14:30,1h 48m,16:18,₹11225,Extra ₹410 off,JAI,AMD,1 Stop,Jaipur,Ahmedabad
+212,GoAir,GO 1211,16:00,2h 18m,18:18,₹9948,Extra ₹110 off,JAI,AMD,Non-Stop,Jaipur,Ahmedabad
+213,AirAsia,AI 1212,06:30,2h 17m,08:47,₹5599,Extra ₹210 off,JAI,AMD,Non-Stop,Jaipur,Ahmedabad
+214,Vistara,VI 1213,11:45,1h 0m,12:45,₹9667,Extra ₹410 off,JAI,PNQ,Non-Stop,Jaipur,Pune
+215,IndiGo,IN 1214,09:30,1h 22m,10:52,₹13589,Extra ₹110 off,JAI,PNQ,1 Stop,Jaipur,Pune
+216,Air India,AI 1215,19:30,2h 23m,21:53,₹4077,Extra ₹110 off,JAI,PNQ,Non-Stop,Jaipur,Pune
+217,SpiceJet,SP 1216,11:45,2h 55m,14:40,₹13419,Extra ₹410 off,AMD,DEL,Non-Stop,Ahmedabad,Delhi
+218,AirAsia,AI 1217,19:30,1h 2m,20:32,₹8025,Extra ₹210 off,AMD,DEL,1 Stop,Ahmedabad,Delhi
+219,SpiceJet,SP 1218,14:30,1h 45m,16:15,₹6004,Extra ₹410 off,AMD,DEL,1 Stop,Ahmedabad,Delhi
+220,Vistara,VI 1219,06:30,1h 7m,07:37,₹4945,Extra ₹310 off,AMD,BOM,Non-Stop,Ahmedabad,Mumbai
+221,AirAsia,AI 1220,08:00,1h 6m,09:06,₹7603,Extra ₹410 off,AMD,BOM,Non-Stop,Ahmedabad,Mumbai
+222,AirAsia,AI 1221,09:30,1h 55m,11:25,₹9200,Extra ₹310 off,AMD,BOM,Non-Stop,Ahmedabad,Mumbai
+223,SpiceJet,SP 1222,09:30,2h 38m,12:08,₹8420,Extra ₹210 off,AMD,BLR,Non-Stop,Ahmedabad,Bengaluru
+224,Air India,AI 1223,16:00,2h 28m,18:28,₹8007,Extra ₹310 off,AMD,BLR,Non-Stop,Ahmedabad,Bengaluru
+225,Air India,AI 1224,11:45,1h 3m,12:48,₹13735,Extra ₹210 off,AMD,BLR,Non-Stop,Ahmedabad,Bengaluru
+226,GoAir,GO 1225,09:30,1h 52m,11:22,₹8755,Extra ₹210 off,AMD,MAA,1 Stop,Ahmedabad,Chennai
+227,GoAir,GO 1226,14:30,1h 43m,16:13,₹8012,Extra ₹110 off,AMD,MAA,Non-Stop,Ahmedabad,Chennai
+228,Vistara,VI 1227,13:00,1h 42m,14:42,₹11241,Extra ₹410 off,AMD,MAA,Non-Stop,Ahmedabad,Chennai
+229,SpiceJet,SP 1228,21:30,2h 20m,23:50,₹9667,Extra ₹110 off,AMD,CCU,Non-Stop,Ahmedabad,Kolkata
+230,AirAsia,AI 1229,19:30,2h 24m,21:54,₹13345,Extra ₹110 off,AMD,CCU,Non-Stop,Ahmedabad,Kolkata
+231,IndiGo,IN 1230,16:00,2h 59m,18:59,₹4712,Extra ₹110 off,AMD,CCU,Non-Stop,Ahmedabad,Kolkata
+232,GoAir,GO 1231,14:30,1h 29m,15:59,₹10513,Extra ₹310 off,AMD,HYD,Non-Stop,Ahmedabad,Hyderabad
+233,IndiGo,IN 1232,08:00,1h 24m,09:24,₹7978,Extra ₹110 off,AMD,HYD,Non-Stop,Ahmedabad,Hyderabad
+234,Air India,AI 1233,19:30,2h 19m,21:49,₹7812,Extra ₹310 off,AMD,HYD,Non-Stop,Ahmedabad,Hyderabad
+235,AirAsia,AI 1234,13:00,1h 8m,14:08,₹12233,Extra ₹210 off,AMD,GOI,Non-Stop,Ahmedabad,Goa
+236,AirAsia,AI 1235,14:30,2h 18m,16:48,₹10102,Extra ₹110 off,AMD,GOI,Non-Stop,Ahmedabad,Goa
+237,IndiGo,IN 1236,11:45,1h 21m,13:06,₹12612,Extra ₹110 off,AMD,GOI,Non-Stop,Ahmedabad,Goa
+238,SpiceJet,SP 1237,11:45,1h 28m,13:13,₹12303,Extra ₹110 off,AMD,JAI,Non-Stop,Ahmedabad,Jaipur
+239,Vistara,VI 1238,21:30,1h 22m,22:52,₹6167,Extra ₹110 off,AMD,JAI,1 Stop,Ahmedabad,Jaipur
+240,AirAsia,AI 1239,16:00,1h 59m,17:59,₹5318,Extra ₹210 off,AMD,JAI,Non-Stop,Ahmedabad,Jaipur
+241,GoAir,GO 1240,16:00,2h 0m,18:00,₹9744,Extra ₹210 off,AMD,PNQ,1 Stop,Ahmedabad,Pune
+242,SpiceJet,SP 1241,14:30,2h 3m,16:33,₹7978,Extra ₹310 off,AMD,PNQ,1 Stop,Ahmedabad,Pune
+243,SpiceJet,SP 1242,21:30,2h 39m,00:09,₹13272,Extra ₹110 off,AMD,PNQ,Non-Stop,Ahmedabad,Pune
+244,GoAir,GO 1243,16:00,1h 18m,17:18,₹7209,Extra ₹110 off,PNQ,DEL,1 Stop,Pune,Delhi
+245,Vistara,VI 1244,19:30,2h 0m,21:30,₹13998,Extra ₹210 off,PNQ,DEL,Non-Stop,Pune,Delhi
+246,GoAir,GO 1245,08:00,1h 0m,09:00,₹4791,Extra ₹110 off,PNQ,DEL,Non-Stop,Pune,Delhi
+247,Air India,AI 1246,08:00,1h 2m,09:02,₹11197,Extra ₹310 off,PNQ,BOM,Non-Stop,Pune,Mumbai
+248,GoAir,GO 1247,16:00,2h 8m,18:08,₹4270,Extra ₹210 off,PNQ,BOM,1 Stop,Pune,Mumbai
+249,Vistara,VI 1248,21:30,2h 28m,23:58,₹11959,Extra ₹410 off,PNQ,BOM,Non-Stop,Pune,Mumbai
+250,Vistara,VI 1249,11:45,1h 16m,13:01,₹13942,Extra ₹410 off,PNQ,BLR,Non-Stop,Pune,Bengaluru
+251,AirAsia,AI 1250,09:30,2h 28m,11:58,₹8533,Extra ₹110 off,PNQ,BLR,Non-Stop,Pune,Bengaluru
+252,AirAsia,AI 1251,16:00,1h 36m,17:36,₹13765,Extra ₹410 off,PNQ,BLR,Non-Stop,Pune,Bengaluru
+253,Vistara,VI 1252,11:45,1h 8m,12:53,₹7432,Extra ₹210 off,PNQ,MAA,Non-Stop,Pune,Chennai
+254,IndiGo,IN 1253,16:00,2h 56m,18:56,₹10148,Extra ₹110 off,PNQ,MAA,Non-Stop,Pune,Chennai
+255,SpiceJet,SP 1254,08:00,2h 22m,10:22,₹9134,Extra ₹410 off,PNQ,MAA,Non-Stop,Pune,Chennai
+256,SpiceJet,SP 1255,09:30,2h 41m,12:11,₹9180,Extra ₹410 off,PNQ,CCU,Non-Stop,Pune,Kolkata
+257,GoAir,GO 1256,08:00,2h 26m,10:26,₹11126,Extra ₹210 off,PNQ,CCU,Non-Stop,Pune,Kolkata
+258,Vistara,VI 1257,16:00,1h 9m,17:09,₹10907,Extra ₹110 off,PNQ,CCU,Non-Stop,Pune,Kolkata
+259,IndiGo,IN 1258,06:30,1h 13m,07:43,₹11631,Extra ₹310 off,PNQ,HYD,1 Stop,Pune,Hyderabad
+260,AirAsia,AI 1259,08:00,1h 46m,09:46,₹10269,Extra ₹110 off,PNQ,HYD,Non-Stop,Pune,Hyderabad
+261,IndiGo,IN 1260,09:30,1h 24m,10:54,₹8527,Extra ₹310 off,PNQ,HYD,Non-Stop,Pune,Hyderabad
+262,Air India,AI 1261,09:30,2h 47m,12:17,₹12457,Extra ₹210 off,PNQ,GOI,Non-Stop,Pune,Goa
+263,AirAsia,AI 1262,08:00,2h 4m,10:04,₹5471,Extra ₹410 off,PNQ,GOI,Non-Stop,Pune,Goa
+264,SpiceJet,SP 1263,19:30,1h 11m,20:41,₹6739,Extra ₹310 off,PNQ,GOI,Non-Stop,Pune,Goa
+265,Vistara,VI 1264,06:30,1h 33m,08:03,₹6708,Extra ₹210 off,PNQ,JAI,1 Stop,Pune,Jaipur
+266,Air India,AI 1265,08:00,2h 46m,10:46,₹5225,Extra ₹410 off,PNQ,JAI,Non-Stop,Pune,Jaipur
+267,SpiceJet,SP 1266,21:30,1h 7m,22:37,₹10474,Extra ₹210 off,PNQ,JAI,Non-Stop,Pune,Jaipur
+268,SpiceJet,SP 1267,06:30,1h 34m,08:04,₹7818,Extra ₹310 off,PNQ,AMD,Non-Stop,Pune,Ahmedabad
+269,SpiceJet,SP 1268,19:30,2h 57m,22:27,₹13740,Extra ₹110 off,PNQ,AMD,1 Stop,Pune,Ahmedabad
+270,GoAir,GO 1269,08:00,2h 20m,10:20,₹5952,Extra ₹310 off,PNQ,AMD,Non-Stop,Pune,Ahmedabad

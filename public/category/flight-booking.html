@@ -7,13 +7,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Varela&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet" />
     <title>Flight Booking Summary</title>
     <link rel="stylesheet" href="../category/css/flight-booking.css">
     <link rel="stylesheet" href="../css/styles.css">
     <link rel="stylesheet" href="../css/themes.css">
     <link rel="stylesheet" href="../css/navbar.css">
+    <link rel="stylesheet" href="../css/login-popup.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="../js/auth.js"></script>
 </head>
 
 <body>
@@ -25,7 +28,6 @@
                 <button class="dropdown-btn" onclick="toggleDropdown()">▼</button>
                 <div class="dropdown-content" id="dropdown-menu">
                     <a href="dashboard.html">Dashboard</a>
-                    <a href="scanner/scanner-info.html">Scan Tickets</a>
                     <a href="#" onclick="logout()">Logout</a>
                 </div>
             </div>
@@ -277,6 +279,31 @@
         }
 
         function handlePaymentSuccess(response) {
+            // Gather search context from URL params and page state
+            const urlParams = new URLSearchParams(window.location.search);
+            const searchContext = {
+                tripType: urlParams.get('tripType') || localStorage.getItem('flightTripType') || 'one-way',
+                timeslot: urlParams.get('timeslot') || localStorage.getItem('flightTimeslot') || 'Anytime',
+                travelClass: urlParams.get('class') || localStorage.getItem('flightClass') || 'Economy',
+                adults: urlParams.get('adults') || localStorage.getItem('flightAdults') || '1',
+                departure: urlParams.get('departure') || localStorage.getItem('flightDeparture') || '',
+                returnDate: urlParams.get('return') || localStorage.getItem('flightReturn') || '',
+                specialFare: urlParams.get('fare') || localStorage.getItem('flightSpecialFare') || 'Regular'
+            };
+
+            // Gather user info from Supabase session if available
+            let userInfo = {};
+            try {
+                const session = JSON.parse(localStorage.getItem('sb-bbmtcjjhcnjpfglltqyl-auth-token') || '{}');
+                const user = session?.user || {};
+                const profile = JSON.parse(localStorage.getItem('userProfile') || '{}');
+                userInfo = {
+                    username: profile.username || user.user_metadata?.username || user.email?.split('@')[0] || '',
+                    email: user.email || profile.email || '',
+                    phone: profile.phone || user.phone || ''
+                };
+            } catch(e) { console.log('Could not read user info:', e); }
+
             // Store payment details
             const paymentData = {
                 razorpay_payment_id: response.razorpay_payment_id,
@@ -284,8 +311,11 @@
                 razorpay_signature: response.razorpay_signature,
                 amount: totalAmount,
                 flight_details: flightDetails,
+                search_context: searchContext,
+                user_info: userInfo,
                 booking_date: new Date().toISOString(),
-                status: 'success'
+                status: 'success',
+                type: 'flight'
             };
 
             localStorage.setItem('paymentData', JSON.stringify(paymentData));
@@ -295,7 +325,7 @@
 
             // Redirect to success page after 2 seconds
             setTimeout(() => {
-                window.location.href = '../payment-status.html?status=success';
+                window.location.href = '../payment-status.html?status=success&type=flight';
             }, 2000);
         }
 
@@ -320,7 +350,7 @@
 
             // Optionally redirect to failure page
             setTimeout(() => {
-                window.location.href = '../payment-status.html?status=failed';
+                window.location.href = '../payment-status.html?status=failed&type=flight';
             }, 3000);
         }
 

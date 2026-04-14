@@ -10,7 +10,7 @@ async function proceedToPayment() {
     const termsCheckbox = document.querySelector('input[type="checkbox"]');
     const termsLabel = document.querySelector('.container1');
     const termsLabelA = document.querySelector('.container1 a');
-    const termsCheckmark = document.querySelector('.checkmark');
+    const termsCheckmark = document.querySelector('.chkmrk');
 
     if (!name || !email || !phone || !dateOfAttendance) {
         alert('Please fill out all fields.');

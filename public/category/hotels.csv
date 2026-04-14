@@ -1,21 +1,21 @@
 id,name,location,rating,price,offer,image,features,reviews
-1,Hotel Ananya Palace,Jaipur,9.2,1499,+ ₹277 taxes & fees per night,../category/images/h1.jpeg,"Free Wi-Fi;Room Service;Breakfast Included",378
-2,Tranquil Haveli Resort,Udaipur,8.5,2099,+ ₹320 taxes & fees per night,../category/images/h2.jpg,"Swimming pool;Free Wi-Fi;Free Cancellation",254
-3,The Lotus Edge,Madurai,6.3,999,+ ₹150 taxes & fees per night,../category/images/h3.jpg,"Room Service;Pay at Hotel;Free Wi-Fi",142
-4,Blue Orchid Residency,Manali,7.8,1799,+ ₹200 taxes & fees per night,../category/images/h4.jpg,"Breakfast Included;Swimming pool;Free Cancellation",196
-5,Ocean Breeze Villa,Alleppey,9.0,2299,+ ₹310 taxes & fees per night,../category/images/h5.jpg,"Free Wi-Fi;Pay at Hotel;Breakfast Included",412
-6,Palm Grove Inn,Coorg,5.6,899,+ ₹120 taxes & fees per night,../category/images/h6.jpg,"Free Wi-Fi;Room Service",87
-7,Serene Shores Resort,Pondicherry,4.3,1099,+ ₹180 taxes & fees per night,../category/images/h7.jpg,"Free Cancellation;Breakfast Included;Pay at Hotel",133
-8,Sunset Bay Residency,Visakhapatnam,8.9,1999,+ ₹280 taxes & fees per night,../category/images/h8.jpg,"Swimming pool;Free Wi-Fi;Room Service",305
-9,Royal Breeze Hotel,Shimla,7.5,1699,+ ₹210 taxes & fees per night,../category/images/h9.jpg,"Free Wi-Fi;Room Service;Pay at Hotel",189
-10,Saffron Hill Retreat,Mysuru,8.8,2199,+ ₹295 taxes & fees per night,../category/images/h10.jpg,"Swimming pool;Free Cancellation;Breakfast Included",267
-11,The Fern Leaf,Kodaikanal,6.7,1199,+ ₹175 taxes & fees per night,../category/images/h11.jpg,"Room Service;Free Wi-Fi",123
-12,Amber Woods Hotel,Nainital,9.1,2399,+ ₹330 taxes & fees per night,../category/images/h12.jpg,"Free Wi-Fi;Breakfast Included;Free Cancellation",356
-13,Maple Tree Inn,Lonavala,5.9,999,+ ₹160 taxes & fees per night,../category/images/h13.jpg,"Pay at Hotel;Room Service",98
-14,Silver Cloud Residency,Ooty,7.4,1899,+ ₹250 taxes & fees per night,../category/images/h14.jpg,"Swimming pool;Free Wi-Fi;Breakfast Included",204
-15,Crystal Lake Hotel,Rishikesh,8.0,1599,+ ₹220 taxes & fees per night,../category/images/h15.jpg,"Room Service;Free Cancellation",173
-16,Whispering Pines Retreat,Darjeeling,6.5,1399,+ ₹190 taxes & fees per night,../category/images/h16.jpg,"Free Wi-Fi;Breakfast Included",145
-17,Golden Orchid Inn,Mount Abu,9.3,2499,+ ₹340 taxes & fees per night,../category/images/h17.jpg,"Swimming pool;Free Wi-Fi;Pay at Hotel",387
-18,Coconut Grove Resort,Goa,8.6,2099,+ ₹310 taxes & fees per night,../category/images/h18.jpg,"Free Cancellation;Room Service;Breakfast Included",276
-19,Emerald View Hotel,Agra,4.8,899,+ ₹135 taxes & fees per night,../category/images/h19.jpg,"Pay at Hotel;Free Wi-Fi",68
-20,Rosewood Residency,Shillong,7.9,1799,+ ₹240 taxes & fees per night,../category/images/h20.jpg,"Swimming pool;Room Service",194
+1,The Westin Pune,"Located in Pune, Koregaon Park",9.2,8500,+ ₹1200 taxes & fees per night,../category/images/h1.jpeg,"Free Wi-Fi;Swimming pool;Spa",1240
+2,Conrad Pune,"Located in Pune, Kalyani Nagar",9.5,9200,+ ₹1500 taxes & fees per night,../category/images/h2.jpg,"Luxury Spa;Outdoor pool;Fine Dining",980
+3,Hyatt Regency,"Located in Pune, Viman Nagar",8.8,7200,+ ₹900 taxes & fees per night,../category/images/h3.jpg,"Airport Shuttle;Free Wi-Fi;Fitness Center",1560
+4,JW Marriott,"Located in Pune, Shivaji Nagar",9.4,11000,+ ₹2000 taxes & fees per night,../category/images/h4.jpg,"Infinity Pool;Multiple Restaurants;Mountain View",2100
+5,Radisson Blu,"Located in Pune, Hinjewadi",8.4,5500,+ ₹750 taxes & fees per night,../category/images/h5.jpg,"Business Center;Free Wi-Fi;Buffet Breakfast",850
+6,Novotel Pune,"Located in Pune, Viman Nagar",8.2,4800,+ ₹600 taxes & fees per night,../category/images/h6.jpg,"Family Friendly;Swimming pool;Free Wi-Fi",720
+7,The Pride Hotel,"Located in Pune, Shivaji Nagar",7.5,3500,+ ₹500 taxes & fees per night,../category/images/h7.jpg,"Central Location;Room Service;Breakfast",1100
+8,Sayaji Hotel,"Located in Pune, Wakad",8.7,4200,+ ₹550 taxes & fees per night,../category/images/h8.jpg,"Eco Friendly;Free Wi-Fi;Excellent Service",1350
+9,Vivanta Pune,"Located in Pune, Hinjewadi",8.5,5800,+ ₹800 taxes & fees per night,../category/images/h9.jpg,"Modern Decor;Swimming pool;Bar",640
+10,Lemon Tree Hotel,"Located in Pune, Hinjewadi",7.8,3200,+ ₹400 taxes & fees per night,../category/images/h10.jpg,"Budget Friendly;Free Wi-Fi;Cafe",920
+11,Ibis Pune,"Located in Pune, Viman Nagar",7.4,2800,+ ₹350 taxes & fees per night,../category/images/h11.jpg,"Compact Rooms;Free Wi-Fi;Bar",1150
+12,Blue Diamond,"Located in Pune, Koregaon Park",8.9,7800,+ ₹1100 taxes & fees per night,../category/images/h12.jpg,"Heritage;Garden View;Swimming pool",890
+13,Orchid Hotel,"Located in Pune, Balewadi",8.1,4500,+ ₹600 taxes & fees per night,../category/images/h13.jpg,"Rooftop Pool;Free Wi-Fi;Gym",1050
+14,Hopp Inn,"Located in Pune, Viman Nagar",7.2,1800,+ ₹200 taxes & fees per night,../category/images/h14.jpg,"Budget Stay;Free Wi-Fi;Clean",420
+15,St Laurn Hotel,"Located in Pune, Koregaon Park",8.3,4200,+ ₹550 taxes & fees per night,../category/images/h15.jpg,"Boutique style;Spa;Swimming pool",680
+16,Hotel Aurora Towers,"Located in Pune, Camp",7.6,2200,+ ₹300 taxes & fees per night,../category/images/h16.jpg,"Classic;City View;Room Service",750
+17,Fortune Inn Jukaso,"Located in Pune, Viman Nagar",7.9,3100,+ ₹400 taxes & fees per night,../category/images/h17.jpg,"Business Hotel;Free Wi-Fi;Cafe",530
+18,Central Park Hotel,"Located in Pune, Shivaji Nagar",8.0,2900,+ ₹350 taxes & fees per night,../category/images/h18.jpg,"Modern;Central;Free Wi-Fi",410
+19,Hotel Sagar Plaza,"Located in Pune, Camp",7.7,2100,+ ₹250 taxes & fees per night,../category/images/h19.jpg,"Rooftop Dining;Room Service",590
+20,Keys Select by Lemon Tree,"Located in Pune, Pimpri",7.5,2400,+ ₹300 taxes & fees per night,../category/images/h20.jpg,"Free Wi-Fi;Gym;Efficient",380

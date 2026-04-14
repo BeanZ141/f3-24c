@@ -5,9 +5,11 @@ function showSplashScreen() {
     const hasVisited = sessionStorage.getItem('hasVisited');
     
     if (!hasVisited) {
-
         splashScreen.style.display = 'flex';
         mainContent.style.display = 'none';
+
+        // Initialize topography background
+        initTopography();
 
         sessionStorage.setItem('hasVisited', 'true');
         
@@ -18,11 +20,76 @@ function showSplashScreen() {
                 splashScreen.style.display = 'none';
                 showMainContent();
             }, 800);
-        }, 2500);
+        }, 3500); // Increased time slightly to appreciate the background
     } else {
         splashScreen.style.display = 'none';
         showMainContent();
     }
+}
+
+function initTopography() {
+    const canvas = document.getElementById('splash-canvas');
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+    let width, height;
+    let lines = [];
+    let animationId;
+
+    const isDark = document.documentElement.classList.contains('dark-mode');
+    const color = isDark ? 'rgba(255, 255, 255, 0.15)' : 'rgba(0, 0, 0, 0.1)';
+
+    function resize() {
+        width = canvas.width = window.innerWidth;
+        height = canvas.height = window.innerHeight;
+        generateLines();
+    }
+
+    function generateLines() {
+        lines = [];
+        const lineCount = 18;
+        for (let i = 0; i < lineCount; i++) {
+            lines.push({
+                y: (height / lineCount) * i,
+                amplitude: Math.random() * 50 + 20,
+                speed: Math.random() * 0.01 + 0.005,
+                offset: Math.random() * 100,
+                thickness: Math.random() * 1.5 + 0.5
+            });
+        }
+    }
+
+    function draw() {
+        ctx.clearRect(0, 0, width, height);
+        ctx.strokeStyle = color;
+        
+        lines.forEach(line => {
+            ctx.beginPath();
+            ctx.lineWidth = line.thickness;
+            
+            for (let x = 0; x <= width; x += 10) {
+                // Combine multiple sine waves for a "topography" look
+                const noise = Math.sin(x * 0.002 + line.offset) * line.amplitude +
+                              Math.sin(x * 0.005 + line.offset * 0.5) * (line.amplitude / 2);
+                
+                if (x === 0) ctx.moveTo(x, line.y + noise);
+                else ctx.lineTo(x, line.y + noise);
+            }
+            ctx.stroke();
+            line.offset += line.speed;
+        });
+
+        animationId = requestAnimationFrame(draw);
+    }
+
+    window.addEventListener('resize', resize);
+    resize();
+    draw();
+
+    // Clean up when fade out finishes
+    setTimeout(() => {
+        window.removeEventListener('resize', resize);
+        cancelAnimationFrame(animationId);
+    }, 4500);
 }
 
 function showMainContent() {

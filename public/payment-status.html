@@ -5,300 +5,638 @@
     <script src="js/theme.js"></script>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>Payment Status · Ticketease</title>
     <link rel="icon" href="images/favicon.png" type="image/png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="stylesheet"
-        href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Varela&display=swap">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/styles.css">
     <link rel="stylesheet" href="css/themes.css">
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-    <title>Payment Status · Ticketease</title>
-    <link rel="icon" href="images/favicon.png" type="image/png" />
-    <style>
-        html,
-        body {
-            height: 100%;
-        }
-
-        body {
-            margin: 0;
-            font-family: var(--body-font), sans-serif !important;
-            background: var(--color-bg);
-            color: var(--fg);
-        }
-
-        .wrap {
-            min-height: 100%;
-            display: grid;
-            place-items: center;
-        }
-
-        .card {
-            width: 100%;
-            max-width: 560px;
-            background: var(--color-bg);
-            border: 1px solid var(--radio-border);
-            
-            padding: 28px;
-        }
-
-        .head {
-            display: grid;
-            grid-template-columns: 56px 1fr;
-            gap: 16px;
-            align-items: center;
-            margin-bottom: 8px;
-        }
-
-        .status-icon {
-            width: 56px;
-            height: 56px;
-            display: grid;
-            place-items: center;
-            
-            background: linear-gradient(180deg, rgba(255, 255, 255, .06), rgba(255, 255, 255, 0));
-            border: 1px solid var(--radio-border);
-        }
-
-        .status-icon svg {
-            width: 28px;
-            height: 28px;
-        }
-
-        .title {
-            color: var(--color-fg);
-            margin: 0;
-            font-size: 1.25rem;
-            letter-spacing: .04em;
-            text-transform: uppercase;
-            font-weight: 600;
-        }
-
-        .subtitle {
-            margin: 4px 0 0 0;
-            color: var(--color-fg);
-            font-size: .95rem;
-        }
-
-        .details {
-            margin-top: 18px;
-            border-top: 1px dashed var(--radio-border);
-            padding-top: 16px;
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 12px 16px;
-        }
-
-        .detail {
-            display: grid;
-            gap: 6px;
-        }
-
-        .label {
-            color: var(--color-fg);
-            font-size: .9rem;
-            text-decoration: underline;
-            text-underline-offset: 4px;
-            text-decoration-color: var(--tnc-color);
-            letter-spacing: .04em;
-            text-transform: uppercase;
-        }
-
-        .value {
-            color: var(--color-fg);
-            font-variant-numeric: tabular-nums;
-        }
-
-        .actions {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 10px;
-            margin-top: 22px;
-        }
-
-        .btn {
-            display: inline-flex;
-            justify-content: center;
-            align-items: center;
-            gap: 8px;
-            padding: 12px 16px;
-            
-            border: 1px solid var(--radio-border);
-            background: var(--color-bg);
-            color: var(--color-fg);
-            text-decoration: none;
-            font-weight: 600;
-            letter-spacing: .04em;
-            text-transform: uppercase;
-            transition: transform .08s ease, background .15s ease, border-color .15s ease, opacity .15s ease;
-            will-change: transform;
-            cursor: pointer;
-        }
-
-        .btn:hover {
-            border: 1px solid var(--color-fg);
-            background: var(--color-fg) !important;
-            color: var(--color-bg);
-        }
-
-        .btn:hover {
-            background: var(--btn-bg-hover);
-        }
-
-        .btn:active {
-            transform: translateY(1px);
-        }
-
-        .muted-note {
-            margin-top: 20px;
-            margin-bottom: 0px;
-            color: var(--color-fg);
-            font-size: .85rem;
-        }
-
-        .ok {
-            color: var(--success);
-        }
-
-        .fail {
-            color: var(--danger);
-        }
-
-        .unk {
-            color: var(--warn);
-        }
-    </style>
+    <link rel="stylesheet" href="css/payment-status.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 </head>
 
 <body>
-    <main class="wrap">
-        <section class="card" aria-live="polite">
-            <header class="head">
-                <div class="status-icon" id="statusIcon" aria-hidden="true">
-                    <!-- Icon injected by JS -->
-                </div>
-                <div>
-                    <h1 class="title" id="statusTitle">Payment Status</h1>
-                    <p class="subtitle" id="statusSubtitle">Checking your payment…</p>
-                </div>
-            </header>
+    <div class="receipt-page" id="receiptPage">
 
-            <div class="details" id="details">
-                <div class="detail">
-                    <div class="label">Payment ID</div>
-                    <div class="value" id="paymentId">—</div>
-                </div>
-                <div class="detail">
-                    <div class="label">Amount</div>
-                    <div class="value" id="paymentAmount">—</div>
-                </div>
-                <div class="detail">
-                    <div class="label">Route</div>
-                    <div class="value" id="flightRoute">—</div>
-                </div>
-                <div class="detail">
-                    <div class="label">Date</div>
-                    <div class="value" id="bookingDate">—</div>
+        <!-- ── HEADER ── -->
+        <header class="receipt-header">
+            <div class="receipt-brand">
+                <span class="receipt-brand-name">Ticketease</span>
+                <span class="receipt-brand-sub" id="headerSub">Booking Confirmation</span>
+            </div>
+            <div class="status-badge" id="statusBadge">
+                <i class="fas fa-check" id="statusIcon"></i>
+                <span id="statusText">CONFIRMED</span>
+            </div>
+        </header>
+
+        <!-- ── RECEIPT BODY ── -->
+        <div class="receipt-body" id="receiptBody">
+
+            <!-- ─ USER INFO ─ -->
+            <div class="receipt-section" id="userSection">
+                <div class="section-label"><i class="fas fa-user"></i> Passenger / User <span></span></div>
+                <div class="info-grid">
+                    <div class="info-cell">
+                        <span class="info-key">Username</span>
+                        <span class="info-val" id="userName">—</span>
+                    </div>
+                    <div class="info-cell">
+                        <span class="info-key">Email</span>
+                        <span class="info-val" id="userEmail">—</span>
+                    </div>
+                    <div class="info-cell" id="phoneCell">
+                        <span class="info-key">Phone</span>
+                        <span class="info-val" id="userPhone">—</span>
+                    </div>
+                    <div class="info-cell">
+                        <span class="info-key">Booking Date</span>
+                        <span class="info-val" id="bookingDate">—</span>
+                    </div>
                 </div>
             </div>
 
-            <div class="actions">
-                <a id="primaryLink" href="./index.html" class="btn"><span id="primaryText">Book More
-                        Flights</span></a>
-                <a id="secondaryLink" href="index.html" class="btn" style="opacity:.9"><span id="secondaryText">Go
-                        Home</span></a>
+            <!-- ─ PAYMENT INFO ─ -->
+            <div class="receipt-section" id="paymentSection">
+                <div class="section-label"><i class="fas fa-credit-card"></i> Payment Details <span></span></div>
+                <div class="info-grid">
+                    <div class="info-cell full">
+                        <span class="info-key">Payment ID (Razorpay)</span>
+                        <span class="info-val mono" id="paymentId">—</span>
+                    </div>
+                    <div class="info-cell" id="orderIdCell">
+                        <span class="info-key">Order ID</span>
+                        <span class="info-val mono" id="orderId">—</span>
+                    </div>
+                    <div class="info-cell" id="upiCell">
+                        <span class="info-key">Payment Method</span>
+                        <span class="info-val" id="paymentMethod">Razorpay</span>
+                    </div>
+                </div>
             </div>
 
-            <p class="muted-note" id="note" hidden>Tip: Save your Payment ID for future reference.</p>
-        </section>
-    </main>
+            <!-- ─ FLIGHT DETAILS (shown only for flights) ─ -->
+            <div class="receipt-section hidden" id="flightSection">
+                <div class="section-label"><i class="fas fa-plane"></i> Flight Details <span></span></div>
+                <div class="route-display">
+                    <div class="route-city">
+                        <span class="route-code" id="fFrom">—</span>
+                        <span class="route-name" id="fFromName">Departure</span>
+                        <span class="route-time" id="fBoardTime">—</span>
+                    </div>
+                    <div class="route-connector">
+                        <div class="route-line"></div>
+                        <span class="route-duration" id="fDuration">—</span>
+                        <i class="fas fa-plane route-icon"></i>
+                    </div>
+                    <div class="route-city right">
+                        <span class="route-code" id="fTo">—</span>
+                        <span class="route-name" id="fToName">Arrival</span>
+                        <span class="route-time" id="fLandTime">—</span>
+                    </div>
+                </div>
+                <div class="meta-strip" id="flightMeta">
+                    <div class="meta-item">
+                        <span class="info-key">Flight ID</span>
+                        <span class="info-val" id="fFlightId">—</span>
+                    </div>
+                    <div class="meta-item">
+                        <span class="info-key">Airline</span>
+                        <span class="info-val" id="fAirline">—</span>
+                    </div>
+                    <div class="meta-item">
+                        <span class="info-key">Stops</span>
+                        <span class="info-val" id="fStops">—</span>
+                    </div>
+                    <div class="meta-item">
+                        <span class="info-key">Trip Type</span>
+                        <span class="info-val" id="fTripType">—</span>
+                    </div>
+                    <div class="meta-item" id="fDepartureCell">
+                        <span class="info-key">Departure</span>
+                        <span class="info-val" id="fDeparture">—</span>
+                    </div>
+                    <div class="meta-item hidden" id="fReturnCell">
+                        <span class="info-key">Return</span>
+                        <span class="info-val" id="fReturn">—</span>
+                    </div>
+                    <div class="meta-item">
+                        <span class="info-key">Travelers & Class</span>
+                        <span class="info-val" id="fClass">—</span>
+                    </div>
+                    <div class="meta-item">
+                        <span class="info-key">Timeslot</span>
+                        <span class="info-val" id="fTimeslot">—</span>
+                    </div>
+                    <div class="meta-item">
+                        <span class="info-key">Special Fare</span>
+                        <span class="info-val" id="fSpecialFare">—</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ─ HOTEL DETAILS (shown only for hotels) ─ -->
+            <div class="receipt-section hidden" id="hotelSection">
+                <div class="section-label"><i class="fas fa-hotel"></i> Hotel Details <span></span></div>
+                <div class="info-grid">
+                    <div class="info-cell full">
+                        <span class="info-key">Hotel</span>
+                        <span class="info-val large" id="hName">—</span>
+                    </div>
+                    <div class="info-cell">
+                        <span class="info-key">Location</span>
+                        <span class="info-val" id="hLocation">—</span>
+                    </div>
+                    <div class="info-cell">
+                        <span class="info-key">Room Type</span>
+                        <span class="info-val" id="hRoomType">—</span>
+                    </div>
+                </div>
+                <div class="meta-strip" style="margin-top: 14px;">
+                    <div class="meta-item">
+                        <span class="info-key">Check-in</span>
+                        <span class="info-val" id="hCheckIn">—</span>
+                    </div>
+                    <div class="meta-item">
+                        <span class="info-key">Nights</span>
+                        <span class="info-val" id="hNights">—</span>
+                    </div>
+                    <div class="meta-item">
+                        <span class="info-key">Check-out</span>
+                        <span class="info-val" id="hCheckOut">—</span>
+                    </div>
+                    <div class="meta-item">
+                        <span class="info-key">Guests</span>
+                        <span class="info-val" id="hGuests">—</span>
+                    </div>
+                    <div class="meta-item">
+                        <span class="info-key">Rooms</span>
+                        <span class="info-val" id="hRooms">—</span>
+                    </div>
+                    <div class="meta-item">
+                        <span class="info-key">Rating</span>
+                        <span class="info-val" id="hRating">—</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ─ TRAIN DETAILS (shown only for trains) ─ -->
+            <div class="receipt-section hidden" id="trainSection">
+                <div class="section-label"><i class="fas fa-train"></i> Train Details <span></span></div>
+                <div class="route-display">
+                    <div class="route-city">
+                        <span class="route-code" id="tFrom">—</span>
+                        <span class="route-name" id="tFromName">Boarding</span>
+                        <span class="route-time" id="tDepartTime">—</span>
+                    </div>
+                    <div class="route-connector">
+                        <div class="route-line"></div>
+                        <span class="route-duration" id="tDuration">—</span>
+                        <i class="fas fa-train route-icon"></i>
+                    </div>
+                    <div class="route-city right">
+                        <span class="route-code" id="tTo">—</span>
+                        <span class="route-name" id="tToName">Arrival</span>
+                        <span class="route-time" id="tArriveTime">—</span>
+                    </div>
+                </div>
+                <div class="meta-strip" id="trainMeta">
+                    <div class="meta-item">
+                        <span class="info-key">Train Name</span>
+                        <span class="info-val" id="tName">—</span>
+                    </div>
+                    <div class="meta-item">
+                        <span class="info-key">Train Number</span>
+                        <span class="info-val" id="tNumber">—</span>
+                    </div>
+                    <div class="meta-item">
+                        <span class="info-key">Stops</span>
+                        <span class="info-val" id="tStops">—</span>
+                    </div>
+                    <div class="meta-item">
+                        <span class="info-key">Class</span>
+                        <span class="info-val" id="tClass">—</span>
+                    </div>
+                    <div class="meta-item">
+                        <span class="info-key">Journey Date</span>
+                        <span class="info-val" id="tDate">—</span>
+                    </div>
+                    <div class="meta-item">
+                        <span class="info-key">Offer</span>
+                        <span class="info-val" id="tOffer">—</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ─ EVENT DETAILS (shown only for events) ─ -->
+            <div class="receipt-section hidden" id="eventSection">
+                <div class="section-label"><i class="fas fa-calendar-alt"></i> Event Details <span></span></div>
+                <div class="info-grid">
+                    <div class="info-cell full">
+                        <span class="info-key">Event</span>
+                        <span class="info-val large" id="eName">—</span>
+                    </div>
+                </div>
+                <div class="meta-strip" style="margin-top: 14px;">
+                    <div class="meta-item">
+                        <span class="info-key">Location</span>
+                        <span class="info-val" id="eLocation">—</span>
+                    </div>
+                    <div class="meta-item">
+                        <span class="info-key">Date</span>
+                        <span class="info-val" id="eDate">—</span>
+                    </div>
+                    <div class="meta-item">
+                        <span class="info-key">Time</span>
+                        <span class="info-val" id="eTime">—</span>
+                    </div>
+                    <div class="meta-item">
+                        <span class="info-key">Price / Ticket</span>
+                        <span class="info-val" id="ePrice">—</span>
+                    </div>
+                    <div class="meta-item">
+                        <span class="info-key">Tickets Bought</span>
+                        <span class="info-val" id="eTickets">—</span>
+                    </div>
+                    <div class="meta-item">
+                        <span class="info-key">Category</span>
+                        <span class="info-val" id="eCategory">—</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ─ AMOUNT BAR ─ -->
+            <div class="amount-row" id="amountRow">
+                <span class="amount-label">Total Amount Paid</span>
+                <span class="amount-value" id="totalAmount">—</span>
+            </div>
+
+        </div><!-- /receipt-body -->
+
+        <!-- ── FAILED / UNKNOWN STATE ── -->
+        <div class="receipt-body hidden" id="failBody">
+            <div class="fail-banner">
+                <h2 id="failTitle">Payment Failed</h2>
+                <p id="failMsg">Something went wrong with your payment. Please try again or contact support.</p>
+            </div>
+        </div>
+
+        <!-- ── ACTIONS ── -->
+        <div class="receipt-actions" id="actionsBar">
+            <button class="action-btn primary" id="downloadBtn" onclick="downloadReceipt()">
+                <i class="fas fa-download"></i> Download Ticket
+            </button>
+            <a href="index.html" class="action-btn" id="bookMoreBtn">
+                <i class="fas fa-plus"></i> Book More
+            </a>
+            <a href="index.html" class="action-btn">
+                <i class="fas fa-home"></i> Home
+            </a>
+        </div>
+
+    </div>
+
+    <!-- Download toast -->
+    <div class="download-toast" id="dlToast">Downloading ticket…</div>
 
     <script>
-        (function () {
-            const $ = (id) => document.getElementById(id);
-            const params = new URLSearchParams(location.search);
-            const status = (params.get('status') || '').toLowerCase();
+    (function () {
+        /* ── Helpers ── */
+        const $ = id => document.getElementById(id);
+        const setText = (id, txt) => { const el = $(id); if (el) el.textContent = txt || '—'; };
+        const show = el => { if (typeof el === 'string') el = $(el); if (el) el.classList.remove('hidden'); };
+        const hide = el => { if (typeof el === 'string') el = $(el); if (el) el.classList.add('hidden'); };
 
-            const icons = {
-                success: `<svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="10" opacity=".12" class="ok" stroke="var(--color-fg)"/><path class="ok" d="M8.5 12.5l2.5 2.5 4.5-5.5" stroke="var(--color-fg)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>`,
-                failed: `<svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="10" opacity=".12" class="fail" stroke="var(--color-fg)"/><path class="fail" d="M15.5 8.5l-7 7M8.5 8.5l7 7" stroke="var(--color-fg)" stroke-width="2" stroke-linecap="round"/></svg>`,
-                unknown: `<svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="10" opacity=".12" class="unk" stroke="var(--color-fg)"/><path class="unk" d="M9.5 9a3 3 0 116 0c0 2-2 2-2 4" stroke="var(--color-fg)" stroke-width="2" stroke-linecap="round"/><circle class="unk" cx="12" cy="17" r="1.2" fill="var(--color-fg)"/></svg>`
+        const params = new URLSearchParams(location.search);
+        const status = (params.get('status') || '').toLowerCase();
+
+        let paymentData = {};
+        try { paymentData = JSON.parse(localStorage.getItem('paymentData') || '{}') || {}; } catch (_) {}
+
+        const prettyAmt = v => {
+            if (v == null || v === '') return '—';
+            const n = Number(v);
+            return isFinite(n) ? `₹${n.toLocaleString('en-IN')}` : String(v);
+        };
+
+        const prettyDate = v => {
+            if (!v) return '—';
+            const d = new Date(v);
+            return isNaN(d) ? '—' : d.toLocaleDateString('en-IN', { year: 'numeric', month: 'short', day: '2-digit' });
+        };
+
+        const prettyTime = v => {
+            if (!v) return '—';
+            const d = new Date(v);
+            return isNaN(d) ? v : d.toLocaleTimeString('en-IN', { hour: '2-digit', minute: '2-digit' });
+        };
+
+        const classMap = { '1': 'Economy / Premium Economy', '2': 'Premium Economy', '3': 'Business', '4': 'First Class' };
+        const abbrev = s => {
+            if (!s) return '—';
+            return s.length > 3 ? s.substring(0, 3).toUpperCase() : s.toUpperCase();
+        };
+
+        /* ── STATUS BADGE ── */
+        const badge = $('statusBadge');
+        const badgeIcon = $('statusIcon');
+
+        if (status === 'success') {
+            badge.classList.add('success');
+            badgeIcon.className = 'fas fa-check';
+            setText('statusText', 'CONFIRMED');
+            setText('headerSub', 'Booking Confirmation');
+            document.title = 'Booking Confirmed · Ticketease';
+        } else if (status === 'failed') {
+            badge.classList.add('failed');
+            badgeIcon.className = 'fas fa-times';
+            setText('statusText', 'FAILED');
+            setText('headerSub', 'Payment Failed');
+            document.title = 'Payment Failed · Ticketease';
+        } else {
+            badge.classList.add('pending');
+            badgeIcon.className = 'fas fa-clock';
+            setText('statusText', 'PROCESSING');
+            setText('headerSub', 'Verifying Payment');
+            document.title = 'Payment Processing · Ticketease';
+        }
+
+        /* ── FAILED / UNKNOWN → hide receipt body, show fail banner ── */
+        if (status !== 'success') {
+            hide('receiptBody');
+            show('failBody');
+            hide('downloadBtn');
+
+            if (status === 'failed') {
+                setText('failTitle', 'Payment Failed');
+                setText('failMsg', 'Something went wrong with your payment. Please try again or contact support.');
+            } else {
+                setText('failTitle', 'Payment Status Unknown');
+                setText('failMsg', 'We could not verify your payment. Please check your bank account or contact support.');
+            }
+            return; // Stop here
+        }
+
+        /* ══════════════════════ SUCCESS FLOW ══════════════════════ */
+
+        /* ── User info ── */
+        const ui = paymentData.user_info || {};
+        // Also try reading from localStorage directly as fallback
+        let fallbackUser = {};
+        try {
+            const session = JSON.parse(localStorage.getItem('sb-bbmtcjjhcnjpfglltqyl-auth-token') || '{}');
+            const user = session?.user || {};
+            const profile = JSON.parse(localStorage.getItem('userProfile') || '{}');
+            fallbackUser = {
+                username: profile.username || user.user_metadata?.username || user.email?.split('@')[0] || '',
+                email: user.email || profile.email || '',
+                phone: profile.phone || user.phone || ''
             };
+        } catch(e) {}
 
-            function setText(id, text) { $(id).textContent = text; }
-            function hide(el) { el.hidden = true; }
-            function show(el) { el.hidden = false; }
+        setText('userName', ui.username || fallbackUser.username || '—');
+        setText('userEmail', ui.email || fallbackUser.email || '—');
+        const phone = ui.phone || fallbackUser.phone || '';
+        if (phone) {
+            setText('userPhone', phone);
+        } else {
+            hide('phoneCell');
+        }
+        setText('bookingDate', prettyDate(paymentData.booking_date));
 
-            const statusIcon = $("statusIcon");
-            const details = $("details");
+        /* ── Payment info ── */
+        setText('paymentId', paymentData.razorpay_payment_id || '—');
+        if (paymentData.razorpay_order_id) {
+            setText('orderId', paymentData.razorpay_order_id);
+        } else {
+            hide('orderIdCell');
+        }
 
-            // Pull saved paymentData from localStorage, if any
-            let paymentData = {};
-            try { paymentData = JSON.parse(localStorage.getItem('paymentData') || '{}') || {}; } catch (_) { }
+        /* ── Total amount ── */
+        setText('totalAmount', prettyAmt(paymentData.amount));
 
-            const prettyAmount = (v) => {
-                if (v == null || v === '') return '—';
-                const num = Number(v);
-                return isFinite(num) ? `₹${num.toLocaleString('en-IN')}` : String(v);
-            };
+        /* ── Type-specific rendering ── */
+        const type = paymentData.type || params.get('type') || 'flight';
 
-            const prettyDate = (v) => {
-                if (!v) return '—';
-                const d = new Date(v);
-                return isNaN(d) ? '—' : d.toLocaleDateString('en-IN', { year: 'numeric', month: 'short', day: '2-digit' });
-            };
+        if (type === 'flight') {
+            renderFlight();
+        } else if (type === 'hotel') {
+            renderHotel();
+        } else if (type === 'train') {
+            renderTrain();
+        } else if (type === 'event') {
+            renderEvent();
+        }
 
-            function renderSuccess() {
-                statusIcon.innerHTML = icons.success;
-                setText('statusTitle', 'Payment Successful');
-                setText('statusSubtitle', "You're all set.");
+        /* ── FLIGHT ── */
+        function renderFlight() {
+            show('flightSection');
+            const fd = paymentData.flight_details || {};
+            const sc = paymentData.search_context || {};
 
-                setText('paymentId', paymentData.razorpay_payment_id || '—');
-                setText('paymentAmount', prettyAmount(paymentData.amount));
+            setText('fFrom', fd.boardingAirport || '—');
+            setText('fFromName', fd.boardingAirport || 'Departure');
+            setText('fBoardTime', fd.boardingTime || '—');
+            setText('fTo', fd.landingAirport || '—');
+            setText('fToName', fd.landingAirport || 'Arrival');
+            setText('fLandTime', fd.landingTime || '—');
+            setText('fDuration', fd.duration || '—');
 
-                const fd = paymentData.flight_details || {};
-                const route = [fd.boardingAirport, fd.landingAirport].filter(Boolean).join(' → ');
-                setText('flightRoute', route || '—');
+            setText('fFlightId', fd.flightNumber || '—');
+            setText('fAirline', fd.company || '—');
+            setText('fStops', fd.stops || '—');
 
-                setText('bookingDate', prettyDate(paymentData.booking_date));
+            // Trip type
+            const tripType = sc.tripType || 'one-way';
+            setText('fTripType', tripType === 'round-trip' ? 'Round Trip' : 'One Way');
 
-                setText('primaryText', 'Book More');
-                setText('secondaryText', 'Go Home');
-                $("primaryLink").setAttribute('href', 'index.html');
-                $("secondaryLink").setAttribute('href', 'index.html');
+            // Departure date
+            setText('fDeparture', sc.departure || prettyDate(paymentData.booking_date));
 
-                show($("note"));
+            // Return date (show cell only if round trip)
+            if (tripType === 'round-trip' && sc.returnDate) {
+                show('fReturnCell');
+                setText('fReturn', sc.returnDate);
             }
 
-            function renderFailed() {
-                statusIcon.innerHTML = icons.failed;
-                setText('statusTitle', 'Payment Failed');
-                setText('statusSubtitle', 'Something went wrong.');
-                hide(details);
-                setText('primaryText', 'Try Again');
-                setText('secondaryText', 'Go Home');
-                $("primaryLink").setAttribute('href', 'index.html');
-                $("secondaryLink").setAttribute('href', 'index.html');
+            // Travelers & class
+            const travelClass = classMap[sc.travelClass] || sc.travelClass || 'Economy';
+            const adults = sc.adults || '1';
+            setText('fClass', `${adults} Traveler${adults > 1 ? 's' : ''} · ${travelClass}`);
+
+            setText('fTimeslot', sc.timeslot || 'Anytime');
+            setText('fSpecialFare', sc.specialFare || 'Regular');
+        }
+
+        /* ── HOTEL ── */
+        function renderHotel() {
+            show('hotelSection');
+            const hd = paymentData.hotel_details || {};
+
+            setText('hName', hd.name || hd.hotelName || '—');
+            setText('hLocation', hd.location || '—');
+            setText('hRoomType', 'Standard Room');
+            setText('hCheckIn', hd.checkIn || '—');
+            setText('hNights', hd.nights ? `${hd.nights} Night${hd.nights > 1 ? 's' : ''}` : '—');
+            setText('hCheckOut', hd.checkOut || '—');
+            setText('hGuests', hd.guests || '2');
+            setText('hRooms', hd.rooms || '1');
+            setText('hRating', hd.rating ? `${hd.rating} ★` : '—');
+        }
+
+        /* ── TRAIN ── */
+        function renderTrain() {
+            show('trainSection');
+            const td = paymentData.train_details || {};
+
+            // Route codes (abbreviate station names)
+            setText('tFrom', abbrev(td.boarding_station));
+            setText('tFromName', td.boarding_station || 'Boarding');
+            setText('tDepartTime', td.departure || '—');
+            setText('tTo', abbrev(td.arrival_station));
+            setText('tToName', td.arrival_station || 'Arrival');
+            setText('tArriveTime', td.arrival || '—');
+            setText('tDuration', td.duration || '—');
+
+            setText('tName', td.company || '—');
+            setText('tNumber', td.train_number || '—');
+            setText('tStops', td.stops || 'Direct');
+            setText('tClass', 'AC 3 Tier (3A)');
+            setText('tDate', prettyDate(paymentData.booking_date));
+            setText('tOffer', td.offer || '—');
+        }
+
+        /* ── EVENT ── */
+        function renderEvent() {
+            show('eventSection');
+            const ed = paymentData.event_details || {};
+            const qty = paymentData.ticket_quantity || 1;
+
+            setText('eName', ed.name || ed.title || '—');
+            setText('eLocation', ed.location || '—');
+
+            // Date
+            if (ed.date) {
+                const d = new Date(ed.date);
+                setText('eDate', isNaN(d) ? ed.date : d.toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric', year: 'numeric' }));
             }
 
-            function renderUnknown() {
-                statusIcon.innerHTML = icons.unknown;
-                setText('statusTitle', 'Payment Status Unknown');
-                setText('statusSubtitle', 'We could not verify your payment.');
-                hide(details);
-                setText('primaryText', 'Contact Support');
-                setText('secondaryText', 'Go Home');
-                $("primaryLink").setAttribute('href', 'support.html');
-                $("secondaryLink").setAttribute('href', 'index.html');
-            }
+            // Time
+            const timeStr = [ed.start_time, ed.end_time].filter(Boolean).join(' – ');
+            setText('eTime', timeStr || '—');
 
-            if (status === 'success') renderSuccess();
-            else if (status === 'failed') renderFailed();
-            else renderUnknown();
-        })();
+            setText('ePrice', ed.price || 'Free');
+            setText('eTickets', qty);
+            setText('eCategory', ed.category ? ed.category.toUpperCase() : '—');
+        }
+
+        /* ── SAVE TO BOOKING HISTORY ── */
+        if (paymentData.razorpay_payment_id) {
+            let bookings = [], payments = [];
+            try {
+                bookings = JSON.parse(localStorage.getItem('userBookings') || '[]');
+                payments = JSON.parse(localStorage.getItem('userPayments') || '[]');
+            } catch (e) { console.error("Error reading localStorage:", e); }
+
+            if (!bookings.some(b => b.id === paymentData.razorpay_payment_id)) {
+                let title = 'Booking', description = 'Booking Payment', details = {};
+
+                if (type === 'flight') {
+                    const fd = paymentData.flight_details || {};
+                    title = `Flight: ${fd.boardingAirport || ''} → ${fd.landingAirport || ''}`;
+                    description = `Flight Booking - ${fd.flightNumber || 'N/A'}`;
+                    details = { airline: fd.company, flight: fd.flightNumber, date: prettyDate(paymentData.booking_date), time: `${fd.boardingTime || ''} - ${fd.landingTime || ''}` };
+                } else if (type === 'hotel') {
+                    const hd = paymentData.hotel_details || {};
+                    title = hd.name || hd.hotelName || 'Hotel Booking';
+                    description = `Hotel Booking - ${hd.name || hd.hotelName || 'N/A'}`;
+                    details = { hotel: hd.name || hd.hotelName, location: hd.location, checkIn: hd.checkIn, checkOut: hd.checkOut, rooms: hd.rooms || '1 Room' };
+                } else if (type === 'train') {
+                    const td = paymentData.train_details || {};
+                    title = `Train: ${td.boarding_station || ''} → ${td.arrival_station || ''}`;
+                    description = `Train Booking - ${td.train_number || 'N/A'}`;
+                    details = { train: td.company, number: td.train_number, route: `${td.boarding_station || ''} → ${td.arrival_station || ''}`, date: prettyDate(paymentData.booking_date), time: `${td.departure || ''} - ${td.arrival || ''}` };
+                } else if (type === 'event') {
+                    const ed = paymentData.event_details || {};
+                    title = ed.name || ed.title || 'Event Booking';
+                    description = `Event Booking - ${ed.name || ed.title || 'N/A'}`;
+                    details = { event: ed.name || ed.title, location: ed.location, date: ed.date || prettyDate(paymentData.booking_date), tickets: paymentData.ticket_quantity || '1 Ticket' };
+                }
+
+                bookings.unshift({ id: paymentData.razorpay_payment_id, type, title, details, status: 'confirmed', amount: `₹${paymentData.amount}`, date: paymentData.booking_date });
+                payments.unshift({ id: paymentData.razorpay_payment_id, description, date: prettyDate(paymentData.booking_date), amount: paymentData.amount, status: 'Success' });
+
+                localStorage.setItem('userBookings', JSON.stringify(bookings.slice(0, 50)));
+                localStorage.setItem('userPayments', JSON.stringify(payments.slice(0, 50)));
+                console.log('Saved booking to history');
+            }
+        }
+
+        /* ── DOWNLOAD RECEIPT ── */
+        window.downloadReceipt = function () {
+            const toast = $('dlToast');
+            toast.textContent = 'Downloading ticket…';
+            toast.classList.add('show');
+
+            const receiptPage = $('receiptPage');
+            const actionsBar = $('actionsBar');
+
+            // Detect theme
+            const isDark = document.documentElement.classList.contains('dark-mode');
+            const bgDefault = isDark ? '#000000' : '#eeeeee';
+            const fgDefault = isDark ? '#eeeeee' : '#000000';
+
+            html2canvas(receiptPage, {
+                backgroundColor: bgDefault,
+                scale: 2,
+                useCORS: true,
+                logging: false,
+                onclone: (clonedDoc) => {
+                    // 1. Ensure the cloned element is visible and opaque (fix animation issues)
+                    const clonedPage = clonedDoc.getElementById('receiptPage');
+                    if (clonedPage) {
+                        clonedPage.style.opacity = '1';
+                        clonedPage.style.transform = 'none';
+                        clonedPage.style.animation = 'none';
+                    }
+
+                    // 2. Hide unwanted elements in the clone
+                    const hideIds = ['actionsBar', 'receiptFooter'];
+                    hideIds.forEach(id => {
+                        const el = clonedDoc.getElementById(id);
+                        if (el) el.style.display = 'none';
+                    });
+
+                    // 3. Fix background-color for the body in the clone to avoid transparency
+                    clonedDoc.body.style.backgroundColor = bgDefault;
+                }
+            }).then(canvas => {
+                const link = document.createElement('a');
+                const pid = paymentData.razorpay_payment_id || 'ticket';
+                link.download = `Ticketease_${type}_${pid.slice(-8)}.png`;
+                link.href = canvas.toDataURL('image/png');
+                link.click();
+
+                toast.textContent = 'Ticket downloaded!';
+                setTimeout(() => {
+                    toast.classList.remove('show');
+                    toast.textContent = 'Downloading ticket…';
+                }, 2500);
+            }).catch(err => {
+                console.error('Download failed:', err);
+                toast.textContent = 'Download failed. Try again.';
+                setTimeout(() => {
+                    toast.classList.remove('show');
+                    toast.textContent = 'Downloading ticket…';
+                }, 2500);
+            }).finally(() => {
+                actionsBar.style.display = '';
+            });
+        };
+
+    })();
     </script>
 </body>
 

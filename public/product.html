@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <script src="js/theme.js"></script>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <link rel="icon" href="images/favicon.png" type="image/png">
+  <title>TicketEase | Product Overview</title>
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&family=Inter:wght@300;400;500;600&family=Cormorant+Garamond:ital,wght@0,300..700;1,300..700&family=Varela&display=swap">
+  
+  <link rel="stylesheet" href="css/navbar.css">
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="css/themes.css">
+  <link rel="stylesheet" href="css/product.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+  <!-- Nav -->
+  <nav>
+    <a href="../index.html">TICKETEASE</a>
+    <button id="theme-switch" class="hide-mobile">
+      <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="currentColor">
+        <path d="M480-120q-150 0-255-105T120-480q0-150 105-255t255-105q14 0 27.5 1t26.5 3q-41 29-65.5 75.5T444-660q0 90 63 153t153 63q55 0 101-24.5t75-65.5q2 13 3 26.5t1 27.5q0 150-105 255T480-120Z"/>
+      </svg>
+    </button>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="hero-section">
+    <div class="hero-content">
+      <h1 class="hero-title">UNIFIED TICKETING<br>FOR THE MODERN ERA.</h1>
+      <p class="hero-subtitle">Discovery, booking, and entry verification for travel and events built on a stark, minimal, and high-performance architecture.</p>
+      <div class="hero-actions">
+        <a href="index.html" class="button-primary">START BOOKING</a>
+        <a href="#features" class="button-secondary">VIEW ARCHITECTURE</a>
+      </div>
+    </div>
+    <div class="hero-visual">
+      <div class="skeleton-block delay-1"></div>
+      <div class="skeleton-block delay-2"></div>
+      <div class="skeleton-block delay-3"></div>
+    </div>
+  </section>
+
+  <!-- Features Marquee -->
+  <div class="feature-ticker">
+    <div class="ticker-content">
+      <span>NO BORDER RADIUS</span> <span class="dot">·</span> 
+      <span>ZERO LATENCY</span> <span class="dot">·</span> 
+      <span>SUPABASE SYNC</span> <span class="dot">·</span> 
+      <span>INSTANT QR VERIFICATION</span> <span class="dot">·</span> 
+      <span>FIREBASE HOSTING</span> <span class="dot">·</span> 
+      <span>NO BORDER RADIUS</span> <span class="dot">·</span> 
+      <span>ZERO LATENCY</span> <span class="dot">·</span> 
+      <span>SUPABASE SYNC</span> <span class="dot">·</span> 
+      <span>INSTANT QR VERIFICATION</span> <span class="dot">·</span> 
+      <span>FIREBASE HOSTING</span>
+    </div>
+  </div>
+
+  <!-- Detailed Features -->
+  <section id="features" class="features-section">
+    <div class="feature-header">
+      <h2>CORE CAPABILITIES</h2>
+      <p>Precision-engineered for reliability.</p>
+    </div>
+    
+    <div class="feature-grid">
+      <div class="feature-card">
+        <i class="fa-solid fa-plane feature-icon"></i>
+        <h3>MULTI-VERTICAL</h3>
+        <p>A single seamless experience to compare and book flights, hotels, trains, and events. One account. Infinite possibilities.</p>
+      </div>
+      
+      <div class="feature-card">
+        <i class="fa-solid fa-qrcode feature-icon"></i>
+        <h3>INSTANT QR DIGITAL</h3>
+        <p>No paper trails. Instantaneous digital ticket generation backed by encrypted verification mechanisms.</p>
+      </div>
+
+      <div class="feature-card">
+        <i class="fa-solid fa-shield-halved feature-icon"></i>
+        <h3>SECURE INFRASTRUCTURE</h3>
+        <p>Powered by Supabase and Firebase. Real-time ticket validation and bulletproof authentications built in.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Split Info Section (Tech-Vibe) -->
+  <section class="tech-section">
+    <div class="tech-left">
+      <h2 class="tech-title">TERMINAL AESTHETIC.</h2>
+      <p class="tech-desc">Say goodbye to rounded buttons and messy layouts. TicketEase employs a stark, editorial 'Money Manager' monochrome schema. Every line is intentional. Every interaction is immediate.</p>
+      <ul class="tech-list">
+        <li><span>001</span> Pixel-perfect rigid grids</li>
+        <li><span>002</span> Seamless Skeleton Loading </li>
+        <li><span>003</span> Dark Mode native</li>
+      </ul>
+    </div>
+    <div class="tech-right">
+      <div class="code-view">
+        <div class="code-head"><span>ticket_validation.js</span></div>
+        <pre><code>await supabase
+  .from('tickets')
+  .select('status')
+  .eq('ticket_id', id);
+  
+if(status === 'valid') {
+  return generateQREntry();
+}</code></pre>
+      </div>
+    </div>
+  </section>
+
+  <!-- Call to action -->
+  <section class="cta-section">
+    <h2>READY TO EXPLORE?</h2>
+    <p>Join the ecosystem today.</p>
+    <a href="index.html" class="button-primary large-button">OPEN TICKETEASE</a>
+  </section>
+
+  <!-- Footer -->
+  <footer class="product-footer">
+    <p>&copy; 2026 TicketEase. Project f3-24c.</p>
+    <div class="footer-links">
+      <a href="terms-and-conditions.html">Terms</a>
+      <a href="about-us.html">About</a>
+      <a href="dashboard.html">Dashboard</a>
+    </div>
+  </footer>
+
+  <script src="js/navbar.js"></script>
+</body>
+</html>

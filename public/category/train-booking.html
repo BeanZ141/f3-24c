@@ -13,7 +13,10 @@
     <link rel="stylesheet" href="../css/styles.css">
     <link rel="stylesheet" href="../css/themes.css">
     <link rel="stylesheet" href="../css/navbar.css">
+    <link rel="stylesheet" href="../css/login-popup.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="../js/auth.js"></script>
 </head>
 
 <body>
@@ -25,7 +28,6 @@
                 <button class="dropdown-btn" onclick="toggleDropdown()">▼</button>
                 <div class="dropdown-content" id="dropdown-menu">
                     <a href="dashboard.html">Dashboard</a>
-                    <a href="scanner/scanner-info.html">Scan Tickets</a>
                     <a href="#" onclick="logout()">Logout</a>
                 </div>
             </div>
@@ -307,6 +309,19 @@
         }
 
         function handlePaymentSuccess(response) {
+            // Gather user info from Supabase session if available
+            let userInfo = {};
+            try {
+                const session = JSON.parse(localStorage.getItem('sb-bbmtcjjhcnjpfglltqyl-auth-token') || '{}');
+                const user = session?.user || {};
+                const profile = JSON.parse(localStorage.getItem('userProfile') || '{}');
+                userInfo = {
+                    username: profile.username || user.user_metadata?.username || user.email?.split('@')[0] || '',
+                    email: user.email || profile.email || '',
+                    phone: profile.phone || user.phone || ''
+                };
+            } catch(e) { console.log('Could not read user info:', e); }
+
             // Store payment details
             const paymentData = {
                 razorpay_payment_id: response.razorpay_payment_id,
@@ -314,6 +329,7 @@
                 razorpay_signature: response.razorpay_signature,
                 amount: totalAmount,
                 train_details: trainDetails,
+                user_info: userInfo,
                 booking_date: new Date().toISOString(),
                 status: 'success',
                 type: 'train'

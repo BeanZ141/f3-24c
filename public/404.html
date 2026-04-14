@@ -2,11 +2,7 @@
 <html lang="en">
 <head>
     <script>
-      const setTheme = () => {
-        const theme = localStorage.getItem('theme') || 'dark';
-        document.documentElement.classList.toggle('dark-mode', theme === 'dark');
-      };
-      setTheme();
+      const setTheme = () => { const theme = localStorage.getItem('theme') || 'dark'; document.documentElement.classList.toggle('dark-mode', theme === 'dark'); }; setTheme();
     </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -16,56 +12,17 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Varela&display=swap">
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300..700;1,300..700&family=Unna:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/styles.css">
     <link rel="stylesheet" href="css/themes.css">
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: Arial, sans-serif;
-        }
-        body {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            text-align: center;
-        }
-        #message {
-            background: transparent;
-            max-width: 400px;
-            padding: 20px;
-        }
-        #message h2 {
-            font-size: 6rem;
-            font-weight: bold;
-            color: var(--color-fg);
-            margin-bottom: 20px;
-        }
-        #message h1 {
-            font-family: 'DM Sans';
-            font-size: 2.5rem;
-            font-weight: bold;
-            margin-bottom: 50px;
-        }
-        #message a {
-            display: inline-block;
-            font-family: 'Varela';
-            letter-spacing: 1px;
-            padding: 12px 24px;
-            background: var(--color-fg);
-            color: var(--color-bg);
-            border: 1px solid transparent;
-            text-decoration: none;
-            font-size: 1rem;
-        }
-        #message a:hover {
-            background: var(--color-bg);
-            color: var(--color-fg);
-            border: 1px solid var(--tnc-color);
-        }
+        *{margin:0;padding:0;box-sizing:border-box;font-family:'Space Grotesk',monospace}
+        body{display:flex;justify-content:center;align-items:center;height:100vh;text-align:center}
+        #message{background:transparent;max-width:400px;padding:20px}
+        #message h2{font-size:6rem;font-weight:700;color:var(--color-fg);margin-bottom:20px}
+        #message h1{font-family:'Space Grotesk',monospace;font-size:2.5rem;font-weight:700;margin-bottom:50px}
+        #message a{display:inline-block;font-family:'Space Grotesk',monospace;letter-spacing:1px;padding:12px 24px;background:var(--color-fg);color:var(--color-bg);border:1px solid transparent;text-decoration:none;font-size:1rem}
+        #message a:hover{background:var(--color-bg);color:var(--color-fg);border:1px solid var(--tnc-color)}
     </style>
 </head>
 <body>

@@ -1,56 +1,13 @@
-document.querySelectorAll('.custom-select').forEach(select => {
-    const selected = select.querySelector('.select-selected');
-    const options = select.querySelector('.select-options');
-
-    selected.addEventListener('click', () => {
-        options.classList.toggle('open');
-        selected.classList.toggle('open');
-    });
-
-    options.querySelectorAll('div').forEach(option => {
-        option.addEventListener('click', () => {
-            selected.dataset.value = option.dataset.city;
-            selected.innerHTML = `
-                <div class="city">${option.dataset.city}</div>
-            `;
-            options.classList.remove('open');
-            selected.classList.remove('open');
-        });
-    });
-
-    document.addEventListener('click', (e) => {
-        if (!select.contains(e.target)) {
-            options.classList.remove('open');
-            selected.classList.remove('open');
-        }
-    });
-});
-
-// Switch button only exists on flights page, not hotels
-const switchBtn = document.getElementById("switch-btn");
-if (switchBtn) {
-    switchBtn.addEventListener("click", function () {
-        this.classList.toggle("rotated");
-    });
-}
-
-function toggleDropdown() {
-    const dropdown = document.getElementById("dropdown-menu");
-    dropdown.style.display = dropdown.style.display === "block" ? "none" : "block";
-}
-
-document.addEventListener("click", function(event) {
-    const dropdown = document.getElementById("dropdown-menu");
-    const button = document.querySelector(".dropdown-btn");
-
-    if (!button.contains(event.target) && !dropdown.contains(event.target)) {
-        dropdown.style.display = "none";
-    }
-});
+// switchBtn and toggleDropdown are handled by service.js and common logic.
+// Custom select and dropdown logic is also handled by service.js for all category pages.
 
 const calendarCheckIn = document.getElementById('calendar-checkin');
 const calendarCheckOut = document.getElementById('calendar-checkout');
-const travelersClass = document.getElementById('travel-class');
+// Use the shared travelersClass if available (it should be in service.js)
+// If not, we define it here (using var is risky with const, so just check)
+if (typeof travelersClass === 'undefined') {
+    window.travelersClass = document.getElementById('travel-class');
+}
 const dateTriggerCheckIn = document.querySelector('.date-trigger[onclick="toggleCheckInCalendar()"]');
 const dateTriggerCheckOut = document.querySelector('.date-trigger[onclick="toggleCheckOutCalendar()"]');
 
@@ -85,7 +42,9 @@ document.addEventListener('click', (event) => {
     }
 });
 
-const today = Kalendae.moment();
+if (typeof today === 'undefined') {
+    window.today = Kalendae.moment();
+}
 const tomorrow = Kalendae.moment().add(1, 'days');
 
 document.querySelector('.checkin-day').textContent = today.format('DD');
@@ -153,8 +112,11 @@ document.querySelectorAll('input[name="adults"], input[name="children"], input[n
 });
 
 function updateTravelClass() {
-    const selectedClass = document.querySelector('input[name="tclass"]:checked').nextElementSibling.textContent;
-    document.querySelector('.display-class').textContent = selectedClass;
+    const tclassInput = document.querySelector('input[name="tclass"]:checked');
+    if (tclassInput && document.querySelector('.display-class')) {
+        const selectedClass = tclassInput.nextElementSibling.textContent;
+        document.querySelector('.display-class').textContent = selectedClass;
+    }
 }
 
 document.querySelectorAll('input[name="tclass"]').forEach((input) => {
@@ -165,20 +127,55 @@ updateTravelersCount();
 
 
 function searchHotels() {
-    const fromSelect = document.querySelector("#from .select-selected");
     const toSelect = document.querySelector("#to .select-selected");
     
-    const location = fromSelect ? fromSelect.dataset.value : '';
-    const priceRange = toSelect ? toSelect.dataset.value : '';
+    let priceRange = toSelect && toSelect.dataset.value ? toSelect.dataset.value : (toSelect ? toSelect.innerText.trim() : '');
     
-    let url = `../category/hotel-results.html?location=${encodeURIComponent(location)}`;
+    // Fallback if priceRange is not set but exists in DOM with text like "₹0-1500"
+    if (!priceRange && toSelect) {
+        priceRange = toSelect.textContent.trim();
+    }
+
+    // Capture search details for the booking phase
+    const checkInDay = document.querySelector('.checkin-day').textContent;
+    const checkInMonth = document.querySelector('.checkin-month').textContent;
+    const checkOutDay = document.querySelector('.checkout-day').textContent;
+    const checkOutMonth = document.querySelector('.checkout-month').textContent;
     
-    // Parse price range for filtering
-    if (priceRange.includes('-')) {
-        const parts = priceRange.replace('₹', '').split('-');
-        url += `&minPrice=${parts[0]}&maxPrice=${parts[1]}`;
-    } else if (priceRange.includes('+')) {
-        url += `&minPrice=${priceRange.replace(/[^0-9]/g, '')}`;
+    const adults = parseInt(document.querySelector('input[name="adults"]:checked').value) || 1;
+    const children = parseInt(document.querySelector('input[name="children"]:checked').value) || 0;
+    const infants = parseInt(document.querySelector('input[name="infants"]:checked').value) || 0;
+    
+    const roomsValue = document.querySelector('input[name="tripType"]:checked')?.value || 'one-room';
+    const rooms = roomsValue === 'upto-4-rooms' ? 4 : 1;
+
+    // Calculate nights (rough estimate or just store strings)
+    // For simplicity and since we use Kalendae strings, we'll store the formatted strings
+    const hotelSearchDetails = {
+        checkIn: `${checkInDay} ${checkInMonth}`,
+        checkOut: `${checkOutDay} ${checkOutMonth}`,
+        guests: adults + children + infants,
+        rooms: rooms,
+        nights: 1 // Default to 1 night if we don't do complex date math here
+    };
+    
+    localStorage.setItem('hotelSearchDetails', JSON.stringify(hotelSearchDetails));
+    
+    // Redirect to results with only price filters
+    let url = `../category/hotel-results.html?location=`; // Empty location as requested
+    
+    if (priceRange && typeof priceRange === 'string') {
+        const cleanPrice = priceRange.replace(/₹/g, '').replace(/\s/g, '');
+        if (cleanPrice.includes('-')) {
+            const parts = cleanPrice.split('-');
+            url += `&minPrice=${parts[0]}&maxPrice=${parts[1]}`;
+        } else if (cleanPrice.includes('+')) {
+            url += `&minPrice=${cleanPrice.replace('+', '')}`;
+        } else {
+            // Handle cases where it might just be a single number or text
+            const numeric = cleanPrice.replace(/[^0-9]/g, '');
+            if (numeric) url += `&minPrice=${numeric}`;
+        }
     }
     
     window.location.href = url;

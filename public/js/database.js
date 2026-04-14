@@ -1,26 +1,33 @@
-const SUPABASE_URL = 'https://bbmtcjjhcnjpfglltqyl.supabase.co';
-const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJibXRjampoY25qcGZnbGx0cXlsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzUyMDE1ODQsImV4cCI6MjA5MDc3NzU4NH0.XCSUS89zOQuEI3-fvo9BGja3-AYMHU1VaXV6xrMqvaU';
+if (typeof window.SUPABASE_URL === 'undefined') {
+    window.SUPABASE_URL = 'https://bbmtcjjhcnjpfglltqyl.supabase.co';
+}
+if (typeof window.SUPABASE_ANON_KEY === 'undefined') {
+    window.SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJibXRjampoY25qcGZnbGx0cXlsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzUyMDE1ODQsImV4cCI6MjA5MDc3NzU4NH0.XCSUS89zOQuEI3-fvo9BGja3-AYMHU1VaXV6xrMqvaU';
+}
 
 // Initialize Supabase client
 function initializeSupabaseClient() {
-    if (window.supabase) {
-        if (!window.supabaseClient) {
-            try {
-                window.supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-                console.log('Supabase client initialized successfully');
-            } catch (error) {
-                console.error('Failed to create Supabase client:', error);
-            }
+    // If AuthService already has a client, use it
+    if (window.AuthService && window.AuthService.supabase) {
+        window.supabaseClient = window.AuthService.supabase;
+        return;
+    }
+
+    if (window.supabase && !window.supabaseClient) {
+        try {
+            window.supabaseClient = window.supabase.createClient(window.SUPABASE_URL, window.SUPABASE_ANON_KEY);
+            console.log('Supabase client initialized successfully');
+        } catch (error) {
+            console.error('Failed to create Supabase client:', error);
         }
     }
 }
 
 // Initial load check
-if (window.supabase) {
-    initializeSupabaseClient();
-} else {
-    // Wait for CDN script
+if (document.readyState === 'loading') {
     window.addEventListener('load', initializeSupabaseClient);
+} else {
+    initializeSupabaseClient();
 }
 
 
@@ -130,15 +137,12 @@ const DatabaseService = {
                 query = query.gte('rating', parseFloat(filters.rating));
             }
             
-            // Price filtering disabled due to currency symbol strings
-            /*
-            if (filters.minPrice) {
-                query = query.gte('price', filters.minPrice);
+            if (filters.minPrice !== undefined && filters.minPrice !== null && filters.minPrice !== '') {
+                query = query.gte('price', parseFloat(filters.minPrice));
             }
-            if (filters.maxPrice) {
-                query = query.lte('price', filters.maxPrice);
+            if (filters.maxPrice !== undefined && filters.maxPrice !== null && filters.maxPrice !== '') {
+                query = query.lte('price', parseFloat(filters.maxPrice));
             }
-            */
 
             const { data, error } = await query;
             
@@ -175,14 +179,10 @@ const DatabaseService = {
     // Train related queries
     async getTrains(filters = {}) {
         try {
+            console.log('getTrains called with filters:', filters);
             await this.waitForSupabase();
             
-            // Debugging
-            const { count } = await window.supabaseClient
-                .from('trains')
-                .select('*', { count: 'exact', head: true });
-            
-            console.log(`Total rows in 'trains' table: ${count}`);
+            if (!window.supabaseClient) throw new Error("Supabase client not ready");
 
             let query = window.supabaseClient
                 .from('trains')
@@ -190,21 +190,20 @@ const DatabaseService = {
 
             // Apply filters
             if (filters.from) {
-                query = query.ilike('from_station', `%${filters.from}%`);
+                query = query.ilike('boarding_station', `%${filters.from}%`);
             }
             if (filters.to) {
-                query = query.ilike('to_station', `%${filters.to}%`);
+                query = query.ilike('arrival_station', `%${filters.to}%`);
             }
-            if (filters.trainType && filters.trainType.length > 0) {
-                query = query.in('train_type', filters.trainType);
+            if (filters.company && filters.company.length > 0) {
+                query = query.in('company', filters.company);
             }
-            if (filters.minPrice) {
-                query = query.gte('price', filters.minPrice);
+            if (filters.stops && filters.stops.length > 0) {
+                query = query.in('stops', filters.stops);
             }
-            if (filters.maxPrice) {
-                query = query.lte('price', filters.maxPrice);
-            }
+            // Add other filters as needed
 
+            console.log('Executing filtered trains query...');
             const { data, error } = await query;
             
             if (error) {
@@ -212,8 +211,8 @@ const DatabaseService = {
                 throw error;
             }
             
-            console.log(`Returning ${data.length} trains`);
-            return data;
+            console.log(`Returning ${data ? data.length : 0} trains`);
+            return data || [];
         } catch (error) {
             console.error('Database error in getTrains:', error);
             return [];
@@ -342,7 +341,7 @@ const DatabaseService = {
             const { data, error } = await window.supabaseClient
                 .from('trains')
                 .select('*')
-                .or(`train_name.ilike.%${searchTerm}%,train_number.ilike.%${searchTerm}%,from_station.ilike.%${searchTerm}%,to_station.ilike.%${searchTerm}%`);
+                .or(`train_name.ilike.%${searchTerm}%,train_number.ilike.%${searchTerm}%,boarding_station.ilike.%${searchTerm}%,arrival_station.ilike.%${searchTerm}%`);
             
             if (error) throw error;
             return data;

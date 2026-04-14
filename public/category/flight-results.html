@@ -15,7 +15,9 @@
     <link rel="stylesheet" href="../css/styles.css">
     <link rel="stylesheet" href="../css/themes.css">
     <link rel="stylesheet" href="../css/navbar.css">
+    <link rel="stylesheet" href="../css/login-popup.css">
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="../js/auth.js"></script>
     <script src="../js/database.js"></script>
     <link rel="stylesheet" href="../category/css/flight-results.css">
 
@@ -30,7 +32,6 @@
                 <button class="dropdown-btn" onclick="toggleDropdown()">▼</button>
                 <div class="dropdown-content" id="dropdown-menu">
                     <a href="dashboard.html">Dashboard</a>
-                    <a href="scanner/scanner-info.html">Scan Tickets</a>
                     <a href="#" onclick="logout()">Logout</a>
                 </div>
             </div>
@@ -64,6 +65,12 @@
             </svg>
         </button>
     </nav>
+
+    <div class="category-image" style="position:fixed;top:7vh;left:1vw;width:1830px;height:855px;
+                    background-image:linear-gradient(to bottom,#0000 50%,#000c 100%),url(../images/flight_1.jpg);
+    background-size:cover;background-position:center;border-radius:20px;display:flex;align-items:flex-end;
+    padding:25px;font-size:2.5rem;font-weight:700;letter-spacing:2px;color:#fff;z-index:-1;
+    box-shadow:0 20px 40px #0000004d;animation:slide-in 1s ease-out forwards">FLIGHTS</div>
 
     <!-- Filter section -->
     <div class="filter-section">
@@ -155,8 +162,6 @@
     </div>
 
     <script src="../js/navbar.js"></script>
-    <script type="module" src="../js/login-signup.js"></script>
-
     <script>
         let originalFlightData = [];
 
@@ -201,8 +206,16 @@
                     airline: urlParams.get('airline') ? [urlParams.get('airline')] : null,
                     stops: urlParams.get('stops') ? [urlParams.get('stops')] : null
                 };
+                
+                const timeslot = urlParams.get('timeslot');
 
-                const data = await DatabaseService.getFlights(filters);
+                let data = await DatabaseService.getFlights(filters);
+                
+                // Add logic for timeslot filtering
+                if (timeslot && timeslot !== 'Anytime') {
+                    data = data.filter(flight => flight.boarding === timeslot);
+                }
+                
                 originalFlightData = [...data];
 
                 if (data.length === 0) {
