@@ -1,440 +1,1834 @@
-body{font-family:'Space Grotesk',sans-serif;background-color:var(--color-bg);color:var(--color-fg);margin:0;padding:0;position:relative}
-.input-group{display:flex;align-items:center}
-.input-group label{color:var(--button-bg)}
-input[type="text"],input[type="date"],select{width:200px;height:6.875rem;font-size:1.8rem;background-color:#000;color:var(--color-fg);border:1px solid transparent}
-#switch-btn{position:absolute;left:30%;background-color:transparent;color:var(--color-fg);height:40px;width:40px;border:none;cursor:pointer;font-size:1.3rem;rotate:90deg;transition:250ms;z-index:999}
-#switch-btn:hover{background-color:var(--switch-btn-color);rotate:270deg;transition:250ms}
-input[type="checkbox"]{margin-right:.5rem}
-.container{position:relative;cursor:pointer;font-size:14px;font-family:'Space Grotesk',sans-serif;letter-spacing:-.3px;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;padding:5px 0 5px 30px;margin:1px;transition:all .3s ease}
-.container input{position:absolute;opacity:0;cursor:pointer;height:0;width:0}
-.checkmark{position:absolute;top:.56rem;left:.63rem;height:.81rem;width:.81rem;background-color:var(--radio-color);border:1px solid var(--radio-border)}
-.container input:checked~.checkmark{background-color:var(--button-bg)}
-.container input:checked~.checkmark+span{font-weight:700;background-color:var(--button-bg);font-weight:bold}
-.container input:checked~span{font-weight:700;background-color:var(--button-bg);color:var(--button-fg)}
-.container:hover{border-bottom:1px solid var(--radio-color)}
-.special-fare{position:absolute;display:flex;justify-content:center;z-index:1;isolation:isolate;animation:animate-gradient .7s ease-in forwards,fade-element .7s forwards;top:7.5rem}
-.special-fare h3{position:relative;body {
-    font-family: 'Space Grotesk',sans-serif;background-color: var(--color-bg);color: var(--color-fg);margin: 0;padding: 0;position: relative}
+body {
+    font-family: 'Space Grotesk',sans-serif;
+    background-color: var(--color-bg);
+    color: var(--color-fg);
+    margin: 0;
+    padding: 0;
+    position: relative
+}
 
-.input-group {display: flex;align-items: center}
+.input-group {
+    display: flex;
+    align-items: center
+}
 
-.input-grouplabel {
-    color: var(--button-bg)}input[type="text"],input[type="date"],select {
-    width: 200px;height: 6.875rem;font-size: 1.8rem;background-color: #000;color: var(--color-fg);border: 1px solid transparent}
+.input-group label {
+    color: var(--button-bg)
+}
 
-#switch-btn {position: absolute;left: 30%;background-color: transparent;color: var(--color-fg);height: 40px;width: 40px;border: none;cursor: pointer;font-size: 1.3rem;rotate: 90deg;transition: 250ms;z-index: 999}
+input[type="text"],input[type="date"],select {
+    width: 200px;
+    height: 6.875rem;
+    font-size: 1.8rem;
+    background-color: #000;
+    color: var(--color-fg);
+    border: 1px solid transparent
+}
+
+#switch-btn {
+    position: absolute;
+    left: 30%;
+    background-color: transparent;
+    color: var(--color-fg);
+    height: 40px;
+    width: 40px;
+    border: none;
+    cursor: pointer;
+    font-size: 1.3rem;
+    rotate: 90deg;
+    transition: 250ms;
+    z-index: 999
+}
 
 #switch-btn:hover {
-    background-color: var(--switch-btn-color);rotate: 270deg;transition: 250ms}input[type="checkbox"] {
-    margin-right: .5rem}
+    background-color: var(--switch-btn-color);
+    rotate: 270deg;
+    transition: 250ms
+}
 
-.container {position: relative;cursor: pointer;font-size: 14px;font-family: 'Space Grotesk',sans-serif;letter-spacing: -.3px;-webkit-user-select: none;-moz-user-select: none;-ms-user-select: none;user-select: none;padding: 5px 0 5px 30px;margin: 1px;transition: all .3s ease}
+input[type="checkbox"] {
+    margin-right: .5rem
+}
 
-.containerinput {
-    position: absolute;opacity: 0;cursor: pointer;height: 0;width: 0}
+.container {
+    position: relative;
+    cursor: pointer;
+    font-size: 14px;
+    font-family: 'Space Grotesk',sans-serif;
+    letter-spacing: -.3px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    padding: 5px 0 5px 30px;
+    margin: 1px;
+    transition: all .3s ease
+}
 
-.checkmark {position: absolute;top: .56rem;left: .63rem;height: .81rem;width: .81rem;background-color: var(--radio-color);border: 1px solid var(--radio-border)}
+.container input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0
+}
 
-.containerinput:checked~.checkmark {
-    background-color: var(--button-bg)}
+.checkmark {
+    position: absolute;
+    top: .56rem;
+    left: .63rem;
+    border-radius: 5px;
+    height: .81rem;
+    width: .81rem;
+    background-color: var(--radio-color);
+    border: 1px solid var(--radio-border)
+}
 
-.containerinput:checked~.checkmark+span {
-    font-weight: 700;background-color: var(--button-bg);font-weight: bold}
+.container input:checked~.checkmark {
+    background: var(--button-bg)
+}
 
-.containerinput:checked~span {
-    font-weight: 700;background-color: var(--button-bg);color: var(--button-fg)}
+.container input:checked~.checkmark+span {
+    background-color: var(--button-bg)
+}
+
+.container input:checked~span {
+    text-decoration: underline;
+    text-underline-offset: 4px
+}
 
 .container:hover {
-    border-bottom: 1px solid var(--radio-color)}
+    letter-spacing: 2px
+}
 
-.special-fare {position: absolute;display: flex;justify-content: center;z-index: 1;isolation: isolate;animation: animate-gradient .7s ease-in forwards,fade-element .7s forwards;top: 7.5rem}
+.special-fare {
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    z-index: 1;
+    isolation: isolate;
+    animation: animate-gradient .7s ease-in forwards,fade-element .7s forwards;
+    top: 7.5rem
+}
+
+.special-fare h3 {
+    position: relative;
+    bodyfont-family: 'Space Grotesk',sans-serif;
+    color: var(--color-fg);
+    margin: 0;
+    padding: 0;
+    position: relative;
+    border-radius: 9px;
+}
+
+.input-group {
+    display: flex;
+    align-items: center
+}
+
+.input-grouplabel {
+    color: var(--button-bg)
+}
+
+input[type="text"],input[type="date"],select {
+    width: 200px;
+    height: 6.875rem;
+    font-size: 1.8rem;
+    background-color: #000;
+    color: var(--color-fg);
+    border: 1px solid transparent
+}
+
+#switch-btn {
+    position: absolute;
+    left: 30%;
+    background-color: transparent;
+    color: var(--color-fg);
+    height: 40px;
+    width: 40px;
+    border: none;
+    cursor: pointer;
+    font-size: 1.3rem;
+    rotate: 90deg;
+    transition: 250ms;
+    z-index: 999
+}
+
+#switch-btn:hover {
+    background-color: var(--switch-btn-color);
+    rotate: 270deg;
+    transition: 250ms
+}
+
+input[type="checkbox"] {
+    margin-right: .5rem
+}
+
+.container {
+    position: relative;
+    cursor: pointer;
+    font-size: 14px;
+    font-family: 'Space Grotesk',sans-serif;
+    letter-spacing: -.3px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    padding: 5px 0 5px 30px;
+    margin: 1px;
+    transition: all .3s ease
+}
+
+.containerinput {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0
+}
+
+.checkmark {
+    position: absolute;
+    top: .56rem;
+    left: .63rem;
+    height: .81rem;
+    width: .81rem;
+    background-color: var(--radio-color);
+    border: 1px solid var(--radio-border)
+}
+
+.containerinput:checked~.checkmark {
+    background-color: var(--button-bg)
+}
+
+.containerinput:checked~.checkmark+span {
+    font-weight: 700;
+    background-color: var(--button-bg);
+    font-weight: bold
+}
+
+.containerinput:checked~span {
+    font-weight: 700;
+    background-color: var(--button-bg);
+    color: var(--button-fg)
+}
+
+.container:hover {
+    border-bottom: 1px solid var(--radio-color)
+}
+
+.special-fare {
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    z-index: 1;
+    isolation: isolate;
+    animation: animate-gradient .7s ease-in forwards,fade-element .7s forwards;
+    top: 8.3rem;
+}
 
 .special-fareh3 {
-    position: relative;font-size: 1em;margin: 10px;font-weight: 400;user-select: none;animation: animate-gradient .7s ease-in forwards}
+    position: relative;
+    font-size: 1em;
+    margin: 10px;
+    font-weight: 400;
+    user-select: none;
+    animation: animate-gradient .7s ease-in forwards
+}
 
-.special-fare .radio {position: relative}
+.special-fare .radio {
+    position: relative
+}
 
-.special-fare .checkmark1 {position: absolute;top: 24%;left: 8%;height: 12px;width: 12px;background-color: var(--radio-color);border: 1px solid var(--radio-border)}
+.special-fare .checkmark1 {
+    position: absolute;
+    top: 24%;
+    left: 8%;
+    height: 12px;
+    width: 12px;
+    background-color: var(--radio-color);
+    border: 1px solid var(--radio-border)
+}
 
-.radio {display: inline;cursor: pointer;font-size: 14px;font-family: 'Space Grotesk',sans-serif;letter-spacing: 0.94px;border-radius: 18px;-webkit-user-select: none;-moz-user-select: none;-ms-user-select: none;background-color: var(--color-bg);user-select: none;padding: 10px 22.5px 25px;margin-right: 1rem;transition: all .2s ease;border: 1px solid var(--radio-color)}
+.radio {
+    display: inline;
+    cursor: pointer;
+    font-size: 14px;
+    font-family: 'Space Grotesk',sans-serif;
+    letter-spacing: .94px;
+    border-radius: 18px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    background-color: var(--color-bg);
+    user-select: none;
+    padding: 10px 22.5px 25px;
+    margin-right: 1rem;
+    transition: all .2s ease;
+    border: 1px solid var(--radio-color)
+}
 
-.radio-text {display: inline-block;vertical-align: top}
+.radio-text {
+    display: inline-block;
+    vertical-align: top
+}
 
-.subtext {display: block;font-size: .8em;color: #888;margin-top: 2px;animation: animate-gradient .7s ease-in forwards}
+.subtext {
+    display: block;
+    font-size: .8em;
+    color: #888;
+    margin-top: 2px;
+    animation: animate-gradient .7s ease-in forwards
+}
 
 .radioinput {
-    position: absolute;opacity: 0;cursor: pointer;height: 0;width: 0}
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0
+}
 
 .radioinput:checked~.checkmark1 {
-    font-weight: 700;background-color: var(--button-bg);color: var(--color-fg)}
+    font-weight: 700;
+    background-color: var(--button-bg);
+    color: var(--color-fg)
+}
 
 .radioinput:checked~.radio-text {
-    font-weight: 700}
+    font-weight: 700
+}
 
 .radio:has(input:checked) {
-    background-color: var(--radio-color);border: 1px solid var(--radio-border)}
+    background-color: var(--radio-color);
+    border: 1px solid var(--radio-border)
+}
 
 .radio:hover {
-    border: 1px solid var(--radio-hover);background-color: var(--section-hover)}
+    border: 1px solid var(--radio-hover);
+    background-color: var(--section-hover)
+}
 
 .radio:hover .tooltip {
-    visibility: visible;opacity: 1}
+    visibility: visible;
+    opacity: 1
+}
 
-.tooltip {visibility: hidden;background-color: var(--radio-color);color: var(--color-fg);border: 1px solid var(--radio-border);text-align: center;font-size: .7em;padding: 10px 15px;position: absolute;top: 140%;left: 50%;width: 285px;transform: translateX(-50%);white-space: normal;opacity: 0;transition: opacity .2s;z-index: 1;pointer-events: none}
+.tooltip {
+    visibility: hidden;
+    background: var(--radio-color);
+    color: var(--color-fg);
+    border: 1px solid var(--radio-border);
+    text-align: center;
+    font-size: .7em;
+    padding: 10px 15px;
+    position: absolute;
+    top: 140%;
+    left: 50%;
+    width: 285px;
+    transform: translateX(-50%);
+    white-space: normal;
+    opacity: 0;
+    transition: opacity .2s;
+    z-index: 1;
+    pointer-events: none
+}
 
 .tooltip::after {
-    content: '';position: absolute;bottom: 99%;left: 45%;transform: rotate(180deg);border-width: 10px;border-style: solid;border-color: var(--radio-color) transparent transparent}
+    content: '';
+    position: absolute;
+    bottom: 99%;
+    left: 45%;
+    transform: rotate(180deg);
+    border-width: 10px;
+    border-style: solid;
+    border-color: var(--radio-color) transparent transparent
+}
 
 .train-booking>label>.radio-text {
-    padding: 0 5px}
+    padding: 0 5px
+}
 
-.train-booking {display: flex;flex-direction: column;align-items: center;justify-content: center;min-height: 10vh;z-index: 1000;position: relative;animation: animate-gradient .7s ease-in forwards,fade-element .7s forwards;width: 100%;margin: 250px auto 0}
+.train-booking {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 10vh;
+    z-index: 1000;
+    position: relative;
+    animation: animate-gradient .7s ease-in forwards,fade-element .7s forwards;
+    width: 100%;
+    margin: 250px auto 0
+}
 
-.way {display: block;position: fixed;top: -35%;left: 0}
+.way {
+    display: block;
+    position: fixed;
+    top: -35%;
+    left: 0
+}
 
-.train-booking>.way {justify-content: center;z-index: 10;isolation: isolate;animation: animate-gradient .7s ease-in forwards,fade-element .7s forwards}
+.train-booking>.way {
+    justify-content: center;
+    z-index: 10;
+    isolation: isolate;
+    animation: animate-gradient .7s ease-in forwards,fade-element .7s forwards
+}
 
-.way .radio-text {padding: 4px 10px}
+.way .radio-text {
+    padding: 4px 10px
+}
 
-.city-switch {display: flex;left: auto;border-radius: 18px;position: fixed;align-items: center;border: 1px solid var(--radio-border);margin-top: 10px;animation: animate-gradient .7s ease-in forwards,fade-element .7s forwards}
+.city-switch {
+    display: flex;
+    left: auto;
+    border-radius: 18px;
+    position: fixed;
+    align-items: center;
+    border: 1px solid var(--radio-border);
+    margin-top: 10px;
+    animation: animate-gradient .7s ease-in forwards,fade-element .7s forwards
+}
 
-#from {border-right: 1px solid var(--radio-border);border-radius: 18px 0px 0px 18px;transition: .3s}
+#from {
+    border-right: 1px solid var(--radio-border);
+    border-radius: 18px 0 0 18px;
+    transition: .3s
+}
 
-.from {font-size: .4em;font-weight: 200;float: inline-start;margin: 10px;margin-left: 21px;animation: animate-gradient .7s ease-in forwards}
+.from {
+    font-size: .4em;
+    font-weight: 200;
+    float: inline-start;
+    margin: 10px;
+    margin-left: 21px;
+    animation: animate-gradient .7s ease-in forwards
+}
 
-.to {font-size: .4em;font-weight: 200;float: inline-start;margin: 10px;margin-left: 20px;animation: animate-gradient .7s ease-in forwards}
+.to {
+    font-size: .4em;
+    font-weight: 200;
+    float: inline-start;
+    margin: 10px;
+    margin-left: 20px;
+    animation: animate-gradient .7s ease-in forwards
+}
 
-.departure {font-size: .7em;position: absolute;font-weight: 200;float: inline-start;margin: .7rem;margin-left: 1rem}
+.departure {
+    font-size: .7em;
+    position: absolute;
+    font-weight: 200;
+    float: inline-start;
+    margin: .7rem;
+    margin-left: 1rem
+}
 
-#to {transition: .3s}
+#to {
+    transition: .3s
+}
 
-#departure {width: 155px;border-right: 1px solid var(--radio-border);transition: .3s}
+#departure {
+    width: 155px;
+    border-right: 1px solid var(--radio-border);
+    transition: .3s
+}
 
-#return {width: 155px;border-right: 1px solid var(--radio-border);transition: .3s}
+#return {
+    width: 155px;
+    border-right: 1px solid var(--radio-border);
+    transition: .3s
+}
 
 #from:hover,#to:hover,#departure:hover,#return:hover,#travelers-and-class:hover {
-    background-color: var(--section-hover);transition: .3s}
+    background-color: var(--section-hover);
+    transition: .3s
+}
 
 .travelers-and-class:hover {
-    transition: .3s;background-color: var(--radio-color);border: 0 solid #0c0c0c}
+    transition: .3s;
+    background-color: var(--radio-color);
+    border: 0 solid #0c0c0c
+}
 
-.custom-select {position: relative;height: 6.875rem;border-right: 1px solid var(--radio-border);width: 320px;font-family: 'Space Grotesk',sans-serif;font-size: 1.5rem;font-weight: 700;cursor: pointer;color: var(--color-fg);letter-spacing: -.5px;background-color: var(--color-bg);z-index: 100}
+.custom-select {
+    position: relative;
+    height: 6.875rem;
+    border-right: 1px solid var(--radio-border);
+    width: 320px;
+    font-family: 'Space Grotesk',sans-serif;
+    font-size: 1.5rem;
+    font-weight: 700;
+    cursor: pointer;
+    color: var(--color-fg);
+    letter-spacing: -.5px;
+    background-color: var(--color-bg);
+    z-index: 100
+}
 
 .custom-select:hover {
-    background-color: var(--radio-color);transition: .3ms}
+    background-color: var(--radio-color);
+    transition: .3ms
+}
 
-.select-selected {padding: 35px;padding-left: 20px;animation: animate-gradient .7s ease-in forwards}
+.select-selected {
+    padding: 35px;
+    padding-left: 20px;
+    animation: animate-gradient .7s ease-in forwards
+}
 
-.select-options {display: none;position: absolute;top: 100%;left: 0;width: 320px;font-size: .45em;font-weight: 400;background-color: var(--radio-color);z-index: 99999;box-shadow: 0 4px 12px #0000004d;border: 1px solid var(--radio-border);border-top: none;font-family: 'Space Grotesk',sans-serif;letter-spacing: -.3px}
+.select-options {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 320px;
+    font-size: .45em;
+    font-weight: 400;
+    background-color: var(--radio-color);
+    z-index: 99999;
+    box-shadow: 0 4px 12px #0000004d;
+    border: 1px solid var(--radio-border);
+    border-top: none;
+    font-family: 'Space Grotesk',sans-serif;
+    letter-spacing: -.3px
+}
 
 .select-optionsdiv {
-    display: flex;justify-content: space-between;padding: 10px 10px 0;color: gray;flex-direction: column}
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 10px 0;
+    color: gray;
+    flex-direction: column
+}
 
 .select-optionsdiv .city {
-    font-weight: 700}
+    font-weight: 700
+}
 
 .select-optionsdiv .airport {
-    font-size: .8em;color: #b0b0b0}
+    font-size: .8em;
+    color: #b0b0b0
+}
 
-.select-selected .city {white-space: nowrap;overflow: hidden;text-overflow: ellipsis;max-width: 100%}
+.select-selected .city {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 100%
+}
 
-.select-selected .airport {font-size: .5em;font-weight: 100;color: var(--color-fg);white-space: nowrap;overflow: hidden;text-overflow: ellipsis;max-width: 100%;animation: animate-gradient .7s ease-in forwards}
+.select-selected .airport {
+    font-size: .5em;
+    font-weight: 100;
+    color: var(--color-fg);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 100%;
+    animation: animate-gradient .7s ease-in forwards
+}
 
 .select-optionsdiv .code {
-    align-self: flex-end;font-size: .9em;font-weight: 700;top: -32px;position: relative;color: #b0b0b0}
+    align-self: flex-end;
+    font-size: .9em;
+    font-weight: 700;
+    top: -32px;
+    position: relative;
+    color: #b0b0b0
+}
 
 .select-optionsdiv:hover {
-    background-color: var(--radio-hover);color: var(--color-fg)}
+    background-color: var(--radio-hover);
+    color: var(--color-fg)
+}
 
-.select-options.open {display: block}
+.select-options.open {
+    display: block
+}
 
-.date-picker {position: relative}
+.date-picker {
+    position: relative
+}
 
-.date-trigger {width: 10rem;height: 6.875rem;background: var(--color-bg);color: var(--color-fg);padding: 1.9rem .5rem;border: none;display: flex;justify-content: space-between;align-items: center;cursor: pointer;transition: background .2s;border-right: 1px solid var(--radio-border)}
+.date-trigger {
+    width: 10rem;
+    height: 6.875rem;
+    background: var(--color-bg);
+    color: var(--color-fg);
+    padding: 1.9rem .5rem;
+    border: none;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    transition: background .2s;
+    border-right: 1px solid var(--radio-border)
+}
 
 .date-trigger:hover {
-    background: var(--radio-color)}
+    background: var(--radio-color)
+}
 
-.date-display {display: flex;align-items: baseline;gap: 5px}
+.date-display {
+    display: flex;
+    align-items: baseline;
+    gap: 5px
+}
 
-.date-day {font-size: 2em;margin-right: .3rem;font-weight: 600;margin-left: .5rem;margin-bottom: -5px;animation: animate-gradient .7s ease-in forwards}
+.date-day {
+    font-size: 2em;
+    margin-right: .3rem;
+    font-weight: 600;
+    margin-left: .5rem;
+    margin-bottom: -5px;
+    animation: animate-gradient .7s ease-in forwards
+}
 
-.return-description {position: absolute;width: 85px;font-size: .65rem;font-family: 'Space Grotesk',sans-serif;font-weight: 600;text-align: left;top: 30%;left: 10%;letter-spacing: -.3px;animation: animate-gradient .7s ease-in forwards}
+.return-description {
+    position: absolute;
+    width: 85px;
+    font-size: .65rem;
+    font-family: 'Space Grotesk',sans-serif;
+    font-weight: 600;
+    text-align: left;
+    top: 30%;
+    left: 10%;
+    letter-spacing: -.3px;
+    animation: animate-gradient .7s ease-in forwards
+}
 
-.arrow-down {border: solid var(--tnc-color);border-width: 0 2px 2px 0;display: inline-block;padding: 3px;content: '';transform: rotate(45deg);-webkit-transform: rotate(45deg);vertical-align: top;margin: 2px 0 0 8px;transition: all .3s ease-in-out}
+.arrow-down {
+    border: solid var(--tnc-color);
+    border-width: 0 2px 2px 0;
+    display: inline-block;
+    padding: 3px;
+    content: '';
+    transform: rotate(45deg);
+    -webkit-transform: rotate(45deg);
+    vertical-align: top;
+    margin: 2px 0 0 8px;
+    transition: all .3s ease-in-out
+}
 
-.date-month {font-family: 'Space Grotesk',sans-serif;font-size: .9rem;animation: animate-gradient .7s ease-in forwards;letter-spacing: -.3px}
+.date-month {
+    font-family: 'Space Grotesk',sans-serif;
+    font-size: .9rem;
+    animation: animate-gradient .7s ease-in forwards;
+    letter-spacing: -.3px
+}
 
-.date-weekday {font-family: 'Space Grotesk',sans-serif;margin-top: .3rem;margin-left: .6rem;position: absolute;animation: animate-gradient .7s ease-in forwards;letter-spacing: -.3px}
+.date-weekday {
+    font-family: 'Space Grotesk',sans-serif;
+    margin-top: .3rem;
+    margin-left: .6rem;
+    position: absolute;
+    animation: animate-gradient .7s ease-in forwards;
+    letter-spacing: -.3px
+}
 
 .calendarinput[type="date"] {
-    border: none;width: 100%;padding: 10px;box-sizing: border-box}
+    border: none;
+    width: 100%;
+    padding: 10px;
+    box-sizing: border-box
+}
 
-.date-trigger {width: 10rem;height: 6.875rem;background: var(--color-bg);color: var(--color-fg);padding: 1.9rem .5rem;border: none;display: flex;justify-content: space-between;align-items: center;cursor: pointer;transition: background .2s;border-right: 1px solid var(--radio-border)}
+.date-trigger {
+    width: 10rem;
+    height: 6.875rem;
+    background: var(--color-bg);
+    color: var(--color-fg);
+    padding: 1.9rem .5rem;
+    border: none;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    transition: background .2s;
+    border-right: 1px solid var(--radio-border)
+}
 
 .date-trigger:active {
-    background: var(--radio-color)}
+    background: var(--radio-color)
+}
 
-.calendar {display: none;position: absolute;top: 100%;left: 0;background: var(--radio-color);border: 1px solid #1c1c1c;z-index: 10;box-shadow: 0 4px 8px #0003;padding: 10px}
+.calendar {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background: var(--radio-color);
+    border: 1px solid #1c1c1c;
+    z-index: 10;
+    box-shadow: 0 4px 8px #0003;
+    padding: 10px
+}
 
-.calendar.active {display: block}
+.calendar.active {
+    display: block
+}
 
 .calendartable {
-    border-collapse: collapse;width: 100%}
+    border-collapse: collapse;
+    width: 100%
+}
 
 .calendarth,.calendar td {
-    text-align: center;padding: 5px;cursor: pointer}
+    text-align: center;
+    padding: 5px;
+    cursor: pointer
+}
 
 .calendarth {
-    color: #666;font-weight: 700}
+    color: #666;
+    font-weight: 700
+}
 
 .calendartd:hover {
-    background-color: #f0f0f0}
+    background-color: #f0f0f0
+}
 
-.calendar .selected {background-color: #007bff;color: #fff}
+.calendar .selected {
+    background-color: #007bff;
+    color: #fff
+}
 
-.cancel-btn {position: absolute;top: 10%;left: 81%;cursor: pointer;padding: 2px;filter: invert(1)}
+.cancel-btn {
+    position: absolute;
+    top: 10%;
+    left: 81%;
+    cursor: pointer;
+    padding: 2px;
+    filter: invert(1)
+}
 
 .cancel-btn:hover {
-    transform: scale(1.1)}
+    transform: scale(1.1)
+}
 
 .cancel-btn:active {
-    transform: scale(1.2)}
-
-.dark-mode .cancel-btn {filter: invert(0)}@keyframes fade-element {
-    0% {
-        transform: translateY(1rem) scale(1)}
-
-    100% {transform: translate(0rem) scale(1)}
+    transform: scale(1.2)
 }
 
-.travelers {color: var(--color-fg);font-family: 'Space Grotesk',sans-serif;font-size: .8em;position: absolute;top: 0;margin: .7rem;animation: animate-gradient .7s ease-in forwards;letter-spacing: -.3px}
+.dark-mode .cancel-btn {
+    filter: invert(0)
+}
 
-.travelers-display {color: var(--color-fg);font-family: 'Space Grotesk',sans-serif;margin-top: .8rem;animation: animate-gradient .7s ease-in forwards;letter-spacing: -.3px}
+@keyframes fade-element {
+    0% {
+        transform: translateY(1rem) scale(1)
+    }
 
-.travelers-and-class {position: relative;width: 275px;border-radius: 0px 18px 18px 0px;height: 6.875rem;background-color: var(--color-bg);border: 0 solid #000;cursor: pointer}
+    100% {
+        transform: translate(0rem) scale(1)
+    }
+}
 
-.travel-class {position: absolute;top: 90%;left: 51.4%;width: 34rem;height: 20rem;background-color: var(--calendar-bg);padding: 1.3rem;user-select: none;z-index: 99999;border: 1px solid var(--radio-border);box-shadow: 0 4px 12px #0000004d;margin-top: 10px}
+.travelers {
+    color: var(--color-fg);
+    font-family: 'Space Grotesk',sans-serif;
+    font-size: .8em;
+    position: absolute;
+    top: 0;
+    margin: .7rem;
+    animation: animate-gradient .7s ease-in forwards;
+    letter-spacing: -.3px
+}
+
+.travelers-display {
+    color: var(--color-fg);
+    font-family: 'Space Grotesk',sans-serif;
+    margin-top: .8rem;
+    animation: animate-gradient .7s ease-in forwards;
+    letter-spacing: -.3px
+}
+
+.travelers-and-class {
+    position: relative;
+    width: 275px;
+    border-radius: 0 18px 18px 0;
+    height: 6.875rem;
+    background-color: var(--color-bg);
+    border: 0 solid #000;
+    cursor: pointer
+}
+
+.travel-class {
+    position: absolute;
+    top: 90%;
+    left: 51.4%;
+    width: 34rem;
+    height: 20rem;
+    background-color: var(--calendar-bg);
+    padding: 1.3rem;
+    user-select: none;
+    z-index: 99999;
+    border: 1px solid var(--radio-border);
+    box-shadow: 0 4px 12px #0000004d;
+    margin-top: 10px
+}
 
 .travel-classh5,p {
-    font-size: .6em;margin-top: 1rem;margin-bottom: 1rem;padding: 0}
+    font-size: .6em;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    padding: 0
+}
 
-.number-of-travelers {margin-left: -4rem;font-size: 2em;font-weight: 600}
+.number-of-travelers {
+    margin-left: -4rem;
+    font-size: 2em;
+    font-weight: 600
+}
 
-.display-class {display: block;width: 200px;margin-left: 1rem;white-space: nowrap;text-align: left}
+.display-class {
+    display: block;
+    width: 200px;
+    margin-left: 1rem;
+    white-space: nowrap;
+    text-align: left
+}
 
-.children-section {width: 200px;position: absolute}
+.children-section {
+    width: 200px;
+    position: absolute
+}
 
-.infants-section {width: 200px;left: 50%;position: absolute}
+.infants-section {
+    width: 200px;
+    left: 50%;
+    position: absolute
+}
 
-.choose-class {top: 65%;width: 400px;position: absolute}
+.choose-class {
+    top: 65%;
+    width: 400px;
+    position: absolute
+}
 
-#class-error {display: block}
+#class-error {
+    display: block
+}
 
 .radio-inputinput {
-    display: none}
+    display: none
+}
 
-.radio-input {--item_width: 30px;--item_height: 30px;--items: 10;--container_width: calc(var(--item_width) * var(--items));position: relative;display: flex;align-items: center;background-color: var(--calendar-bg);color: var(--color-fg);width: var(--container_width);overflow: hidden;user-select: none}
+.radio-input {
+    --item_width: 30px;
+    --item_height: 30px;
+    --items: 10;
+    --container_width: calc(var(--item_width) * var(--items));
+    position: relative;
+    display: flex;
+    align-items: center;
+    background-color: var(--calendar-bg);
+    color: var(--color-fg);
+    width: var(--container_width);
+    overflow: hidden;
+    user-select: none
+}
 
 .radio-inputlabel {
-    color: var(--color-fg)}
+    color: var(--color-fg)
+}
 
 .radio-inputlabel:hover {
-    background-color: #85858570}
+    background-color: #85858570
+}
 
 .radio-inputlabel:hover span {
-    color: var(--color-fg)}
+    color: var(--color-fg)
+}
 
 .radio-inputlabel {
-    width: var(--item_width);height: var(--item_height);cursor: pointer;display: flex;justify-content: center;align-items: center;z-index: 1;font-weight: 600;font-size: .8em}
+    width: var(--item_width);
+    height: var(--item_height);
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1;
+    font-weight: 600;
+    font-size: .8em
+}
 
-.choose-class .radio-input {--item_width: auto;--container_width: auto;gap: 5px;flex-wrap: wrap;width: 35rem}
+.choose-class .radio-input {
+    --item_width: auto;
+    --container_width: auto;
+    gap: 5px;
+    flex-wrap: wrap;
+    width: 35rem
+}
 
 .choose-class .radio-inputlabel {
-    padding: 0 15px;width: auto;font-weight: 400;text-align: center}
+    padding: 0 15px;
+    width: auto;
+    font-weight: 400;
+    text-align: center
+}
 
 .choose-class .radio-inputlabel:hover {
-    background-color: #85858570}
+    background-color: #85858570
+}
 
 .choose-class .radio-inputlabel:hover span {
-    color: var(--color-bg)}
+    color: var(--color-bg)
+}
 
 .choose-class .radio-inputlabel:has(input:checked) {
-    background-color: var(--color-fg);font-weight: 600;color: var(--color-bg)}
+    background-color: var(--color-fg);
+    font-weight: 600;
+    color: var(--color-bg)
+}
 
 .radio:has(input:checked) {
-    background-color: var(--color-fg);border: 1px solid var(--radio-border);color: var(--color-bg);
+    background-color: var(--color-fg);
+    border: 1px solid var(--radio-border);
+    color: var(--color-bg)
 }
 
-.selection {display: none;position: absolute;width: var(--item_width);height: var(--item_height);width: calc(var(--container_width) / var(--items));z-index: 0;left: 0;top: 0;transition: .15s ease}
+.selection {
+    display: none;
+    position: absolute;
+    width: var(--item_width);
+    height: var(--item_height);
+    width: calc(var(--container_width) / var(--items));
+    z-index: 0;
+    left: 0;
+    top: 0;
+    transition: .15s ease
+}
 
 .radio-inputlabel:has(input:checked)~.selection {
-    background-color: var(--color-fg);display: inline-block}
+    background-color: var(--color-fg);
+    display: inline-block
+}
 
 .radio-inputlabel:has(input:checked) {
-    color: var(--color-bg)}
+    color: var(--color-bg)
+}
 
-.search-btn {background-color: var(--radio-color);color: var(--color-fg);text-decoration: none;position: absolute;border-radius: 18px;top: 119%;left: 89.5%;padding: 18px 34px;border: 1px solid transparent;transition: background-color .3s ease,color .3s ease;animation: fade-text .7s forwards}
+.search-btn {
+    background-color: var(--radio-color);
+    color: var(--color-fg);
+    text-decoration: none;
+    position: absolute;
+    border-radius: 18px;
+    top: 119%;
+    left: 89.5%;
+    padding: 18px 34px;
+    border: 1px solid transparent;
+    transition: background-color .3s ease,color .3s ease;
+    animation: fade-text .7s forwards
+}
 
 .search-btn:hover {
-    background-color: var(--color-fg);color: var(--color-bg);border: 1px solid var(--border);font-weight: 700;cursor: pointer}
+    background-color: var(--color-fg);
+    color: var(--color-bg);
+    border: 1px solid var(--border);
+    font-weight: 700;
+    cursor: pointer
+}
 
 .radio-inputlabel:nth-child(1):has(input:checked)~.selection {
-    transform: translateX(calc(var(--container_width) * 0 / var(--items)))}
+    transform: translateX(calc(var(--container_width) * 0 / var(--items)))
+}
 
 .radio-inputlabel:nth-child(2):has(input:checked)~.selection {
-    transform: translateX(calc(var(--container_width) * 1 / var(--items)))}
+    transform: translateX(calc(var(--container_width) * 1 / var(--items)))
+}
 
 .radio-inputlabel:nth-child(3):has(input:checked)~.selection {
-    transform: translateX(calc(var(--container_width) * 2 / var(--items)))}
+    transform: translateX(calc(var(--container_width) * 2 / var(--items)))
+}
 
 .radio-inputlabel:nth-child(4):has(input:checked)~.selection {
-    transform: translateX(calc(var(--container_width) * 3 / var(--items)))}
+    transform: translateX(calc(var(--container_width) * 3 / var(--items)))
+}
 
 .radio-inputlabel:nth-child(5):has(input:checked)~.selection {
-    transform: translateX(calc(var(--container_width) * 4 / var(--items)))}
+    transform: translateX(calc(var(--container_width) * 4 / var(--items)))
+}
 
 .radio-inputlabel:nth-child(6):has(input:checked)~.selection {
-    transform: translateX(calc(var(--container_width) * 5 / var(--items)))}
+    transform: translateX(calc(var(--container_width) * 5 / var(--items)))
+}
 
 .radio-inputlabel:nth-child(7):has(input:checked)~.selection {
-    transform: translateX(calc(var(--container_width) * 6 / var(--items)))}
+    transform: translateX(calc(var(--container_width) * 6 / var(--items)))
+}
 
 .radio-inputlabel:nth-child(8):has(input:checked)~.selection {
-    transform: translateX(calc(var(--container_width) * 7 / var(--items)))}
+    transform: translateX(calc(var(--container_width) * 7 / var(--items)))
+}
 
 .radio-inputlabel:nth-child(9):has(input:checked)~.selection {
-    transform: translateX(calc(var(--container_width) * 8 / var(--items)))}
+    transform: translateX(calc(var(--container_width) * 8 / var(--items)))
+}
 
 .radio-inputlabel:nth-child(10):has(input:checked)~.selection {
-    transform: translateX(calc(var(--container_width) * 9 / var(--items)))}
+    transform: translateX(calc(var(--container_width) * 9 / var(--items)))
+}
 
 .radio-inputlabel:nth-child(11):has(input:checked)~.selection {
-    transform: translateX(calc(var(--container_width) * 10/ var(--items)))}
-
-.alert {position: fixed;top: 4%;right: 2%;padding: 15px 30px;background-color: var(--color-fg);color: var(--color-bg);opacity: 0;width: 300px;visibility: hidden;transition: opacity 0.3s,visibility .3s;z-index: 1000;letter-spacing: .05rem;font-size: 1.03em}
-
-.alert.show {opacity: 1;visibility: visible;animation: fade-text 1s forwards}
-
-.alert.success {background-color: var(--color-fg);color: var(--color-bg)}
-
-.alert.error {background-color: red;color: #222}
-
-#calendar-single,#calendar-range {display: none;position: absolute;top: 90%;left: -1%;z-index: 99999;background-color: var(--calendar-bg);border: 1px solid var(--radio-border);box-shadow: 0 4px 12px #0000004d}
-
-#calendar-range {display: none;position: absolute;top: 90%;left: 66.6%;z-index: 99999;background-color: var(--calendar-bg);border: 1px solid var(--radio-border);box-shadow: 0 4px 12px #0000004d}
-
-.date-picker {position: relative}font-size:1em;margin:10px;font-weight:400;user-select:none;animation:animate-gradient .7s ease-in forwards}
-.special-fare .radio{position:relative}
-.special-fare .checkmark1{position:absolute;top:24%;left:8%;height:12px;width:12px;background-color:var(--radio-color);border:1px solid var(--radio-border)}
-.radio{display:inline;cursor:pointer;font-size:14px;font-family:'Space Grotesk',sans-serif;letter-spacing:0.94px;border-radius: 18px;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;background-color:var(--color-bg);user-select:none;padding:10px 22.5px 25px;margin-right:1rem;transition:all .2s ease;border:1px solid var(--radio-color)}
-.radio-text{display:inline-block;vertical-align:top}
-.subtext{display:block;font-size:.8em;color:#888;margin-top:2px;animation:animate-gradient .7s ease-in forwards}
-.radio input{position:absolute;opacity:0;cursor:pointer;height:0;width:0}
-.radio input:checked~.checkmark1{font-weight:700;background-color:var(--button-bg);color:var(--color-fg)}
-.radio input:checked~.radio-text{font-weight:700}
-.radio:has(input:checked){background-color:var(--radio-color);border:1px solid var(--radio-border)}
-.radio:hover{border:1px solid var(--radio-hover);background-color:var(--section-hover)}
-.radio:hover .tooltip{visibility:visible;opacity:1}
-.tooltip{visibility:hidden;background-color:var(--radio-color);color:var(--color-fg);border:1px solid var(--radio-border);text-align:center;font-size:.7em;padding:10px 15px;position:absolute;top:140%;left:50%;width:285px;transform:translateX(-50%);white-space:normal;opacity:0;transition:opacity .2s;z-index:1;pointer-events:none}
-.tooltip::after{content:'';position:absolute;bottom:99%;left:45%;transform:rotate(180deg);border-width:10px;border-style:solid;border-color:var(--radio-color) transparent transparent}
-.train-booking>label>.radio-text{padding:0 5px}
-.train-booking{display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:10vh;z-index:1000;position:relative;animation:animate-gradient .7s ease-in forwards,fade-element .7s forwards;width:100%;margin: 210px auto 0;}
-.way{display:block;position:fixed;top:-35%;left:0}
-.train-booking>.way{justify-content:center;z-index:10;isolation:isolate;animation:animate-gradient .7s ease-in forwards,fade-element .7s forwards}
-.way .radio-text{padding:4px 10px}
-.city-switch{display:flex;left:auto;border-radius: 18px;position:fixed;align-items:center;border:1px solid var(--radio-border);margin-top:10px;animation:animate-gradient .7s ease-in forwards,fade-element .7s forwards}
-#from{border-right:1px solid var(--radio-border);border-radius: 18px 0px 0px 18px;transition:.3s}
-.from{font-size:.4em;font-weight:200;float:inline-start;margin:10px;margin-left:21px;animation:animate-gradient .7s ease-in forwards}
-.to{font-size:.4em;font-weight:200;float:inline-start;margin:10px;margin-left:20px;animation:animate-gradient .7s ease-in forwards}
-.departure{font-size:.7em;position:absolute;font-weight:200;float:inline-start;margin:.7rem;margin-left:1rem}
-#to{transition:.3s}
-#departure{width:155px;border-right:1px solid var(--radio-border);transition:.3s}
-#return{width:155px;border-right:1px solid var(--radio-border);transition:.3s}
-#from:hover,#to:hover,#departure:hover,#return:hover,#travelers-and-class:hover{background-color:var(--section-hover);transition:.3s}
-.travelers-and-class:hover{transition:.3s;background-color:var(--radio-color);border:0 solid #0c0c0c}
-.custom-select{position:relative;height:6.875rem;border-right:1px solid var(--radio-border);width:320px;font-family:'Space Grotesk',sans-serif;font-size:1.5rem;font-weight:700;cursor:pointer;color:var(--color-fg);letter-spacing:-.5px;background-color:var(--color-bg);z-index:100}
-.custom-select:hover{background-color:var(--radio-color);transition:.3ms}
-.select-selected{padding:35px;padding-left:20px;animation:animate-gradient .7s ease-in forwards}
-.select-options{display:none;position:absolute;top:100%;left:0;width:320px;font-size:.45em;font-weight:400;background-color:var(--radio-color);z-index:99999;box-shadow:0 4px 12px #0000004d;border:1px solid var(--radio-border);border-top:none;font-family:'Space Grotesk',sans-serif;letter-spacing:-.3px}
-.select-options div{display:flex;justify-content:space-between;padding:10px 10px 0;color:gray;flex-direction:column}
-.select-options div .city{font-weight:700}
-.select-options div .airport{font-size:.8em;color:#b0b0b0}
-.select-selected .city{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:100%}
-.select-selected .airport{font-size:.5em;font-weight:100;color:var(--color-fg);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:100%;animation:animate-gradient .7s ease-in forwards}
-.select-options div .code{align-self:flex-end;font-size:.9em;font-weight:700;top:-32px;position:relative;color:#b0b0b0}
-.select-options div:hover{background-color:var(--radio-hover);color:var(--color-fg)}
-.select-options.open{display:block}
-.date-picker{position:relative}
-.date-trigger{width:10rem;height:6.875rem;background:var(--color-bg);color:var(--color-fg);padding:1.9rem .5rem;border:none;display:flex;justify-content:space-between;align-items:center;cursor:pointer;transition:background .2s;border-right:1px solid var(--radio-border)}
-.date-trigger:hover{background:var(--radio-color)}
-.date-display{display:flex;align-items:baseline;gap:5px}
-.date-day{font-size:2em;margin-right:.3rem;font-weight:600;margin-left:.5rem;margin-bottom:-5px;animation:animate-gradient .7s ease-in forwards}
-.return-description{position:absolute;width:85px;font-size:.65rem;font-family:'Space Grotesk',sans-serif;font-weight:600;text-align:left;top:30%;left:10%;letter-spacing:-.3px;animation:animate-gradient .7s ease-in forwards}
-.arrow-down{border:solid var(--tnc-color);border-width:0 2px 2px 0;display:inline-block;padding:3px;content:'';transform:rotate(45deg);-webkit-transform:rotate(45deg);vertical-align:top;margin:2px 0 0 8px;transition:all .3s ease-in-out}
-.date-month{font-family:'Space Grotesk',sans-serif;font-size:.9rem;animation:animate-gradient .7s ease-in forwards;letter-spacing:-.3px}
-.date-weekday{font-family:'Space Grotesk',sans-serif;margin-top:.3rem;margin-left:.6rem;position:absolute;animation:animate-gradient .7s ease-in forwards;letter-spacing:-.3px}
-.calendar input[type="date"]{border:none;width:100%;padding:10px;box-sizing:border-box}
-.date-trigger{width:10rem;height:6.875rem;background:var(--color-bg);color:var(--color-fg);padding:1.9rem .5rem;border:none;display:flex;justify-content:space-between;align-items:center;cursor:pointer;transition:background .2s;border-right:1px solid var(--radio-border)}
-.date-trigger:active{background:var(--radio-color)}
-.calendar{display:none;position:absolute;top:100%;left:0;background:var(--radio-color);border:1px solid #1c1c1c;z-index:10;box-shadow:0 4px 8px #0003;padding:10px}
-.calendar.active{display:block}
-.calendar table{border-collapse:collapse;width:100%}
-.calendar th,.calendar td{text-align:center;padding:5px;cursor:pointer}
-.calendar th{color:#666;font-weight:700}
-.calendar td:hover{background-color:#f0f0f0}
-.calendar .selected{background-color:#007bff;color:#fff}
-.cancel-btn{position:absolute;top:10%;left:81%;cursor:pointer;padding:2px;filter:invert(1)}
-.cancel-btn:hover{transform:scale(1.1)}
-.cancel-btn:active{transform:scale(1.2)}
-.dark-mode .cancel-btn{filter:invert(0)}
-@keyframes fade-element {
-0%{transform:translateY(1rem) scale(1)}
-100%{transform:translate(0rem) scale(1)}
+    transform: translateX(calc(var(--container_width) * 10/ var(--items)))
 }
-.travelers{color:var(--color-fg);font-family:'Space Grotesk',sans-serif;font-size:.8em;position:absolute;top:0;margin:.7rem;animation:animate-gradient .7s ease-in forwards;letter-spacing:-.3px}
-.travelers-display{color:var(--color-fg);font-family:'Space Grotesk',sans-serif;margin-top:.8rem;animation:animate-gradient .7s ease-in forwards;letter-spacing:-.3px}
-.travelers-and-class{position:relative;width:275px;border-radius: 0px 18px 18px 0px;height:6.875rem;background-color:var(--color-bg);border:0 solid #000;cursor:pointer}
-.travel-class{position:absolute;top:90%;left:51.4%;width:34rem;height:20rem;background-color:var(--calendar-bg);padding:1.3rem;user-select:none;z-index:99999;border:1px solid var(--radio-border);box-shadow:0 4px 12px #0000004d;margin-top:10px}
-.travel-class h5,p{font-size:.6em;margin-top:1rem;margin-bottom:1rem;padding:0}
-.number-of-travelers{margin-left:-4rem;font-size:2em;font-weight:600}
-.display-class{display:block;width:200px;margin-left:1rem;white-space:nowrap;text-align:left}
-.children-section{width:200px;position:absolute}
-.infants-section{width:200px;left:50%;position:absolute}
-.choose-class{top:65%;width:400px;position:absolute}
-#class-error{display:block}
-.radio-input input{display:none}
-.radio-input{--item_width:30px;--item_height:30px;--items:10;--container_width:calc(var(--item_width) * var(--items));position:relative;display:flex;align-items:center;background-color:var(--calendar-bg);color:var(--color-fg);width:var(--container_width);overflow:hidden;user-select:none}
-.radio-input label{color:var(--color-fg)}
-.radio-input label:hover{background-color:#85858570}
-.radio-input label:hover span{color:var(--color-fg)}
-.radio-input label{width:var(--item_width);height:var(--item_height);cursor:pointer;display:flex;justify-content:center;align-items:center;z-index:1;font-weight:600;font-size:.8em}
-.choose-class .radio-input{--item_width:auto;--container_width:auto;gap:5px;flex-wrap:wrap;width:35rem}
-.choose-class .radio-input label{padding:0 15px;width:auto;font-weight:400;text-align:center}
-.choose-class .radio-input label:hover{background-color:#85858570}
-.choose-class .radio-input label:hover span{color:var(--color-bg)}
-.choose-class .radio-input label:has(input:checked){background-color:var(--color-fg);font-weight:600;color:var(--color-bg)}
-.radio:has(input:checked) {background-color: var(--color-fg);border: 1px solid var(--radio-border);color: var(--color-bg); }
-.selection{display:none;position:absolute;width:var(--item_width);height:var(--item_height);width:calc(var(--container_width) / var(--items));z-index:0;left:0;top:0;transition:.15s ease}
-.radio-input label:has(input:checked)~.selection{background-color:var(--color-fg);display:inline-block}
-.radio-input label:has(input:checked){color:var(--color-bg)}
-.search-btn{background-color:var(--radio-color);color:var(--color-fg);text-decoration:none;position:absolute;border-radius: 18px;top:119%;left:89.5%;padding:18px 34px;border:1px solid transparent;transition:background-color .3s ease,color .3s ease;animation:fade-text .7s forwards}
-.search-btn:hover{background-color:var(--color-fg);color:var(--color-bg);border:1px solid var(--border);font-weight:700;cursor:pointer}
-.radio-input label:nth-child(1):has(input:checked)~.selection{transform:translateX(calc(var(--container_width) * 0 / var(--items)))}
-.radio-input label:nth-child(2):has(input:checked)~.selection{transform:translateX(calc(var(--container_width) * 1 / var(--items)))}
-.radio-input label:nth-child(3):has(input:checked)~.selection{transform:translateX(calc(var(--container_width) * 2 / var(--items)))}
-.radio-input label:nth-child(4):has(input:checked)~.selection{transform:translateX(calc(var(--container_width) * 3 / var(--items)))}
-.radio-input label:nth-child(5):has(input:checked)~.selection{transform:translateX(calc(var(--container_width) * 4 / var(--items)))}
-.radio-input label:nth-child(6):has(input:checked)~.selection{transform:translateX(calc(var(--container_width) * 5 / var(--items)))}
-.radio-input label:nth-child(7):has(input:checked)~.selection{transform:translateX(calc(var(--container_width) * 6 / var(--items)))}
-.radio-input label:nth-child(8):has(input:checked)~.selection{transform:translateX(calc(var(--container_width) * 7 / var(--items)))}
-.radio-input label:nth-child(9):has(input:checked)~.selection{transform:translateX(calc(var(--container_width) * 8 / var(--items)))}
-.radio-input label:nth-child(10):has(input:checked)~.selection{transform:translateX(calc(var(--container_width) * 9 / var(--items)))}
-.radio-input label:nth-child(11):has(input:checked)~.selection{transform:translateX(calc(var(--container_width) * 10/ var(--items)))}
-.alert{position:fixed;top:4%;right:2%;padding:15px 30px;background-color:var(--color-fg);color:var(--color-bg);opacity:0;width:300px;visibility:hidden;transition:opacity 0.3s,visibility .3s;z-index:1000;letter-spacing:.05rem;font-size:1.03em}
-.alert.show{opacity:1;visibility:visible;animation:fade-text 1s forwards}
-.alert.success{background-color:var(--color-fg);color:var(--color-bg)}
-.alert.error{background-color:red;color:#222}
-#calendar-single,#calendar-range{display:none;position:absolute;top:90%;left:-1%;z-index:99999;background-color:var(--calendar-bg);border:1px solid var(--radio-border);box-shadow:0 4px 12px #0000004d}
-#calendar-range{display:none;position:absolute;top:90%;left:66.6%;z-index:99999;background-color:var(--calendar-bg);border:1px solid var(--radio-border);box-shadow:0 4px 12px #0000004d}
-.date-picker{position:relative}
+
+.alert {
+    position: fixed;
+    top: 4%;
+    right: 2%;
+    padding: 15px 30px;
+    background-color: var(--color-fg);
+    color: var(--color-bg);
+    opacity: 0;
+    width: 300px;
+    visibility: hidden;
+    transition: opacity 0.3s,visibility .3s;
+    z-index: 1000;
+    letter-spacing: .05rem;
+    font-size: 1.03em
+}
+
+.alert.show {
+    opacity: 1;
+    visibility: visible;
+    animation: fade-text 1s forwards
+}
+
+.alert.success {
+    background-color: var(--color-fg);
+    color: var(--color-bg)
+}
+
+.alert.error {
+    background-color: red;
+    color: #222
+}
+
+#calendar-single,#calendar-range {
+    display: none;
+    position: absolute;
+    top: 90%;
+    left: -1%;
+    z-index: 99999;
+    background-color: var(--calendar-bg);
+    border: 1px solid var(--radio-border);
+    box-shadow: 0 4px 12px #0000004d
+}
+
+#calendar-range {
+    display: none;
+    position: absolute;
+    top: 90%;
+    left: 66.6%;
+    z-index: 99999;
+    background-color: var(--calendar-bg);
+    border: 1px solid var(--radio-border);
+    box-shadow: 0 4px 12px #0000004d
+}
+
+.date-picker {
+    position: relative
+}
+
+.special-fare .radio {
+    position: relative
+}
+
+.special-fare .checkmark1 {
+    position: absolute;
+    top: 24%;
+    left: 8%;
+    height: 12px;
+    width: 12px;
+    background-color: var(--radio-color);
+    border: 1px solid var(--radio-border)
+}
+
+.radio {
+    display: inline;
+    cursor: pointer;
+    font-size: 14px;
+    font-family: 'Space Grotesk',sans-serif;
+    letter-spacing: .94px;
+    border-radius: 18px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    background-color: var(--color-bg);
+    user-select: none;
+    padding: 10px 22.5px 25px;
+    margin-right: 1rem;
+    transition: all .2s ease;
+    border: 1px solid var(--radio-color)
+}
+
+.radio-text {
+    display: inline-block;
+    vertical-align: top
+}
+
+.subtext {
+    display: block;
+    font-size: .8em;
+    color: #888;
+    margin-top: 2px;
+    animation: animate-gradient .7s ease-in forwards
+}
+
+.radio input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0
+}
+
+.radio input:checked~.checkmark1 {
+    font-weight: 700;
+    background-color: var(--button-bg);
+    color: var(--color-fg)
+}
+
+.radio input:checked~.radio-text {
+    font-weight: 700
+}
+
+.radio:has(input:checked) {
+    background-color: var(--radio-color);
+    border: 1px solid var(--radio-border)
+}
+
+.radio:hover {
+    border: 1px solid var(--radio-hover);
+    background-color: var(--section-hover)
+}
+
+.radio:hover .tooltip {
+    visibility: visible;
+    opacity: 1
+}
+
+.tooltip {
+    visibility: hidden;
+    background-color: var(--radio-color);
+    color: var(--color-fg);
+    border: 1px solid var(--radio-border);
+    text-align: center;
+    font-size: .7em;
+    padding: 10px 15px;
+    position: absolute;
+    top: 140%;
+    left: 50%;
+    width: 285px;
+    transform: translateX(-50%);
+    white-space: normal;
+    opacity: 0;
+    transition: opacity .2s;
+    z-index: 1;
+    pointer-events: none
+}
+
+.tooltip::after {
+    content: '';
+    position: absolute;
+    bottom: 99%;
+    left: 45%;
+    transform: rotate(180deg);
+    border-width: 10px;
+    border-style: solid;
+    border-color: var(--radio-color) transparent transparent
+}
+
+.train-booking>label>.radio-text {
+    padding: 0 5px
+}
+
+.train-booking {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 10vh;
+    z-index: 1000;
+    position: relative;
+    animation: animate-gradient .7s ease-in forwards,fade-element .7s forwards;
+    width: 100%;
+    margin: 210px auto 0
+}
+
+.way {
+    display: block;
+    position: fixed;
+    top: -35%;
+    left: 0
+}
+
+.train-booking>.way {
+    justify-content: center;
+    z-index: 10;
+    isolation: isolate;
+    animation: animate-gradient .7s ease-in forwards,fade-element .7s forwards
+}
+
+.way .radio-text {
+    padding: 4px 10px
+}
+
+.city-switch {
+    display: flex;
+    left: auto;
+    border-radius: 18px;
+    position: fixed;
+    align-items: center;
+    border: 1px solid var(--radio-border);
+    margin-top: 10px;
+    animation: animate-gradient .7s ease-in forwards,fade-element .7s forwards
+}
+
+#from {
+    border-right: 1px solid var(--radio-border);
+    border-radius: 18px 0 0 18px;
+    transition: .3s
+}
+
+.from {
+    font-size: .4em;
+    font-weight: 200;
+    float: inline-start;
+    margin: 10px;
+    margin-left: 21px;
+    animation: animate-gradient .7s ease-in forwards
+}
+
+.to {
+    font-size: .4em;
+    font-weight: 200;
+    float: inline-start;
+    margin: 10px;
+    margin-left: 20px;
+    animation: animate-gradient .7s ease-in forwards
+}
+
+.departure {
+    font-size: .7em;
+    position: absolute;
+    font-weight: 200;
+    float: inline-start;
+    margin: .7rem;
+    margin-left: 1rem
+}
+
+#to {
+    transition: .3s
+}
+
+#departure {
+    width: 155px;
+    border-right: 1px solid var(--radio-border);
+    transition: .3s
+}
+
+#return {
+    width: 155px;
+    border-right: 1px solid var(--radio-border);
+    transition: .3s
+}
+
+#from:hover,#to:hover,#departure:hover,#return:hover,#travelers-and-class:hover {
+    background-color: var(--section-hover);
+    transition: .3s
+}
+
+.travelers-and-class:hover {
+    transition: .3s;
+    background-color: var(--radio-color);
+    border: 0 solid #0c0c0c
+}
+
+.custom-select {
+    position: relative;
+    height: 6.875rem;
+    border-right: 1px solid var(--radio-border);
+    width: 320px;
+    font-family: 'Space Grotesk',sans-serif;
+    font-size: 1.5rem;
+    font-weight: 700;
+    cursor: pointer;
+    color: var(--color-fg);
+    letter-spacing: -.5px;
+    background-color: var(--color-bg);
+    z-index: 100
+}
+
+.custom-select:hover {
+    background-color: var(--radio-color);
+    transition: .3ms
+}
+
+.select-selected {
+    padding: 35px;
+    padding-left: 20px;
+    animation: animate-gradient .7s ease-in forwards
+}
+
+.select-options {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 320px;
+    font-size: .45em;
+    font-weight: 400;
+    background-color: var(--radio-color);
+    z-index: 99999;
+    box-shadow: 0 4px 12px #0000004d;
+    border: 1px solid var(--radio-border);
+    border-top: none;
+    font-family: 'Space Grotesk',sans-serif;
+    letter-spacing: -.3px
+}
+
+.select-options div {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 10px 0;
+    color: gray;
+    flex-direction: column
+}
+
+.select-options div .city {
+    font-weight: 700
+}
+
+.select-options div .airport {
+    font-size: .8em;
+    color: #b0b0b0
+}
+
+.select-selected .city {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 100%
+}
+
+.select-selected .airport {
+    font-size: .5em;
+    font-weight: 100;
+    color: var(--color-fg);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 100%;
+    animation: animate-gradient .7s ease-in forwards
+}
+
+.select-options div .code {
+    align-self: flex-end;
+    font-size: .9em;
+    font-weight: 700;
+    top: -32px;
+    position: relative;
+    color: #b0b0b0
+}
+
+.select-options div:hover {
+    background-color: var(--radio-hover);
+    color: var(--color-fg)
+}
+
+.select-options.open {
+    display: block
+}
+
+.date-picker {
+    position: relative
+}
+
+.date-trigger {
+    width: 10rem;
+    height: 6.875rem;
+    background: var(--color-bg);
+    color: var(--color-fg);
+    padding: 1.9rem .5rem;
+    border: none;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    transition: background .2s;
+    border-right: 1px solid var(--radio-border)
+}
+
+.date-trigger:hover {
+    background: var(--radio-color)
+}
+
+.date-display {
+    display: flex;
+    align-items: baseline;
+    gap: 5px
+}
+
+.date-day {
+    font-size: 2em;
+    margin-right: .3rem;
+    font-weight: 600;
+    margin-left: .5rem;
+    margin-bottom: -5px;
+    animation: animate-gradient .7s ease-in forwards
+}
+
+.return-description {
+    position: absolute;
+    width: 85px;
+    font-size: .65rem;
+    font-family: 'Space Grotesk',sans-serif;
+    font-weight: 600;
+    text-align: left;
+    top: 30%;
+    left: 10%;
+    letter-spacing: -.3px;
+    animation: animate-gradient .7s ease-in forwards
+}
+
+.arrow-down {
+    border: solid var(--tnc-color);
+    border-width: 0 2px 2px 0;
+    display: inline-block;
+    padding: 3px;
+    content: '';
+    transform: rotate(45deg);
+    -webkit-transform: rotate(45deg);
+    vertical-align: top;
+    margin: 2px 0 0 8px;
+    transition: all .3s ease-in-out
+}
+
+.date-month {
+    font-family: 'Space Grotesk',sans-serif;
+    font-size: .9rem;
+    animation: animate-gradient .7s ease-in forwards;
+    letter-spacing: -.3px
+}
+
+.date-weekday {
+    font-family: 'Space Grotesk',sans-serif;
+    margin-top: .3rem;
+    margin-left: .6rem;
+    position: absolute;
+    animation: animate-gradient .7s ease-in forwards;
+    letter-spacing: -.3px
+}
+
+.calendar input[type="date"] {
+    border: none;
+    width: 100%;
+    padding: 10px;
+    box-sizing: border-box
+}
+
+.date-trigger {
+    width: 10rem;
+    height: 6.875rem;
+    background: var(--color-bg);
+    color: var(--color-fg);
+    padding: 1.9rem .5rem;
+    border: none;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    transition: background .2s;
+    border-right: 1px solid var(--radio-border)
+}
+
+.date-trigger:active {
+    background: var(--radio-color)
+}
+
+.calendar {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background: var(--radio-color);
+    border: 1px solid #1c1c1c;
+    z-index: 10;
+    box-shadow: 0 4px 8px #0003;
+    padding: 10px
+}
+
+.calendar.active {
+    display: block
+}
+
+.calendar table {
+    border-collapse: collapse;
+    width: 100%
+}
+
+.calendar th,.calendar td {
+    text-align: center;
+    padding: 5px;
+    cursor: pointer
+}
+
+.calendar th {
+    color: #666;
+    font-weight: 700
+}
+
+.calendar td:hover {
+    background-color: #f0f0f0
+}
+
+.calendar .selected {
+    background-color: #007bff;
+    color: #fff
+}
+
+.cancel-btn {
+    position: absolute;
+    top: 10%;
+    left: 81%;
+    cursor: pointer;
+    padding: 2px;
+    filter: invert(1)
+}
+
+.cancel-btn:hover {
+    transform: scale(1.1)
+}
+
+.cancel-btn:active {
+    transform: scale(1.2)
+}
+
+.dark-mode .cancel-btn {
+    filter: invert(0)
+}
+
+@keyframes fade-element {
+    0% {
+        transform: translateY(1rem) scale(1)
+    }
+
+    100% {
+        transform: translate(0rem) scale(1)
+    }
+}
+
+.travelers {
+    color: var(--color-fg);
+    font-family: 'Space Grotesk',sans-serif;
+    font-size: .8em;
+    position: absolute;
+    top: 0;
+    margin: .7rem;
+    animation: animate-gradient .7s ease-in forwards;
+    letter-spacing: -.3px
+}
+
+.travelers-display {
+    color: var(--color-fg);
+    font-family: 'Space Grotesk',sans-serif;
+    margin-top: .8rem;
+    animation: animate-gradient .7s ease-in forwards;
+    letter-spacing: -.3px
+}
+
+.travelers-and-class {
+    position: relative;
+    width: 275px;
+    border-radius: 0 18px 18px 0;
+    height: 6.875rem;
+    background-color: var(--color-bg);
+    border: 0 solid #000;
+    cursor: pointer
+}
+
+.travel-class {
+    position: absolute;
+    top: 90%;
+    left: 51.4%;
+    width: 34rem;
+    height: 20rem;
+    background-color: var(--calendar-bg);
+    padding: 1.3rem;
+    user-select: none;
+    z-index: 99999;
+    border: 1px solid var(--radio-border);
+    box-shadow: 0 4px 12px #0000004d;
+    margin-top: 10px
+}
+
+.travel-class h5,p {
+    font-size: .6em;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    padding: 0
+}
+
+.number-of-travelers {
+    margin-left: -4rem;
+    font-size: 2em;
+    font-weight: 600
+}
+
+.display-class {
+    display: block;
+    width: 200px;
+    margin-left: 1rem;
+    white-space: nowrap;
+    text-align: left
+}
+
+.children-section {
+    width: 200px;
+    position: absolute
+}
+
+.infants-section {
+    width: 200px;
+    left: 50%;
+    position: absolute
+}
+
+.choose-class {
+    top: 65%;
+    width: 400px;
+    position: absolute
+}
+
+#class-error {
+    display: block
+}
+
+.radio-input input {
+    display: none
+}
+
+.radio-input {
+    --item_width: 30px;
+    --item_height: 30px;
+    --items: 10;
+    --container_width: calc(var(--item_width) * var(--items));
+    position: relative;
+    display: flex;
+    align-items: center;
+    background-color: var(--calendar-bg);
+    color: var(--color-fg);
+    width: var(--container_width);
+    overflow: hidden;
+    user-select: none
+}
+
+.radio-input label {
+    color: var(--color-fg)
+}
+
+.radio-input label:hover {
+    background-color: #85858570
+}
+
+.radio-input label:hover span {
+    color: var(--color-fg)
+}
+
+.radio-input label {
+    width: var(--item_width);
+    height: var(--item_height);
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1;
+    font-weight: 600;
+    font-size: .8em
+}
+
+.choose-class .radio-input {
+    --item_width: auto;
+    --container_width: auto;
+    gap: 5px;
+    flex-wrap: wrap;
+    width: 35rem
+}
+
+.choose-class .radio-input label {
+    padding: 0 15px;
+    width: auto;
+    font-weight: 400;
+    text-align: center
+}
+
+.choose-class .radio-input label:hover {
+    background-color: #85858570
+}
+
+.choose-class .radio-input label:hover span {
+    color: var(--color-bg)
+}
+
+.choose-class .radio-input label:has(input:checked) {
+    background-color: var(--color-fg);
+    font-weight: 600;
+    color: var(--color-bg)
+}
+
+.radio:has(input:checked) {
+    background-color: var(--color-fg);
+    border: 1px solid var(--radio-border);
+    color: var(--color-bg)
+}
+
+.selection {
+    display: none;
+    position: absolute;
+    width: var(--item_width);
+    height: var(--item_height);
+    width: calc(var(--container_width) / var(--items));
+    z-index: 0;
+    left: 0;
+    top: 0;
+    transition: .15s ease
+}
+
+.radio-input label:has(input:checked)~.selection {
+    background-color: var(--color-fg);
+    display: inline-block
+}
+
+.radio-input label:has(input:checked) {
+    color: var(--color-bg);
+    background: var(--color-fg);
+}
+
+.search-btn {
+    background-color: var(--radio-color);
+    color: var(--color-fg);
+    text-decoration: none;
+    position: absolute;
+    border-radius: 18px;
+    top: 119%;
+    left: 89.5%;
+    padding: 18px 34px;
+    border: 1px solid transparent;
+    transition: background-color .3s ease,color .3s ease;
+    animation: fade-text .7s forwards
+}
+
+.search-btn:hover {
+    background-color: var(--color-fg);
+    color: var(--color-bg);
+    border: 1px solid var(--border);
+    font-weight: 700;
+    cursor: pointer
+}
+
+.radio-input label:nth-child(1):has(input:checked)~.selection {
+    transform: translateX(calc(var(--container_width) * 0 / var(--items)))
+}
+
+.radio-input label:nth-child(2):has(input:checked)~.selection {
+    transform: translateX(calc(var(--container_width) * 1 / var(--items)))
+}
+
+.radio-input label:nth-child(3):has(input:checked)~.selection {
+    transform: translateX(calc(var(--container_width) * 2 / var(--items)))
+}
+
+.radio-input label:nth-child(4):has(input:checked)~.selection {
+    transform: translateX(calc(var(--container_width) * 3 / var(--items)))
+}
+
+.radio-input label:nth-child(5):has(input:checked)~.selection {
+    transform: translateX(calc(var(--container_width) * 4 / var(--items)))
+}
+
+.radio-input label:nth-child(6):has(input:checked)~.selection {
+    transform: translateX(calc(var(--container_width) * 5 / var(--items)))
+}
+
+.radio-input label:nth-child(7):has(input:checked)~.selection {
+    transform: translateX(calc(var(--container_width) * 6 / var(--items)))
+}
+
+.radio-input label:nth-child(8):has(input:checked)~.selection {
+    transform: translateX(calc(var(--container_width) * 7 / var(--items)))
+}
+
+.radio-input label:nth-child(9):has(input:checked)~.selection {
+    transform: translateX(calc(var(--container_width) * 8 / var(--items)))
+}
+
+.radio-input label:nth-child(10):has(input:checked)~.selection {
+    transform: translateX(calc(var(--container_width) * 9 / var(--items)))
+}
+
+.radio-input label:nth-child(11):has(input:checked)~.selection {
+    transform: translateX(calc(var(--container_width) * 10/ var(--items)))
+}
+
+.alert {
+    position: fixed;
+    top: 4%;
+    right: 2%;
+    padding: 15px 30px;
+    background-color: var(--color-fg);
+    color: var(--color-bg);
+    opacity: 0;
+    width: 300px;
+    visibility: hidden;
+    transition: opacity 0.3s,visibility .3s;
+    z-index: 1000;
+    letter-spacing: .05rem;
+    font-size: 1.03em
+}
+
+.alert.show {
+    opacity: 1;
+    visibility: visible;
+    animation: fade-text 1s forwards
+}
+
+.alert.success {
+    background-color: var(--color-fg);
+    color: var(--color-bg)
+}
+
+.alert.error {
+    background-color: red;
+    color: #222
+}
+
+#calendar-single,#calendar-range {
+    display: none;
+    position: absolute;
+    top: 90%;
+    left: -1%;
+    z-index: 99999;
+    background-color: var(--calendar-bg);
+    border: 1px solid var(--radio-border);
+    box-shadow: 0 4px 12px #0000004d
+}
+
+#calendar-range {
+    display: none;
+    position: absolute;
+    top: 90%;
+    left: 66.6%;
+    z-index: 99999;
+    background-color: var(--calendar-bg);
+    border: 1px solid var(--radio-border);
+    box-shadow: 0 4px 12px #0000004d
+}
+
+.date-picker {
+    position: relative
+}

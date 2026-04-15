@@ -19,13 +19,13 @@
     <script src="../js/auth.js"></script>
     <style>
         body { padding: 0; user-select: none; }
-        .page-wrap { max-width: 1100px; margin: 170px auto 60px; padding: 0 20px;animation: fade-up 0.8s forwards; }
+        .page-wrap {max-width: 1100px;margin: 200px auto 60px;padding: 0 20px;animation: fade-up 0.8s forwards;}
         .back-link { text-decoration: none; color: var(--color-fg); padding: 2px 10px; }
         .back-link:hover { background-color: var(--color-fg); color: var(--color-bg); }
         .booking-layout { display: grid; grid-template-columns: 210px 1fr; margin-top: 1rem; gap: -0.5rem; align-items: start; }
-        .image-card { width: 190px; background: var(--color-bg); border: 1px solid var(--radio-border);  overflow: hidden; }
-        .event-image { height: 325px; width: 100%; background-size: cover; background-position: center; }
-        .booking-content { background: var(--color-bg); border: 1px solid var(--radio-border);  padding: 16px 18px; display: flex; flex-direction: column; gap: 9px; }
+        .image-card {width: 190px;background: var(--color-bg);border: 1px solid var(--radio-border);overflow: hidden;border-radius: 18px;}
+        .event-image {height: 325px;width: 100%;background-size: cover;border-radius: 18px;background-position: center;osition: center;}
+        .booking-content {background: var(--color-bg);border: 1px solid var(--radio-border);padding: 28px 28px;display: flex;border-radius: 18px;flex-direction: column;gap: 9px;}
         .booking-title { margin: 0; font-size: 1.2rem; color: var(--color-fg); }
         .meta { display: flex; flex-wrap: wrap; gap: 14px; color: var(--tnc-color); font-size: 0.9rem; }
         .meta span { display: inline-flex; align-items: center; gap: 6px; }
@@ -34,11 +34,11 @@
 		.controls-lg { display: flex; align-items: center; gap: 14px; }
 		.controls-lg label { color: var(--color-fg); font-weight: 600; letter-spacing: 0.3px; }
 		.qty-controls { display: inline-flex; align-items: center; gap: 8px; }
-		.qty-btn { background: var(--radio-color); color: var(--color-fg); border: 1px solid var(--radio-border);  padding: 10px; width: 40px; cursor: pointer; font-family: 'Varela', sans-serif; transition: 0.2s; }
+		.qty-btn {background: var(--radio-color);color: var(--color-fg);border: 1px solid var(--radio-border);padding: 10px;width: 40px;border-radius: 9px;cursor: pointer;font-family: 'Varela', sans-serif;transition: 0.2s;}
 		.qty-btn:hover { background: var(--color-fg); color: var(--color-bg); }
 		.qty-btn:disabled { opacity: 0.6; cursor: not-allowed; }
-		.qty-input-lg { appearance: none; width: 140px; padding: 10px; background: transparent; color: var(--color-fg); border: 1px solid var(--radio-border);  font-family: var(--body-font), sans-serif; text-align: center; font-size: 1.05rem; }
-        .price-row { display: flex; justify-content: space-between; align-items: center; background: var(--color-bh); border: 1px solid var(--radio-border);  padding: 12px 14px; }
+		.qty-input-lg {appearance: none;width: 140px;border-radius: 9px;padding: 10px;background: transparent;color: var(--color-fg);border: 1px solid var(--radio-border);font-family: var(--body-font), sans-serif;text-align: center;font-size: 1.05rem;}
+        .price-row {display: flex;justify-content: space-between;align-items: center;border-radius: 9px;background: var(--color-bh);border: 1px solid var(--radio-border);padding: 12px 14px;}
         .price-row .label { color: var(--tnc-color); font-size: 0.9rem; }
         .price-row .value { color: var(--color-fg); font-weight: 700; }
         .actions { display: flex; margin-left: 54.4rem; width: 150%; }

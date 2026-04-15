@@ -1,15 +1,15 @@
 body{font-family:'Space Grotesk',sans-serif;background-color:var(--color-bg);color:var(--color-fg);padding:100px 150px}
 .flight-card-center{display:flex;flex-direction:column;align-items:center;justify-content:center;width:100%;margin:0 auto}
 .flight-cards{display:flex;flex-direction:column;max-width:900px;width:100%;user-select:none;animation:fade-card 1s forwards,fade-text 1s forwards}
-.flight-card{background:var(--color-bg);border:1px solid var(--radio-border);overflow:hidden;box-shadow:0 2px 5px #0000001a;margin:.5rem;position:relative;animation:fade-card 1s forwards;will-change:transform,box-shadow;transition:transform .2s!important;transform:translateZ(0)}
+.flight-card{background:var(--color-bg);border:1px solid var(--radio-border);overflow:hidden;box-shadow:0 2px 5px #0000001a;margin:.5rem;position:relative;border-radius:18px;animation:fade-card 1s forwards;will-change:transform,box-shadow;transition:transform .2s!important;transform:translateZ(0)}
 .flight-card::after{content:"";position:absolute;top:0;left:0;width:100%;height:100%;background:radial-gradient(circle,var(--card-hover) 0%,var(--card-hover2) 40%);opacity:0;transition:opacity 1s ease,transform .5s ease;pointer-events:none}
 .flight-card:hover::after{transform:scale(4);transition:.5s ease;opacity:1}
-.flight-card:hover{border-left: 1px solid #656565;box-shadow:0 2px 10px #0003;cursor:pointer;transform:scale(1.02)!important}
+.flight-card:hover{box-shadow:0 2px 10px #0003;cursor:pointer;transform:scale(1.02)!important}
 .flight-card:active{background-color:var(--card-hover);box-shadow:0 2px 5px #0000001a;cursor:pointer;transform:scale(1.03)!important;transition:background-color .1s!important}
 .flight-info{display:grid;grid-template-columns:160px 40px 230px 100px 120px 120px;align-items:center;gap:1rem;margin:.5rem;position:relative;text-align:center}
 .time,.duration,.price{text-align:center}
-.boarding-time {margin-left: -4px;}
-.landing-time {margin-left: -65px;}
+.boarding-time{margin-left:-4px}
+.landing-time{margin-left:-65px}
 .price h3{color:var(--tnc-color);margin:0;margin-bottom:20px}
 .flight-card:hover .price h3{color:var(--color-fg)}
 .flight-card:hover .boarding-airport,.landing-airport{color:var(--color-fg)}
@@ -19,18 +19,18 @@ body{font-family:'Space Grotesk',sans-serif;background-color:var(--color-bg);col
 p:nth-child(2){color:#868686;margin-top:-5px;font-size:.8em;text-align:left;margin-left:1rem}
 .duration p:nth-child(3){color:#868686;margin-top:-5px;font-size:.8em;text-align:center}
 .price p{color:#5f5f5f;font-size:.6em;margin:-10px;margin-left:25px;position:absolute}
-.book-btn{background:var(--radio-color);color:var(--color-fg);border:1px solid var(--radio-border);padding:.7rem;cursor:pointer;font-family:'Space Grotesk',sans-serif;transition:.2s;position:relative;z-index:1}
-.book-btn:hover{background-color:var(--color-fg);color:var(--color-bg);transform:scale(1.05);font-weight:800;letter-spacing: 2px;}
+.book-btn{background:var(--radio-color);color:var(--color-fg);border:1px solid var(--radio-border);padding:.7rem;cursor:pointer;border-radius:9px;font-family:'Space Grotesk',sans-serif;transition:.2s;position:relative;z-index:1}
+.book-btn:hover{background-color:var(--color-fg);color:var(--color-bg);transform:scale(1.05);font-weight:800;letter-spacing:2px}
 .details-panel{position:fixed;top:0;right:-100%;width:18%;height:100%;background:var(--color-bg);box-shadow:-2px 0 5px #0000001a;padding:2rem;overflow-y:auto;transition:right .5s ease;z-index:100}
 .details-panel.active{right:0}
-.close-btn{background:var(--radio-color);color:var(--color-fg);border:1px solid var(--radio-border);font-family:'Space Grotesk',sans-serif;padding:.5rem 1rem;cursor:pointer;transition:.2s}
+.close-btn{background:var(--radio-color);color:var(--color-fg);border:1px solid var(--radio-border);font-family:'Space Grotesk',sans-serif;padding:.5rem 1rem;border-radius:9px;cursor:pointer;transition:.2s}
 .close-btn:hover{background:var(--color-fg);color:var(--color-bg);border:1px solid var(--radio-border)}
 .details-row{display:flex;justify-content:space-between;margin-bottom:.7rem;width:16rem;padding:.8rem;margin-left:-1rem;color:var(--tnc-color);border-top:1px solid transparent;border-bottom:1px solid transparent;transition:.2s}
 .details-row:hover{color:var(--color-fg);border-top:1px solid var(--radio-border);border-bottom:1px solid var(--radio-border);width:14rem;transition:.2s}
 .details-row:hover .details-label{font-weight:600}
 .details-row:hover .details-value{font-weight:600}
 .details-label{font-weight:100}
-.sort-container{display:flex;justify-content:center;align-items:center;background-color:var(--color-bg);border:1px solid var(--radio-border);overflow:hidden;width:100%;max-width:885px;margin:0 auto;margin-bottom:.5rem;user-select:none;animation:fade-card 1s forwards;font-size:.9em}
+.sort-container{display:flex;justify-content:center;align-items:center;background-color:var(--color-bg);border:1px solid var(--radio-border);overflow:hidden;width:100%;max-width:885px;margin:0 auto;border-radius:18px;margin-bottom:.5rem;user-select:none;animation:fade-card 1s forwards;font-size:.9em}
 .sort-option{flex:1;padding:10px;text-align:center;cursor:pointer;color:var(--tnc-color);transition:background 0.2s,color .2s;border-bottom:.2px solid transparent}
 .sort-option:hover{background:var(--card-hover);color:var(--color-fg)}
 .sort-option.active{background-color:var(--radio-color);color:var(--color-fg);font-weight:700;border-bottom:.2px solid var(--color-fg)}
@@ -49,7 +49,7 @@ p:nth-child(2){color:#868686;margin-top:-5px;font-size:.8em;text-align:left;marg
 .flight-card:nth-child(8){animation-delay:.7s}
 .flight-card:nth-child(9){animation-delay:.8s}
 .flight-card:nth-child(10){animation-delay:.9s}
-.filter-section{position:fixed;left:2%;background-color:var(--color-bg);padding:1rem;width:245px;color:var(--color-fg);border:1px solid var(--radio-border);animation:fade-card 1s forwards;user-select:none}
+.filter-section{position:fixed;left:2%;background-color:var(--color-bg);padding:1rem;width:245px;border-radius:18px;color:var(--color-fg);border:1px solid var(--radio-border);animation:fade-card 1s forwards;user-select:none}
 .filter-title{letter-spacing:1px;font-size:1.2rem;margin:0}
 .filter-divider{border:0;border-top:1px solid var(--radio-border);margin:.5rem 0}
 .filter-group{margin-top:1rem}
@@ -57,12 +57,12 @@ p:nth-child(2){color:#868686;margin-top:-5px;font-size:.8em;text-align:left;marg
 .filter-item{display:flex;align-items:center;gap:.5rem;margin-bottom:.5rem;cursor:pointer;color:#ccc}
 .filter-item input{accent-color:#888;width:1rem;height:1rem;cursor:pointer}
 .filter-item span{font-size:.9rem}
-.filter-checkbox{appearance:none;width:18px;height:18px;border:1px solid var(--radio-border);background-color:transparent;margin-left:10px;display:inline-block;position:relative;margin-right:12px;cursor:pointer}
+.filter-checkbox{appearance:none;width:18px;height:18px;border-radius:5px;border:1px solid var(--radio-border);background-color:transparent;margin-left:10px;display:inline-block;position:relative;margin-right:12px;cursor:pointer}
 .filter-checkbox:before{content:"";background-color:var(--color-fg);display:block;position:absolute;top:50%;left:50%;transform:translate(-50%,-50%) scale(0);width:10px;height:10px;transition:all .1s ease-in-out}
 .filter-checkbox:checked{border-color:var(--color-fg)}
 .filter-checkbox:checked+span{font-weight:600}
 .filter-checkbox:checked:before{transform:translate(-50%,-50%) scale(1)}
-.filter-checkbox-label{cursor:pointer;user-select:none;display:flex;align-items:center;margin-bottom:.3rem;background-color:transparent;transition:background-color .2s}
+.filter-checkbox-label{cursor:pointer;user-select:none;display:flex;align-items:center;margin-bottom:.3rem;border-radius:9px;background-color:transparent;transition:background-color .2s}
 .filter-checkbox-label:hover{font-weight:600;background-color:var(--radio-color);transition:background-color .2s}
 .filter-checkbox-label:hover .filter-checkbox{border-color:var(--tnc-color);transition:background-color .2s}
 .filter-checkbox-label span{font-size:.9rem;font-family:'Space Grotesk',sans-serif;margin:.5rem}

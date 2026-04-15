@@ -40,7 +40,7 @@
 .kalendae .k-days span.k-selected.k-active,.kalendae .k-header.k-active span.k-selected{background:var(--color-fg);color:var(--color-bg)}
 .kalendae .k-days span.k-range{background:none}
 .kalendae .k-days span.k-range.k-in-month{background:#858585;color:#333}
-.kalendae .k-days span.k-active:hover,.kalendae .k-days span.k-active.k-day-hover-active{border-color:var(--radio-border);background-color:var(--tnc-color);color:var(--color-bg)}
+.kalendae .k-days span.k-active:hover,.kalendae .k-days span.k-active.k-day-hover-active{border-color:var(--radio-border);background:var(--tnc-color);color:var(--color-bg)}
 .kalendae .k-week:hover span.k-active{border-color:#666}
 .clearfix:after{visibility:hidden;display:block;font-size:0;content:" ";clear:both;height:0}
 .kalendae.ie8.k-floating{border:1px solid #ccc}

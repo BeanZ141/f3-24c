@@ -1,36 +1,211 @@
 id,company,train_number,departure,duration,arrival,cost,offer,boarding_station,arrival_station,stops
-1,Indian Railways,12034,06:00,4h 30m,10:30,₹1250,Saver ₹100 off,Pune Jn,Mumbai CSMT,Direct
-2,IRCTC Tejas,22119,07:45,6h 15m,14:00,₹1850,Meal Included,Mumbai CSMT,Ahmedabad Jn,Direct
-3,Indian Railways,12627,22:10,10h 45m,08:55,₹2430,Extra ₹150 off,Bangalore City,Chennai Egmore,1 Stop
-4,Indian Railways,12951,05:30,16h 00m,21:30,₹2895,Meal Included,Mumbai Central,New Delhi,2 Stops
-5,Vande Bharat,22438,15:15,8h 30m,23:45,₹3025,Saver ₹210 off,Varanasi Jn,New Delhi,Direct
-6,Indian Railways,12295,23:55,12h 05m,12:00,₹1980,Free WiFi,Patna Jn,Kolkata Howrah,1 Stop
-7,Indian Railways,16526,09:10,13h 25m,22:35,₹1540,Extra ₹90 off,Bangalore City,Hyderabad Deccan,Direct
-8,IRCTC Tejas,22171,14:40,7h 20m,22:00,₹2150,Meal Included,Lucknow Jn,New Delhi,Direct
-9,Indian Railways,12953,20:25,17h 15m,13:40,₹3120,Extra ₹200 off,Mumbai Central,Jaipur Jn,2 Stops
-10,Vande Bharat,22222,06:35,5h 30m,12:05,₹2495,Saver ₹180 off,Delhi Jn,Varanasi Jn,Direct
-11,Indian Railways,12616,11:25,20h 45m,08:10,₹3275,Extra ₹150 off,Chennai Central,Hyderabad Deccan,2 Stops
-12,Indian Railways,12723,16:50,21h 10m,14:00,₹2840,Free Meals,Hyderabad Deccan,New Delhi,1 Stop
-13,Indian Railways,11058,08:20,25h 35m,09:55,₹3450,Saver ₹220 off,Amritsar Jn,Pune Jn,2 Stops
-14,Vande Bharat,22435,05:50,6h 45m,12:35,₹1999,Extra ₹100 off,Delhi Jn,Kanpur Central,Direct
-15,IRCTC Tejas,82501,13:30,12h 30m,02:00,₹2250,Meal Included,Lucknow Jn,Mumbai CSMT,1 Stop
-16,Indian Railways,12127,17:10,3h 50m,21:00,₹980,Saver ₹80 off,Pune Jn,Nashik Road,Direct
-17,Vande Bharat,20172,06:10,4h 00m,10:10,₹2200,Saver ₹150 off,Mumbai CSMT,Surat,Direct
-18,Indian Railways,12655,19:45,9h 20m,05:05,₹2100,Extra ₹120 off,Ahmedabad Jn,Mumbai Central,1 Stop
-19,IRCTC Tejas,82901,15:25,5h 50m,21:15,₹1950,Meal Included,Delhi Jn,Chandigarh,Direct
-20,Indian Railways,12860,23:20,14h 30m,13:50,₹2650,Free Meals,Bhubaneswar,Kolkata Howrah,1 Stop
-21,Vande Bharat,22301,07:00,6h 10m,13:10,₹2750,Saver ₹200 off,Patna Jn,Ranchi,Direct
-22,Indian Railways,11077,04:45,11h 15m,16:00,₹1750,Extra ₹100 off,Pune Jn,Goa Madgaon,1 Stop
-23,IRCTC Tejas,82903,09:30,7h 10m,16:40,₹2400,Meal Included,Ahmedabad Jn,Udaipur City,Direct
-24,Indian Railways,13151,21:55,16h 20m,14:15,₹1985,Free WiFi,Kolkata Howrah,Patna Jn,2 Stops
-25,Vande Bharat,22416,14:00,5h 40m,19:40,₹2550,Saver ₹170 off,New Delhi,Dehradun,Direct
-26,Indian Railways,17229,18:25,13h 35m,08:00,₹2300,Extra ₹130 off,Hyderabad Deccan,Visakhapatnam,1 Stop
-27,IRCTC Tejas,82503,12:15,10h 20m,22:35,₹2100,Meal Included,Varanasi Jn,Lucknow Jn,Direct
-28,Indian Railways,15909,20:40,22h 10m,18:50,₹3200,Free Meals,Guwahati,Dibrugarh,2 Stops
-29,Vande Bharat,20898,06:55,5h 15m,12:10,₹2350,Saver ₹140 off,Bhubaneswar,Rourkela,Direct
-30,Indian Railways,16345,10:20,8h 50m,19:10,₹1650,Extra ₹90 off,Ernakulam Jn,Trivandrum Central,Direct
-31,IRCTC Tejas,82905,16:50,6h 30m,23:20,₹2050,Meal Included,Jaipur Jn,Delhi Jn,Direct
-32,Indian Railways,12432,22:30,12h 00m,10:30,₹2800,Free Meals,Amritsar Jn,New Delhi,Direct
-33,Vande Bharat,22348,08:10,4h 45m,12:55,₹2150,Saver ₹160 off,Ranchi,Patna Jn,Direct
-34,Indian Railways,17015,19:10,15h 25m,10:35,₹2450,Extra ₹140 off,Secunderabad,Pune Jn,1 Stop
-35,IRCTC Tejas,82505,11:40,9h 10m,20:50,₹2200,Meal Included,Kanpur Central,Mumbai CSMT,1 Stop
+1,Indian Railways,10001,06:00,4h 30m,10:30,₹500,Saver ₹100 off,Mumbai,Pune,Direct
+2,IRCTC Tejas,10002,09:15,4h 45m,14:00,₹750,Meal Included,Mumbai,Pune,Direct
+3,Vande Bharat,10003,15:30,4h 15m,19:45,₹900,Free WiFi,Mumbai,Pune,Direct
+4,Indian Railways,10004,20:00,5h 00m,01:00,₹480,Extra ₹50 off,Mumbai,Pune,1 Stop
+5,Indian Railways,10005,22:45,4h 30m,03:15,₹520,Saver ₹80 off,Mumbai,Pune,Direct
+6,Indian Railways,10006,06:30,4h 45m,11:15,₹510,Meal Included,Pune,Mumbai,Direct
+7,IRCTC Tejas,10007,10:00,4h 30m,14:30,₹760,Free WiFi,Pune,Mumbai,Direct
+8,Vande Bharat,10008,17:00,4h 15m,21:15,₹890,Saver ₹100 off,Pune,Mumbai,Direct
+9,Indian Railways,10009,21:30,5h 00m,02:30,₹490,Extra ₹60 off,Pune,Mumbai,1 Stop
+10,Indian Railways,10010,23:50,4h 30m,04:20,₹530,Meal Included,Pune,Mumbai,Direct
+11,Indian Railways,10011,05:45,8h 15m,14:00,₹1100,Saver ₹150 off,Mumbai,Delhi,2 Stops
+12,IRCTC Tejas,10012,08:30,7h 45m,16:15,₹1450,Meal Included,Mumbai,Delhi,Direct
+13,Vande Bharat,10013,12:00,8h 00m,20:00,₹1650,Free WiFi,Mumbai,Delhi,1 Stop
+14,Indian Railways,10014,16:45,9h 30m,02:15,₹1200,Extra ₹100 off,Mumbai,Delhi,2 Stops
+15,Indian Railways,10015,21:15,8h 30m,05:45,₹1350,Saver ₹200 off,Mumbai,Delhi,1 Stop
+16,Indian Railways,10016,04:30,8h 00m,12:30,₹1120,Meal Included,Delhi,Mumbai,1 Stop
+17,IRCTC Tejas,10017,09:00,7h 30m,16:30,₹1480,Free WiFi,Delhi,Mumbai,Direct
+18,Vande Bharat,10018,13:45,8h 15m,22:00,₹1680,Saver ₹180 off,Delhi,Mumbai,2 Stops
+19,Indian Railways,10019,18:15,9h 00m,03:15,₹1220,Extra ₹90 off,Delhi,Mumbai,2 Stops
+20,Indian Railways,10020,22:30,8h 45m,07:15,₹1380,Meal Included,Delhi,Mumbai,1 Stop
+21,Indian Railways,10021,07:00,6h 30m,13:30,₹850,Saver ₹100 off,Mumbai,Bangalore,2 Stops
+22,IRCTC Tejas,10022,10:45,6h 00m,16:45,₹1200,Meal Included,Mumbai,Bangalore,Direct
+23,Vande Bharat,10023,14:30,7h 15m,21:45,₹1400,Free WiFi,Mumbai,Bangalore,1 Stop
+24,Indian Railways,10024,19:00,8h 00m,03:00,₹950,Extra ₹80 off,Mumbai,Bangalore,2 Stops
+25,Indian Railways,10025,23:15,6h 45m,06:00,₹1050,Saver ₹150 off,Mumbai,Bangalore,1 Stop
+26,Indian Railways,10026,05:15,6h 30m,11:45,₹860,Meal Included,Bangalore,Mumbai,2 Stops
+27,IRCTC Tejas,10027,11:30,6h 00m,17:30,₹1220,Free WiFi,Bangalore,Mumbai,Direct
+28,Vande Bharat,10028,15:45,7h 00m,22:45,₹1420,Saver ₹160 off,Bangalore,Mumbai,1 Stop
+29,Indian Railways,10029,20:30,7h 45m,04:15,₹960,Extra ₹70 off,Bangalore,Mumbai,2 Stops
+30,Indian Railways,10030,23:59,6h 30m,06:29,₹1080,Meal Included,Bangalore,Mumbai,Direct
+31,Indian Railways,10031,06:15,7h 45m,14:00,₹920,Saver ₹120 off,Mumbai,Chennai,1 Stop
+32,IRCTC Tejas,10032,09:45,7h 15m,17:00,₹1350,Meal Included,Mumbai,Chennai,Direct
+33,Vande Bharat,10033,13:30,8h 30m,22:00,₹1550,Free WiFi,Mumbai,Chennai,2 Stops
+34,Indian Railways,10034,18:00,9h 00m,03:00,₹1020,Extra ₹110 off,Mumbai,Chennai,2 Stops
+35,Indian Railways,10035,22:15,7h 30m,05:45,₹1150,Saver ₹180 off,Mumbai,Chennai,1 Stop
+36,Indian Railways,10036,04:45,7h 30m,12:15,₹930,Meal Included,Chennai,Mumbai,1 Stop
+37,IRCTC Tejas,10037,10:30,7h 00m,17:30,₹1370,Free WiFi,Chennai,Mumbai,Direct
+38,Vande Bharat,10038,14:15,8h 15m,22:30,₹1570,Saver ₹170 off,Chennai,Mumbai,2 Stops
+39,Indian Railways,10039,19:30,8h 45m,04:15,₹1040,Extra ₹90 off,Chennai,Mumbai,2 Stops
+40,Indian Railways,10040,23:40,7h 15m,06:55,₹1170,Meal Included,Chennai,Mumbai,Direct
+41,Indian Railways,10041,05:00,5h 45m,10:45,₹780,Saver ₹90 off,Mumbai,Hyderabad,Direct
+42,IRCTC Tejas,10042,08:15,5h 30m,13:45,₹1050,Meal Included,Mumbai,Hyderabad,Direct
+43,Vande Bharat,10043,12:45,6h 15m,19:00,₹1250,Free WiFi,Mumbai,Hyderabad,1 Stop
+44,Indian Railways,10044,17:30,7h 00m,00:30,₹880,Extra ₹60 off,Mumbai,Hyderabad,2 Stops
+45,Indian Railways,10045,21:00,5h 45m,02:45,₹950,Saver ₹130 off,Mumbai,Hyderabad,Direct
+46,Indian Railways,10046,05:30,5h 30m,11:00,₹790,Meal Included,Hyderabad,Mumbai,Direct
+47,IRCTC Tejas,10047,09:15,5h 15m,14:30,₹1070,Free WiFi,Hyderabad,Mumbai,Direct
+48,Vande Bharat,10048,13:00,6h 00m,19:00,₹1270,Saver ₹140 off,Hyderabad,Mumbai,1 Stop
+49,Indian Railways,10049,18:45,6h 45m,01:30,₹890,Extra ₹50 off,Hyderabad,Mumbai,2 Stops
+50,Indian Railways,10050,22:30,5h 30m,04:00,₹970,Meal Included,Hyderabad,Mumbai,Direct
+51,Indian Railways,10051,07:15,9h 00m,16:15,₹1400,Saver ₹200 off,Mumbai,Kolkata,2 Stops
+52,IRCTC Tejas,10052,10:30,8h 30m,19:00,₹1750,Meal Included,Mumbai,Kolkata,Direct
+53,Vande Bharat,10053,14:00,9h 45m,23:45,₹1950,Free WiFi,Mumbai,Kolkata,1 Stop
+54,Indian Railways,10054,18:30,10h 30m,05:00,₹1500,Extra ₹120 off,Mumbai,Kolkata,2 Stops
+55,Indian Railways,10055,22:45,8h 45m,07:30,₹1650,Saver ₹220 off,Mumbai,Kolkata,1 Stop
+56,Indian Railways,10056,04:00,8h 45m,12:45,₹1420,Meal Included,Kolkata,Mumbai,2 Stops
+57,IRCTC Tejas,10057,09:30,8h 15m,17:45,₹1780,Free WiFi,Kolkata,Mumbai,Direct
+58,Vande Bharat,10058,13:15,9h 30m,22:45,₹1980,Saver ₹210 off,Kolkata,Mumbai,1 Stop
+59,Indian Railways,10059,19:45,10h 15m,06:00,₹1520,Extra ₹130 off,Kolkata,Mumbai,2 Stops
+60,Indian Railways,10060,23:30,8h 30m,08:00,₹1680,Meal Included,Kolkata,Mumbai,Direct
+61,Indian Railways,10061,06:45,7h 30m,14:15,₹980,Saver ₹110 off,Pune,Delhi,1 Stop
+62,IRCTC Tejas,10062,10:15,7h 00m,17:15,₹1320,Meal Included,Pune,Delhi,Direct
+63,Vande Bharat,10063,14:45,8h 00m,22:45,₹1520,Free WiFi,Pune,Delhi,2 Stops
+64,Indian Railways,10064,19:15,8h 30m,03:45,₹1080,Extra ₹80 off,Pune,Delhi,1 Stop
+65,Indian Railways,10065,23:00,7h 15m,06:15,₹1220,Saver ₹160 off,Pune,Delhi,Direct
+66,Indian Railways,10066,05:00,7h 15m,12:15,₹990,Meal Included,Delhi,Pune,1 Stop
+67,IRCTC Tejas,10067,09:45,6h 45m,16:30,₹1340,Free WiFi,Delhi,Pune,Direct
+68,Vande Bharat,10068,13:30,7h 45m,21:15,₹1540,Saver ₹150 off,Delhi,Pune,2 Stops
+69,Indian Railways,10069,18:15,8h 15m,02:30,₹1100,Extra ₹70 off,Delhi,Pune,1 Stop
+70,Indian Railways,10070,22:00,7h 00m,05:00,₹1240,Meal Included,Delhi,Pune,Direct
+71,Indian Railways,10071,07:30,5h 45m,13:15,₹720,Saver ₹80 off,Pune,Bangalore,Direct
+72,IRCTC Tejas,10072,11:00,5h 30m,16:30,₹980,Meal Included,Pune,Bangalore,Direct
+73,Vande Bharat,10073,15:15,6h 15m,21:30,₹1180,Free WiFi,Pune,Bangalore,1 Stop
+74,Indian Railways,10074,19:45,7h 00m,02:45,₹820,Extra ₹50 off,Pune,Bangalore,2 Stops
+75,Indian Railways,10075,23:30,5h 45m,05:15,₹890,Saver ₹120 off,Pune,Bangalore,Direct
+76,Indian Railways,10076,04:30,5h 30m,10:00,₹730,Meal Included,Bangalore,Pune,Direct
+77,IRCTC Tejas,10077,08:45,5h 15m,14:00,₹990,Free WiFi,Bangalore,Pune,Direct
+78,Vande Bharat,10078,12:30,6h 00m,18:30,₹1190,Saver ₹130 off,Bangalore,Pune,1 Stop
+79,Indian Railways,10079,17:00,6h 45m,23:45,₹830,Extra ₹60 off,Bangalore,Pune,2 Stops
+80,Indian Railways,10080,21:15,5h 30m,02:45,₹910,Meal Included,Bangalore,Pune,Direct
+81,Indian Railways,10081,08:00,6h 45m,14:45,₹860,Saver ₹100 off,Pune,Chennai,1 Stop
+82,IRCTC Tejas,10082,11:45,6h 15m,18:00,₹1180,Meal Included,Pune,Chennai,Direct
+83,Vande Bharat,10083,16:00,7h 30m,23:30,₹1380,Free WiFi,Pune,Chennai,2 Stops
+84,Indian Railways,10084,20:30,8h 00m,04:30,₹940,Extra ₹90 off,Pune,Chennai,2 Stops
+85,Indian Railways,10085,23:45,6h 30m,06:15,₹1070,Saver ₹150 off,Pune,Chennai,1 Stop
+86,Indian Railways,10086,05:15,6h 30m,11:45,₹870,Meal Included,Chennai,Pune,1 Stop
+87,IRCTC Tejas,10087,09:00,6h 00m,15:00,₹1190,Free WiFi,Chennai,Pune,Direct
+88,Vande Bharat,10088,13:45,7h 15m,21:00,₹1390,Saver ₹140 off,Chennai,Pune,2 Stops
+89,Indian Railways,10089,18:30,7h 45m,02:15,₹950,Extra ₹80 off,Chennai,Pune,2 Stops
+90,Indian Railways,10090,22:15,6h 15m,04:30,₹1090,Meal Included,Chennai,Pune,Direct
+91,Indian Railways,10091,06:30,4h 45m,11:15,₹650,Saver ₹70 off,Pune,Hyderabad,Direct
+92,IRCTC Tejas,10092,10:00,4h 30m,14:30,₹880,Meal Included,Pune,Hyderabad,Direct
+93,Vande Bharat,10093,14:15,5h 15m,19:30,₹1080,Free WiFi,Pune,Hyderabad,1 Stop
+94,Indian Railways,10094,18:45,5h 45m,00:30,₹750,Extra ₹40 off,Pune,Hyderabad,2 Stops
+95,Indian Railways,10095,22:30,4h 45m,03:15,₹820,Saver ₹110 off,Pune,Hyderabad,Direct
+96,Indian Railways,10096,05:00,4h 30m,09:30,₹660,Meal Included,Hyderabad,Pune,Direct
+97,IRCTC Tejas,10097,09:30,4h 15m,13:45,₹890,Free WiFi,Hyderabad,Pune,Direct
+98,Vande Bharat,10098,13:00,5h 00m,18:00,₹1090,Saver ₹120 off,Hyderabad,Pune,1 Stop
+99,Indian Railways,10099,17:45,5h 30m,23:15,₹760,Extra ₹50 off,Hyderabad,Pune,2 Stops
+100,Indian Railways,10100,21:30,4h 30m,02:00,₹840,Meal Included,Hyderabad,Pune,Direct
+101,Indian Railways,10101,09:15,11h 00m,20:15,₹1600,Saver ₹200 off,Pune,Kolkata,2 Stops
+102,IRCTC Tejas,10102,12:30,10h 30m,23:00,₹1950,Meal Included,Pune,Kolkata,Direct
+103,Vande Bharat,10103,16:45,11h 45m,04:30,₹2150,Free WiFi,Pune,Kolkata,1 Stop
+104,Indian Railways,10104,21:00,12h 00m,09:00,₹1700,Extra ₹130 off,Pune,Kolkata,2 Stops
+105,Indian Railways,10105,23:55,10h 15m,10:10,₹1850,Saver ₹240 off,Pune,Kolkata,1 Stop
+106,Indian Railways,10106,04:15,10h 45m,15:00,₹1620,Meal Included,Kolkata,Pune,2 Stops
+107,IRCTC Tejas,10107,08:30,10h 15m,18:45,₹1980,Free WiFi,Kolkata,Pune,Direct
+108,Vande Bharat,10108,13:00,11h 30m,00:30,₹2180,Saver ₹230 off,Kolkata,Pune,1 Stop
+109,Indian Railways,10109,17:30,11h 45m,05:15,₹1720,Extra ₹140 off,Kolkata,Pune,2 Stops
+110,Indian Railways,10110,22:15,10h 00m,08:15,₹1880,Meal Included,Kolkata,Pune,Direct
+111,Indian Railways,10111,05:45,7h 30m,13:15,₹1050,Saver ₹130 off,Delhi,Bangalore,2 Stops
+112,IRCTC Tejas,10112,09:30,7h 00m,16:30,₹1420,Meal Included,Delhi,Bangalore,Direct
+113,Vande Bharat,10113,13:45,8h 00m,21:45,₹1620,Free WiFi,Delhi,Bangalore,1 Stop
+114,Indian Railways,10114,18:00,8h 30m,02:30,₹1150,Extra ₹100 off,Delhi,Bangalore,2 Stops
+115,Indian Railways,10115,22:15,7h 15m,05:30,₹1280,Saver ₹170 off,Delhi,Bangalore,1 Stop
+116,Indian Railways,10116,04:30,7h 15m,11:45,₹1060,Meal Included,Bangalore,Delhi,2 Stops
+117,IRCTC Tejas,10117,08:45,6h 45m,15:30,₹1440,Free WiFi,Bangalore,Delhi,Direct
+118,Vande Bharat,10118,12:30,7h 45m,20:15,₹1640,Saver ₹160 off,Bangalore,Delhi,1 Stop
+119,Indian Railways,10119,17:15,8h 15m,01:30,₹1170,Extra ₹90 off,Bangalore,Delhi,2 Stops
+120,Indian Railways,10120,21:45,7h 00m,04:45,₹1300,Meal Included,Bangalore,Delhi,Direct
+121,Indian Railways,10121,08:30,5h 45m,14:15,₹780,Saver ₹90 off,Delhi,Chennai,Direct
+122,IRCTC Tejas,10122,12:00,5h 30m,17:30,₹1120,Meal Included,Delhi,Chennai,Direct
+123,Vande Bharat,10123,16:15,6h 30m,22:45,₹1320,Free WiFi,Delhi,Chennai,1 Stop
+124,Indian Railways,10124,20:45,7h 00m,03:45,₹880,Extra ₹70 off,Delhi,Chennai,2 Stops
+125,Indian Railways,10125,23:30,5h 45m,05:15,₹950,Saver ₹140 off,Delhi,Chennai,Direct
+126,Indian Railways,10126,05:15,5h 30m,10:45,₹790,Meal Included,Chennai,Delhi,Direct
+127,IRCTC Tejas,10127,09:00,5h 15m,14:15,₹1140,Free WiFi,Chennai,Delhi,Direct
+128,Vande Bharat,10128,13:30,6h 15m,19:45,₹1340,Saver ₹150 off,Chennai,Delhi,1 Stop
+129,Indian Railways,10129,18:00,6h 45m,00:45,₹890,Extra ₹60 off,Chennai,Delhi,2 Stops
+130,Indian Railways,10130,22:45,5h 30m,04:15,₹970,Meal Included,Chennai,Delhi,Direct
+131,Indian Railways,10131,07:00,4h 30m,11:30,₹620,Saver ₹60 off,Delhi,Hyderabad,Direct
+132,IRCTC Tejas,10132,10:30,4h 15m,14:45,₹850,Meal Included,Delhi,Hyderabad,Direct
+133,Vande Bharat,10133,14:45,5h 00m,19:45,₹1050,Free WiFi,Delhi,Hyderabad,1 Stop
+134,Indian Railways,10134,19:15,5h 30m,00:45,₹720,Extra ₹40 off,Delhi,Hyderabad,2 Stops
+135,Indian Railways,10135,23:00,4h 30m,03:30,₹800,Saver ₹110 off,Delhi,Hyderabad,Direct
+136,Indian Railways,10136,04:45,4h 15m,09:00,₹630,Meal Included,Hyderabad,Delhi,Direct
+137,IRCTC Tejas,10137,08:15,4h 00m,12:15,₹860,Free WiFi,Hyderabad,Delhi,Direct
+138,Vande Bharat,10138,12:00,4h 45m,16:45,₹1060,Saver ₹120 off,Hyderabad,Delhi,1 Stop
+139,Indian Railways,10139,16:45,5h 15m,22:00,₹730,Extra ₹50 off,Hyderabad,Delhi,2 Stops
+140,Indian Railways,10140,20:30,4h 15m,00:45,₹820,Meal Included,Hyderabad,Delhi,Direct
+141,Indian Railways,10141,10:00,13h 00m,23:00,₹1900,Saver ₹250 off,Delhi,Kolkata,2 Stops
+142,IRCTC Tejas,10142,13:30,12h 30m,02:00,₹2250,Meal Included,Delhi,Kolkata,Direct
+143,Vande Bharat,10143,17:45,13h 45m,07:30,₹2450,Free WiFi,Delhi,Kolkata,1 Stop
+144,Indian Railways,10144,22:00,14h 00m,12:00,₹2000,Extra ₹150 off,Delhi,Kolkata,2 Stops
+145,Indian Railways,10145,23:59,12h 15m,12:14,₹2150,Saver ₹280 off,Delhi,Kolkata,1 Stop
+146,Indian Railways,10146,03:30,12h 45m,16:15,₹1920,Meal Included,Kolkata,Delhi,2 Stops
+147,IRCTC Tejas,10147,07:45,12h 15m,20:00,₹2280,Free WiFi,Kolkata,Delhi,Direct
+148,Vande Bharat,10148,11:30,13h 30m,01:00,₹2480,Saver ₹260 off,Kolkata,Delhi,1 Stop
+149,Indian Railways,10149,16:00,13h 45m,05:45,₹2020,Extra ₹160 off,Kolkata,Delhi,2 Stops
+150,Indian Railways,10150,20:15,12h 00m,08:15,₹2180,Meal Included,Kolkata,Delhi,Direct
+151,Indian Railways,10151,09:30,7h 45m,17:15,₹1150,Saver ₹140 off,Bangalore,Chennai,1 Stop
+152,IRCTC Tejas,10152,13:00,7h 15m,20:15,₹1480,Meal Included,Bangalore,Chennai,Direct
+153,Vande Bharat,10153,17:15,8h 30m,01:45,₹1680,Free WiFi,Bangalore,Chennai,2 Stops
+154,Indian Railways,10154,21:30,9h 00m,06:30,₹1250,Extra ₹110 off,Bangalore,Chennai,2 Stops
+155,Indian Railways,10155,23:45,7h 30m,07:15,₹1380,Saver ₹190 off,Bangalore,Chennai,1 Stop
+156,Indian Railways,10156,05:00,7h 30m,12:30,₹1160,Meal Included,Chennai,Bangalore,1 Stop
+157,IRCTC Tejas,10157,08:30,7h 00m,15:30,₹1500,Free WiFi,Chennai,Bangalore,Direct
+158,Vande Bharat,10158,12:45,8h 15m,21:00,₹1700,Saver ₹180 off,Chennai,Bangalore,2 Stops
+159,Indian Railways,10159,17:00,8h 45m,01:45,₹1270,Extra ₹100 off,Chennai,Bangalore,2 Stops
+160,Indian Railways,10160,21:15,7h 15m,04:30,₹1400,Meal Included,Chennai,Bangalore,Direct
+161,Indian Railways,10161,08:15,5h 30m,13:45,₹700,Saver ₹80 off,Bangalore,Hyderabad,Direct
+162,IRCTC Tejas,10162,11:45,5h 00m,16:45,₹950,Meal Included,Bangalore,Hyderabad,Direct
+163,Vande Bharat,10163,16:00,6h 00m,22:00,₹1150,Free WiFi,Bangalore,Hyderabad,1 Stop
+164,Indian Railways,10164,20:30,6h 30m,03:00,₹800,Extra ₹60 off,Bangalore,Hyderabad,2 Stops
+165,Indian Railways,10165,23:15,5h 15m,04:30,₹880,Saver ₹130 off,Bangalore,Hyderabad,Direct
+166,Indian Railways,10166,04:45,5h 15m,10:00,₹710,Meal Included,Hyderabad,Bangalore,Direct
+167,IRCTC Tejas,10167,08:00,4h 45m,12:45,₹960,Free WiFi,Hyderabad,Bangalore,Direct
+168,Vande Bharat,10168,12:30,5h 45m,18:15,₹1160,Saver ₹140 off,Hyderabad,Bangalore,1 Stop
+169,Indian Railways,10169,17:15,6h 15m,23:30,₹810,Extra ₹50 off,Hyderabad,Bangalore,2 Stops
+170,Indian Railways,10170,21:45,5h 00m,02:45,₹900,Meal Included,Hyderabad,Bangalore,Direct
+171,Indian Railways,10171,09:45,12h 15m,22:00,₹1750,Saver ₹220 off,Bangalore,Kolkata,2 Stops
+172,IRCTC Tejas,10172,13:15,11h 45m,01:00,₹2100,Meal Included,Bangalore,Kolkata,Direct
+173,Vande Bharat,10173,17:30,13h 00m,06:30,₹2300,Free WiFi,Bangalore,Kolkata,1 Stop
+174,Indian Railways,10174,21:45,13h 30m,11:15,₹1850,Extra ₹140 off,Bangalore,Kolkata,2 Stops
+175,Indian Railways,10175,23:55,11h 30m,11:25,₹2000,Saver ₹260 off,Bangalore,Kolkata,1 Stop
+176,Indian Railways,10176,03:00,12h 00m,15:00,₹1770,Meal Included,Kolkata,Bangalore,2 Stops
+177,IRCTC Tejas,10177,07:30,11h 30m,19:00,₹2130,Free WiFi,Kolkata,Bangalore,Direct
+178,Vande Bharat,10178,11:45,12h 45m,00:30,₹2330,Saver ₹250 off,Kolkata,Bangalore,1 Stop
+179,Indian Railways,10179,16:15,13h 15m,05:30,₹1870,Extra ₹150 off,Kolkata,Bangalore,2 Stops
+180,Indian Railways,10180,20:30,11h 15m,07:45,₹2030,Meal Included,Kolkata,Bangalore,Direct
+181,Indian Railways,10181,10:30,8h 15m,18:45,₹1200,Saver ₹150 off,Chennai,Hyderabad,1 Stop
+182,IRCTC Tejas,10182,14:00,7h 45m,21:45,₹1550,Meal Included,Chennai,Hyderabad,Direct
+183,Vande Bharat,10183,18:15,9h 00m,03:15,₹1750,Free WiFi,Chennai,Hyderabad,2 Stops
+184,Indian Railways,10184,22:30,9h 30m,08:00,₹1300,Extra ₹120 off,Chennai,Hyderabad,2 Stops
+185,Indian Railways,10185,23:50,8h 00m,07:50,₹1430,Saver ₹200 off,Chennai,Hyderabad,1 Stop
+186,Indian Railways,10186,05:30,8h 00m,13:30,₹1210,Meal Included,Hyderabad,Chennai,1 Stop
+187,IRCTC Tejas,10187,09:00,7h 30m,16:30,₹1570,Free WiFi,Hyderabad,Chennai,Direct
+188,Vande Bharat,10188,13:30,8h 45m,22:15,₹1770,Saver ₹190 off,Hyderabad,Chennai,2 Stops
+189,Indian Railways,10189,18:00,9h 15m,03:15,₹1320,Extra ₹110 off,Hyderabad,Chennai,2 Stops
+190,Indian Railways,10190,22:15,7h 45m,06:00,₹1450,Meal Included,Hyderabad,Chennai,Direct
+191,Indian Railways,10191,11:00,10h 00m,21:00,₹1550,Saver ₹180 off,Chennai,Kolkata,1 Stop
+192,IRCTC Tejas,10192,14:30,9h 30m,00:00,₹1900,Meal Included,Chennai,Kolkata,Direct
+193,Vande Bharat,10193,18:45,10h 45m,05:30,₹2100,Free WiFi,Chennai,Kolkata,2 Stops
+194,Indian Railways,10194,23:00,11h 00m,10:00,₹1650,Extra ₹130 off,Chennai,Kolkata,2 Stops
+195,Indian Railways,10195,23:55,9h 45m,09:40,₹1780,Saver ₹220 off,Chennai,Kolkata,1 Stop
+196,Indian Railways,10196,04:00,9h 45m,13:45,₹1570,Meal Included,Kolkata,Chennai,1 Stop
+197,IRCTC Tejas,10197,08:30,9h 15m,17:45,₹1930,Free WiFi,Kolkata,Chennai,Direct
+198,Vande Bharat,10198,12:45,10h 30m,23:15,₹2130,Saver ₹210 off,Kolkata,Chennai,2 Stops
+199,Indian Railways,10199,17:00,10h 45m,03:45,₹1670,Extra ₹140 off,Kolkata,Chennai,2 Stops
+200,Indian Railways,10200,21:30,9h 30m,07:00,₹1800,Meal Included,Kolkata,Chennai,Direct
+201,Indian Railways,10201,07:45,6h 15m,14:00,₹890,Saver ₹100 off,Hyderabad,Kolkata,1 Stop
+202,IRCTC Tejas,10202,11:15,5h 45m,17:00,₹1250,Meal Included,Hyderabad,Kolkata,Direct
+203,Vande Bharat,10203,15:30,6h 45m,22:15,₹1450,Free WiFi,Hyderabad,Kolkata,2 Stops
+204,Indian Railways,10204,20:00,7h 15m,03:15,₹990,Extra ₹80 off,Hyderabad,Kolkata,2 Stops
+205,Indian Railways,10205,22:45,6h 00m,04:45,₹1120,Saver ₹160 off,Hyderabad,Kolkata,1 Stop
+206,Indian Railways,10206,05:15,5h 45m,11:00,₹900,Meal Included,Kolkata,Hyderabad,1 Stop
+207,IRCTC Tejas,10207,08:45,5h 30m,14:15,₹1270,Free WiFi,Kolkata,Hyderabad,Direct
+208,Vande Bharat,10208,12:30,6h 30m,19:00,₹1470,Saver ₹170 off,Kolkata,Hyderabad,2 Stops
+209,Indian Railways,10209,17:00,7h 00m,00:00,₹1000,Extra ₹70 off,Kolkata,Hyderabad,2 Stops
+210,Indian Railways,10210,21:15,5h 45m,03:00,₹1140,Meal Included,Kolkata,Hyderabad,Direct
